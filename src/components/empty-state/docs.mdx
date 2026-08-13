@@ -1,0 +1,26 @@
+---
+title: EmptyState
+description: A fallback UI shown in the absence of data, for example a search with no results.
+---
+
+import EmptyStateDefault from './examples/default'
+
+<ComponentPreview name='empty-state/default'>
+    <EmptyStateDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { EmptyState } from '@ui-kit.ai/components'
+```
+
+`title` is the only required prop. `body` adds supporting copy, `icon` overrides the default info
+icon, and `actions` accepts up to two react nodes — typically buttons — laid out below the body.
+
+## Props
+
+<AutoTypeTable
+    name='EmptyStateProps'
+    path='../components/empty-state/index.tsx'
+/>

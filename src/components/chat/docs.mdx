@@ -1,0 +1,40 @@
+---
+title: Chat
+description: A list of chat messages, with each message rendered as markdown.
+---
+
+import ChatDefault from './examples/default'
+
+<ComponentPreview name='chat/default'>
+    <ChatDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Chat, ChatMessage } from '@ui-kit.ai/components'
+```
+
+`Chat` is the container; each `ChatMessage` takes a `content` string, a stable `id`, and an
+`origin` of `us` or `them`, which determines the alignment and styling of the bubble. `content` is
+rendered with the [`Markdown`](/docs/components/markdown) component, so it supports the same
+formatting.
+
+Because `content` is a plain string, a streamed response can be rendered by updating it as tokens
+arrive — the demo above replays a message one character at a time.
+
+## Props
+
+### Chat
+
+<AutoTypeTable
+    name='ChatProps'
+    path='../components/chat/index.tsx'
+/>
+
+### ChatMessage
+
+<AutoTypeTable
+    name='ChatMessageProps'
+    path='../components/chat/index.tsx'
+/>

@@ -1,0 +1,26 @@
+---
+title: Description
+description: Text with attributes that improve screen reader announcements, usually used to give more context on a field or control.
+---
+
+import DescriptionDefault from './examples/default'
+
+<ComponentPreview name='description/default'>
+    <DescriptionDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Description } from '@ui-kit.ai/components'
+```
+
+Render a `Description` inside a field so it is associated with the input via
+`aria-describedby` — react-aria wires the relationship up for you.
+
+## Props
+
+<AutoTypeTable
+    name='DescriptionProps'
+    path='../components/description/index.tsx'
+/>

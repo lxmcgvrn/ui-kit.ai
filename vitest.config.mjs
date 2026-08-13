@@ -10,7 +10,7 @@ const setupFiles = [path.resolve(root, 'vitest.setup.ts')]
  * The repo is a single package, but the docs app imports the library by its
  * published name so documentation snippets stay copy-pasteable. These aliases
  * point those names back at source, and must stay in sync with `tsconfig.json`,
- * `docs/tsconfig.json` and `docs/next.config.mjs`.
+ * `src/docs/tsconfig.json` and `src/docs/next.config.mjs`.
  */
 const alias = {
     '@ui-kit.ai/components': path.resolve(root, 'src/components/index.ts'),
@@ -51,7 +51,7 @@ export default defineConfig({
                 'src/components/**/*.test.{js,cjs,mjs,ts,tsx}',
                 'src/mocks/**/*.test.{js,cjs,mjs,ts,tsx}',
             ]),
-            project('docs', 'jsdom', ['docs/**/*.test.{js,cjs,mjs,ts,tsx}']),
+            project('docs', 'jsdom', ['src/docs/**/*.test.{js,cjs,mjs,ts,tsx}']),
         ],
     },
 })

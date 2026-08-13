@@ -1,0 +1,84 @@
+---
+title: Tag
+description: Displays a short snippet of information, usually as part of a group of tags.
+---
+
+import TagDefault from './examples/default'
+import TagSlotLeft from './examples/slot-left'
+import TagSlotRight from './examples/slot-right'
+import TagTagButton from './examples/tag-button'
+import TagTagLink from './examples/tag-link'
+
+<ComponentPreview name='tag/default'>
+    <TagDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Tag, TagButton, TagLink } from '@ui-kit.ai/components'
+```
+
+`Tag` is presentational — it renders a `<div>` and is not interactive. Use the `intent` prop to
+convey semantic meaning with color, and the `variant` prop to switch between the default tinted
+appearance and a `solid` one.
+
+## Slots
+
+### Slot (left)
+
+The `slotLeft` prop accepts a react node rendered on the left side. This will slightly reduce the
+left padding to maintain visual balance.
+
+<ComponentPreview name='tag/slot-left'>
+    <TagSlotLeft />
+</ComponentPreview>
+
+### Slot (right)
+
+The `slotRight` prop accepts a react node rendered on the right side. This will slightly reduce
+the right padding to maintain visual balance.
+
+<ComponentPreview name='tag/slot-right'>
+    <TagSlotRight />
+</ComponentPreview>
+
+## TagButton
+
+`TagButton` renders the same appearance as a button, adding hover and pressed states. Use it when
+pressing a tag performs an action, such as removing a filter.
+
+<ComponentPreview name='tag/tag-button'>
+    <TagTagButton />
+</ComponentPreview>
+
+## TagLink
+
+`TagLink` renders the same appearance as a link. Use it when a tag navigates somewhere.
+
+<ComponentPreview name='tag/tag-link'>
+    <TagTagLink />
+</ComponentPreview>
+
+## Props
+
+### Tag
+
+<AutoTypeTable
+    name='TagProps'
+    path='../components/tag/index.tsx'
+/>
+
+### TagButton
+
+<AutoTypeTable
+    name='TagButtonProps'
+    path='../components/tag/index.tsx'
+/>
+
+### TagLink
+
+<AutoTypeTable
+    name='TagLinkProps'
+    path='../components/tag/index.tsx'
+/>

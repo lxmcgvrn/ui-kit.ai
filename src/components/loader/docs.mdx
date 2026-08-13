@@ -1,0 +1,40 @@
+---
+title: Loader
+description: A loader icon indicating that content is loading.
+---
+
+import LoaderCustomColor from './examples/custom-color'
+import LoaderCustomSize from './examples/custom-size'
+import LoaderDefault from './examples/default'
+
+<ComponentPreview name='loader/default'>
+    <LoaderDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Loader } from '@ui-kit.ai/components'
+```
+
+`Loader` is a spinning icon that inherits the current text color. Resize and recolor it with
+`className`.
+
+## Custom size
+
+<ComponentPreview name='loader/custom-size'>
+    <LoaderCustomSize />
+</ComponentPreview>
+
+## Custom color
+
+<ComponentPreview name='loader/custom-color'>
+    <LoaderCustomColor />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='LoaderProps'
+    path='../components/loader/index.tsx'
+/>

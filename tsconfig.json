@@ -15,11 +15,12 @@
     "include": [
         ".prettierrc.mjs",
         "eslint.config.mjs",
-        "config/**/*",
         "src/**/*",
         "vite.config.mjs",
         "vitest.config.mjs",
         "vitest.setup.ts"
     ],
-    "exclude": ["node_modules", "dist", "docs", "packages"]
+    // The docs app is its own TypeScript project (`src/docs/tsconfig.json`),
+    // type-checked separately by `pnpm check:tsc`.
+    "exclude": ["node_modules", "dist", "src/docs"]
 }

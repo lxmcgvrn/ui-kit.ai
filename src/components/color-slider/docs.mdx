@@ -1,0 +1,55 @@
+---
+title: ColorSlider
+description: Lets a user adjust a single channel of a color, with accessible slider semantics.
+---
+
+import ColorSliderDefault from './examples/default'
+import ColorSliderDisabled from './examples/disabled-slider'
+import ColorSliderHsla from './examples/hsla'
+import ColorSliderRgba from './examples/rgba'
+
+<ComponentPreview name='color-slider/default'>
+    <ColorSliderDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ColorSlider } from '@ui-kit.ai/components'
+```
+
+Each slider edits a single `channel` of the color passed as `defaultValue` or `value`. Which
+channels are available depends on the color space of that value — use `colorSpace` to convert.
+
+## Channels
+
+### RGBA
+
+Sliders for the red, green, blue, and alpha channels of an RGB color.
+
+<ComponentPreview name='color-slider/rgba'>
+    <ColorSliderRgba />
+</ComponentPreview>
+
+### HSLA
+
+Sliders for the hue, saturation, lightness, and alpha channels of an HSL color.
+
+<ComponentPreview name='color-slider/hsla'>
+    <ColorSliderHsla />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop grays out the slider and prevents focus and interaction.
+
+<ComponentPreview name='color-slider/disabled-slider'>
+    <ColorSliderDisabled />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ColorSliderProps'
+    path='../components/color-slider/index.tsx'
+/>

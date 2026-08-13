@@ -27,19 +27,19 @@
     ],
     "scripts": {
         "build": "pnpm build:lib && pnpm build:docs",
-        "build:docs": "cd docs && next build",
+        "build:docs": "cd src/docs && next build",
         "build:lib": "pnpm gen:theme && vite build",
         "check": "pnpm check:prettier && pnpm check:eslint && pnpm check:tsc && pnpm check:vitest",
         "check:eslint": "eslint .",
         "check:prettier": "prettier . --check",
-        "check:tsc": "tsc && tsc -p docs",
+        "check:tsc": "tsc && tsc -p src/docs",
         "check:vitest": "vitest run",
-        "dev": "pnpm gen:theme && cd docs && next dev",
+        "dev": "pnpm gen:theme && cd src/docs && next dev",
         "fix": "pnpm fix:prettier && pnpm fix:eslint",
         "fix:eslint": "eslint . --fix",
         "fix:prettier": "prettier . --write",
         "gen:theme": "tsx src/theme/gen-palette.ts",
-        "prepare": "cd docs && fumadocs-mdx",
+        "prepare": "cd src/docs && fumadocs-mdx",
         "prepublishOnly": "pnpm build:lib",
         "smoke:pack": "./scripts/smoke-pack.sh"
     },
@@ -120,7 +120,7 @@
     },
     "msw": {
         "workerDirectory": [
-            "docs/public"
+            "src/docs/public"
         ]
     }
 }

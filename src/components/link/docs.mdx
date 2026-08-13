@@ -1,0 +1,45 @@
+---
+title: Link
+description: Lets a user navigate to another page or resource within a web page or application.
+---
+
+import LinkCustomStyling from './examples/custom-styling'
+import LinkDefault from './examples/default'
+import LinkWithIcon from './examples/with-icon'
+
+<ComponentPreview name='link/default'>
+    <LinkDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Link } from '@ui-kit.ai/components'
+```
+
+`Link` renders an anchor when given an `href`, and supports the same keyboard and pointer
+interactions as a native link.
+
+## With icon
+
+Icons and other elements can be added as children to make a link more informative.
+
+<ComponentPreview name='link/with-icon'>
+    <LinkWithIcon />
+</ComponentPreview>
+
+## Custom styling
+
+The `className` prop applies custom classes on top of the link's own styles. It also accepts a
+function of the render props, for styling based on interaction state.
+
+<ComponentPreview name='link/custom-styling'>
+    <LinkCustomStyling />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='LinkProps'
+    path='../components/link/index.tsx'
+/>

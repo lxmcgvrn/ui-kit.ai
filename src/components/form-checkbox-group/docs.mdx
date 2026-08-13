@@ -1,0 +1,47 @@
+---
+title: FormCheckboxGroup
+description: Connects a CheckboxGroup to a Form component using react-hook-form.
+---
+
+import FormCheckboxGroupDefault from './examples/default'
+import FormCheckboxGroupDisabled from './examples/disabled'
+import FormCheckboxGroupInvalid from './examples/invalid'
+
+<ComponentPreview name='form-checkbox-group/default'>
+    <FormCheckboxGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Checkbox, Description, Form, FormCheckboxGroup, Label } from '@ui-kit.ai/components'
+```
+
+`FormCheckboxGroup` takes the same children as a `CheckboxGroup`, and additionally registers
+itself with the surrounding `Form` under the `name` you give it. It renders a `FieldError` for
+you, so validation messages from `react-hook-form` appear without any extra wiring. The `name`
+prop is required — the component throws without it.
+
+## Disabled
+
+The `isDisabled` prop grays out every checkbox in the group and prevents focus and interaction.
+
+<ComponentPreview name='form-checkbox-group/disabled'>
+    <FormCheckboxGroupDisabled />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop marks the whole group as failing validation. The group is also marked
+invalid automatically whenever the form reports an error for its field.
+
+<ComponentPreview name='form-checkbox-group/invalid'>
+    <FormCheckboxGroupInvalid />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='FormCheckboxGroupProps'
+    path='../components/form-checkbox-group/index.tsx'
+/>

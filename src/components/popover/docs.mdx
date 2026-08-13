@@ -1,0 +1,45 @@
+---
+title: Popover
+description: An overlay element positioned relative to a trigger.
+---
+
+import PopoverDefault from './examples/default'
+import PopoverPlacement from './examples/placement'
+
+<ComponentPreview name='popover/default'>
+    <PopoverDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { DialogTrigger, Popover, PopoverDialog } from '@ui-kit.ai/components'
+```
+
+Wrap the trigger element and the `Popover` in a `DialogTrigger`. Put the popover's content in a
+`PopoverDialog` so it is announced as a dialog, and use `showArrow` to point the overlay at its
+trigger.
+
+## Placement
+
+react-aria supports a pretty comprehensive range of placement options, some of which are shown here.
+It is important to note that the Popover may flip when it detects a collision with a parent or
+window edge.
+
+<ComponentPreview name='popover/placement'>
+    <PopoverPlacement />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='PopoverProps'
+    path='../components/popover/index.tsx'
+/>
+
+### PopoverDialog
+
+<AutoTypeTable
+    name='PopoverDialogProps'
+    path='../components/popover/index.tsx'
+/>

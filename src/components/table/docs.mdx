@@ -1,0 +1,88 @@
+---
+title: Table
+description: Displays data in rows and columns, with keyboard navigation, selection and sorting.
+---
+
+import TableDefault from './examples/default'
+import TablePagination from './examples/pagination'
+import TableWithCard from './examples/with-card'
+
+<ComponentPreview name='table/default'>
+    <TableDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Cell, Column, Row, Table, TableBody, TableHeader } from '@ui-kit.ai/components'
+```
+
+A table is composed of a `TableHeader` containing `Column` elements, and a `TableBody` containing
+`Row` elements made up of `Cell` elements. Mark the column that identifies each row with
+`isRowHeader`, and use `alignment` on a `Column` and its matching `Cell` elements to right-align
+numeric data.
+
+<Callout type='warn'>
+    Set an `aria-label` (or `aria-labelledby`) on the table to give it an accessible name.
+</Callout>
+
+## With card
+
+Wrap the table in a `Card` to give it a border and a raised surface.
+
+<ComponentPreview name='table/with-card'>
+    <TableWithCard />
+</ComponentPreview>
+
+## Pagination
+
+The table does not paginate itself. Compose the controls you need underneath it — here a row
+count, a set of page `Button` elements, and a `Select` for the page size.
+
+<ComponentPreview name='table/pagination'>
+    <TablePagination />
+</ComponentPreview>
+
+## Props
+
+### Table
+
+<AutoTypeTable
+    name='TableProps'
+    path='../components/table/index.tsx'
+/>
+
+### TableHeader
+
+<AutoTypeTable
+    name='TableHeaderProps'
+    path='../components/table/index.tsx'
+/>
+
+### TableBody
+
+<AutoTypeTable
+    name='TableBodyProps'
+    path='../components/table/index.tsx'
+/>
+
+### Column
+
+<AutoTypeTable
+    name='ColumnProps'
+    path='../components/table/index.tsx'
+/>
+
+### Row
+
+<AutoTypeTable
+    name='RowProps'
+    path='../components/table/index.tsx'
+/>
+
+### Cell
+
+<AutoTypeTable
+    name='CellProps'
+    path='../components/table/index.tsx'
+/>

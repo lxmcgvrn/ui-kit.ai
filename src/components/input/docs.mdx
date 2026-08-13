@@ -1,0 +1,64 @@
+---
+title: Input
+description: A single-line text primitive, used when composing fields.
+---
+
+import InputBorderless from './examples/borderless'
+import InputDefault from './examples/default'
+import InputDisabled from './examples/disabled'
+import InputIcon from './examples/icon'
+import InputInvalid from './examples/invalid'
+
+<ComponentPreview name='input/default'>
+    <InputDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Input } from '@ui-kit.ai/components'
+```
+
+`Input` is a primitive: it is normally rendered inside a field component such as `TextField`,
+`SearchField` or `ComboBox`, which owns the label, description, validation state and value.
+
+## With icon
+
+The `icon` prop renders a decorative node inside the leading edge of the input, and adds the
+padding needed to clear it.
+
+<ComponentPreview name='input/icon'>
+    <InputIcon />
+</ComponentPreview>
+
+## Disabled
+
+Set `aria-disabled` to "gray out" the input.
+
+<ComponentPreview name='input/disabled'>
+    <InputDisabled />
+</ComponentPreview>
+
+## Invalid
+
+Set `aria-invalid` to apply the error styling.
+
+<ComponentPreview name='input/invalid'>
+    <InputInvalid />
+</ComponentPreview>
+
+## Borderless
+
+The `isBorderless` prop drops the border and background, for use inside an already-bordered
+container such as a `FieldGroup`.
+
+<ComponentPreview name='input/borderless'>
+    <InputBorderless />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='InputProps'
+    path='../components/input/index.tsx'
+/>

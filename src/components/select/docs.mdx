@@ -1,0 +1,73 @@
+---
+title: Select
+description: Displays a collapsible list of options and allows a user to select one of them.
+---
+
+import SelectBorderless from './examples/borderless'
+import SelectDefault from './examples/default'
+import SelectDisabled from './examples/disabled'
+import SelectDisabledKeys from './examples/disabled-keys'
+import SelectInvalid from './examples/invalid'
+
+<ComponentPreview name='select/default'>
+    <SelectDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Select, SelectButton } from '@ui-kit.ai/components'
+```
+
+Options are passed as data through the `items` prop rather than as children. `SelectButton`
+triggers the popover and renders the selected option's text value — it is the default child, so it
+only needs to be written out when the select is composed with a `Label` or `Description`.
+
+## Invalid
+
+The `isInvalid` prop applies the error styling to the field.
+
+<ComponentPreview name='select/invalid'>
+    <SelectInvalid />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the select, and prevent focus and interaction.
+
+<ComponentPreview name='select/disabled'>
+    <SelectDisabled />
+</ComponentPreview>
+
+## Borderless
+
+Pass `isBorderless` to `SelectButton` to drop the border and background, for use inside an
+already-bordered container.
+
+<ComponentPreview name='select/borderless'>
+    <SelectBorderless />
+</ComponentPreview>
+
+## Disabled keys
+
+The `disabledKeys` prop takes the `id` of each option that should be non-selectable.
+
+<ComponentPreview name='select/disabled-keys'>
+    <SelectDisabledKeys />
+</ComponentPreview>
+
+## Props
+
+### Select
+
+<AutoTypeTable
+    name='SelectProps'
+    path='../components/select/index.tsx'
+/>
+
+### SelectButton
+
+<AutoTypeTable
+    name='SelectButtonProps'
+    path='../components/select/index.tsx'
+/>

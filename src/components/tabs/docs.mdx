@@ -1,0 +1,60 @@
+---
+title: Tabs
+description: Organizes content into multiple sections and allows users to navigate between them.
+---
+
+import TabsDefault from './examples/default'
+import TabsVertical from './examples/vertical'
+
+<ComponentPreview name='tabs/default'>
+    <TabsDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Tab, TabList, TabPanel, Tabs } from '@ui-kit.ai/components'
+```
+
+`Tabs` wraps a single `TabList` and one `TabPanel` per tab. Each `Tab` is matched to its panel by
+`id`, and can be clicked, tapped, or navigated to with the arrow keys.
+
+<Callout type='warn'>
+    Set an `aria-label` on the `TabList` to give the set of tabs an accessible name.
+</Callout>
+
+## Vertical orientation
+
+Set `orientation='vertical'` to stack the tabs down the side of the panel.
+
+<ComponentPreview name='tabs/vertical'>
+    <TabsVertical />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='TabsProps'
+    path='../components/tabs/index.tsx'
+/>
+
+### TabList
+
+<AutoTypeTable
+    name='TabListProps'
+    path='../components/tabs/index.tsx'
+/>
+
+### Tab
+
+<AutoTypeTable
+    name='TabProps'
+    path='../components/tabs/index.tsx'
+/>
+
+### TabPanel
+
+<AutoTypeTable
+    name='TabPanelProps'
+    path='../components/tabs/index.tsx'
+/>

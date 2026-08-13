@@ -1,0 +1,31 @@
+---
+title: Markdown
+description: Renders a markdown string with the kit's typography and components.
+---
+
+import MarkdownDefault from './examples/default'
+
+<ComponentPreview name='markdown/default'>
+    <MarkdownDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Markdown } from '@ui-kit.ai/components'
+```
+
+Pass the markdown source as a string child. Rendering goes through `react-markdown` with
+`remark-gfm`, so tables, task lists and strikethrough are supported alongside standard markdown.
+Code fences are rendered with [`CodeBlock`](/docs/components/code-block), and inline code with
+[`CodeInline`](/docs/components/code-inline).
+
+The `options` prop is forwarded to `react-markdown`, for cases that need extra plugins or
+component overrides.
+
+## Props
+
+<AutoTypeTable
+    name='MarkdownProps'
+    path='../components/markdown/index.tsx'
+/>

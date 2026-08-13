@@ -10,6 +10,6 @@ dist
 src/theme/generated
 
 # Docs app build output & generated sources.
-docs/.next
-docs/.source
-docs/out
+src/docs/.next
+src/docs/.source
+src/docs/out

@@ -1,0 +1,83 @@
+---
+title: TextField
+description: A text input that allows users to enter custom text, with decorations for communicating entry requirements.
+---
+
+import TextFieldDefault from './examples/default'
+import TextFieldDisabled from './examples/disabled'
+import TextFieldInvalid from './examples/invalid'
+import TextFieldReadOnly from './examples/read-only'
+
+<ComponentPreview name='text-field/default'>
+    <TextFieldDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    TextField,
+    TextFieldClearButton,
+    TextFieldCopyButton,
+    TextFieldVisibilityButton,
+} from '@ui-kit.ai/components'
+```
+
+`TextField` is composed from parts. A `FieldGroup` draws the border around the `Input` and any
+trailing buttons: `TextFieldClearButton` empties the value, `TextFieldCopyButton` copies it to the
+clipboard, and `TextFieldVisibilityButton` toggles between masked and plain text. Wrap the group in
+a `Label` and `Description` to name and explain the field.
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the field, and prevent focus and interaction.
+
+<ComponentPreview name='text-field/disabled'>
+    <TextFieldDisabled />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop applies the error styling to the field and its decorations.
+
+<ComponentPreview name='text-field/invalid'>
+    <TextFieldInvalid />
+</ComponentPreview>
+
+## Read only
+
+The `isReadOnly` prop keeps the field focusable and its value selectable, but prevents edits.
+
+<ComponentPreview name='text-field/read-only'>
+    <TextFieldReadOnly />
+</ComponentPreview>
+
+## Props
+
+### TextField
+
+<AutoTypeTable
+    name='TextFieldProps'
+    path='../components/text-field/index.tsx'
+/>
+
+### TextFieldClearButton
+
+<AutoTypeTable
+    name='TextFieldClearButtonProps'
+    path='../components/text-field/index.tsx'
+/>
+
+### TextFieldCopyButton
+
+<AutoTypeTable
+    name='TextFieldCopyButtonProps'
+    path='../components/text-field/index.tsx'
+/>
+
+### TextFieldVisibilityButton
+
+<AutoTypeTable
+    name='TextFieldVisibilityButtonProps'
+    path='../components/text-field/index.tsx'
+/>
