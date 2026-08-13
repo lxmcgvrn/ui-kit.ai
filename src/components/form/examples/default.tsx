@@ -19,7 +19,7 @@ import {
     TextFieldClearButton,
 } from '@ui-kit.ai/components'
 import { getMockOptions } from '@ui-kit.ai/mocks'
-import { AtSignIcon, GlobeIcon } from 'lucide-react'
+import { LucideAtSign, LucideGlobe } from 'lucide-react'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -56,7 +56,7 @@ export default function FormDefault() {
                 <Label>Email address</Label>
                 <FieldGroup>
                     <Input
-                        icon={<AtSignIcon />}
+                        icon={<LucideAtSign />}
                         isBorderless
                         placeholder='Enter your email address'
                     />
@@ -72,7 +72,7 @@ export default function FormDefault() {
                 <Label>Country of residence</Label>
                 <ComboBoxFieldGroup>
                     <ComboBoxInput
-                        icon={<GlobeIcon />}
+                        icon={<LucideGlobe />}
                         isBorderless
                         placeholder='Type to search...'
                     />

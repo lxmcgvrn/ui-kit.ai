@@ -3,7 +3,7 @@ import type {
     DisclosureProps as RACDisclosureProps,
 } from 'react-aria-components'
 
-import { ChevronRightIcon } from 'lucide-react'
+import { LucideChevronRight } from 'lucide-react'
 import {
     Disclosure as RACDisclosure,
     DisclosurePanel as RACDisclosurePanel,
@@ -97,7 +97,7 @@ export function DisclosureButton({
             }
             slot='trigger'
             slotLeft={
-                <ChevronRightIcon className='group-expanded:rotate-90 transition-transform ease-out' />
+                <LucideChevronRight className='group-expanded:rotate-90 transition-transform ease-out' />
             }
             variant={variant}
         >

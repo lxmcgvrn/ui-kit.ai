@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, Kbd, Tooltip, TooltipTrigger } from '@ui-kit.ai/components'
-import { PlusIcon } from 'lucide-react'
+import { LucidePlus } from 'lucide-react'
 
 export default function KbdInTooltip() {
     return (
@@ -10,7 +10,7 @@ export default function KbdInTooltip() {
                 aria-label='Create'
                 isIcon
             >
-                <PlusIcon />
+                <LucidePlus />
             </Button>
             <Tooltip
                 isOpen

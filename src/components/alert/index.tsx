@@ -1,4 +1,4 @@
-import { InfoIcon } from 'lucide-react'
+import { LucideInfo } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -56,7 +56,7 @@ export interface AlertProps {
 export function Alert({
     actions,
     className,
-    icon = <InfoIcon />,
+    icon = <LucideInfo />,
     intent,
     text,
     ...props

@@ -1,6 +1,10 @@
 import type { ColorSliderProps as RACColorSliderProps } from 'react-aria-components'
 
-import { ColorThumb, ColorSlider as RACColorSlider, SliderTrack } from 'react-aria-components'
+import {
+    ColorSlider as RACColorSlider,
+    ColorThumb as RACColorThumb,
+    SliderTrack as RACSliderTrack,
+} from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -51,15 +55,15 @@ export function ColorSlider(props: ColorSliderProps) {
                     {typeof props.children === 'function'
                         ? props.children(renderProps)
                         : props.children}
-                    <SliderTrack
+                    <RACSliderTrack
                         className={trackStyles()}
                         style={({ defaultStyle }) => ({
                             background: `${defaultStyle.background},
       repeating-conic-gradient(var(--theme-default-bg-tint) 0% 25%, var(--theme-default-bg-base) 0% 50%) 50% / 16px 16px`,
                         })}
                     >
-                        <ColorThumb className={thumbStyles()} />
-                    </SliderTrack>
+                        <RACColorThumb className={thumbStyles()} />
+                    </RACSliderTrack>
                 </>
             )}
         </RACColorSlider>

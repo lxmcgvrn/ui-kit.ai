@@ -1,7 +1,7 @@
 'use client'
 
 import { Tag } from '@ui-kit.ai/components'
-import { CircleDot } from 'lucide-react'
+import { LucideCircleDot } from 'lucide-react'
 
 const INTENTS = [undefined, 'success', 'warning', 'error'] as const
 
@@ -13,7 +13,7 @@ export default function TagSlotRight() {
                     className='capitalize'
                     intent={intent}
                     key={`${intent}-default`}
-                    slotRight={<CircleDot />}
+                    slotRight={<LucideCircleDot />}
                 >
                     {intent ?? 'default'}
                 </Tag>
@@ -23,7 +23,7 @@ export default function TagSlotRight() {
                     className='capitalize'
                     intent={intent}
                     key={`${intent}-solid`}
-                    slotRight={<CircleDot />}
+                    slotRight={<LucideCircleDot />}
                     variant='solid'
                 >
                     {intent ?? 'default'}

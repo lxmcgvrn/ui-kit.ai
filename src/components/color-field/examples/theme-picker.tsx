@@ -14,7 +14,7 @@ import {
     Popover,
     PopoverDialog,
 } from '@ui-kit.ai/components'
-import { PipetteIcon } from 'lucide-react'
+import { LucidePipette } from 'lucide-react'
 import { useState } from 'react'
 
 type OnColorChange = NonNullable<ComponentProps<typeof ColorField>['onChange']>
@@ -48,7 +48,7 @@ export default function ColorFieldThemePicker() {
                     />
                     <DialogTrigger>
                         <FieldButton>
-                            <PipetteIcon />
+                            <LucidePipette />
                         </FieldButton>
                         <Popover>
                             <PopoverDialog className='min-w-64'>

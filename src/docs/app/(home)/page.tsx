@@ -7,7 +7,7 @@ import {
     TextField,
     TextFieldCopyButton,
 } from '@ui-kit.ai/components'
-import { ChevronRightIcon } from 'lucide-react'
+import { LucideChevronRight } from 'lucide-react'
 
 export default function HomePage() {
     return (
@@ -43,7 +43,7 @@ export default function HomePage() {
                     <LinkButton
                         className='!h-10'
                         href='/docs'
-                        slotRight={<ChevronRightIcon />}
+                        slotRight={<LucideChevronRight />}
                     >
                         Get started
                     </LinkButton>

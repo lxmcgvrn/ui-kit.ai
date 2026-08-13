@@ -1,6 +1,6 @@
 import type { SearchFieldProps as RACSearchFieldProps } from 'react-aria-components'
 
-import { X as IconX } from 'lucide-react'
+import { LucideX } from 'lucide-react'
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react'
 import { SearchField as RACSearchField } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -61,7 +61,7 @@ export function SearchFieldClearButton(props: SearchFieldClearButtonProps) {
                 className='group-empty:invisible'
                 slot='clear'
             >
-                <IconX aria-hidden />
+                <LucideX aria-hidden />
             </FieldButton>
 
             <Tooltip placement='top'>Clear</Tooltip>

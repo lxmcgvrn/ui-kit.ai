@@ -1,6 +1,6 @@
-import type { HeadingProps as AriaHeadingProps } from 'react-aria-components'
+import type { HeadingProps as RACHeadingProps } from 'react-aria-components'
 
-import { Heading as AriaHeading } from 'react-aria-components'
+import { Heading as RACHeading } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -21,7 +21,7 @@ const heading = tv({
 /**
  * Props accepted by {@link Heading}.
  */
-export interface HeadingProps extends Omit<AriaHeadingProps, 'level'> {
+export interface HeadingProps extends Omit<RACHeadingProps, 'level'> {
     /**
      * Sets both the rendered element — `h1` through `h6` — and the typography
      * scale.
@@ -34,7 +34,7 @@ export interface HeadingProps extends Omit<AriaHeadingProps, 'level'> {
  */
 export function Heading({ level = 3, ...props }: HeadingProps) {
     return (
-        <AriaHeading
+        <RACHeading
             {...props}
             className={twMerge(heading({ level }), 'text-hi-contrast mb-4', props.className)}
             level={level}

@@ -1,13 +1,13 @@
 'use client'
 
 import { Input } from '@ui-kit.ai/components'
-import { SearchIcon } from 'lucide-react'
+import { LucideSearch } from 'lucide-react'
 
 export default function InputIcon() {
     return (
         <Input
             aria-label='Query'
-            icon={<SearchIcon />}
+            icon={<LucideSearch />}
             placeholder='This is a placeholder'
         />
     )

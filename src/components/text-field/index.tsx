@@ -1,11 +1,11 @@
 import type { ComponentProps, ComponentPropsWithoutRef, ForwardedRef } from 'react'
-import type { TextFieldProps as AriaTextFieldProps } from 'react-aria-components'
+import type { TextFieldProps as RACTextFieldProps } from 'react-aria-components'
 
-import { ClipboardIcon, EyeIcon, EyeOffIcon, XIcon } from 'lucide-react'
+import { LucideClipboard, LucideEye, LucideEyeOff, LucideX } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-    TextField as AriaTextField,
-    ButtonContext as FieldButtonContext,
+    ButtonContext as RACButtonContext,
+    TextField as RACTextField,
     useSlottedContext,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -18,7 +18,7 @@ import { Tooltip, TooltipTrigger } from '../tooltip'
  * Props accepted by {@link TextField}. Everything `react-aria-components`'
  * `TextField` accepts, plus a ref to the underlying input.
  */
-export interface TextFieldProps extends AriaTextFieldProps {
+export interface TextFieldProps extends RACTextFieldProps {
     ref?: ForwardedRef<HTMLInputElement>
 }
 
@@ -28,11 +28,11 @@ export interface TextFieldProps extends AriaTextFieldProps {
  * communicate the entry requirements.
  */
 export function TextField({ children = <Input />, ref, ...props }: TextFieldProps) {
-    const [value, setValue] = useState<AriaTextFieldProps['value']>(
+    const [value, setValue] = useState<RACTextFieldProps['value']>(
         props.value ?? props.defaultValue ?? ''
     )
 
-    const [type, setType] = useState<AriaTextFieldProps['type']>(props.type)
+    const [type, setType] = useState<RACTextFieldProps['type']>(props.type)
 
     const clearValue = useCallback(() => {
         setValue('')
@@ -76,8 +76,8 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
     }, [value, props.isDisabled, props.isReadOnly, clearValue, copyValue, toggleVisibility, type])
 
     return (
-        <FieldButtonContext.Provider value={buttonContext}>
-            <AriaTextField
+        <RACButtonContext.Provider value={buttonContext}>
+            <RACTextField
                 {...props}
                 className={(rp) =>
                     twMerge(
@@ -98,8 +98,8 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
                 {(renderProps) =>
                     typeof children === 'function' ? children(renderProps) : children
                 }
-            </AriaTextField>
-        </FieldButtonContext.Provider>
+            </RACTextField>
+        </RACButtonContext.Provider>
     )
 }
 TextField.displayName = 'TextField'
@@ -128,7 +128,7 @@ export function TextFieldClearButton(props: TextFieldClearButtonProps) {
                 }
                 slot='clear'
             >
-                <XIcon />
+                <LucideX />
             </FieldButton>
 
             <Tooltip placement='top'>Clear</Tooltip>
@@ -152,7 +152,7 @@ export function TextFieldCopyButton(props: TextFieldCopyButtonProps) {
                 {...props}
                 slot='copy'
             >
-                <ClipboardIcon />
+                <LucideClipboard />
             </FieldButton>
 
             <Tooltip placement='top'>Copy to clipboard</Tooltip>
@@ -170,7 +170,7 @@ export interface TextFieldVisibilityButtonProps extends ComponentProps<typeof Fi
  * A `FieldButton` to toggle the visibility of the text field value.
  */
 export function TextFieldVisibilityButton(props: TextFieldVisibilityButtonProps) {
-    const context = useSlottedContext(FieldButtonContext, 'visibility')
+    const context = useSlottedContext(RACButtonContext, 'visibility')
 
     return (
         <TooltipTrigger delay={0}>
@@ -178,7 +178,7 @@ export function TextFieldVisibilityButton(props: TextFieldVisibilityButtonProps)
                 {...props}
                 slot='visibility'
             >
-                {context?.value === 'hidden' ? <EyeOffIcon /> : <EyeIcon />}
+                {context?.value === 'hidden' ? <LucideEyeOff /> : <LucideEye />}
             </FieldButton>
 
             <Tooltip placement='top'>{context?.value === 'hidden' ? 'Show' : 'Hide'}</Tooltip>

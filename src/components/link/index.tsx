@@ -1,20 +1,20 @@
 import type { ComponentProps } from 'react'
 
-import { Link as AriaLink } from 'react-aria-components'
+import { Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 /**
  * Props accepted by {@link Link} — everything `react-aria-components`' `Link`
  * accepts.
  */
-export interface LinkProps extends ComponentProps<typeof AriaLink> {}
+export interface LinkProps extends ComponentProps<typeof RACLink> {}
 
 /**
  * A link allows a user to navigate to another page or resource within a web page or application.
  */
 export function Link(props: LinkProps) {
     return (
-        <AriaLink
+        <RACLink
             {...props}
             className={(renderProps) =>
                 twMerge(

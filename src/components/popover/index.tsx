@@ -1,14 +1,14 @@
 import type {
-    PopoverProps as AriaPopoverProps,
     DialogProps as RACDialogProps,
+    PopoverProps as RACPopoverProps,
 } from 'react-aria-components'
 
 import {
-    Popover as AriaPopover,
     composeRenderProps,
-    Dialog,
-    OverlayArrow,
-    PopoverContext,
+    Dialog as RACDialog,
+    OverlayArrow as RACOverlayArrow,
+    Popover as RACPopover,
+    PopoverContext as RACPopoverContext,
     useSlottedContext,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -24,7 +24,7 @@ export interface PopoverDialogProps extends RACDialogProps {}
  * Props accepted by {@link Popover}. Everything `react-aria-components`'
  * `Popover` accepts, minus render-prop children, plus `showArrow`.
  */
-export interface PopoverProps extends Omit<AriaPopoverProps, 'children'> {
+export interface PopoverProps extends Omit<RACPopoverProps, 'children'> {
     children: React.ReactNode
     showArrow?: boolean
 }
@@ -64,12 +64,12 @@ const popoverStyles = tv({
  * A popover is an overlay element positioned relative to a trigger.
  */
 export function Popover({ children, className, showArrow, ...props }: PopoverProps) {
-    const popoverContext = useSlottedContext(PopoverContext)
+    const popoverContext = useSlottedContext(RACPopoverContext)
     const isSubmenu = popoverContext?.trigger === 'SubmenuTrigger'
     let offset = showArrow === true ? 12 : 8
     offset = isSubmenu ? offset - 6 : offset
     return (
-        <AriaPopover
+        <RACPopover
             offset={offset}
             {...props}
             className={composeRenderProps(className, (className, renderProps) =>
@@ -80,7 +80,7 @@ export function Popover({ children, className, showArrow, ...props }: PopoverPro
             )}
         >
             {(showArrow ?? false) && (
-                <OverlayArrow className='group'>
+                <RACOverlayArrow className='group'>
                     <svg
                         className='group-placement-left:-rotate-90 group-placement-right:rotate-90 group-placement-bottom:rotate-180
                             block fill-(--theme-default-bg-base-raised) stroke-(--theme-default-border-default) stroke-1
@@ -91,17 +91,17 @@ export function Popover({ children, className, showArrow, ...props }: PopoverPro
                     >
                         <path d='M0 0 L6 6 L12 0' />
                     </svg>
-                </OverlayArrow>
+                </RACOverlayArrow>
             )}
             {children}
-        </AriaPopover>
+        </RACPopover>
     )
 }
 Popover.displayName = 'Popover'
 
 export function PopoverDialog(props: PopoverDialogProps) {
     return (
-        <Dialog
+        <RACDialog
             {...props}
             className={twMerge(props.className, 'p-4 outline-0')}
         />

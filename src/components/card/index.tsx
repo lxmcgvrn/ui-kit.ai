@@ -1,6 +1,6 @@
 import type { ComponentProps, HTMLProps } from 'react'
 
-import { Link } from 'react-aria-components'
+import { Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Heading } from '../heading'
@@ -29,14 +29,14 @@ Card.displayName = 'Card'
 /**
  * Props accepted by {@link CardLink}.
  */
-export interface CardLinkProps extends ComponentProps<typeof Link> {}
+export interface CardLinkProps extends ComponentProps<typeof RACLink> {}
 
 /**
  * A Card is a container that groups and organizes content in a consistent manner.
  */
 export function CardLink(props: CardLinkProps) {
     return (
-        <Link
+        <RACLink
             {...props}
             className={(renderProps) =>
                 twMerge(

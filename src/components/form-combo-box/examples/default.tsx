@@ -11,7 +11,7 @@ import {
     Label,
 } from '@ui-kit.ai/components'
 import { getMockOptions } from '@ui-kit.ai/mocks'
-import { SearchIcon } from 'lucide-react'
+import { LucideSearch } from 'lucide-react'
 
 export default function FormComboBoxDefault() {
     return (
@@ -23,7 +23,7 @@ export default function FormComboBoxDefault() {
                 <Label>This is a label for a field</Label>
                 <ComboBoxFieldGroup>
                     <ComboBoxInput
-                        icon={<SearchIcon />}
+                        icon={<LucideSearch />}
                         isBorderless
                         placeholder='Type to search...'
                     />

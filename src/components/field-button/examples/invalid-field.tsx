@@ -1,20 +1,20 @@
 'use client'
 
 import { FieldButton } from '@ui-kit.ai/components'
-import { ClipboardCopyIcon, EyeIcon, XIcon } from 'lucide-react'
+import { LucideClipboardCopy, LucideEye, LucideX } from 'lucide-react'
 
 export default function FieldButtonInvalidField() {
     return (
         <div className='error'>
             <div className='flex gap-2'>
                 <FieldButton aria-label='Clear field'>
-                    <XIcon />
+                    <LucideX />
                 </FieldButton>
                 <FieldButton aria-label='Toggle visibility'>
-                    <EyeIcon />
+                    <LucideEye />
                 </FieldButton>
                 <FieldButton aria-label='Copy to clipboard'>
-                    <ClipboardCopyIcon />
+                    <LucideClipboardCopy />
                 </FieldButton>
             </div>
         </div>

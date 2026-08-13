@@ -21,7 +21,7 @@ import {
     Tag,
 } from '@ui-kit.ai/components'
 import { ColorPalette, PRESETS } from '@ui-kit.ai/theme'
-import { AlertTriangleIcon, CheckCircleIcon, InfoIcon, PipetteIcon } from 'lucide-react'
+import { LucideAlertTriangle, LucideCheckCircle, LucideInfo, LucidePipette } from 'lucide-react'
 import { useState } from 'react'
 
 type Palette = {
@@ -116,21 +116,21 @@ export function ThemePlayground() {
                 className={`${PREVIEW_SELECTOR} bg-base-raised flex flex-col gap-4 rounded-lg p-4`}
             >
                 <Alert
-                    icon={<InfoIcon />}
+                    icon={<LucideInfo />}
                     text='You do not have any active subscriptions.'
                 />
                 <Alert
-                    icon={<AlertTriangleIcon />}
+                    icon={<LucideAlertTriangle />}
                     intent='error'
                     text='Your last payment was unsuccessful.'
                 />
                 <Alert
-                    icon={<AlertTriangleIcon />}
+                    icon={<LucideAlertTriangle />}
                     intent='warning'
                     text='Your subscription will expire in 3 days.'
                 />
                 <Alert
-                    icon={<CheckCircleIcon />}
+                    icon={<LucideCheckCircle />}
                     intent='success'
                     text='Your payment was successful.'
                 />
@@ -182,7 +182,7 @@ function ThemeColorPicker({
                 />
                 <DialogTrigger>
                     <FieldButton>
-                        <PipetteIcon />
+                        <LucidePipette />
                     </FieldButton>
                     <Popover>
                         <PopoverDialog className='min-w-64'>

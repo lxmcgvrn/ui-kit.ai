@@ -1,6 +1,6 @@
-import type { ListBoxProps as AriaListBoxProps } from 'react-aria-components'
+import type { ListBoxProps as RACListBoxProps } from 'react-aria-components'
 
-import { ListBox as AriaListBox } from 'react-aria-components'
+import { ListBox as RACListBox } from 'react-aria-components'
 
 import type { OptionsSchema } from '../types/options'
 
@@ -12,7 +12,7 @@ import { OptionRenderer } from '../options'
  * system's presentational props.
  */
 export interface ListBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
-    extends Omit<AriaListBoxProps<T>, 'children' | 'layout' | 'orientation'> {
+    extends Omit<RACListBoxProps<T>, 'children' | 'layout' | 'orientation'> {
     /**
      * When `true` a checkmark is rendered next to the selected option(s).
      */
@@ -27,7 +27,7 @@ export function ListBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'list
     ...props
 }: ListBoxProps<T>) {
     return (
-        <AriaListBox
+        <RACListBox
             {...props}
             className={(renderProps) => (
                 typeof props.className === 'function'
@@ -43,7 +43,7 @@ export function ListBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'list
                     type='listbox'
                 />
             )}
-        </AriaListBox>
+        </RACListBox>
     )
 }
 ListBox.displayName = 'ListBox'

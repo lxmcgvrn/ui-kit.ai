@@ -1,27 +1,27 @@
 import type {
-    CellProps as AriaCellProps,
-    ColumnProps as AriaColumnProps,
-    RowProps as AriaRowProps,
-    TableBodyProps as AriaTableBodyProps,
-    TableHeaderProps as AriaTableHeaderProps,
-    TableProps as AriaTableProps,
-    ResizableTableContainerProps,
-    SortDirection,
+    CellProps as RACCellProps,
+    ColumnProps as RACColumnProps,
+    ResizableTableContainerProps as RACResizableTableContainerProps,
+    RowProps as RACRowProps,
+    SortDirection as RACSortDirection,
+    TableBodyProps as RACTableBodyProps,
+    TableHeaderProps as RACTableHeaderProps,
+    TableProps as RACTableProps,
 } from 'react-aria-components'
 
-import { ArrowUpDown as IconArrowsUpDown, ArrowUp as IconArrowUp } from 'lucide-react'
+import { LucideArrowUp, LucideArrowUpDown } from 'lucide-react'
 import {
-    Button as AriaButton,
-    Cell as AriaCell,
-    Column as AriaColumn,
-    Row as AriaRow,
-    Table as AriaTable,
-    ResizableTableContainer as AriaTableContainer,
-    TableHeader as AriaTableHeader,
-    Collection,
-    // ColumnResizer,
-    Group,
+    Button as RACButton,
+    Cell as RACCell,
+    Collection as RACCollection,
+    Column as RACColumn,
+    // ColumnResizer as RACColumnResizer,
+    Group as RACGroup,
+    Row as RACRow,
+    Table as RACTable,
     TableBody as RACTableBody,
+    ResizableTableContainer as RACTableContainer,
+    TableHeader as RACTableHeader,
     useTableOptions,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -130,7 +130,7 @@ const cellSkeletonStyles = tv({
  * Props accepted by {@link Cell}. Everything `react-aria-components`' `Cell`
  * accepts, plus this design system's presentational props.
  */
-export interface CellProps extends AriaCellProps {
+export interface CellProps extends RACCellProps {
     /**
      * Horizontal alignment of the cell's content. Should match the alignment of
      * the {@link Column} it belongs to.
@@ -144,7 +144,7 @@ export interface CellProps extends AriaCellProps {
 
 export function Cell({ alignment, children, className, showSkeleton, ...props }: CellProps) {
     return (
-        <AriaCell
+        <RACCell
             {...props}
             className={(rp) =>
                 twMerge(
@@ -165,7 +165,7 @@ export function Cell({ alignment, children, className, showSkeleton, ...props }:
             ) : (
                 children
             )}
-        </AriaCell>
+        </RACCell>
     )
 }
 Cell.displayName = 'Cell'
@@ -174,7 +174,7 @@ Cell.displayName = 'Cell'
  * Props accepted by {@link Column}. Everything `react-aria-components`'
  * `Column` accepts, plus this design system's presentational props.
  */
-export interface ColumnProps extends AriaColumnProps {
+export interface ColumnProps extends RACColumnProps {
     /**
      * Horizontal alignment of the column's content.
      */
@@ -183,14 +183,14 @@ export interface ColumnProps extends AriaColumnProps {
 
 export function Column({ alignment, children, className, textValue, ...props }: ColumnProps) {
     return (
-        <AriaColumn
+        <RACColumn
             {...props}
             className={columnWrapperStyles()}
             textValue={textValue}
         >
             {(renderProps) => (
                 <div className='flex items-center'>
-                    <Group
+                    <RACGroup
                         className={() =>
                             twMerge(
                                 columnStyles({ alignment }),
@@ -211,17 +211,17 @@ export function Column({ alignment, children, className, textValue, ...props }: 
                         {renderProps.allowsSorting ? (
                             <ColumnSortControl sortDirection={renderProps.sortDirection} />
                         ) : null}
-                    </Group>
+                    </RACGroup>
 
-                    {/* {props.width != null && <ColumnResizer className={resizerStyles()} />} */}
+                    {/* {props.width != null && <RACColumnResizer className={resizerStyles()} />} */}
                 </div>
             )}
-        </AriaColumn>
+        </RACColumn>
     )
 }
 Column.displayName = 'Column'
 
-function ColumnSortControl({ sortDirection }: { sortDirection: SortDirection | undefined }) {
+function ColumnSortControl({ sortDirection }: { sortDirection: RACSortDirection | undefined }) {
     return (
         <span
             className={twMerge(
@@ -233,15 +233,15 @@ function ColumnSortControl({ sortDirection }: { sortDirection: SortDirection | u
                 !sortDirection ? 'opacity-50' : null
             )}
         >
-            {sortDirection ? <IconArrowUp aria-hidden /> : <IconArrowsUpDown aria-hidden />}
+            {sortDirection ? <LucideArrowUp aria-hidden /> : <LucideArrowUpDown aria-hidden />}
         </span>
     )
 }
 ColumnSortControl.displayName = 'ColumnSortControl'
 
-export function ResizableTableContainer(props: ResizableTableContainerProps) {
+export function ResizableTableContainer(props: RACResizableTableContainerProps) {
     return (
-        <AriaTableContainer
+        <RACTableContainer
             {...props}
             className={twMerge(
                 'relative',
@@ -257,7 +257,7 @@ ResizableTableContainer.displayName = 'ResizableTableContainer'
 /**
  * Props accepted by {@link Row}.
  */
-export interface RowProps<TColumn extends object = object> extends AriaRowProps<TColumn> {}
+export interface RowProps<TColumn extends object = object> extends RACRowProps<TColumn> {}
 
 export function Row<TColumn extends object>({
     children,
@@ -269,7 +269,7 @@ export function Row<TColumn extends object>({
     const { allowsDragging, selectionBehavior } = useTableOptions()
 
     return (
-        <AriaRow
+        <RACRow
             id={id}
             {...props}
             className={(rp) =>
@@ -281,7 +281,7 @@ export function Row<TColumn extends object>({
                     alignment='center'
                     className='px-2'
                 >
-                    <AriaButton slot='drag'>≡</AriaButton>
+                    <RACButton slot='drag'>≡</RACButton>
                 </Cell>
             )}
 
@@ -293,8 +293,8 @@ export function Row<TColumn extends object>({
                     <Checkbox slot='selection' />
                 </Cell>
             )}
-            <Collection items={columns}>{children}</Collection>
-        </AriaRow>
+            <RACCollection items={columns}>{children}</RACCollection>
+        </RACRow>
     )
 }
 Row.displayName = 'Row'
@@ -303,7 +303,7 @@ Row.displayName = 'Row'
  * Props accepted by {@link Table}. Everything `react-aria-components`' `Table`
  * accepts, plus this design system's presentational props.
  */
-export interface TableProps extends AriaTableProps {
+export interface TableProps extends RACTableProps {
     /**
      * When `true`, the table's outer horizontal padding is removed so its
      * content aligns with the surrounding container.
@@ -318,7 +318,7 @@ export interface TableProps extends AriaTableProps {
  */
 export function Table({ className, isCompact, ...props }: TableProps) {
     return (
-        <AriaTable
+        <RACTable
             {...props}
             className={(rp) =>
                 twMerge(
@@ -335,7 +335,7 @@ Table.displayName = 'Table'
 /**
  * Props accepted by {@link TableBody}.
  */
-export interface TableBodyProps<T extends object = object> extends AriaTableBodyProps<T> {}
+export interface TableBodyProps<T extends object = object> extends RACTableBodyProps<T> {}
 
 export function TableBody<T extends object>(props: TableBodyProps<T>) {
     return <RACTableBody<T> {...props} />
@@ -346,13 +346,13 @@ TableBody.displayName = 'TableBody'
  * Props accepted by {@link TableHeader}.
  */
 export interface TableHeaderProps<TColumn extends object = object>
-    extends AriaTableHeaderProps<TColumn> {}
+    extends RACTableHeaderProps<TColumn> {}
 
 export function TableHeader<TColumn extends object>({ ...props }: TableHeaderProps<TColumn>) {
     const { allowsDragging, selectionBehavior, selectionMode } = useTableOptions()
 
     return (
-        <AriaTableHeader {...props}>
+        <RACTableHeader {...props}>
             {allowsDragging && (
                 <Column
                     alignment='center'
@@ -374,8 +374,8 @@ export function TableHeader<TColumn extends object>({ ...props }: TableHeaderPro
                 </Column>
             ) : null}
 
-            <Collection items={props.columns}>{props.children}</Collection>
-        </AriaTableHeader>
+            <RACCollection items={props.columns}>{props.children}</RACCollection>
+        </RACTableHeader>
     )
 }
 TableHeader.displayName = 'TableHeader'

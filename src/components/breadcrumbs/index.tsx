@@ -1,14 +1,14 @@
 import type {
-    BreadcrumbProps as AriaBreadcrumbProps,
-    BreadcrumbsProps as AriaBreadcrumbsProps,
-    LinkProps,
+    BreadcrumbProps as RACBreadcrumbProps,
+    BreadcrumbsProps as RACBreadcrumbsProps,
+    LinkProps as RACLinkProps,
 } from 'react-aria-components'
 
-import { ChevronRightIcon } from 'lucide-react'
+import { LucideChevronRight } from 'lucide-react'
 import {
-    Breadcrumb as AriaBreadcrumb,
-    Breadcrumbs as AriaBreadcrumbs,
-    Link,
+    Breadcrumb as RACBreadcrumb,
+    Breadcrumbs as RACBreadcrumbs,
+    Link as RACLink,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
@@ -19,14 +19,14 @@ import { twMerge } from 'tailwind-merge'
  * @note This is a type alias rather than an interface because the two sources
  * declare an incompatible `children` — an interface cannot extend both.
  */
-export type BreadcrumbProps = AriaBreadcrumbProps & Omit<LinkProps, 'className'>
+export type BreadcrumbProps = Omit<RACLinkProps, 'className'> & RACBreadcrumbProps
 
 /**
  * A breadcrumb is a link that represents a single item in a breadcrumb hierarchy.
  */
 export function Breadcrumb(props: BreadcrumbProps) {
     return (
-        <AriaBreadcrumb
+        <RACBreadcrumb
             {...props}
             className={(renderProps) =>
                 twMerge(
@@ -37,7 +37,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
                 )
             }
         >
-            <Link
+            <RACLink
                 {...props}
                 className={twMerge(
                     props.href != null
@@ -45,8 +45,8 @@ export function Breadcrumb(props: BreadcrumbProps) {
                         : 'text-placeholder'
                 )}
             />
-            {props.href != null && <ChevronRightIcon className='text-hi-contrast size-3' />}
-        </AriaBreadcrumb>
+            {props.href != null && <LucideChevronRight className='text-hi-contrast size-3' />}
+        </RACBreadcrumb>
     )
 }
 Breadcrumb.displayName = 'Breadcrumb'
@@ -54,14 +54,14 @@ Breadcrumb.displayName = 'Breadcrumb'
 /**
  * Props accepted by {@link Breadcrumbs}.
  */
-export interface BreadcrumbsProps<T extends object = object> extends AriaBreadcrumbsProps<T> {}
+export interface BreadcrumbsProps<T extends object = object> extends RACBreadcrumbsProps<T> {}
 
 /**
  * Breadcrumbs display a hierarchy of links to the current page or resource in an application.
  */
 export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
     return (
-        <AriaBreadcrumbs
+        <RACBreadcrumbs
             {...props}
             className={twMerge('flex gap-2', props.className)}
         />

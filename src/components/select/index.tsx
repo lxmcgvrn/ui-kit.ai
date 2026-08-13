@@ -1,14 +1,17 @@
 import type { ForwardedRef } from 'react'
-import type { SelectProps as AriaSelectProps, ButtonProps } from 'react-aria-components'
+import type {
+    ButtonProps as RACButtonProps,
+    SelectProps as RACSelectProps,
+} from 'react-aria-components'
 
-import { ChevronsUpDownIcon } from 'lucide-react'
+import { LucideChevronsUpDown } from 'lucide-react'
 import { useContext } from 'react'
 import {
-    Button as AriaButton,
-    ListBox as AriaListBox,
-    Select as AriaSelect,
-    SelectValue as AriaSelectValue,
-    SelectStateContext,
+    Button as RACButton,
+    ListBox as RACListBox,
+    Select as RACSelect,
+    SelectStateContext as RACSelectStateContext,
+    SelectValue as RACSelectValue,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
@@ -37,7 +40,7 @@ const selectButtonStyles = tv({
  * `Select` accepts, plus this design system's presentational props.
  */
 export interface SelectProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
-    extends AriaSelectProps<T> {
+    extends RACSelectProps<T> {
     /**
      * The options rendered in the select's listbox.
      */
@@ -60,7 +63,7 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
     ...props
 }: SelectProps<T>) {
     return (
-        <AriaSelect
+        <RACSelect
             {...props}
             className={(rp) =>
                 twMerge(
@@ -75,7 +78,7 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
                     <>
                         {typeof children === 'function' ? children(rp) : children}
                         <Popover className='min-w-(--trigger-width)'>
-                            <AriaListBox<T>
+                            <RACListBox<T>
                                 className='max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.25rem)]'
                                 items={items}
                             >
@@ -86,12 +89,12 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
                                         type='listbox'
                                     />
                                 )}
-                            </AriaListBox>
+                            </RACListBox>
                         </Popover>
                     </>
                 )
             }}
-        </AriaSelect>
+        </RACSelect>
     )
 }
 Select.displayName = 'Select'
@@ -100,7 +103,7 @@ Select.displayName = 'Select'
  * Props accepted by {@link SelectButton}. Everything `react-aria-components`'
  * `Button` accepts, plus this design system's presentational props.
  */
-export interface SelectButtonProps extends ButtonProps {
+export interface SelectButtonProps extends RACButtonProps {
     /**
      * When `true` the button is rendered without its border and background.
      */
@@ -126,14 +129,14 @@ export interface SelectButtonProps extends ButtonProps {
 export function SelectButton({
     isBorderless,
     slotLeft,
-    slotRight = <ChevronsUpDownIcon aria-hidden />,
+    slotRight = <LucideChevronsUpDown aria-hidden />,
     ...props
 }: SelectButtonProps) {
-    const state = useContext(SelectStateContext)
+    const state = useContext(RACSelectStateContext)
     const selectedItemIcon: null | SlotNode = state?.selectedItem?.props.icon
 
     return (
-        <AriaButton
+        <RACButton
             {...props}
             className={(rp) =>
                 twMerge(
@@ -149,7 +152,7 @@ export function SelectButton({
                 className: 'text-placeholder [&:is(svg)]:size-3 [&:is(svg)]:shrink-0',
                 'data-slot': 'slot-left',
             })}
-            <AriaSelectValue
+            <RACSelectValue
                 className={twMerge([
                     'inline-flex flex-1 items-center gap-2',
                     'truncate',
@@ -157,12 +160,12 @@ export function SelectButton({
                 ])}
             >
                 {({ selectedText }) => selectedText}
-            </AriaSelectValue>
+            </RACSelectValue>
             {renderSlot(slotRight, {
                 className: 'text-placeholder [&:is(svg)]:size-3 [&:is(svg)]:shrink-0',
                 'data-slot': 'slot-right',
             })}
-        </AriaButton>
+        </RACButton>
     )
 }
 SelectButton.displayName = 'SelectButton'

@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react'
 
-import { Loader2 } from 'lucide-react'
+import { LucideLoader2 } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 
 /**
@@ -13,7 +13,7 @@ export interface LoaderProps extends SVGProps<SVGSVGElement> {}
  */
 export function Loader({ className, ...rest }: LoaderProps) {
     return (
-        <Loader2
+        <LucideLoader2
             {...rest}
             className={twMerge('animate-spin', className)}
         />

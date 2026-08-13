@@ -8,7 +8,7 @@ import {
     Label,
     TextFieldClearButton,
 } from '@ui-kit.ai/components'
-import { AtSignIcon } from 'lucide-react'
+import { LucideAtSign } from 'lucide-react'
 
 export default function FormTextFieldDefault() {
     return (
@@ -17,7 +17,7 @@ export default function FormTextFieldDefault() {
                 <Label>This is a label for a field</Label>
                 <FieldGroup>
                     <Input
-                        icon={<AtSignIcon />}
+                        icon={<LucideAtSign />}
                         isBorderless
                         placeholder='Enter your email address'
                     />

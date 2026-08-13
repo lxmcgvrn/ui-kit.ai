@@ -1,7 +1,7 @@
 'use client'
 
 import { FieldButton } from '@ui-kit.ai/components'
-import { ClipboardCopyIcon, EyeIcon, XIcon } from 'lucide-react'
+import { LucideClipboardCopy, LucideEye, LucideX } from 'lucide-react'
 
 export default function FieldButtonDisabled() {
     return (
@@ -10,19 +10,19 @@ export default function FieldButtonDisabled() {
                 aria-label='Clear field'
                 isDisabled
             >
-                <XIcon />
+                <LucideX />
             </FieldButton>
             <FieldButton
                 aria-label='Toggle visibility'
                 isDisabled
             >
-                <EyeIcon />
+                <LucideEye />
             </FieldButton>
             <FieldButton
                 aria-label='Copy to clipboard'
                 isDisabled
             >
-                <ClipboardCopyIcon />
+                <LucideClipboardCopy />
             </FieldButton>
         </div>
     )

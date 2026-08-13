@@ -1,4 +1,4 @@
-import { CopyIcon } from 'lucide-react'
+import { LucideCopy } from 'lucide-react'
 import { useCallback } from 'react'
 import { Prism as SyntaxHighlighter, type SyntaxHighlighterProps } from 'react-syntax-highlighter'
 
@@ -45,7 +45,7 @@ export function CodeBlock({ showLineNumbers = true, ...props }: CodeBlockProps) 
                     className='absolute -top-0.75 -right-0.75'
                     onPress={() => void copyValue()}
                 >
-                    <CopyIcon />
+                    <LucideCopy />
                 </FieldButton>
                 <Tooltip placement='top'>Copy to clipboard</Tooltip>
             </TooltipTrigger>

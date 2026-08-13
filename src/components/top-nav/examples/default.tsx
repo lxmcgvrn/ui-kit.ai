@@ -1,7 +1,7 @@
 'use client'
 
 import { Link, LinkButton, TopNav } from '@ui-kit.ai/components'
-import { CodeXmlIcon } from 'lucide-react'
+import { LucideCodeXml } from 'lucide-react'
 
 export default function TopNavDefault() {
     return (
@@ -41,7 +41,7 @@ export default function TopNavDefault() {
                     isIcon
                     variant='tertiary'
                 >
-                    <CodeXmlIcon size={18} />
+                    <LucideCodeXml size={18} />
                 </LinkButton>
             </div>
         </TopNav>

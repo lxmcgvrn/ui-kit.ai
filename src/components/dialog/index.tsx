@@ -5,7 +5,7 @@ import type {
     ModalOverlayProps as RACModalOverlayProps,
 } from 'react-aria-components'
 
-import { X as IconX } from 'lucide-react'
+import { LucideX } from 'lucide-react'
 import { useContext } from 'react'
 import {
     Dialog as RACDialog,
@@ -132,7 +132,7 @@ export function DialogCloseButton(
             type='button'
             variant='tertiary'
         >
-            <IconX />
+            <LucideX />
         </Button>
     )
 }

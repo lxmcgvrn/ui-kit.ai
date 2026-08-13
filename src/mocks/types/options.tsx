@@ -1,6 +1,6 @@
 import type { OptionsSchema } from '@ui-kit.ai/components'
 
-import { AppleIcon, BananaIcon, CarrotIcon, LeafyGreenIcon } from 'lucide-react'
+import { LucideApple, LucideBanana, LucideCarrot, LucideLeafyGreen } from 'lucide-react'
 
 type Options = {
     withIcon?: boolean
@@ -9,22 +9,22 @@ type Options = {
 
 const getItems = ({ withIcon }: Options) => ({
     apple: {
-        icon: withIcon === true ? <AppleIcon /> : undefined,
+        icon: withIcon === true ? <LucideApple /> : undefined,
         id: 'apple',
         textValue: 'Apple',
     },
     banana: {
-        icon: withIcon === true ? <BananaIcon /> : undefined,
+        icon: withIcon === true ? <LucideBanana /> : undefined,
         id: 'banana',
         textValue: 'Banana',
     },
     carrot: {
-        icon: withIcon === true ? <CarrotIcon /> : undefined,
+        icon: withIcon === true ? <LucideCarrot /> : undefined,
         id: 'carrot',
         textValue: 'Carrot',
     },
     spinach: {
-        icon: withIcon === true ? <LeafyGreenIcon /> : undefined,
+        icon: withIcon === true ? <LucideLeafyGreen /> : undefined,
         id: 'spinach',
         textValue: 'Spinach',
     },

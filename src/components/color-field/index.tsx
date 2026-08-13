@@ -1,7 +1,7 @@
 import type { ForwardedRef } from 'react'
-import type { ColorFieldProps as AriaColorFieldProps } from 'react-aria-components'
+import type { ColorFieldProps as RACColorFieldProps } from 'react-aria-components'
 
-import { ColorField as AriaColorField } from 'react-aria-components'
+import { ColorField as RACColorField } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Input } from '../input'
@@ -10,7 +10,7 @@ import { Input } from '../input'
  * Props accepted by {@link ColorField}. Everything `react-aria-components`'
  * `ColorField` accepts, plus a forwarded ref.
  */
-export interface ColorFieldProps extends AriaColorFieldProps {
+export interface ColorFieldProps extends RACColorFieldProps {
     /**
      * A ref forwarded to the underlying `<input />` element.
      */
@@ -22,7 +22,7 @@ export interface ColorFieldProps extends AriaColorFieldProps {
  */
 export function ColorField({ children = <Input />, ref, ...props }: ColorFieldProps) {
     return (
-        <AriaColorField
+        <RACColorField
             {...props}
             className={(rp) =>
                 twMerge(
@@ -33,7 +33,7 @@ export function ColorField({ children = <Input />, ref, ...props }: ColorFieldPr
             ref={ref}
         >
             {(renderProps) => (typeof children === 'function' ? children(renderProps) : children)}
-        </AriaColorField>
+        </RACColorField>
     )
 }
 ColorField.displayName = 'ColorField'

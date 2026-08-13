@@ -2,7 +2,7 @@
 
 import { Button, Menu, MenuTrigger, Popover } from '@ui-kit.ai/components'
 import { getMockOptions } from '@ui-kit.ai/mocks'
-import { MenuIcon } from 'lucide-react'
+import { LucideMenu } from 'lucide-react'
 
 export default function MenuDisabledKeys() {
     return (
@@ -13,7 +13,7 @@ export default function MenuDisabledKeys() {
                 isIcon
                 variant='secondary'
             >
-                <MenuIcon />
+                <LucideMenu />
             </Button>
             <Popover>
                 <Menu

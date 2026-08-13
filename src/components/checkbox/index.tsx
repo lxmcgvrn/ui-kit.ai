@@ -1,8 +1,8 @@
-import type { CheckboxProps as AriaCheckboxProps } from 'react-aria-components'
+import type { CheckboxProps as RACCheckboxProps } from 'react-aria-components'
 
-import { Check as IconCheck, Minus as IconMinus } from 'lucide-react'
+import { LucideCheck, LucideMinus } from 'lucide-react'
 import React from 'react'
-import { Checkbox as AriaCheckbox, composeRenderProps } from 'react-aria-components'
+import { composeRenderProps, Checkbox as RACCheckbox } from 'react-aria-components'
 import { tv } from 'tailwind-variants'
 
 import { Description } from '../description'
@@ -16,7 +16,7 @@ import { Label } from '../label'
  * This is a union rather than an interface: `textPosition` is only meaningful
  * when a `label` is present.
  */
-export type CheckboxProps = Omit<AriaCheckboxProps, 'children'> &
+export type CheckboxProps = Omit<RACCheckboxProps, 'children'> &
     (
         | {
               description?: string
@@ -89,7 +89,7 @@ const iconStyles = tv({
  */
 export function Checkbox({ description, label, textPosition = 'right', ...props }: CheckboxProps) {
     return (
-        <AriaCheckbox
+        <RACCheckbox
             {...props}
             className={composeRenderProps(props.className, (className, renderProps) =>
                 checkboxContainerStyles({
@@ -109,12 +109,12 @@ export function Checkbox({ description, label, textPosition = 'right', ...props 
 
                     <div className={boxStyles()}>
                         {renderProps.isIndeterminate ? (
-                            <IconMinus
+                            <LucideMinus
                                 aria-hidden
                                 className={iconStyles()}
                             />
                         ) : (
-                            <IconCheck
+                            <LucideCheck
                                 aria-hidden
                                 className={iconStyles()}
                             />
@@ -129,7 +129,7 @@ export function Checkbox({ description, label, textPosition = 'right', ...props 
                     ) : null}
                 </>
             )}
-        </AriaCheckbox>
+        </RACCheckbox>
     )
 }
 Checkbox.displayName = 'Checkbox'

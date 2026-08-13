@@ -4,14 +4,14 @@ import type { ComponentProps, ComponentType } from 'react'
 
 import { Button, DialogTrigger, Heading, Popover, PopoverDialog } from '@ui-kit.ai/components'
 import {
-    ArrowUp,
-    ArrowUpLeft,
-    ArrowUpRight,
-    MoveDownIcon,
-    MoveDownLeftIcon,
-    MoveDownRightIcon,
-    MoveLeftIcon,
-    MoveRightIcon,
+    LucideArrowUp,
+    LucideArrowUpLeft,
+    LucideArrowUpRight,
+    LucideMoveDown,
+    LucideMoveDownLeft,
+    LucideMoveDownRight,
+    LucideMoveLeft,
+    LucideMoveRight,
 } from 'lucide-react'
 
 type Placement = Exclude<ComponentProps<typeof Popover>['placement'], undefined>
@@ -31,14 +31,14 @@ const PLACEMENTS = [
 type KnownPlacement = Exclude<(typeof PLACEMENTS)[number], null>
 
 const PLACEMENT_ICONS = {
-    bottom: MoveDownIcon,
-    'bottom left': MoveDownLeftIcon,
-    'bottom right': MoveDownRightIcon,
-    left: MoveLeftIcon,
-    right: MoveRightIcon,
-    top: ArrowUp,
-    'top left': ArrowUpLeft,
-    'top right': ArrowUpRight,
+    bottom: LucideMoveDown,
+    'bottom left': LucideMoveDownLeft,
+    'bottom right': LucideMoveDownRight,
+    left: LucideMoveLeft,
+    right: LucideMoveRight,
+    top: LucideArrowUp,
+    'top left': LucideArrowUpLeft,
+    'top right': LucideArrowUpRight,
 } satisfies Record<KnownPlacement, ComponentType>
 
 export default function PopoverPlacement() {

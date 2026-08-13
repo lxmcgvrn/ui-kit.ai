@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@ui-kit.ai/components'
-import { StarIcon } from 'lucide-react'
+import { LucideStar } from 'lucide-react'
 
 export default function ButtonIcon() {
     return (
@@ -11,21 +11,21 @@ export default function ButtonIcon() {
                 isIcon
                 variant='primary'
             >
-                <StarIcon />
+                <LucideStar />
             </Button>
             <Button
                 aria-label='button'
                 isIcon
                 variant='secondary'
             >
-                <StarIcon />
+                <LucideStar />
             </Button>
             <Button
                 aria-label='button'
                 isIcon
                 variant='tertiary'
             >
-                <StarIcon />
+                <LucideStar />
             </Button>
         </div>
     )

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type {
-    MenuProps as AriaMenuProps,
-    MenuTriggerProps as AriaMenuTriggerProps,
+    MenuProps as RACMenuProps,
+    MenuTriggerProps as RACMenuTriggerProps,
 } from 'react-aria-components'
 
 import { Menu as RACMenu, MenuTrigger as RACMenuTrigger } from 'react-aria-components'
@@ -16,7 +16,7 @@ import { OptionRenderer } from '../options'
  * presentational props.
  */
 export interface MenuProps<T extends OptionsSchema<'menu'> = OptionsSchema<'menu'>>
-    extends Omit<AriaMenuProps<T>, 'children' | 'className'> {
+    extends Omit<RACMenuProps<T>, 'children' | 'className'> {
     /**
      * When `true` a checkmark is rendered next to the selected option(s).
      */
@@ -68,7 +68,7 @@ MenuDecorativeSection.displayName = 'MenuDecorativeSection'
 /**
  * Props accepted by {@link MenuTrigger}.
  */
-export interface MenuTriggerProps extends AriaMenuTriggerProps {}
+export interface MenuTriggerProps extends RACMenuTriggerProps {}
 
 /**
  * A `Trigger` component, for use with a `Menu` component.

@@ -1,7 +1,7 @@
 'use client'
 
 import { FieldGroup, Input, SearchField, SearchFieldClearButton } from '@ui-kit.ai/components'
-import { SearchIcon } from 'lucide-react'
+import { LucideSearch } from 'lucide-react'
 
 export default function SearchFieldDefaultValue() {
     return (
@@ -11,7 +11,7 @@ export default function SearchFieldDefaultValue() {
         >
             <FieldGroup>
                 <Input
-                    icon={<SearchIcon />}
+                    icon={<LucideSearch />}
                     isBorderless
                     placeholder='Search...'
                 />

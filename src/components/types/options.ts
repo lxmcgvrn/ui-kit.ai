@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import type {
-    ListBoxItemProps as AriaListBoxItemProps,
-    ListBoxSectionProps as AriaListBoxSectionProps,
-    MenuItemProps as AriaMenuItemProps,
-    MenuSectionProps as AriaMenuSectionProps,
+    ListBoxItemProps as RACListBoxItemProps,
+    ListBoxSectionProps as RACListBoxSectionProps,
+    MenuItemProps as RACMenuItemProps,
+    MenuSectionProps as RACMenuSectionProps,
 } from 'react-aria-components'
 
 import type { Intent } from './intent'
@@ -49,12 +49,12 @@ export interface OptionsSectionSchema<
 export type OptionType = 'listbox' | 'menu'
 
 type AriaItemProps<TValue extends object = object> = Omit<
-    AriaListBoxItemProps<TValue> & AriaMenuItemProps<TValue>,
+    RACListBoxItemProps<TValue> & RACMenuItemProps<TValue>,
     'children' | 'id' | 'textValue'
 >
 
 type AriaSectionProps<TValue extends object = object> = Omit<
-    AriaListBoxSectionProps<TValue> & AriaMenuSectionProps<TValue>,
+    RACListBoxSectionProps<TValue> & RACMenuSectionProps<TValue>,
     'children' | 'id' | 'title'
 >
 

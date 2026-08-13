@@ -1,4 +1,4 @@
-import type { LabelProps } from 'react-aria-components'
+import type { LabelProps as RACLabelProps } from 'react-aria-components'
 
 import { Text as RACText } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -6,11 +6,11 @@ import { twMerge } from 'tailwind-merge'
 /**
  * Props accepted by {@link Description}.
  */
-export interface DescriptionProps extends LabelProps {
+export interface DescriptionProps extends RACLabelProps {
     /**
      * The description text to announce alongside the field or control.
      */
-    children?: LabelProps['children']
+    children?: RACLabelProps['children']
 }
 
 /**

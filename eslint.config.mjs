@@ -94,6 +94,21 @@ export default [
                 },
             ],
             'no-implicit-coercion': 'error',
+            'no-restricted-syntax': [
+                'error',
+                {
+                    message:
+                        'Alias PascalCase react-aria-components imports as RAC* (e.g. `Button as RACButton`).',
+                    selector:
+                        'ImportDeclaration[source.value="react-aria-components"] ImportSpecifier[imported.name=/^[A-Z]/]:not([local.name=/^RAC/])',
+                },
+                {
+                    message:
+                        'Import lucide icons by their Lucide* export name (e.g. `LucideSearch`), not `Search`/`SearchIcon`.',
+                    selector:
+                        'ImportDeclaration[source.value="lucide-react"] ImportSpecifier[imported.name=/^[A-Z]/]:not([local.name=/^Lucide/])',
+                },
+            ],
             'no-useless-rename': [
                 'error',
                 {

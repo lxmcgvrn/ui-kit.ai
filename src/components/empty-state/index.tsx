@@ -1,7 +1,7 @@
 'use client'
 import type { ReactNode } from 'react'
 
-import { InfoIcon } from 'lucide-react'
+import { LucideInfo } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -54,7 +54,7 @@ export function EmptyState({
     actions,
     body,
     className,
-    icon = <InfoIcon />,
+    icon = <LucideInfo />,
     title,
 }: EmptyStateProps) {
     return (

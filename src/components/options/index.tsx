@@ -1,13 +1,13 @@
-import type { HeadingProps } from 'react-aria-components'
+import type { HeadingProps as RACHeadingProps } from 'react-aria-components'
 
-import { Check as IconCheck } from 'lucide-react'
+import { LucideCheck } from 'lucide-react'
 import {
-    ListBoxItem as AriaListBoxItem,
-    ListBoxSection as AriaListBoxSection,
-    MenuItem as AriaMenuItem,
-    MenuSection as AriaMenuSection,
-    Collection,
-    Header,
+    Collection as RACCollection,
+    Header as RACHeader,
+    ListBoxItem as RACListBoxItem,
+    ListBoxSection as RACListBoxSection,
+    MenuItem as RACMenuItem,
+    MenuSection as RACMenuSection,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
@@ -91,7 +91,7 @@ function OptionsItem<TType extends OptionType>({
     showCheckmarkOnSelected?: boolean
     type: TType
 }) {
-    const Component = type === 'listbox' ? AriaListBoxItem : AriaMenuItem
+    const Component = type === 'listbox' ? RACListBoxItem : RACMenuItem
 
     return (
         <Component
@@ -138,7 +138,7 @@ function OptionsItem<TType extends OptionType>({
                         ) : null}
                     </div>
                     {showCheckmarkOnSelected === true && isSelected ? (
-                        <IconCheck className='text-lo-contrast size-3' />
+                        <LucideCheck className='text-lo-contrast size-3' />
                     ) : null}
                 </>
             )}
@@ -148,7 +148,7 @@ function OptionsItem<TType extends OptionType>({
 OptionsItem.displayName = 'OptionsItem'
 
 function OptionsSection<TType extends OptionType>({ type, ...props }: OptionsSectionProps<TType>) {
-    const Component = type === 'listbox' ? AriaListBoxSection : AriaMenuSection
+    const Component = type === 'listbox' ? RACListBoxSection : RACMenuSection
 
     return (
         <Component className='mb-2 last:mb-0'>
@@ -156,22 +156,22 @@ function OptionsSection<TType extends OptionType>({ type, ...props }: OptionsSec
                 <OptionsSectionHeader>{props.textValue}</OptionsSectionHeader>
             ) : null}
 
-            <Collection items={props.items}>
+            <RACCollection items={props.items}>
                 {(props) => (
                     <OptionsItem
                         {...props}
                         type={type}
                     />
                 )}
-            </Collection>
+            </RACCollection>
         </Component>
     )
 }
 OptionsSection.displayName = 'OptionsSection'
 
-function OptionsSectionHeader(props: HeadingProps) {
+function OptionsSectionHeader(props: RACHeadingProps) {
     return (
-        <Header
+        <RACHeader
             className='text-lo-contrast px-1.5 py-1 text-xs font-medium tracking-wide uppercase'
             {...props}
         />

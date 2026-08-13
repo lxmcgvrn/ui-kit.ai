@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, EmptyState } from '@ui-kit.ai/components'
-import { SearchXIcon } from 'lucide-react'
+import { LucideSearchX } from 'lucide-react'
 
 export default function EmptyStateDefault() {
     return (
@@ -21,7 +21,7 @@ export default function EmptyStateDefault() {
                 </Button>,
             ]}
             body='This is the body'
-            icon={<SearchXIcon />}
+            icon={<LucideSearchX />}
             title='This is the title'
         />
     )

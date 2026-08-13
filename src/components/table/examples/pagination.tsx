@@ -13,10 +13,10 @@ import {
     TableHeader,
 } from '@ui-kit.ai/components'
 import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    ChevronsLeftIcon,
-    ChevronsRightIcon,
+    LucideChevronLeft,
+    LucideChevronRight,
+    LucideChevronsLeft,
+    LucideChevronsRight,
 } from 'lucide-react'
 
 export default function TablePagination() {
@@ -66,14 +66,14 @@ export default function TablePagination() {
                         isIcon
                         variant='tertiary'
                     >
-                        <ChevronsLeftIcon />
+                        <LucideChevronsLeft />
                     </Button>
                     <Button
                         aria-label='Previous page'
                         isIcon
                         variant='tertiary'
                     >
-                        <ChevronLeftIcon />
+                        <LucideChevronLeft />
                     </Button>
                     <Button
                         aria-label='Page 2'
@@ -102,14 +102,14 @@ export default function TablePagination() {
                         isIcon
                         variant='tertiary'
                     >
-                        <ChevronRightIcon />
+                        <LucideChevronRight />
                     </Button>
                     <Button
                         aria-label='Last page'
                         isIcon
                         variant='tertiary'
                     >
-                        <ChevronsRightIcon />
+                        <LucideChevronsRight />
                     </Button>
                 </div>
 

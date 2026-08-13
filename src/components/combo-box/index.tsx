@@ -1,9 +1,13 @@
 import type { ComponentProps, ForwardedRef } from 'react'
-import type { ComboBoxProps as AriaComboBoxProps } from 'react-aria-components'
+import type { ComboBoxProps as RACComboBoxProps } from 'react-aria-components'
 
-import { ChevronsUpDownIcon, XIcon } from 'lucide-react'
+import { LucideChevronsUpDown, LucideX } from 'lucide-react'
 import React, { useContext } from 'react'
-import { ComboBox as AriaComboBox, ComboBoxStateContext, ListBox } from 'react-aria-components'
+import {
+    ComboBox as RACComboBox,
+    ComboBoxStateContext as RACComboBoxStateContext,
+    ListBox as RACListBox,
+} from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import type { OptionsSchema } from '../types/options'
@@ -27,7 +31,7 @@ export interface ComboBoxButtonProps
 export function ComboBoxButton(props: ComboBoxButtonProps) {
     return (
         <FieldButton {...props}>
-            <ChevronsUpDownIcon aria-hidden />
+            <LucideChevronsUpDown aria-hidden />
         </FieldButton>
     )
 }
@@ -48,7 +52,7 @@ export interface ComboBoxClearButtonProps
  * set by the ComboBox.
  */
 export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
-    const state = useContext(ComboBoxStateContext)
+    const state = useContext(RACComboBoxStateContext)
 
     const isEmpty = state?.inputValue == null || state.inputValue === ''
 
@@ -72,7 +76,7 @@ export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
             }}
             slot={null} // Don't inherit default Button behavior from ComboBox.
         >
-            <XIcon
+            <LucideX
                 aria-hidden
                 className='size-4'
             />
@@ -109,7 +113,7 @@ export interface ComboBoxInputProps extends ComponentProps<typeof Input> {
  * toggle the ComboBox on click.
  */
 export const ComboBoxInput = ({ ref, ...props }: ComboBoxInputProps) => {
-    const state = useContext(ComboBoxStateContext)
+    const state = useContext(RACComboBoxStateContext)
 
     const { selectedItem, toggle } = state ?? {}
     const { value } = selectedItem ?? {}
@@ -136,8 +140,8 @@ ComboBoxInput.displayName = 'ComboBoxInput'
  * `ComboBox` accepts, plus this design system's presentational props.
  */
 export interface ComboBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
-    extends AriaComboBoxProps<T>,
-        Pick<ComponentProps<typeof ListBox>, 'renderEmptyState'> {
+    extends Pick<ComponentProps<typeof RACListBox>, 'renderEmptyState'>,
+        RACComboBoxProps<T> {
     ref?: ForwardedRef<HTMLDivElement>
     /**
      * When `true` a checkmark is rendered next to the selected option.
@@ -158,7 +162,7 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
     ...props
 }: ComboBoxProps<T>) {
     return (
-        <AriaComboBox<T>
+        <RACComboBox<T>
             {...props}
             className={(renderProps) =>
                 twMerge(
@@ -177,7 +181,7 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
                     <Popover
                         className='w-[calc(var(--trigger-width)+var(--spacing))]' // Account for the margin on the combobox button
                     >
-                        <ListBox<T>
+                        <RACListBox<T>
                             className='max-h-[inherit] overflow-auto p-1 outline-0 [clip-path:inset(0_0_0_0_round_.25rem)]'
                             items={items}
                             renderEmptyState={renderEmptyState}
@@ -189,11 +193,11 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
                                     type='listbox'
                                 />
                             )}
-                        </ListBox>
+                        </RACListBox>
                     </Popover>
                 </>
             )}
-        </AriaComboBox>
+        </RACComboBox>
     )
 }
 ComboBox.displayName = 'ComboBox'

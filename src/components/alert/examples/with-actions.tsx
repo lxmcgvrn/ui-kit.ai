@@ -1,7 +1,7 @@
 'use client'
 
 import { Alert, Button } from '@ui-kit.ai/components'
-import { InfoIcon } from 'lucide-react'
+import { LucideInfo } from 'lucide-react'
 
 export default function AlertWithActions() {
     return (
@@ -20,7 +20,7 @@ export default function AlertWithActions() {
                     Primary
                 </Button>,
             ]}
-            icon={<InfoIcon />}
+            icon={<LucideInfo />}
             text='You do not have any active subscriptions.'
         />
     )

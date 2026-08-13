@@ -1,25 +1,25 @@
 'use client'
 
 import { Button } from '@ui-kit.ai/components'
-import { StarIcon } from 'lucide-react'
+import { LucideStar } from 'lucide-react'
 
 export default function ButtonSlotRight() {
     return (
         <div className='flex gap-2'>
             <Button
-                slotRight={<StarIcon />}
+                slotRight={<LucideStar />}
                 variant='primary'
             >
                 Primary
             </Button>
             <Button
-                slotRight={<StarIcon />}
+                slotRight={<LucideStar />}
                 variant='secondary'
             >
                 Secondary
             </Button>
             <Button
-                slotRight={<StarIcon />}
+                slotRight={<LucideStar />}
                 variant='tertiary'
             >
                 Tertiary

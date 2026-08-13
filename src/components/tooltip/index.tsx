@@ -3,11 +3,11 @@ import type {
     TooltipTriggerComponentProps as RACTooltipTriggerProps,
 } from 'react-aria-components'
 
-import { Info as InfoIcon } from 'lucide-react'
+import { LucideInfo } from 'lucide-react'
 import { type ForwardedRef } from 'react'
 import {
     composeRenderProps,
-    OverlayArrow,
+    OverlayArrow as RACOverlayArrow,
     Tooltip as RACTooltip,
     TooltipTrigger as RACTooltipTrigger,
 } from 'react-aria-components'
@@ -97,7 +97,7 @@ export function Tooltip({ children, ...props }: TooltipProps) {
             )}
             offset={10}
         >
-            <OverlayArrow>
+            <RACOverlayArrow>
                 <svg
                     className='group-placement-left:-rotate-90 group-placement-right:rotate-90 group-placement-bottom:rotate-180
                         fill-[var(--theme-default-text-hi-contrast)] forced-colors:fill-[Canvas]
@@ -108,7 +108,7 @@ export function Tooltip({ children, ...props }: TooltipProps) {
                 >
                     <path d='M0 0 L4 4 L8 0' />
                 </svg>
-            </OverlayArrow>
+            </RACOverlayArrow>
 
             {children}
         </RACTooltip>
@@ -133,7 +133,7 @@ export function TooltipInfoButton({ ref, ...props }: TooltipInfoButtonProps) {
             ref={ref}
             variant='tertiary'
         >
-            <InfoIcon />
+            <LucideInfo />
         </Button>
     )
 }
