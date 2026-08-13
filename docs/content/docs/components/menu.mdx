@@ -1,0 +1,53 @@
+---
+title: Menu
+description: Displays a list of actions or options that a user can choose.
+---
+
+import MenuDefault from '@/components/demos/menu/default'
+import MenuDisabledKeys from '@/components/demos/menu/disabled-keys'
+import MenuSections from '@/components/demos/menu/sections'
+
+<ComponentPreview name='menu/default'>
+    <MenuDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Menu, MenuTrigger, Popover } from '@ui-kit.ai/components'
+```
+
+`MenuTrigger` takes two children: the element that opens the menu, and a `Popover` containing the
+`Menu`. Options are passed as data through the `items` prop rather than as children.
+
+## Sections
+
+Options can be grouped by nesting them under a section entry in `items`.
+
+<ComponentPreview name='menu/sections'>
+    <MenuSections />
+</ComponentPreview>
+
+## Disabled keys
+
+The `disabledKeys` prop takes the `id` of each option that should be non-selectable.
+
+<ComponentPreview name='menu/disabled-keys'>
+    <MenuDisabledKeys />
+</ComponentPreview>
+
+## Props
+
+### Menu
+
+<AutoTypeTable
+    name='MenuProps'
+    path='./lib/props/menu.ts'
+/>
+
+### MenuTrigger
+
+<AutoTypeTable
+    name='MenuTriggerProps'
+    path='./lib/props/menu.ts'
+/>

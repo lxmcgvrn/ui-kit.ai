@@ -1,0 +1,46 @@
+---
+title: FieldGroup
+description: Represents a set of related UI controls, and supports interactive states for styling.
+---
+
+import FieldGroupDefault from '@/components/demos/field-group/default'
+import FieldGroupSearchFieldKbd from '@/components/demos/field-group/search-field-kbd'
+import FieldGroupSelectTextField from '@/components/demos/field-group/select-text-field'
+
+<ComponentPreview name='field-group/default'>
+    <FieldGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { FieldGroup } from '@ui-kit.ai/components'
+```
+
+`FieldGroup` draws the border and background that a field appears to have, and tracks hover, focus,
+disabled and invalid state for everything inside it. Its children are therefore rendered
+borderless — pass `isBorderless` to the `Input`, `TextArea` or `SelectButton` it wraps.
+
+## Select + TextField
+
+Two controls can share a single group to read as one field.
+
+<ComponentPreview name='field-group/select-text-field'>
+    <FieldGroupSelectTextField />
+</ComponentPreview>
+
+## SearchField + Kbd
+
+Trailing content does not have to be interactive — here a `Kbd` advertises the shortcut that
+focuses the field.
+
+<ComponentPreview name='field-group/search-field-kbd'>
+    <FieldGroupSearchFieldKbd />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='FieldGroupProps'
+    path='./lib/props/field-group.ts'
+/>

@@ -1,0 +1,60 @@
+---
+title: Alert
+description: A message displayed to the user, using the ARIA alert role to signal its importance to assistive technologies.
+---
+
+import AlertDefault from '@/components/demos/alert/default'
+import AlertIntentError from '@/components/demos/alert/intent-error'
+import AlertIntentSuccess from '@/components/demos/alert/intent-success'
+import AlertIntentWarning from '@/components/demos/alert/intent-warning'
+import AlertWithActions from '@/components/demos/alert/with-actions'
+
+<ComponentPreview name='alert/default'>
+    <AlertDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Alert } from '@ui-kit.ai/components'
+```
+
+`text` is the only required prop. The `icon` prop overrides the default info icon, and defaults to
+an `InfoIcon` when omitted.
+
+## Actions
+
+The `actions` prop accepts up to two react nodes — typically buttons — rendered below the message.
+
+<ComponentPreview name='alert/with-actions'>
+    <AlertWithActions />
+</ComponentPreview>
+
+## Intent
+
+Use the `intent` prop to convey semantic meaning with color.
+
+### Error
+
+<ComponentPreview name='alert/intent-error'>
+    <AlertIntentError />
+</ComponentPreview>
+
+### Warning
+
+<ComponentPreview name='alert/intent-warning'>
+    <AlertIntentWarning />
+</ComponentPreview>
+
+### Success
+
+<ComponentPreview name='alert/intent-success'>
+    <AlertIntentSuccess />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='AlertProps'
+    path='./lib/props/alert.ts'
+/>

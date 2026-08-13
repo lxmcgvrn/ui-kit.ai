@@ -1,8 +1,8 @@
 {
-    "name": "ui-kit.ai-monorepo",
+    "name": "@ui-kit.ai/components",
     "version": "0.0.15",
-    "private": true,
     "description": "",
+    "keywords": [],
     "homepage": "https://ui-kit.ai",
     "bugs": {
         "url": "https://github.com/alex-mcgovern/ui-kit.ai/issues"
@@ -14,38 +14,113 @@
     "license": "MIT",
     "author": "Alex McGovern",
     "type": "module",
+    "exports": {
+        ".": "./dist/index.js",
+        "./style.css": "./dist/style.css",
+        "./package.json": "./package.json"
+    },
+    "main": "dist/index.js",
+    "source": "src/components/index.ts",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "build": "turbo build",
-        "build:watch": "turbo build:watch",
-        "check": "turbo check",
-        "check:eslint": "turbo check:eslint",
-        "check:prettier": "turbo check:prettier",
-        "check:tsc": "turbo check:tsc",
-        "check:vitest": "turbo check:vitest",
-        "fix": "turbo fix",
-        "fix:eslint": "turbo fix:eslint",
-        "fix:prettier": "turbo fix:prettier",
-        "publish-packages": "turbo publish-packages",
-        "sherif": "sherif",
-        "storybook": "turbo storybook",
-        "storycap": "turbo storycap",
-        "version:alpha": "tsx scripts/version.ts alpha && prettier **/package.json --write",
-        "version:major": "tsx scripts/version.ts major && prettier **/package.json --write",
-        "version:minor": "tsx scripts/version.ts minor && prettier **/package.json --write",
-        "version:patch": "tsx scripts/version.ts patch && prettier **/package.json --write"
+        "build": "pnpm build:lib && pnpm build:docs",
+        "build:docs": "cd docs && next build",
+        "build:lib": "pnpm gen:theme && vite build",
+        "check": "pnpm check:prettier && pnpm check:eslint && pnpm check:tsc && pnpm check:vitest",
+        "check:eslint": "eslint .",
+        "check:prettier": "prettier . --check",
+        "check:tsc": "tsc && tsc -p docs",
+        "check:vitest": "vitest run",
+        "dev": "pnpm gen:theme && cd docs && next dev",
+        "fix": "pnpm fix:prettier && pnpm fix:eslint",
+        "fix:eslint": "eslint . --fix",
+        "fix:prettier": "prettier . --write",
+        "gen:theme": "tsx src/theme/gen-palette.ts",
+        "prepare": "cd docs && fumadocs-mdx",
+        "prepublishOnly": "pnpm build:lib",
+        "smoke:pack": "./scripts/smoke-pack.sh"
+    },
+    "dependencies": {
+        "highlight.js": "11.11.1",
+        "lucide-react": "0.487.0",
+        "postcss": "8.5.3",
+        "prismjs": "1.30.0",
+        "react": "19.1.0",
+        "react-aria-components": "1.10.1",
+        "react-dom": "19.1.0",
+        "react-hook-form": "7.56.4",
+        "react-markdown": "10.1.0",
+        "react-syntax-highlighter": "15.6.1",
+        "remark-gfm": "4.0.1",
+        "tailwind-merge": "3.3.0",
+        "tailwind-variants": "1.0.0",
+        "tailwindcss": "4.1.6",
+        "tailwindcss-animate": "1.0.7",
+        "tailwindcss-react-aria-components": "2.0.0"
     },
     "devDependencies": {
-        "@commitlint/config-conventional": "19.8.1",
+        "@eslint/eslintrc": "2.1.4",
+        "@eslint/js": "9.19.0",
+        "@hookform/resolvers": "5.0.1",
+        "@tailwindcss/postcss": "4.1.9",
+        "@testing-library/jest-dom": "6.6.3",
+        "@testing-library/react": "16.3.0",
+        "@testing-library/user-event": "14.6.1",
+        "@types/culori": "4.0.0",
+        "@types/eslint": "9.6.1",
+        "@types/hast": "3.0.4",
+        "@types/mdx": "2.0.13",
         "@types/node": "22.15.17",
-        "@ui-kit.ai/prettier": "workspace:*",
-        "commitlint": "19.8.1",
-        "knip": "5.61.0",
-        "sherif": "1.5.0",
+        "@types/react": "19.1.3",
+        "@types/react-dom": "19.1.5",
+        "@types/react-syntax-highlighter": "15.5.13",
+        "@typescript-eslint/eslint-plugin": "8.31.0",
+        "@typescript-eslint/parser": "8.31.0",
+        "@vitejs/plugin-react": "4.3.4",
+        "culori": "4.0.1",
+        "eslint": "8.57.0",
+        "eslint-config-prettier": "9.1.0",
+        "eslint-plugin-perfectionist": "4.8.0",
+        "eslint-plugin-react": "7.37.4",
+        "eslint-plugin-react-hooks": "4.6.2",
+        "eslint-plugin-sonarjs": "1.0.4",
+        "fumadocs-core": "15.8.5",
+        "fumadocs-mdx": "12.0.3",
+        "fumadocs-typescript": "4.0.12",
+        "fumadocs-ui": "15.8.5",
+        "globals": "15.13.0",
+        "jsdom": "26.0.0",
+        "msw": "2.8.2",
+        "next": "15.5.23",
+        "prettier": "3.5.3",
+        "prettier-plugin-classnames": "0.7.7",
+        "prettier-plugin-merge": "0.7.3",
+        "prettier-plugin-packagejson": "2.5.10",
+        "prettier-plugin-tailwindcss": "0.6.11",
         "tsx": "4.19.3",
-        "turbo": "2.5.3"
+        "typescript": "5.5.4",
+        "vite": "6.2.2",
+        "vite-plugin-dts": "4.5.3",
+        "vitest": "3.0.8",
+        "zod": "3.25.62"
     },
     "packageManager": "pnpm@10.6.3",
     "engines": {
         "node": "22.x"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "msw",
+            "sharp"
+        ]
+    },
+    "msw": {
+        "workerDirectory": [
+            "docs/public"
+        ]
     }
 }

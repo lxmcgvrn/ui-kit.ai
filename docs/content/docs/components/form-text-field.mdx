@@ -1,0 +1,46 @@
+---
+title: FormTextField
+description: Connects a TextField to a Form component using react-hook-form.
+---
+
+import FormTextFieldDefault from '@/components/demos/form-text-field/default'
+import FormTextFieldIsInvalid from '@/components/demos/form-text-field/is-invalid'
+
+<ComponentPreview name='form-text-field/default'>
+    <FormTextFieldDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    FieldGroup,
+    Form,
+    FormTextField,
+    Input,
+    Label,
+    TextFieldClearButton,
+} from '@ui-kit.ai/components'
+```
+
+`FormTextField` registers itself with the surrounding `Form` under the `name` you give it, and
+renders a `FieldError` for you so validation messages from `react-hook-form` appear without any
+extra wiring. Compose the field body from a `Label` and a `FieldGroup` containing an `Input` and,
+optionally, a `TextFieldClearButton`. The `name` prop is required — the component throws without
+it.
+
+## Invalid
+
+The `isInvalid` prop marks the field as failing validation. The field is also marked invalid
+automatically whenever the form reports an error for it.
+
+<ComponentPreview name='form-text-field/is-invalid'>
+    <FormTextFieldIsInvalid />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='FormTextFieldProps'
+    path='./lib/props/form-text-field.ts'
+/>

@@ -1,0 +1,69 @@
+'use client'
+
+import type { ComponentProps, ComponentType } from 'react'
+
+import { Button, Tooltip, TooltipTrigger } from '@ui-kit.ai/components'
+import {
+    ArrowUp,
+    ArrowUpLeft,
+    ArrowUpRight,
+    MoveDownIcon,
+    MoveDownLeftIcon,
+    MoveDownRightIcon,
+    MoveLeftIcon,
+    MoveRightIcon,
+} from 'lucide-react'
+
+type Placement = ComponentProps<typeof Tooltip>['placement']
+
+const PLACEMENTS = [
+    'top left',
+    'top',
+    'top right',
+    'left',
+    null,
+    'right',
+    'bottom left',
+    'bottom',
+    'bottom right',
+] as const satisfies (null | Placement)[]
+
+type KnownPlacement = Exclude<(typeof PLACEMENTS)[number], null>
+
+const PLACEMENT_ICONS = {
+    bottom: MoveDownIcon,
+    'bottom left': MoveDownLeftIcon,
+    'bottom right': MoveDownRightIcon,
+    left: MoveLeftIcon,
+    right: MoveRightIcon,
+    top: ArrowUp,
+    'top left': ArrowUpLeft,
+    'top right': ArrowUpRight,
+} satisfies Record<KnownPlacement, ComponentType>
+
+export default function TooltipPlacement() {
+    return (
+        <div className='grid grid-cols-3 gap-2'>
+            {PLACEMENTS.map((placement) =>
+                placement === null ? (
+                    <div key='center' />
+                ) : (
+                    <TooltipTrigger key={placement}>
+                        <Button
+                            isIcon
+                            variant='secondary'
+                        >
+                            <PlacementIcon placement={placement} />
+                        </Button>
+                        <Tooltip placement={placement}>{placement}</Tooltip>
+                    </TooltipTrigger>
+                )
+            )}
+        </div>
+    )
+}
+
+function PlacementIcon({ placement }: { placement: KnownPlacement }) {
+    const Icon = PLACEMENT_ICONS[placement]
+    return <Icon className='h-4 w-4' />
+}

@@ -1,0 +1,93 @@
+---
+title: Theming
+description: A design-token based theming system, with an interactive palette editor.
+---
+
+@ui-kit.ai uses a **design token** based theming system to provide a consistent look and feel
+across components. The theme is customizable, allowing you to adjust colors to match your brand
+or personal preferences.
+
+The theme is implemented in Tailwind using custom CSS variables. This enables powerful extra
+functionality, like the **intent API**.
+
+## Palette editor
+
+Pick a preset, or mix your own palette, and see it applied to live components. Every colour in
+the theme is derived from four input colours.
+
+<ThemePlayground />
+
+Generate the same CSS at build time with the `@ui-kit.ai/theme` API:
+
+```ts title="generate-theme.ts"
+import { ColorPalette, PRESETS } from '@ui-kit.ai/theme'
+
+const css = new ColorPalette(PRESETS.professional).css({
+    overrideTwColors: true,
+    selector: ':root',
+})
+```
+
+## Intent API
+
+The intent API allows using color to communicate semantic meaning in the UI. All colors may be
+overridden using the intent API, though it is recommended to use this feature sparingly to
+preserve meaning.
+
+Most components accept an `intent` prop, which swaps the `--theme-default-*` tokens for the
+tokens of the given intent:
+
+| Intent      | Usage                                                |
+| ----------- | ---------------------------------------------------- |
+| `undefined` | The default, neutral palette.                        |
+| `info`      | Informational, non-blocking messaging.               |
+| `success`   | Confirmation that an action succeeded.               |
+| `warning`   | Something needs attention, but is not yet a failure. |
+| `error`     | A failure, or a destructive action.                  |
+
+## Background color
+
+The available background colors are an intentionally limited set of colors focusing on the
+following use cases:
+
+- **Backgrounds**: Page backgrounds, and raised elements.
+- **Tints**: Used primarily for communicating selection state within menus & lists.
+- **Accent**: Used for emphasis, primarily on buttons and other interactive elements.
+
+| Token                              | Utility            |
+| ---------------------------------- | ------------------ |
+| `--theme-default-bg-base`          | `bg-base`          |
+| `--theme-default-bg-base-raised`   | `bg-base-raised`   |
+| `--theme-default-bg-tint`          | `bg-tint`          |
+| `--theme-default-bg-primary`       | `bg-primary`       |
+| `--theme-default-bg-primary-hover` | `bg-primary-hover` |
+
+## Text
+
+The available text colors are also quite limited:
+
+- **Accent**: Engineered to have a suitable contrast ratio against the accent background color.
+- **Placeholder**: Suitable for placeholders in form fields.
+- **Lo contrast**: Used for secondary text, such as descriptions and labels.
+- **Hi contrast**: Used for primary text, such as headings and body text.
+
+| Token                              | Utility            |
+| ---------------------------------- | ------------------ |
+| `--theme-default-text-hi-contrast` | `text-hi-contrast` |
+| `--theme-default-text-lo-contrast` | `text-lo-contrast` |
+| `--theme-default-text-placeholder` | `text-placeholder` |
+| `--theme-default-text-accent`      | `text-accent`      |
+
+## Border
+
+The available border colors are also quite limited:
+
+- **Default**: Used for subtle borders, such as in cards and panels.
+- **Field**: Used for form field borders.
+- **Field hover**: The hover state of a form field border.
+
+| Token                                | Utility              |
+| ------------------------------------ | -------------------- |
+| `--theme-default-border-default`     | `border-default`     |
+| `--theme-default-border-field`       | `border-field`       |
+| `--theme-default-border-field-hover` | `border-field-hover` |

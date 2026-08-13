@@ -1,0 +1,44 @@
+---
+title: ColorSwatch
+description: Displays a color, with the accessibility semantics of a color preview.
+---
+
+import ColorSwatchCustomSize from '@/components/demos/color-swatch/custom-size'
+import ColorSwatchDefault from '@/components/demos/color-swatch/default'
+import ColorSwatchWithBorder from '@/components/demos/color-swatch/with-border'
+
+<ComponentPreview name='color-swatch/default'>
+    <ColorSwatchDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ColorSwatch } from '@ui-kit.ai/components'
+```
+
+The `color` prop accepts any CSS color string, or a react-aria `Color` object. The swatch is
+`size-8` with a rounded border by default.
+
+## Custom size
+
+Size the swatch with the `className` prop.
+
+<ComponentPreview name='color-swatch/custom-size'>
+    <ColorSwatchCustomSize />
+</ComponentPreview>
+
+## Custom border
+
+The default border can be replaced the same way.
+
+<ComponentPreview name='color-swatch/with-border'>
+    <ColorSwatchWithBorder />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ColorSwatchProps'
+    path='./lib/props/color-swatch.ts'
+/>

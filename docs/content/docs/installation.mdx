@@ -1,0 +1,51 @@
+---
+title: Installation
+description: Getting up and running is quick and easy.
+---
+
+## Install the package
+
+Install the package from your command line:
+
+```shell
+npm i @ui-kit.ai/components
+```
+
+## Configure Tailwind CSS
+
+This library depends on Tailwind v4.0.0 or later. If you don't have Tailwind CSS installed, you
+can set it up by following the
+[Tailwind CSS installation guide](https://tailwindcss.com/docs/installation).
+
+Once you have Tailwind installed, you will need to add the following to the CSS file that imports
+Tailwind:
+
+```css title="global.css"
+@import 'tailwindcss';
+@import '../node_modules/@ui-kit.ai/components/dist/style.css';
+
+@plugin "tailwindcss-react-aria-components";
+@source "../node_modules/@ui-kit.ai/components/dist";
+```
+
+<Callout title='Why the @source directives?'>
+    Components ship pre-compiled, so Tailwind has to scan the published `dist` output to generate
+    the utility classes they reference.
+</Callout>
+
+## Light & dark mode
+
+The theme resolves its colours with the CSS
+[`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark) function,
+which follows the `color-scheme` property. To wire it up to your own theme toggle, set
+`color-scheme` on the element that carries the toggle's class or attribute:
+
+```css title="global.css"
+:root {
+    color-scheme: light;
+}
+
+.dark {
+    color-scheme: dark;
+}
+```

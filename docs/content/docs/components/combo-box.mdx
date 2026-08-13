@@ -1,0 +1,111 @@
+---
+title: ComboBox
+description: Combines a text input with a listbox, letting users filter a list of options to items matching a query.
+---
+
+import ComboBoxBorderless from '@/components/demos/combo-box/borderless'
+import ComboBoxDefault from '@/components/demos/combo-box/default'
+import ComboBoxDisabled from '@/components/demos/combo-box/disabled'
+import ComboBoxDisabledKeys from '@/components/demos/combo-box/disabled-keys'
+import ComboBoxInvalid from '@/components/demos/combo-box/invalid'
+import ComboBoxSections from '@/components/demos/combo-box/sections'
+
+<ComponentPreview name='combo-box/default'>
+    <ComboBoxDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    ComboBox,
+    ComboBoxButton,
+    ComboBoxClearButton,
+    ComboBoxFieldGroup,
+    ComboBoxInput,
+} from '@ui-kit.ai/components'
+```
+
+`ComboBox` is composed from parts. `ComboBoxFieldGroup` wraps the trigger row and measures it so
+the popover matches its width, `ComboBoxInput` filters the options as the user types,
+`ComboBoxClearButton` appears once an option is selected, and `ComboBoxButton` toggles the popover.
+
+Options are passed as data through the `items` prop rather than as children.
+
+## Sections
+
+Options can be grouped by nesting them under a section entry in `items`.
+
+<ComponentPreview name='combo-box/sections'>
+    <ComboBoxSections />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop applies the error styling to the field.
+
+<ComponentPreview name='combo-box/invalid'>
+    <ComboBoxInvalid />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the combo box, and prevent focus and interaction.
+
+<ComponentPreview name='combo-box/disabled'>
+    <ComboBoxDisabled />
+</ComponentPreview>
+
+## Borderless
+
+Pass `isBorderless` to `ComboBoxFieldGroup` to drop the border and background, for use inside an
+already-bordered container.
+
+<ComponentPreview name='combo-box/borderless'>
+    <ComboBoxBorderless />
+</ComponentPreview>
+
+## With disabled keys
+
+The `disabledKeys` prop takes the `id` of each option that should be non-selectable.
+
+<ComponentPreview name='combo-box/disabled-keys'>
+    <ComboBoxDisabledKeys />
+</ComponentPreview>
+
+## Props
+
+### ComboBox
+
+<AutoTypeTable
+    name='ComboBoxProps'
+    path='./lib/props/combo-box.ts'
+/>
+
+### ComboBoxFieldGroup
+
+<AutoTypeTable
+    name='ComboBoxFieldGroupProps'
+    path='./lib/props/combo-box.ts'
+/>
+
+### ComboBoxInput
+
+<AutoTypeTable
+    name='ComboBoxInputProps'
+    path='./lib/props/combo-box.ts'
+/>
+
+### ComboBoxButton
+
+<AutoTypeTable
+    name='ComboBoxButtonProps'
+    path='./lib/props/combo-box.ts'
+/>
+
+### ComboBoxClearButton
+
+<AutoTypeTable
+    name='ComboBoxClearButtonProps'
+    path='./lib/props/combo-box.ts'
+/>

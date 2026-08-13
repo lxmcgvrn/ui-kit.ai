@@ -1,0 +1,84 @@
+---
+title: Avatar
+description: Renders an avatar, falling back to initial letters when no image is provided.
+---
+
+import AvatarDefault from '@/components/demos/avatar/default'
+import AvatarLoading from '@/components/demos/avatar/loading'
+import AvatarNoName from '@/components/demos/avatar/no-name'
+import AvatarSingleName from '@/components/demos/avatar/single-name'
+import AvatarSquare from '@/components/demos/avatar/square'
+import AvatarSquareWithImage from '@/components/demos/avatar/square-with-image'
+import AvatarWithImage from '@/components/demos/avatar/with-image'
+
+<ComponentPreview name='avatar/default'>
+    <AvatarDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Avatar } from '@ui-kit.ai/components'
+```
+
+Pass either a `name`, an `src`, or both. With only a `name`, the avatar renders the initials
+derived from it.
+
+## Image
+
+The `src` prop accepts a remote URL or a data URL. The image is preloaded, and the initials remain
+visible until it has loaded.
+
+<ComponentPreview name='avatar/with-image'>
+    <AvatarWithImage />
+</ComponentPreview>
+
+## Shape
+
+The `variant` prop controls the shape of the avatar. It defaults to `circle`.
+
+### Square
+
+<ComponentPreview name='avatar/square'>
+    <AvatarSquare />
+</ComponentPreview>
+
+### Square with image
+
+<ComponentPreview name='avatar/square-with-image'>
+    <AvatarSquareWithImage />
+</ComponentPreview>
+
+## Loading state
+
+The `isLoading` prop replaces the avatar's content with a spinner.
+
+<ComponentPreview name='avatar/loading'>
+    <AvatarLoading />
+</ComponentPreview>
+
+## Initials
+
+A name containing a space is reduced to the first letter of its first two words. A single word is
+reduced to its first letter.
+
+### Single name
+
+<ComponentPreview name='avatar/single-name'>
+    <AvatarSingleName />
+</ComponentPreview>
+
+### No name
+
+With neither a `name` nor an `src`, the avatar renders as an empty placeholder.
+
+<ComponentPreview name='avatar/no-name'>
+    <AvatarNoName />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='AvatarProps'
+    path='./lib/props/avatar.ts'
+/>

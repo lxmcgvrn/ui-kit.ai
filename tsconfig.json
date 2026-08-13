@@ -1,0 +1,25 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "lib": ["ES2022", "dom", "dom.iterable"],
+        "paths": {
+            "@ui-kit.ai/components": ["./src/components/index.ts"],
+            "@ui-kit.ai/mocks": ["./src/mocks/index.ts"],
+            "@ui-kit.ai/theme": ["./src/theme/index.ts"]
+        },
+        "target": "ES2022",
+        "types": ["@testing-library/jest-dom", "node"]
+    },
+    "include": [
+        ".prettierrc.mjs",
+        "eslint.config.mjs",
+        "config/**/*",
+        "src/**/*",
+        "vite.config.mjs",
+        "vitest.config.mjs",
+        "vitest.setup.ts"
+    ],
+    "exclude": ["node_modules", "dist", "docs", "packages"]
+}

@@ -1,0 +1,61 @@
+---
+title: Tooltip
+description: Displays a description of an element on hover or focus.
+---
+
+import TooltipDefault from '@/components/demos/tooltip/default'
+import TooltipPlacement from '@/components/demos/tooltip/placement'
+import TooltipTriggerDemo from '@/components/demos/tooltip/trigger'
+
+<ComponentPreview name='tooltip/default'>
+    <TooltipDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Tooltip, TooltipInfoButton, TooltipTrigger } from '@ui-kit.ai/components'
+```
+
+Wrap the trigger element and the `Tooltip` in a `TooltipTrigger`. `TooltipInfoButton` is a
+ready-made info icon button for the common "explain this label" case.
+
+## Trigger
+
+The Tooltip can be composed with a number of different components, like `Button`, `Link`, `Tab` and
+more. The element that triggers the tooltip must be able to receive focus.
+
+<ComponentPreview name='tooltip/trigger'>
+    <TooltipTriggerDemo />
+</ComponentPreview>
+
+## Placement
+
+react-aria supports a pretty comprehensive range of placement options, some of which are shown here.
+It is important to note that the Tooltip may flip when it detects a collision with a parent or
+window edge.
+
+<ComponentPreview name='tooltip/placement'>
+    <TooltipPlacement />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='TooltipProps'
+    path='./lib/props/tooltip.ts'
+/>
+
+### TooltipTrigger
+
+<AutoTypeTable
+    name='TooltipTriggerProps'
+    path='./lib/props/tooltip.ts'
+/>
+
+### TooltipInfoButton
+
+<AutoTypeTable
+    name='TooltipInfoButtonProps'
+    path='./lib/props/tooltip.ts'
+/>
