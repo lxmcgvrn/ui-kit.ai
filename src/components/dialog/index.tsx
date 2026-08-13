@@ -70,7 +70,10 @@ const dialogStyles = tv({
         'w-full max-w-[100dvw]',
         // border
         'rounded-none md:rounded-lg',
-        'sm:max-sm:border-0',
+        // `border-none` rather than `border-0`: the hairline `.border` override
+        // in `index.css` is last in the utilities layer, so it out-ranks any
+        // same-specificity width utility — killing the style instead wins.
+        'sm:max-sm:border-none',
         'border-default border',
         '[[data-placement]>&]:p-4',
     ],

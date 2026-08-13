@@ -6,7 +6,15 @@ import { tv } from 'tailwind-variants'
 import { fieldVariants } from '../styles/field-variants'
 
 const textAreaStyles = tv({
-    base: ['px-3 py-1.5', 'text-sm', 'w-full', 'text-start align-middle', 'min-h-24'],
+    base: [
+        'px-3 py-1.5',
+        'text-sm',
+        'w-full',
+        'text-start align-middle',
+        'min-h-24',
+        // Users can resize vertically, but the width is fixed by the field.
+        'resize-y',
+    ],
     extend: fieldVariants,
 })
 

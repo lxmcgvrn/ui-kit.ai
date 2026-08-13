@@ -1,0 +1,54 @@
+/*
+ * App-level base styles for the docs site.
+ *
+ * These used to live in `src/components/index.css` and therefore shipped inside
+ * the published `dist/style.css`, where they restyled the *consumer's* app —
+ * page background, root font size, paragraph rhythm, and so on.
+ * None of the library's components depend on them, so they were moved here.
+ *
+ * `global.css` imports this file at exactly the point `../../components/index.css`
+ * used to sit in the cascade (before the Fumadocs preset), so the rendered docs
+ * site is unchanged.
+ */
+
+/* Scale up hit targets on high resolution mobile devices. */
+@media (min-resolution: 200dpi) {
+    :root {
+        font-size: 18px;
+    }
+}
+
+:root {
+    @apply bg-base text-lo-contrast;
+
+    overscroll-behavior: none; /* Prevents scroll chaining */
+
+    font-size: 16px; /* Basis for REM units */
+
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-text-size-adjust: 100%; /* Prevents iOS from resizing text */
+    -webkit-tap-highlight-color: transparent; /* Prevents iOS from highlighting text on tap */
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+p:not(:last-child) {
+    margin-bottom: calc(var(--spacing) * 4);
+}
+
+strong {
+    font-weight: 500;
+    color: var(--theme-default-text-hi-contrast);
+}
+
+.code,
+code {
+    font-size: 92%;
+}

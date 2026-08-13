@@ -1,130 +1,63 @@
 @import '../theme/generated/style.css';
 
-/*
-████████╗██╗  ██╗███████╗███╗   ███╗███████╗
-╚══██╔══╝██║  ██║██╔════╝████╗ ████║██╔════╝
-   ██║   ███████║█████╗  ██╔████╔██║█████╗  
-   ██║   ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  
-   ██║   ██║  ██║███████╗██║ ╚═╝ ██║███████╗
-   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝
-*/
-
 @theme {
     --height-ui-element: 2rem;
     --default-transition-duration: 50ms;
 }
 
-/* 
-██╗   ██╗████████╗██╗██╗     ██╗████████╗██╗███████╗███████╗
-██║   ██║╚══██╔══╝██║██║     ██║╚══██╔══╝██║██╔════╝██╔════╝
-██║   ██║   ██║   ██║██║     ██║   ██║   ██║█████╗  ███████╗
-██║   ██║   ██║   ██║██║     ██║   ██║   ██║██╔══╝  ╚════██║
-╚██████╔╝   ██║   ██║███████╗██║   ██║   ██║███████╗███████║
- ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝   ╚═╝   ╚═╝╚══════╝╚══════╝
-*/
-
-@utilities {
+/*
+ * Hairline borders and outlines — the design system's default stroke is 0.5px,
+ * not Tailwind's 1px.
+ *
+ * This has to be a `@layer utilities` block rather than `@utility`: Tailwind
+ * emits `@utility` (static) definitions *before* its own functional utilities
+ * of the same name, so an `@utility border { … }` loses to core `.border` and
+ * is dead on arrival. Appending to `@layer utilities` after `tailwindcss` has
+ * been imported puts these last in the layer, where they win — while still
+ * staying inside a layer, so a consumer's own unlayered CSS still beats them.
+ *
+ * Only the widths are set. `border-style` is already `solid` for every element
+ * via Tailwind's preflight, and leaving it alone is what lets `border-dashed` /
+ * `border-none` keep working alongside these.
+ *
+ * There is no `outline-top-width` (or -right/-bottom/-left) property in CSS, so
+ * outlines only get the shorthand.
+ */
+@layer utilities {
     .border {
         border-width: 0.5px;
+    }
 
-        &-t {
-            border-top-width: 0.5px;
-        }
-        &-r {
-            border-right-width: 0.5px;
-        }
-        &-b {
-            border-bottom-width: 0.5px;
-        }
-        &-l {
-            border-left-width: 0.5px;
-        }
+    .border-t {
+        border-top-width: 0.5px;
+    }
+
+    .border-r {
+        border-right-width: 0.5px;
+    }
+
+    .border-b {
+        border-bottom-width: 0.5px;
+    }
+
+    .border-l {
+        border-left-width: 0.5px;
     }
 
     .outline {
+        outline-style: var(--tw-outline-style, solid);
         outline-width: 0.5px;
-
-        &-t {
-            outline-top-width: 0.5px;
-        }
-        &-r {
-            outline-right-width: 0.5px;
-        }
-        &-b {
-            outline-bottom-width: 0.5px;
-        }
-        &-l {
-            outline-left-width: 0.5px;
-        }
     }
 }
 
 /*
-██████╗  █████╗ ███████╗███████╗
-██╔══██╗██╔══██╗██╔════╝██╔════╝
-██████╔╝███████║███████╗█████╗  
-██╔══██╗██╔══██║╚════██║██╔══╝  
-██████╔╝██║  ██║███████║███████╗                                   
-/*
-
-/* Scale up hit targets on high resolution mobile devices. */
-@media (min-resolution: 200dpi) {
-    :root {
-        font-size: 18px;
-    }
-}
-
-:root {
-    @apply bg-base text-lo-contrast;
-    color-scheme: dark light;
-
-    scrollbar-color: var(--gray-400) transparent;
-    accent-color: var(--color-accent);
-    overscroll-behavior: none; /* Prevents scroll chaining */
-
-    font-size: 16px; /* Basis for REM units */
-
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    -webkit-text-size-adjust: 100%; /* Prevents iOS from resizing text */
-    -webkit-tap-highlight-color: transparent; /* Prevents iOS from highlighting text on tap */
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
-}
-
+ * Suppress the user-agent focus ring so the one below is the only ring that
+ * ever shows. Both selectors are weak on purpose (specificity 0-0-0 and 0-1-0),
+ * so a consuming app's own focus styles still win.
+ */
 * {
-    outline-color: transparent; /* Prevents outline flicker on focus */
+    outline-color: transparent;
     outline-width: 0;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-}
-
-p:not(:last-child) {
-    margin-bottom: calc(var(--spacing) * 4);
-}
-
-strong {
-    font-weight: 500;
-    color: var(--theme-default-text-hi-contrast);
-}
-
-.code,
-code {
-    font-size: 92%;
-}
-
-/* Global colors for highlighted text */
-::selection {
-    background: var(--theme-default-bg-primary);
-    color: var(--theme-default-text-accent);
-}
-
-textarea {
-    resize: vertical; /* user can resize vertically, but width is fixed */
 }
 
 :focus,
@@ -145,23 +78,24 @@ Also to any focus-within element that has a focus-visible child.
     outline-offset: 2px;
 }
 
-/* Hide the user agent default clear button on search inputs */
+/* Hide the user agent default clear button on search inputs — `SearchField`
+ * renders its own clear button. */
 [type='search']::-webkit-search-cancel-button,
 [type='search']::-webkit-search-decoration {
     -webkit-appearance: none;
     appearance: none;
 }
 
-/* Override cursor for all disabled elements */
+/* Override cursor for all disabled elements. React Aria marks disabled
+ * elements with `aria-disabled` rather than `disabled` in many cases. */
 [disabled],
 [aria-disabled='true'] {
     cursor: not-allowed;
 }
 
-/* Re-usable class for thing scrollbars (e.g. dialog, dropdown, etc) */
+/* Re-usable class for thin scrollbars (e.g. dialog, dropdown, etc) */
 .scrollbar-thin {
     scrollbar-width: thin;
-    /* scrollbar-color: var(--gray-400) transparent; */
 }
 
 /* Chrome, Safari and Opera */
@@ -175,12 +109,10 @@ Also to any focus-within element that has a focus-visible child.
 }
 
 /*
- ██████╗ ██████╗ ██████╗ ███████╗
-██╔════╝██╔═══██╗██╔══██╗██╔════╝
-██║     ██║   ██║██║  ██║█████╗  
-██║     ██║   ██║██║  ██║██╔══╝  
-╚██████╗╚██████╔╝██████╔╝███████╗
- ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
+ * Syntax highlighting for `CodeBlock` / `CodeInline`.
+ *
+ * Both render through `react-syntax-highlighter` with `useInlineStyles={false}`,
+ * so the Prism token classes below are the only thing that colours them.
  */
 
 .react-syntax-highlighter-line-number {
@@ -260,12 +192,14 @@ pre[class*='language-'] {
     color: var(--color-syntax-4);
 }
 
-.token.comment {
-    color: var(--color-mid-contrast);
-}
-
 .highlight-word {
     display: inline-block;
     color: var(--theme-default-text-hi-contrast);
     background-color: var(--theme-default-bg-tint);
+}
+
+/* Global colors for highlighted text */
+::selection {
+    background: var(--theme-default-bg-primary);
+    color: var(--theme-default-text-accent);
 }

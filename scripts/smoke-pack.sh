@@ -66,4 +66,49 @@ node --input-type=module -e "
     }
 "
 
+# Type-check the tarball the way a strict consumer would.
+#
+# `skipLibCheck: false` is the point: it forces TypeScript to actually load and
+# check every `.d.ts` the published types reach for. A type that leaks in from a
+# package whose typings live in *our* `devDependencies` (`@types/*` that the
+# consumer never installs) resolves fine in this repo but breaks here.
+echo "smoke:pack: type-checking $PKG_NAME as a strict consumer"
+
+cat > "$CONSUMER/tsconfig.json" <<'JSON'
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "lib": ["DOM", "DOM.Iterable", "ES2022"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "noEmit": true,
+        "skipLibCheck": false,
+        "strict": true,
+        "target": "ES2022"
+    },
+    "include": ["consumer.ts"]
+}
+JSON
+
+cat > "$CONSUMER/consumer.ts" <<TS
+// A side-effect import of the stylesheet subpath, the way the installation
+// guide tells consumers to pull it in. TypeScript resolves the subpath through
+// the exports map but does not type-check CSS.
+import '$PKG_NAME/style.css'
+
+import type { ButtonProps, CodeBlockProps, MarkdownProps } from '$PKG_NAME'
+
+import { Button, CodeBlock, Markdown } from '$PKG_NAME'
+
+export const components = [Button, CodeBlock, Markdown]
+
+export type PublicProps = [ButtonProps, CodeBlockProps, MarkdownProps]
+TS
+
+echo "smoke:pack: installing typescript + react types into the scratch project"
+npm install --no-audit --no-fund --loglevel=error \
+    typescript@5 @types/react@19 >/dev/null
+
+./node_modules/.bin/tsc --project tsconfig.json
+
 echo "smoke:pack: OK"
