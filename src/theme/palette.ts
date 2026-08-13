@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable perfectionist/sort-objects */
 import type { Hsl } from 'culori'
 

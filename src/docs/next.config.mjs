@@ -19,14 +19,9 @@ const resolveAlias = {
 
 /** @type {import('next').NextConfig} */
 const config = {
+    // Linting is owned by the repo root (`pnpm check:eslint`).
     eslint: {
-        // Linting is owned by the repo root (`pnpm check:eslint`), which lints
-        // this app with the strict flat config, so `next build` is given nothing
-        // to lint. Note that Next still tries to boot ESLint and logs a harmless
-        // `Invalid Options` message: its runner passes eslintrc-only options to
-        // ESLint 8.57's flat-config API. It goes away once the repo moves to
-        // ESLint 9 — it does not fail the build, and no errors are suppressed.
-        dirs: [],
+        ignoreDuringBuilds: true,
     },
     images: {
         // Next's image optimizer is unavailable in a static export.

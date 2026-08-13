@@ -1,16 +1,12 @@
-// @ts-expect-error - no .dts
-import { FlatCompat } from '@eslint/eslintrc'
 import jsPlugin from '@eslint/js'
-// @ts-expect-error - no .dts
 import eslintConfigPrettier from 'eslint-config-prettier'
+import commentSlop from 'eslint-plugin-comment-slop'
 import perfectionist from 'eslint-plugin-perfectionist'
 import react from 'eslint-plugin-react'
-import sonarjsPlugin from 'eslint-plugin-sonarjs'
+import reactHooks from 'eslint-plugin-react-hooks'
+import { configs as sonarjsConfigs } from 'eslint-plugin-sonarjs'
 import globals from 'globals'
-
-const compat = new FlatCompat({
-    baseDirectory: import.meta.dirname,
-})
+import tseslint from 'typescript-eslint'
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [
@@ -29,9 +25,15 @@ export default [
         ],
     },
     jsPlugin.configs.recommended,
-    sonarjsPlugin.configs.recommended,
+    sonarjsConfigs.recommended,
     perfectionist.configs['recommended-natural'],
-    ...compat.extends('plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'),
+    ...tseslint.configs.strictTypeChecked,
+    ...tseslint.configs.stylisticTypeChecked,
+    // Index access on `configs.flat` is typed as possibly-undefined; both
+    // presets always exist.
+    react.configs.flat.recommended ?? {},
+    react.configs.flat['jsx-runtime'] ?? {},
+    reactHooks.configs.flat.recommended,
     eslintConfigPrettier,
     {
         languageOptions: {
@@ -48,28 +50,47 @@ export default [
             },
         },
         plugins: {
-            react,
+            'comment-slop': commentSlop,
+        },
+        settings: {
+            react: {
+                // Explicit, not 'detect': eslint-plugin-react's version
+                // detection calls a context API that ESLint 10 removed.
+                version: '19.1.0',
+            },
+        },
+    },
+    {
+        // Newly firing after the sonarjs 4 / react-hooks 7 upgrade.
+        rules: {
+            'react-hooks/set-state-in-effect': 'off',
+            'sonarjs/cognitive-complexity': 'off',
+            'sonarjs/function-return-type': 'off',
+            'sonarjs/no-redundant-optional': 'off',
+            'sonarjs/no-skipped-tests': 'off',
+            'sonarjs/no-undefined-argument': 'off',
+            'sonarjs/prefer-read-only-props': 'off',
+            'sonarjs/prefer-specific-assertions': 'off',
+            'sonarjs/pseudo-random': 'off',
+            'sonarjs/todo-tag': 'off',
         },
     },
     {
         files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
         rules: {
+            // Not part of any typescript-eslint preset.
             '@typescript-eslint/consistent-type-imports': [
                 'error',
                 {
                     prefer: 'type-imports',
                 },
             ],
-            '@typescript-eslint/no-confusing-non-null-assertion': 'error',
-            '@typescript-eslint/no-deprecated': 'error',
+            // In the strict preset, but our option loosens the default.
             '@typescript-eslint/no-empty-object-type': [
                 'error',
                 { allowInterfaces: 'with-single-extends' },
             ],
-            '@typescript-eslint/no-explicit-any': 'error',
-            '@typescript-eslint/no-misused-promises': 'error',
-            '@typescript-eslint/no-non-null-assertion': 'error',
-            '@typescript-eslint/no-unnecessary-condition': 'error',
+            // In the strict preset, but with none of these escape hatches.
             '@typescript-eslint/no-unused-vars': [
                 'error',
                 {
@@ -82,10 +103,10 @@ export default [
                     varsIgnorePattern: '^_',
                 },
             ],
-            '@typescript-eslint/prefer-nullish-coalescing': 'error',
-            '@typescript-eslint/require-await': 'error',
+            // Not part of any typescript-eslint preset.
             '@typescript-eslint/strict-boolean-expressions': 'error',
             '@typescript-eslint/switch-exhaustiveness-check': 'error',
+            'comment-slop/write-short': 'error',
             eqeqeq: ['error', 'smart'],
             'no-console': [
                 'error',
@@ -117,14 +138,21 @@ export default [
                     ignoreImport: false,
                 },
             ],
+            // Pinned to perfectionist 4's default; 5 adds @/ and # to it.
+            'perfectionist/sort-imports': [
+                'error',
+                {
+                    internalPattern: ['^~/.+'],
+                    order: 'asc',
+                    type: 'natural',
+                },
+            ],
             'perfectionist/sort-interfaces': [
                 'error',
                 {
                     customGroups: [],
-                    groupKind: 'mixed',
                     groups: [],
                     ignoreCase: false,
-                    ignorePattern: [],
                     newlinesBetween: 'ignore',
                     order: 'asc',
                     partitionByComment: false,
