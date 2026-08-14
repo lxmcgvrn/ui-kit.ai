@@ -38,7 +38,7 @@ const tooltipStyles = tv({
             'px-2 py-1',
             'text-sm',
             'bg-[var(--theme-default-text-hi-contrast)] text-[var(--theme-default-bg-base-raised)]',
-            'group rounded drop-shadow-sm',
+            'group rounded-sm drop-shadow-sm',
             // transition
             'transition-all duration-200 will-change-transform',
             'translate-y-0',

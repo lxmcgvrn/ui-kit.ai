@@ -15,7 +15,7 @@ import { renderSlot, type SlotNode } from '../types/slotted-node'
 
 const buttonStyle = tv({
     base: [
-        'rounded',
+        'rounded-sm',
         'border',
         'inline-flex shrink-0 items-center justify-center gap-1.5',
         'h-ui-element',

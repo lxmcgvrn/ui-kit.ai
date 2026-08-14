@@ -6,7 +6,9 @@
         "target": "ES2022",
         "types": ["@testing-library/jest-dom"]
     },
-    "include": ["src/components/**/*"],
+    // `src/theme` is here for its `Intent` type, which the components re-export;
+    // the declaration bundle has to see it to inline it.
+    "include": ["src/components/**/*", "src/theme/index.ts"],
     // `src/docs` is the docs app; `examples` folders are docs-only sources that
     // sit next to the components they document — neither is part of the bundle.
     "exclude": ["dist", "node_modules", "src/docs", "src/components/**/examples"]

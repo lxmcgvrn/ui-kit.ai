@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 import './global.css'
 
 import { UIKitRouterProvider } from '@/components/providers/router-provider'
+import { ThemeEditorDrawer } from '@/components/theme-editor'
 import { RootProvider } from 'fumadocs-ui/provider'
 import { Inter } from 'next/font/google'
 
@@ -41,7 +42,11 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
                         },
                     }}
                 >
-                    <UIKitRouterProvider>{children}</UIKitRouterProvider>
+                    <UIKitRouterProvider>
+                        {children}
+                        {/* Mounted once, site-wide: it restores the saved theme on load. */}
+                        <ThemeEditorDrawer />
+                    </UIKitRouterProvider>
                 </RootProvider>
             </body>
         </html>

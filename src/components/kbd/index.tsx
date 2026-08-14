@@ -14,7 +14,7 @@ export function Kbd(props: KbdProps) {
                 'text-center align-text-bottom',
                 'text-xs font-medium whitespace-nowrap',
                 'px-1',
-                'rounded border border-b-[1.5px]',
+                'rounded-sm border border-b-[1.5px]',
                 'border-default',
                 'bg-current/10 text-current/80',
                 props.className

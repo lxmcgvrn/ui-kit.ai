@@ -1,6 +1,6 @@
 ---
 title: Theming
-description: A design-token based theming system, with an interactive palette editor.
+description: A design-token based theming system, with a live editor built into the site.
 ---
 
 @ui-kit.ai uses a **design token** based theming system to provide a consistent look and feel
@@ -10,21 +10,29 @@ or personal preferences.
 The theme is implemented in Tailwind using custom CSS variables. This enables powerful extra
 functionality, like the **intent API**.
 
-## Palette editor
+## Theme editor
 
-Pick a preset, or mix your own palette, and see it applied to live components. Every colour in
-the theme is derived from four input colours.
+The theme editor lives in the site nav — the palette button, on every page. Pick a preset or mix
+your own seed colours, drag the radius, and the entire site re-themes as you type. Your theme is
+kept in this browser until you reset it, and **Copy CSS** hands you a stylesheet that overrides
+the one shipped in `@ui-kit.ai/components/style.css`.
 
-<ThemePlayground />
+<ThemeEditorButton />
 
 Generate the same CSS at build time with the `@ui-kit.ai/theme` API:
 
 ```ts title="generate-theme.ts"
-import { ColorPalette, PRESETS } from '@ui-kit.ai/theme'
+import { themeCss } from '@ui-kit.ai/theme'
 
-const css = new ColorPalette(PRESETS.professional).css({
-    overrideTwColors: true,
-    selector: ':root',
+const css = themeCss({
+    colors: {
+        default: '#3E63DD',
+        error: '#E54666',
+        info: '#3E63DD',
+        success: '#29A383',
+        warning: '#FFC53D',
+    },
+    radius: 0.375,
 })
 ```
 

@@ -4,7 +4,7 @@ export const fieldVariants = tv({
     base: [
         'h-8',
         'text-hi-contrast text-base',
-        'rounded',
+        'rounded-sm',
         'disabled:text-placeholder',
         'placeholder:text-placeholder',
         // invalid

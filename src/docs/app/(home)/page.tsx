@@ -1,3 +1,4 @@
+import { ThemeEditorButton } from '@/components/theme-editor'
 import { GITHUB_URL } from '@/lib/layout.shared'
 import {
     FieldGroup,
@@ -9,37 +10,25 @@ import {
 } from '@ui-kit.ai/components'
 import { LucideChevronRight } from 'lucide-react'
 
+import { Mosaic } from './mosaic'
+
 export default function HomePage() {
     return (
-        <main
-            className={`relative flex flex-1 flex-col justify-center bg-radial-[at_100%_0%]
-                from-[var(--theme-error-bg-tint)] via-[var(--theme-info-bg-tint)] via-40% to-transparent to-70%`}
-        >
-            <div className='mx-auto w-full max-w-3xl px-6 py-24'>
+        <main className='flex flex-1 flex-col'>
+            <div className='mx-auto w-full max-w-6xl px-6 py-16 md:py-24'>
                 <Heading
-                    className='mb-6 text-5xl font-bold tracking-tight text-balance md:text-6xl'
+                    className='mb-4 max-w-2xl text-4xl font-semibold tracking-tight text-balance md:text-5xl'
                     level={1}
                 >
-                    Beautiful UI components
-                    <br />
-                    for
-                    <span
-                        className={`bg-gradient-to-br from-[var(--theme-error-text-placeholder)]
-                            via-[var(--theme-info-text-lo-contrast)] to-[var(--theme-info-text-hi-contrast)] bg-clip-text
-                            text-transparent`}
-                    >
-                        {' '}
-                        AI-powered
-                    </span>{' '}
-                    apps
+                    Beautiful UI components for AI-powered apps
                 </Heading>
 
-                <p className='mb-8 max-w-xl text-xl text-balance'>
-                    Professionally designed components, optimized for fast iteration in AI
-                    workflows. Accessible, customizable, and ready for production.
+                <p className='mb-8 max-w-xl text-lg text-balance'>
+                    Accessible, themeable React components, built for fast iteration and ready for
+                    production.
                 </p>
 
-                <div className='flex flex-wrap items-center gap-2'>
+                <div className='mb-20 flex flex-wrap items-center gap-2'>
                     <LinkButton
                         className='!h-10'
                         href='/docs'
@@ -57,7 +46,7 @@ export default function HomePage() {
                     </LinkButton>
                     <TextField
                         aria-label='Install command'
-                        className='hidden min-w-64 shrink-0 md:block'
+                        className='w-full shrink-0 md:w-72'
                         isReadOnly
                         value='npm i @ui-kit.ai/components'
                     >
@@ -70,6 +59,15 @@ export default function HomePage() {
                         </FieldGroup>
                     </TextField>
                 </div>
+
+                <div className='mb-4 flex flex-wrap items-end justify-between gap-3'>
+                    <p className='mb-0 text-sm'>
+                        Every tile below is a live component. Pick a colour, watch them all follow.
+                    </p>
+                    <ThemeEditorButton />
+                </div>
+
+                <Mosaic />
             </div>
         </main>
     )

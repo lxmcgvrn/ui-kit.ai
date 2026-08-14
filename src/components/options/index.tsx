@@ -34,7 +34,7 @@ const optionStyle = tv({
         'cursor-default',
         'text-hi-contrast text-sm',
         'outline outline-0',
-        'rounded select-none',
+        'rounded-sm select-none',
         'px-2 py-0.5',
         'forced-color-adjust-none',
         // disabled

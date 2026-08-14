@@ -23,7 +23,7 @@ export interface PopoverProps extends Omit<RACPopoverProps, 'children'> {
 
 const popoverStyles = tv({
     base: [
-        'bg-base-raised rounded',
+        'bg-base-raised rounded-sm',
         'text-hi-contrast shadow-2xl forced-colors:bg-[Canvas]',
         'border-default border',
         // transition
