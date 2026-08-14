@@ -1,6 +1,6 @@
 import type { ThemeInput } from '@ui-kit.ai/theme'
 
-import { INTENTS } from '@ui-kit.ai/theme'
+import { DEPTHS, INTENTS, SATURATIONS } from '@ui-kit.ai/theme'
 
 const STORAGE_KEY = 'ui-kit.theme'
 
@@ -42,10 +42,16 @@ export function writeStoredTheme(input: ThemeInput) {
 function isThemeInput(value: unknown): value is ThemeInput {
     if (typeof value !== 'object' || value == null) return false
 
-    const { colors, radius } = value as Record<string, unknown>
+    const { colors, depth, radius, saturation } = value as Record<string, unknown>
 
     if (typeof radius !== 'number' || Number.isNaN(radius)) return false
     if (typeof colors !== 'object' || colors == null) return false
+
+    // Themes saved before a knob existed are still good; they take the default.
+    if (depth != null && !DEPTHS.some((candidate) => candidate === depth)) return false
+    if (saturation != null && !SATURATIONS.some((candidate) => candidate === saturation)) {
+        return false
+    }
 
     const seeds = colors as Record<string, unknown>
 

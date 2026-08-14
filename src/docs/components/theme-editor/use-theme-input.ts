@@ -1,8 +1,14 @@
 'use client'
 
-import type { Intent, ThemeInput } from '@ui-kit.ai/theme'
+import type { Depth, Intent, Saturation, ThemeInput } from '@ui-kit.ai/theme'
 
-import { DEFAULT_THEME, PRESETS, themeCss } from '@ui-kit.ai/theme'
+import {
+    DEFAULT_DEPTH,
+    DEFAULT_SATURATION,
+    DEFAULT_THEME,
+    PRESETS,
+    themeCss,
+} from '@ui-kit.ai/theme'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { applyThemeCss, removeThemeCss } from './inject'
@@ -18,11 +24,19 @@ const DEFAULT_PRESET = PRESETS.find((preset) => preset.input === DEFAULT_THEME)?
 
 export interface ThemeEditorController extends State {
     css: () => string
+
+    /** The input's depth, spelled out — presets inherit it rather than set it. */
+    depth: Depth
     json: () => string
     reset: () => void
+
+    /** The input's saturation, spelled out — presets inherit it rather than set it. */
+    saturation: Saturation
     selectPreset: (name: string) => void
     setColor: (intent: Intent, color: string) => void
+    setDepth: (depth: Depth) => void
     setRadius: (radius: number) => void
+    setSaturation: (saturation: Saturation) => void
 }
 
 interface State {
@@ -59,9 +73,15 @@ export function useThemeInput(): ThemeEditorController {
         }
     }, [state.input, state.isOverridden])
 
+    const depth = state.input.depth ?? DEFAULT_DEPTH
+    const saturation = state.input.saturation ?? DEFAULT_SATURATION
+
     const css = useCallback(() => themeCss(state.input), [state.input])
 
-    const json = useCallback(() => JSON.stringify(state.input, null, 4), [state.input])
+    const json = useCallback(
+        () => JSON.stringify({ ...state.input, depth, saturation }, null, 4),
+        [depth, saturation, state.input]
+    )
 
     const reset = useCallback(() => {
         setState({
@@ -86,6 +106,14 @@ export function useThemeInput(): ThemeEditorController {
         }))
     }, [])
 
+    const setDepth = useCallback((next: Depth) => {
+        setState((current) => ({
+            input: { ...current.input, depth: next },
+            isOverridden: true,
+            preset: CUSTOM_PRESET,
+        }))
+    }, [])
+
     const setRadius = useCallback((radius: number) => {
         setState((current) => ({
             input: { ...current.input, radius },
@@ -94,7 +122,27 @@ export function useThemeInput(): ThemeEditorController {
         }))
     }, [])
 
-    return { ...state, css, json, reset, selectPreset, setColor, setRadius }
+    const setSaturation = useCallback((next: Saturation) => {
+        setState((current) => ({
+            input: { ...current.input, saturation: next },
+            isOverridden: true,
+            preset: CUSTOM_PRESET,
+        }))
+    }, [])
+
+    return {
+        ...state,
+        css,
+        depth,
+        json,
+        reset,
+        saturation,
+        selectPreset,
+        setColor,
+        setDepth,
+        setRadius,
+        setSaturation,
+    }
 }
 
 function initialState(): State {

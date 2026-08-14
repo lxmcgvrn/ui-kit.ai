@@ -39,7 +39,7 @@ const buttonStyle = tv({
         variant: {
             primary: [
                 'text-accent',
-                'shadow-xs',
+                'inset-shadow-depth shadow-xs',
                 'border-field bg-primary',
                 'hover:bg-primary-hover',
                 'pressed:bg-primary',

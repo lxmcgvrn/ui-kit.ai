@@ -24,7 +24,9 @@ import {
 import { tv } from 'tailwind-variants'
 
 import { CopyButton } from './copy-button'
+import { DepthSlider } from './depth-slider'
 import { RadiusSlider } from './radius-slider'
+import { SaturationSlider } from './saturation-slider'
 import { SeedColorField } from './seed-color-field'
 import { setThemeEditorOpen, useIsThemeEditorOpen } from './store'
 import { TokenPreview } from './token-preview'
@@ -124,6 +126,16 @@ export function ThemeEditorDrawer() {
                         <RadiusSlider
                             onChange={theme.setRadius}
                             value={theme.input.radius}
+                        />
+
+                        <DepthSlider
+                            onChange={theme.setDepth}
+                            value={theme.depth}
+                        />
+
+                        <SaturationSlider
+                            onChange={theme.setSaturation}
+                            value={theme.saturation}
                         />
 
                         <TokenPreview />

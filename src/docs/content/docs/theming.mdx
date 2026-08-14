@@ -32,9 +32,34 @@ const css = themeCss({
         success: '#29A383',
         warning: '#FFC53D',
     },
+    depth: 'some',
     radius: 0.375,
+    saturation: 'some',
 })
 ```
+
+## Depth
+
+`depth` sets how far interactive surfaces lift off the page. It is optional, and
+defaults to `some`.
+
+| Depth  | Look                                                             |
+| ------ | ---------------------------------------------------------------- |
+| `none` | Flat: small elements drop their shadow. Overlays keep theirs.    |
+| `some` | The default — a hairline shadow under buttons, fields and cards. |
+| `lots` | Adds a lit top edge and a soft gradient to every accent fill.    |
+
+## Saturation
+
+`saturation` sets how much of the seed colour bleeds into the backgrounds, borders and body
+text derived from it. Accent fills and tints keep the seed as mixed. It is optional, and
+defaults to `some`.
+
+| Saturation | Look                                                      |
+| ---------- | --------------------------------------------------------- |
+| `none`     | Near-grey surfaces, with a hint of the seed left in them. |
+| `some`     | The default — surfaces carry a clear tint of the seed.    |
+| `lots`     | Surfaces and body text lean hard into the seed's hue.     |
 
 ## Intent API
 

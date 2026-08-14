@@ -62,6 +62,7 @@ const tagStyles = tv({
             ],
             solid: [
                 'bg-primary border-field text-accent',
+                'inset-shadow-depth',
                 '[&:is(a,button)]:hover:bg-primary-hover',
                 '[&:is(a,button)]:hover:border-field-hover',
                 '[&:is(a,button)]:pressed:bg-primary',

@@ -61,3 +61,39 @@
 body {
     background-color: var(--color-fd-background);
 }
+
+/*
+ * Bridge Fumadocs' `--color-fd-*` tokens to the ui-kit theme, so the site
+ * chrome (page ground, sidebar, navbar, search) follows the theme editor.
+ *
+ * `neutral.css` sets light values on `:root` and dark ones on `.dark`, so the
+ * bridge targets both. The ui-kit vars resolve per scheme via `light-dark()`,
+ * which `.dark { color-scheme: dark }` above already drives — one mapping
+ * covers both modes.
+ */
+:root,
+.dark {
+    --color-fd-background: var(--theme-default-bg-base);
+    --color-fd-foreground: var(--theme-default-text-hi-contrast);
+    --color-fd-muted: var(--theme-default-bg-tint);
+    --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
+    --color-fd-popover: var(--theme-default-bg-base-raised);
+    --color-fd-popover-foreground: var(--theme-default-text-hi-contrast);
+    --color-fd-card: var(--theme-default-bg-base-raised);
+    --color-fd-card-foreground: var(--theme-default-text-hi-contrast);
+    --color-fd-border: var(--theme-default-border-default);
+    --color-fd-primary: var(--theme-default-bg-primary);
+    --color-fd-primary-foreground: var(--theme-default-text-accent);
+    --color-fd-secondary: var(--theme-default-bg-tint);
+    --color-fd-secondary-foreground: var(--theme-default-text-hi-contrast);
+    --color-fd-accent: var(--theme-default-bg-tint);
+    --color-fd-accent-foreground: var(--theme-default-text-hi-contrast);
+    --color-fd-ring: var(--theme-default-bg-primary-hover);
+}
+
+/* Outranks `neutral.css`'s own sidebar-scoped dark overrides. */
+.dark #nd-sidebar {
+    --color-fd-muted: var(--theme-default-bg-tint);
+    --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
+    --color-fd-secondary: var(--theme-default-bg-tint);
+}
