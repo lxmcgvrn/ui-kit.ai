@@ -34,7 +34,7 @@ const buttonStyle = tv({
     },
     variants: {
         isIcon: {
-            true: 'w-[theme(height.ui-element)] aspect-square px-2 [&_svg]:mx-auto',
+            true: 'aspect-square w-(--height-ui-element) px-2 [&_svg]:mx-auto',
         },
         variant: {
             primary: [

@@ -3,6 +3,18 @@
 @theme {
     --height-ui-element: 2rem;
     --default-transition-duration: 50ms;
+
+    /* Sweeps `Skeleton`'s gradient across its double-width background. */
+    --animate-shimmer: shimmer 1.6s linear infinite;
+
+    @keyframes shimmer {
+        from {
+            background-position: 100% 0;
+        }
+        to {
+            background-position: -100% 0;
+        }
+    }
 }
 
 /*

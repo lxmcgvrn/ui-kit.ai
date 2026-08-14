@@ -57,7 +57,7 @@ const tooltipStyles = tv({
             'entering:translate-y-(--origin-y)',
             'entering:translate-x-(--origin-x)',
             // exiting
-            'entering:ease-in',
+            'exiting:ease-in',
             'exiting:opacity-0',
             'exiting:translate-y-(--origin-y)',
             'exiting:translate-x-(--origin-x)',

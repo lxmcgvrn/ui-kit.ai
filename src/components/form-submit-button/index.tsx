@@ -4,7 +4,7 @@ import type { ButtonProps } from '../button'
 
 import { Button } from '../button'
 
-/** The form drives `isDisabled`; passing your own value has no effect. */
+/** Disabled until the form is dirty; your `isDisabled` still applies. */
 export interface FormSubmitButtonProps extends ButtonProps {
     /** The button's label. Defaults to `Submit`. */
     children?: ButtonProps['children']
@@ -21,7 +21,7 @@ export function FormSubmitButton({
     return (
         <Button
             {...props}
-            isDisabled={!isDirty}
+            isDisabled={props.isDisabled === true || !isDirty}
             isPending={props.isPending === true || isSubmitting || isValidating}
             type='submit'
             variant={variant}

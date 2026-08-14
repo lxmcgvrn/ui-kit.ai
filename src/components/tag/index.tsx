@@ -42,9 +42,6 @@ const tagStyles = tv({
         'px-3 py-1.5',
         '[&:has([data-slot=slot-left])]:pl-1.5',
         '[&:has([data-slot=slot-right])]:pr-1.5',
-        // interactivity
-        '[&:is(a,button)]:hover:bg-[--bg-hover]',
-        '[&:is(a,button)]:pressed:bg-[--bg-pressed]',
     ],
     defaultVariants: {
         isDashed: false,
@@ -56,15 +53,18 @@ const tagStyles = tv({
             true: 'border-dashed',
         },
         variant: {
+            // Hover and press belong to `TagButton` and `TagLink`, not plain `Tag`.
             default: [
                 'bg-tint/80 border-field text-lo-contrast',
-                'hover:bg-tint',
-                'pressed:bg-tint',
+                '[&:is(a,button)]:hover:bg-tint',
+                '[&:is(a,button)]:hover:border-field-hover',
+                '[&:is(a,button)]:pressed:bg-tint',
             ],
             solid: [
                 'bg-primary border-field text-accent',
-                'hover:bg-primary-hover hover:border:accent-light',
-                'pressed:accent-dark pressed:border-accent-dark',
+                '[&:is(a,button)]:hover:bg-primary-hover',
+                '[&:is(a,button)]:hover:border-field-hover',
+                '[&:is(a,button)]:pressed:bg-primary',
             ],
         },
     },

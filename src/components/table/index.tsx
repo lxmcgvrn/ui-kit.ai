@@ -31,10 +31,6 @@ import { tv } from 'tailwind-variants'
 import { Checkbox } from '../checkbox'
 import { Skeleton } from '../skeleton'
 
-const getRandomNumber = (min = 0, max = 100): number => {
-    return Math.floor(min + Math.random() * (max - min + 1))
-}
-
 const columnWrapperStyles = tv({
     base: [
         'border-default border-b',
@@ -105,7 +101,14 @@ const rowStyles = tv({
 })
 
 const cellSkeletonStyles = tv({
-    base: 'max-w-[50%]',
+    // The width cycles with the column so a loading table reads as data, not bars.
+    base: [
+        'max-w-[50%]',
+        '[:nth-child(4n+1)>&]:w-[30%]',
+        '[:nth-child(4n+2)>&]:w-[45%]',
+        '[:nth-child(4n+3)>&]:w-[25%]',
+        '[:nth-child(4n+4)>&]:w-[40%]',
+    ],
     defaultVariants: {
         alignment: 'start',
     },
@@ -143,9 +146,6 @@ export function Cell({ alignment, children, className, showSkeleton, ...props }:
                     className={cellSkeletonStyles({
                         alignment,
                     })}
-                    style={{
-                        width: `${String(getRandomNumber(20, 50))}%`,
-                    }}
                 />
             ) : (
                 children

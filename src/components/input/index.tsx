@@ -11,7 +11,7 @@ const inputStyles = tv({
     variants: {
         hasIcon: {
             false: '',
-            true: 'pl-[theme(height.ui-element)]',
+            true: 'pl-(--height-ui-element)',
         },
     },
 })
@@ -32,7 +32,7 @@ export const Input = ({ icon, isBorderless, ref, ...props }: InputProps) => {
             {icon != null ? (
                 <div
                     className={twMerge(
-                        'h-ui-element w-[theme(height.ui-element)]',
+                        'h-ui-element w-(--height-ui-element)',
                         'text-placeholder',
                         'absolute inset-x-0 top-0',
                         'flex items-center justify-center',

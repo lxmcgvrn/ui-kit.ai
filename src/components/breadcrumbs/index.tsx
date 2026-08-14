@@ -16,13 +16,13 @@ import { twMerge } from 'tailwind-merge'
 export type BreadcrumbProps = Omit<RACLinkProps, 'className'> & RACBreadcrumbProps
 
 /** A breadcrumb is a link that represents a single item in a breadcrumb hierarchy. */
-export function Breadcrumb(props: BreadcrumbProps) {
+export function Breadcrumb({ className, id, ...props }: BreadcrumbProps) {
     return (
         <RACBreadcrumb
-            {...props}
-            className={composeRenderProps(props.className, (className) =>
+            className={composeRenderProps(className, (className) =>
                 twMerge(className, 'flex items-center gap-2')
             )}
+            id={id}
         >
             <RACLink
                 {...props}

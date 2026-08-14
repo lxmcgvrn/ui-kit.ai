@@ -50,8 +50,8 @@ const modalStyles = tv({
         'md:entering:scale-95',
         // exiting
         // 'md:exiting:translate-y-4',
-        'entering:ease-in',
-        'md:entering:scale-98',
+        'exiting:ease-in',
+        'md:exiting:scale-98',
         'exiting:pointer-events-none', // keeps content behind interactive during exit
     ],
 })
@@ -160,7 +160,7 @@ export function DialogFooter({ children, ...props }: HTMLProps<HTMLElement>) {
                 'group-has-data-[dialog-content]/dialog:pt-2',
                 props.className
             )}
-            data-dialog-header
+            data-dialog-footer
         >
             {children}
         </footer>

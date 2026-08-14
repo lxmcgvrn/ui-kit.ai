@@ -25,7 +25,7 @@ export function Tabs(props: TabsProps) {
             className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     className,
-                    'group/tabs orientation-horizontal:flex-col orientation vertical:flex-row flex'
+                    'group/tabs orientation-horizontal:flex-col orientation-vertical:flex-row flex'
                 )
             )}
         />
