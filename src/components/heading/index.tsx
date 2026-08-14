@@ -18,20 +18,12 @@ const heading = tv({
     },
 })
 
-/**
- * Props accepted by {@link Heading}.
- */
 export interface HeadingProps extends Omit<RACHeadingProps, 'level'> {
-    /**
-     * Sets both the rendered element — `h1` through `h6` — and the typography
-     * scale.
-     */
+    /** Sets both the rendered element — `h1` through `h6` — and the typography scale. */
     level?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
-/**
- * A heading renders a semantic heading with pre-determined typography styles
- */
+/** A heading renders a semantic heading with pre-determined typography styles. */
 export function Heading({ level = 3, ...props }: HeadingProps) {
     return (
         <RACHeading

@@ -9,9 +9,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx'
 
 const generator = createGenerator()
 
-/**
- * Components available to every MDX page without importing them.
- */
+/** Components available to every MDX page without importing them. */
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
     return {
         ...defaultMdxComponents,

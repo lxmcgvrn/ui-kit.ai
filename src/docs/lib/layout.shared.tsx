@@ -2,9 +2,7 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared'
 
 export const GITHUB_URL = 'https://github.com/alex-mcgovern/ui-kit.ai'
 
-/**
- * Layout options shared between the home layout and the docs layout.
- */
+/** Layout options shared between the home layout and the docs layout. */
 export function baseOptions(): BaseLayoutProps {
     return {
         githubUrl: GITHUB_URL,

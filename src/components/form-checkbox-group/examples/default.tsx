@@ -4,7 +4,7 @@ import { Checkbox, Description, Form, FormCheckboxGroup, Label } from '@ui-kit.a
 
 export default function FormCheckboxGroupDefault() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormCheckboxGroup name='preferences'>
                 <Label>This is a label for a field</Label>
                 <Checkbox

@@ -30,7 +30,9 @@ describe('useKbd', () => {
 
     it('should handle a simple key press', async () => {
         const handleW = vi.fn()
-        renderHook(() => useKbd([['w', handleW]]))
+        renderHook(() => {
+            useKbd([['w', handleW]])
+        })
 
         await mockKeyDown('w')
         expect(handleW).toHaveBeenCalledTimes(1)
@@ -42,7 +44,9 @@ describe('useKbd', () => {
 
     it('should handle shortcut with modifier key', async () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['Control+C', handler]]))
+        renderHook(() => {
+            useKbd([['Control+C', handler]])
+        })
 
         // Without modifier should not trigger
         await mockKeyDown('c')
@@ -55,7 +59,9 @@ describe('useKbd', () => {
 
     it('should handle shortcuts with multiple modifier keys', async () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['Command+Shift+X', handler]]))
+        renderHook(() => {
+            useKbd([['Command+Shift+X', handler]])
+        })
 
         // With incomplete modifiers should not trigger
         await mockKeyDown('x', { metaKey: true })
@@ -70,7 +76,9 @@ describe('useKbd', () => {
         const handler = vi.fn()
         const shortcut = 'ArrowUp+ArrowUp+ArrowDown'
 
-        renderHook(() => useKbd([[shortcut, handler]]))
+        renderHook(() => {
+            useKbd([[shortcut, handler]])
+        })
 
         // Partial sequence should not trigger
         await mockKeyDown('ArrowUp')
@@ -92,7 +100,9 @@ describe('useKbd', () => {
         const konamiHandler = vi.fn()
         const shortcut = 'ArrowUp+ArrowUp+ArrowDown+ArrowDown'
 
-        renderHook(() => useKbd([[shortcut, konamiHandler]]))
+        renderHook(() => {
+            useKbd([[shortcut, konamiHandler]])
+        })
 
         // Start sequence
         await mockKeyDown('ArrowUp')
@@ -110,7 +120,9 @@ describe('useKbd', () => {
 
     it('should handle case-insensitive shortcuts', async () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['a', handler]]))
+        renderHook(() => {
+            useKbd([['a', handler]])
+        })
 
         await mockKeyDown('A')
         expect(handler).toHaveBeenCalledTimes(1)
@@ -118,7 +130,9 @@ describe('useKbd', () => {
 
     it('should prevent default and stop propagation', async () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['a', handler]]))
+        renderHook(() => {
+            useKbd([['a', handler]])
+        })
 
         const event = await mockKeyDown('a')
         expect(event.defaultPrevented).toBe(true)
@@ -126,7 +140,9 @@ describe('useKbd', () => {
 
     it('should not trigger shortcuts in text inputs by default', () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['a', handler]]))
+        renderHook(() => {
+            useKbd([['a', handler]])
+        })
 
         // Create a text input and dispatch keydown event
         const input = document.createElement('input')
@@ -147,7 +163,9 @@ describe('useKbd', () => {
 
     it('should trigger shortcuts in text inputs when disableTextInputs is false', () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['a', handler]], { disableTextInputs: false }))
+        renderHook(() => {
+            useKbd([['a', handler]], { disableTextInputs: false })
+        })
 
         // Create a text input and dispatch keydown event
         const input = document.createElement('input')
@@ -171,13 +189,13 @@ describe('useKbd', () => {
         const handler2 = vi.fn()
         const handler3 = vi.fn()
 
-        renderHook(() =>
+        renderHook(() => {
             useKbd([
                 ['a', handler1],
                 ['Control+b', handler2],
                 ['c+d+e', handler3],
             ])
-        )
+        })
 
         await mockKeyDown('a')
         expect(handler1).toHaveBeenCalledTimes(1)
@@ -192,7 +210,9 @@ describe('useKbd', () => {
 
     it('should not trigger on key repeat events', async () => {
         const handler = vi.fn()
-        renderHook(() => useKbd([['a', handler]]))
+        renderHook(() => {
+            useKbd([['a', handler]])
+        })
 
         await mockKeyDown('a', { repeat: true })
         expect(handler).not.toHaveBeenCalled()
@@ -202,7 +222,9 @@ describe('useKbd', () => {
         const handler = vi.fn()
         const removeEventListenerSpy = vi.spyOn(document, 'removeEventListener')
 
-        const { unmount } = renderHook(() => useKbd([['a', handler]]))
+        const { unmount } = renderHook(() => {
+            useKbd([['a', handler]])
+        })
 
         unmount()
         expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function))

@@ -1,6 +1,7 @@
 import jsPlugin from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import commentSlop from 'eslint-plugin-comment-slop'
+import jsdoc from 'eslint-plugin-jsdoc'
 import perfectionist from 'eslint-plugin-perfectionist'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -29,11 +30,38 @@ export default [
     perfectionist.configs['recommended-natural'],
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
-    // Index access on `configs.flat` is typed as possibly-undefined; both
-    // presets always exist.
     react.configs.flat.recommended ?? {},
     react.configs.flat['jsx-runtime'] ?? {},
     reactHooks.configs.flat.recommended,
+    // TS files: types live in annotations, so JSDoc types are redundant.
+    ...[
+        jsdoc.configs['flat/contents-typescript-error'],
+        jsdoc.configs['flat/logical-typescript-error'],
+        jsdoc.configs['flat/requirements-typescript-error'],
+        jsdoc.configs['flat/stylistic-typescript-error'],
+    ].map((config) => ({
+        files: ['**/*.{ts,tsx}'],
+        plugins: config.plugins,
+        rules: config.rules,
+    })),
+    // Checked-JS files (*.mjs configs): JSDoc types are load-bearing.
+    ...[
+        jsdoc.configs['flat/contents-typescript-flavor-error'],
+        jsdoc.configs['flat/logical-typescript-flavor-error'],
+        jsdoc.configs['flat/requirements-typescript-flavor-error'],
+        jsdoc.configs['flat/stylistic-typescript-flavor-error'],
+    ].map((config) => ({
+        files: ['**/*.{js,jsx,mjs,cjs}'],
+        plugins: config.plugins,
+        rules: config.rules,
+    })),
+    {
+        // Types are load-bearing here, but the preset strips them anyway.
+        files: ['**/*.{js,jsx,mjs,cjs}'],
+        rules: {
+            'jsdoc/no-types': 'off',
+        },
+    },
     eslintConfigPrettier,
     {
         languageOptions: {
@@ -54,8 +82,7 @@ export default [
         },
         settings: {
             react: {
-                // Explicit, not 'detect': eslint-plugin-react's version
-                // detection calls a context API that ESLint 10 removed.
+                // Not 'detect': it calls a context API ESLint 10 removed.
                 version: '19.1.0',
             },
         },
@@ -103,11 +130,21 @@ export default [
                     varsIgnorePattern: '^_',
                 },
             ],
-            // Not part of any typescript-eslint preset.
             '@typescript-eslint/strict-boolean-expressions': 'error',
             '@typescript-eslint/switch-exhaustiveness-check': 'error',
             'comment-slop/write-short': 'error',
             eqeqeq: ['error', 'smart'],
+            'jsdoc/multiline-blocks': [
+                'error',
+                {
+                    minimumLengthForMultiline: 80,
+                    noMultilineBlocks: true,
+                },
+            ],
+            'jsdoc/require-example': 'off',
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-param': 'off',
+            'jsdoc/require-returns': 'off',
             'no-console': [
                 'error',
                 {
@@ -187,17 +224,31 @@ export default [
         },
     },
     {
+        // Every exported component is public API, so it must be documented.
+        files: ['src/components/*/index.tsx'],
+        rules: {
+            'jsdoc/require-jsdoc': [
+                'error',
+                {
+                    // Never auto-insert an empty block for a human to fill in.
+                    enableFixer: false,
+                    publicOnly: true,
+                    require: {
+                        ArrowFunctionExpression: true,
+                        FunctionDeclaration: true,
+                        FunctionExpression: true,
+                    },
+                },
+            ],
+        },
+    },
+    {
         files: ['src/test/**/*.tsx', '**/*.test.*'],
         rules: {
             'sonarjs/no-duplicate-string': 'off',
         },
     },
     {
-        // Docs sources are not part of the component library: they are Next.js
-        // pages/layouts and one-off demo files, none of which are ever rendered
-        // by name in a React tree, so an explicit `displayName` on each of them
-        // is pure boilerplate. `src/components/**/examples` holds the demos
-        // that live next to the component they document.
         files: ['src/docs/**/*.tsx', 'src/components/**/examples/*.tsx'],
         rules: {
             'react/display-name': 'off',

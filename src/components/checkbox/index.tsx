@@ -1,21 +1,12 @@
 import type { CheckboxProps as RACCheckboxProps } from 'react-aria-components'
 
 import { LucideCheck, LucideMinus } from 'lucide-react'
-import React from 'react'
 import { composeRenderProps, Checkbox as RACCheckbox } from 'react-aria-components'
 import { tv } from 'tailwind-variants'
 
 import { Description } from '../description'
 import { Label } from '../label'
 
-/**
- * Props accepted by {@link Checkbox}. Everything `react-aria-components`'
- * `Checkbox` accepts (minus `children`, which this component renders itself),
- * plus the label and description this design system draws for you.
- *
- * This is a union rather than an interface: `textPosition` is only meaningful
- * when a `label` is present.
- */
 export type CheckboxProps = Omit<RACCheckboxProps, 'children'> &
     (
         | {
@@ -83,10 +74,7 @@ const iconStyles = tv({
     ],
 })
 
-/**
- * A checkbox allows a user to select multiple items from a list of individual
- * items, or to mark one individual item as selected.
- */
+/** Marks an individual item as selected. */
 export function Checkbox({ description, label, textPosition = 'right', ...props }: CheckboxProps) {
     return (
         <RACCheckbox

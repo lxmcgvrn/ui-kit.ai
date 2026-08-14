@@ -12,7 +12,7 @@ export default function TagSlotRight() {
                 <Tag
                     className='capitalize'
                     intent={intent}
-                    key={`${intent}-default`}
+                    key={`${intent ?? 'default'}-default`}
                     slotRight={<LucideCircleDot />}
                 >
                     {intent ?? 'default'}
@@ -22,7 +22,7 @@ export default function TagSlotRight() {
                 <Tag
                     className='capitalize'
                     intent={intent}
-                    key={`${intent}-solid`}
+                    key={`${intent ?? 'default'}-solid`}
                     slotRight={<LucideCircleDot />}
                     variant='solid'
                 >

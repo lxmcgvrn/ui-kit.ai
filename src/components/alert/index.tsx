@@ -25,34 +25,22 @@ const titleStyles = tv({
     base: 'font-title mb-0 block text-sm font-medium',
 })
 
-/**
- * Props accepted by {@link Alert}.
- */
 export interface AlertProps {
-    /**
-     * Action nodes (e.g. buttons) rendered at the end of the alert.
-     */
+    /** Action nodes (e.g. buttons) rendered at the end of the alert. */
     actions?: ActionNodes
     className?: string
-    /**
-     * A decorative node rendered before the alert text.
-     */
+
+    /** A decorative node rendered before the alert text. */
     icon?: React.JSX.Element
-    /**
-     * Convey semantic meaning with color.
-     */
+
+    /** Convey semantic meaning with color. */
     intent?: Intent
-    /**
-     * The message shown to the user.
-     */
+
+    /** The message shown to the user. */
     text: string
 }
 
-/**
- * An alert is a message that is displayed to the user. It makes use of the ARIA
- * role "alert" to highlight the importance of the message to assistive
- * technologies.
- */
+/** A message surfaced to the user, announced via the ARIA `alert` role. */
 export function Alert({
     actions,
     className,
@@ -72,12 +60,7 @@ export function Alert({
                 role: 'img',
             })}
             <div>
-                {/*
-                 * Note: A heading element should *not* be used here,
-                 * as it may appear on page before the H1, breaking
-                 * the semantic flow of headings on the page and
-                 * messing with a11y and SEO.
-                 */}
+                {/* Not a heading: an alert can precede the H1 and break order. */}
                 <span
                     className={titleStyles()}
                     role='alert'

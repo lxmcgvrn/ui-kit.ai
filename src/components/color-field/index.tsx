@@ -6,20 +6,12 @@ import { twMerge } from 'tailwind-merge'
 
 import { Input } from '../input'
 
-/**
- * Props accepted by {@link ColorField}. Everything `react-aria-components`'
- * `ColorField` accepts, plus a forwarded ref.
- */
 export interface ColorFieldProps extends RACColorFieldProps {
-    /**
-     * A ref forwarded to the underlying `<input />` element.
-     */
+    /** A ref forwarded to the underlying `&lt;input />` element. */
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/**
- * A color field allows users to edit a hex color or individual color channel value.
- */
+/** Edits a hex color or a single color channel. */
 export function ColorField({ children = <Input />, ref, ...props }: ColorFieldProps) {
     return (
         <RACColorField

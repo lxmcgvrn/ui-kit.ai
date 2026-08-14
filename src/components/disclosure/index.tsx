@@ -14,15 +14,9 @@ import type { ButtonProps } from '../button'
 
 import { Button } from '../button'
 
-/**
- * Props accepted by {@link Disclosure} — everything `react-aria-components`'
- * `Disclosure` accepts.
- */
 export interface DisclosureProps extends RACDisclosureProps {}
 
-/**
- * A disclosure component that shows and hides content when triggered.
- */
+/** A disclosure component that shows and hides content when triggered. */
 export function Disclosure({ children, className, ...props }: DisclosureProps) {
     return (
         <RACDisclosure
@@ -40,15 +34,9 @@ export function Disclosure({ children, className, ...props }: DisclosureProps) {
 }
 Disclosure.displayName = 'Disclosure'
 
-/**
- * Props accepted by {@link DisclosurePanel} — everything
- * `react-aria-components`' `DisclosurePanel` accepts.
- */
 export interface DisclosurePanelProps extends RACDisclosurePanelProps {}
 
-/**
- * The content that appears/disappears when the disclosure is toggled.
- */
+/** The content that appears/disappears when the disclosure is toggled. */
 export function DisclosurePanel({ children, className, ...props }: DisclosurePanelProps) {
     return (
         <RACDisclosurePanel
@@ -66,20 +54,12 @@ export function DisclosurePanel({ children, className, ...props }: DisclosurePan
 }
 DisclosurePanel.displayName = 'DisclosurePanel'
 
-/**
- * Props accepted by {@link DisclosureButton} — every {@link ButtonProps} prop.
- */
 export interface DisclosureButtonProps extends ButtonProps {
-    /**
-     * The button's visual weight. Defaults to `tertiary`.
-     */
+    /** The button's visual weight. Defaults to `tertiary`. */
     variant?: ButtonProps['variant']
 }
 
-/**
- * A button specifically styled for use with disclosure components.
- * Includes a chevron icon that rotates based on open/closed state.
- */
+/** Toggles a {@link Disclosure}; its chevron rotates when open. */
 export function DisclosureButton({
     children,
     className,

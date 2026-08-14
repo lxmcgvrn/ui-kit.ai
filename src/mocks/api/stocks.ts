@@ -1,11 +1,11 @@
 import { delay, http, HttpResponse } from 'msw'
 import { z } from 'zod'
 
-const getRandomNumber = (min: number = 0, max: number = 100): number => {
+const getRandomNumber = (min = 0, max = 100): number => {
     return Math.floor(min + Math.random() * (max - min + 1))
 }
 
-export type ListStockWatchlistItemsResponse = {
+export interface ListStockWatchlistItemsResponse {
     items: {
         id: string
         name: string
@@ -20,7 +20,7 @@ export type ListStockWatchlistItemsResponse = {
     }
 }
 
-export type StockWatchlistItem = {
+export interface StockWatchlistItem {
     id: string
     name: string
     percent_change: number

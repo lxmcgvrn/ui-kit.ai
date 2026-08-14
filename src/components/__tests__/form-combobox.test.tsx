@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { expect, it, vi } from 'vitest'
+import { assert, expect, it, vi } from 'vitest'
 
 import { Button } from '../button'
 import { ComboBoxInput } from '../combo-box'
@@ -31,9 +31,9 @@ it('submits form with `Form.ComboBox`', async () => {
 
     expect(getByRole('listbox')).toBeInTheDocument()
 
-    const option = getAllByRole('option')[0]
-    expect(option).toBeInTheDocument()
-    await user.click(option as HTMLElement)
+    const [option] = getAllByRole('option')
+    assert(option, 'expected at least one option')
+    await user.click(option)
 
     const button = getByText('Submit')
     await user.click(button)
@@ -64,9 +64,9 @@ it('`Form.ComboBox` clears when reset after submission', async () => {
 
     expect(getByRole('listbox')).toBeInTheDocument()
 
-    const option = getAllByRole('option')[0]
-    expect(option).toBeInTheDocument()
-    await user.click(option as HTMLElement)
+    const [option] = getAllByRole('option')
+    assert(option, 'expected at least one option')
+    await user.click(option)
 
     expect(field).toHaveValue('abc123')
 
@@ -197,7 +197,9 @@ it('Filters with typeahead when filtering', async () => {
 
     const options = getAllByRole('option')
     expect(options.length).toBe(1)
-    await user.click(options[0] as HTMLElement)
+    const [option] = options
+    assert(option, 'expected a matching option')
+    await user.click(option)
 
     const button = getByText('Submit')
     await user.click(button)
@@ -237,7 +239,9 @@ it("Clearing combobox doesn't throw", async () => {
 
     const options = getAllByRole('option')
     expect(options.length).toBe(1)
-    await user.click(options[0] as HTMLElement)
+    const [option] = options
+    assert(option, 'expected a matching option')
+    await user.click(option)
 
     const button = getByText('Submit')
     await user.click(button)

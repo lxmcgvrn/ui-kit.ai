@@ -12,7 +12,7 @@ import { LucideAtSign } from 'lucide-react'
 
 export default function FormTextFieldIsInvalid() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormTextField
                 isInvalid
                 name='email'

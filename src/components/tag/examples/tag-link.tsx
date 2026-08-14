@@ -11,7 +11,7 @@ export default function TagTagLink() {
                 <TagLink
                     className='capitalize'
                     intent={intent}
-                    key={`${intent}-default`}
+                    key={`${intent ?? 'default'}-default`}
                 >
                     {intent ?? 'default'}
                 </TagLink>
@@ -20,7 +20,7 @@ export default function TagTagLink() {
                 <TagLink
                     className='capitalize'
                     intent={intent}
-                    key={`${intent}-solid`}
+                    key={`${intent ?? 'default'}-solid`}
                     variant='solid'
                 >
                     {intent ?? 'default'}

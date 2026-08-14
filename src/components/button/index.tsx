@@ -59,42 +59,23 @@ const buttonStyle = tv({
     },
 })
 
-type ButtonCommonProps = {
-    /**
-     * Convey semantic meaning with color.
-     */
+interface ButtonCommonProps {
+    /** Convey semantic meaning with color. */
     intent?: Intent
-    /**
-     * When `isDestructive` is set to `true` the Button will styled in red, to denote a destructive action.
-     */
+
+    /** Styles the button red, to denote a destructive action. */
     isDestructive?: boolean
-    /**
-     * When set to `true` the Button will be styled to be square with a fixed
-     * height & width. This should be used in conjunction with passing an icon
-     * component to the `children` prop.
-     *
-     * **Note**: If you aren't passing text to the `children` prop, ensure you
-     * are passing an `aria-label` attribute, so the Button is correctly
-     * labelled to assistive technologies.
-     */
+
+    /** Square, fixed-size button for an icon. Pass `aria-label` when there is no text. */
     isIcon?: boolean
-    /**
-     * A decorative node (e.g. an icon) to render on the left side of the
-     * Button. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the left. */
     slotLeft?: SlotNode
-    /**
-     * A decorative node (e.g. an icon) to render on the right side of the
-     * Button. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the right. */
     slotRight?: SlotNode
-    /**
-     * - **`primary`**: The main action button. Use this for the most important actions on a page, such as "Submit," "Save," or "Continue."
-     * - **`secondary`**: A less prominent button used for secondary actions, like "Cancel" or "Go Back." It should not compete visually with primary buttons.
-     * - **`tertiary`**: A minimal-styled button for low-emphasis actions. Use this for links, "Learn More" buttons, or actions that don't require strong visual weight.
-     */
+
+    /** Visual emphasis, highest first: `primary`, `secondary`, `tertiary`. */
     variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
@@ -127,18 +108,11 @@ const ButtonLoadingState = ({
     )
 ButtonLoadingState.displayName = 'ButtonLoadingState'
 
-/**
- * Props accepted by {@link Button}. Everything `react-aria-components`'
- * `Button` accepts, plus this design system's presentational props.
- */
 export interface ButtonProps extends ButtonCommonProps, RACButtonProps {
     ref?: ForwardedRef<HTMLButtonElement>
 }
 
-/**
- * A button allows a user to perform an action, with mouse, touch, and
- * keyboard interactions.
- */
+/** Performs an action on click, tap, or keypress. */
 export function Button({
     intent,
     isDestructive,
@@ -189,6 +163,7 @@ export function Button({
 }
 Button.displayName = 'Button'
 
+/** An anchor wearing the {@link Button} styling. */
 export const LinkButton = ({
     intent,
     isIcon,

@@ -3,20 +3,12 @@ import type { LabelProps as RACLabelProps } from 'react-aria-components'
 import { Text as RACText } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Description}.
- */
 export interface DescriptionProps extends RACLabelProps {
-    /**
-     * The description text to announce alongside the field or control.
-     */
+    /** The description text to announce alongside the field or control. */
     children?: RACLabelProps['children']
 }
 
-/**
- * A Description is text with attributes that improve screen reader
- * announcements, usually used to provide more context on a field or control.
- */
+/** Extra context for a field or control, announced by screen readers. */
 export function Description(props: DescriptionProps) {
     return (
         <RACText

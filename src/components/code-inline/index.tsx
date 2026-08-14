@@ -1,27 +1,18 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link CodeInline}.
- */
 export interface CodeInlineProps {
-    /**
-     * The snippet of code to highlight.
-     */
+    /** The snippet of code to highlight. */
     children: string
-    /**
-     * Merged with the default inline code styles.
-     */
+
+    /** Merged with the default inline code styles. */
     className?: string
-    /**
-     * Any language supported by [Prism](https://prismjs.com).
-     */
+
+    /** Any language supported by [Prism](https://prismjs.com). */
     language: string
 }
 
-/**
- * A syntax-highlighted inline code component, built using react-syntax-highlighter.
- */
+/** A syntax-highlighted inline code span. */
 export function CodeInline({ children, className, language }: CodeInlineProps) {
     if (!children) return null
 
@@ -38,7 +29,7 @@ export function CodeInline({ children, className, language }: CodeInlineProps) {
             useInlineStyles={false}
             wrapLines={false}
         >
-            {String(children).replace(/\n$/, '')}
+            {children.replace(/\n$/, '')}
         </SyntaxHighlighter>
     )
 }

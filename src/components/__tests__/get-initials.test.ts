@@ -16,7 +16,7 @@ describe('getInitials', () => {
         expect(getInitials(undefined)).toBe('?')
     })
     it('null', () => {
-        // @ts-expect-error test case
+        // @ts-expect-error null is not an accepted argument type
         expect(getInitials(null)).toBe('?')
     })
 })

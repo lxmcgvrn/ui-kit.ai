@@ -12,31 +12,20 @@ import type { Intent } from '../types/intent'
 
 import { renderSlot, Slot, type SlotNode } from '../types/slotted-node'
 
-type TagCommonProps = {
-    /**
-     * Convey semantic meaning with color.
-     */
+interface TagCommonProps {
+    /** Convey semantic meaning with color. */
     intent?: Intent
-    /**
-     * Adds an optional dashed border to the tag.
-     */
+
+    /** Adds an optional dashed border to the tag. */
     isDashed?: boolean
-    /**
-     * A decorative node (e.g. an icon) to render on the left side of the
-     * Tag. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the left. */
     slotLeft?: SlotNode
-    /**
-     * A decorative node (e.g. an icon) to render on the right side of the
-     * Tag. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the right. */
     slotRight?: SlotNode
 
-    /**
-     * The visual appearance of the tag.
-     */
+    /** The visual appearance of the tag. */
     variant?: Variant
 }
 
@@ -46,7 +35,6 @@ const tagStyles = tv({
     base: [
         'h-6 min-w-6',
         'text-center text-sm font-medium',
-        // 'shadow-xs',
         'inline-flex shrink-0 items-center justify-center gap-1.5',
         'rounded-full border',
         '[&_svg]:size-3 [&_svg]:shrink-0',
@@ -82,18 +70,11 @@ const tagStyles = tv({
     },
 })
 
-/**
- * Props accepted by {@link Tag}. Everything a `div` accepts, plus this design
- * system's presentational props.
- */
 export interface TagProps extends HTMLProps<HTMLDivElement>, TagCommonProps {
     ref?: ForwardedRef<HTMLDivElement>
 }
 
-/**
- * A Tag is a presentational component used to display short snippets of
- * information, often in a group of tags.
- */
+/** Displays a short snippet of information, often in a group of tags. */
 export function Tag({
     children,
     className,
@@ -131,18 +112,11 @@ export function Tag({
 }
 Tag.displayName = 'Tag'
 
-/**
- * Props accepted by {@link TagButton}. Everything `react-aria-components`'
- * `Button` accepts, plus this design system's presentational props.
- */
 export interface TagButtonProps extends RACButtonProps, TagCommonProps {
     ref?: ForwardedRef<HTMLButtonElement>
 }
 
-/**
- * A TagButton is a button used to display short snippets of
- * information, often in a group of tags.
- */
+/** A Tag that behaves as a button. */
 export function TagButton({
     children,
     className,
@@ -186,18 +160,11 @@ export function TagButton({
 }
 TagButton.displayName = 'TagButton'
 
-/**
- * Props accepted by {@link TagLink}. Everything `react-aria-components`' `Link`
- * accepts, plus this design system's presentational props.
- */
 export interface TagLinkProps extends RACLinkProps, TagCommonProps {
     ref?: ForwardedRef<HTMLAnchorElement>
 }
 
-/**
- * A TagLink is a link used to display short snippets of
- * information, often in a group of tags.
- */
+/** A Tag that behaves as a link. */
 export const TagLink = ({
     children,
     className,

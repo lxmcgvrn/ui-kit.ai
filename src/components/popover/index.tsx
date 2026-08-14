@@ -14,16 +14,8 @@ import {
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
-/**
- * Props accepted by {@link PopoverDialog}. Everything
- * `react-aria-components`' `Dialog` accepts.
- */
 export interface PopoverDialogProps extends RACDialogProps {}
 
-/**
- * Props accepted by {@link Popover}. Everything `react-aria-components`'
- * `Popover` accepts, minus render-prop children, plus `showArrow`.
- */
 export interface PopoverProps extends Omit<RACPopoverProps, 'children'> {
     children: React.ReactNode
     showArrow?: boolean
@@ -60,9 +52,7 @@ const popoverStyles = tv({
     ],
 })
 
-/**
- * A popover is an overlay element positioned relative to a trigger.
- */
+/** A popover is an overlay element positioned relative to a trigger. */
 export function Popover({ children, className, showArrow, ...props }: PopoverProps) {
     const popoverContext = useSlottedContext(RACPopoverContext)
     const isSubmenu = popoverContext?.trigger === 'SubmenuTrigger'
@@ -99,6 +89,7 @@ export function Popover({ children, className, showArrow, ...props }: PopoverPro
 }
 Popover.displayName = 'Popover'
 
+/** Place inside a {@link Popover} to contain focus within the overlay. */
 export function PopoverDialog(props: PopoverDialogProps) {
     return (
         <RACDialog

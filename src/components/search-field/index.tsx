@@ -9,17 +9,11 @@ import { FieldButton } from '../field-button'
 import { Input } from '../input'
 import { Tooltip, TooltipTrigger } from '../tooltip'
 
-/**
- * Props accepted by {@link SearchField}. Everything `react-aria-components`'
- * `SearchField` accepts, plus a ref to the underlying input.
- */
 export interface SearchFieldProps extends RACSearchFieldProps {
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/**
- * A search field allows a user to enter and clear a search query.
- */
+/** A search field allows a user to enter and clear a search query. */
 export const SearchField = forwardRef(
     (
         { children = <Input />, ...props }: Omit<SearchFieldProps, 'ref'>,
@@ -45,14 +39,9 @@ export const SearchField = forwardRef(
 )
 SearchField.displayName = 'SearchField'
 
-/**
- * Props accepted by {@link SearchFieldClearButton}.
- */
 export interface SearchFieldClearButtonProps extends ComponentProps<typeof FieldButton> {}
 
-/**
- * A `FieldButton` to clear the text field.
- */
+/** A `FieldButton` to clear the text field. */
 export function SearchFieldClearButton(props: SearchFieldClearButtonProps) {
     return (
         <TooltipTrigger delay={0}>

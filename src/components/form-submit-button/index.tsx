@@ -4,21 +4,13 @@ import type { ButtonProps } from '../button'
 
 import { Button } from '../button'
 
-/**
- * Props accepted by {@link FormSubmitButton} — every {@link ButtonProps} prop.
- * `isDisabled` and `isPending` are managed from the surrounding form's state.
- */
+/** The form drives `isDisabled`, so anything passed for it is ignored. */
 export interface FormSubmitButtonProps extends ButtonProps {
-    /**
-     * The button's label. Defaults to `Submit`.
-     */
+    /** The button's label. Defaults to `Submit`. */
     children?: ButtonProps['children']
 }
 
-/**
- * A FormSubmitButton handles form submission, and listen's to
- * `react-hook-form`'s state to handle disabled * pending states appropriately.
- */
+/** Submits the form, tracking `react-hook-form`'s dirty and pending state. */
 export function FormSubmitButton({
     children = 'Submit',
     variant = 'primary',
@@ -29,8 +21,8 @@ export function FormSubmitButton({
     return (
         <Button
             {...props}
-            isDisabled={isDirty === false}
-            isPending={props.isPending === true || isSubmitting === true || isValidating === true}
+            isDisabled={!isDirty}
+            isPending={props.isPending === true || isSubmitting || isValidating}
             type='submit'
             variant={variant}
         >

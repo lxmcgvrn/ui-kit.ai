@@ -5,34 +5,26 @@ import type { CheckboxGroupProps } from '../checkbox-group'
 import { CheckboxGroup } from '../checkbox-group'
 import { FieldError } from '../field-error'
 
-/**
- * Props accepted by {@link FormCheckboxGroup} — every {@link CheckboxGroupProps}
- * prop, wired to `react-hook-form` through `name`.
- */
 export interface FormCheckboxGroupProps extends CheckboxGroupProps {
-    /**
-     * The field this group is registered under in the surrounding `Form`. The
-     * component throws when it is missing.
-     */
+    /** Field name in the surrounding `Form`. Required — throws when missing. */
     name?: string
 }
 
-/**
- * A `FormCheckboxGroup` connects a `CheckboxGroup` to a `Form` component using `react-hook-form`.
- */
+/** Connects a `CheckboxGroup` to the surrounding `Form`. */
 export function FormCheckboxGroup({ children, ...props }: FormCheckboxGroupProps) {
     if (props.name == null) throw new Error('FormCheckboxGroup requires a name prop')
 
     const { control } = useFormContext()
 
-    const {
-        field: { disabled: isDisabled, name, onBlur, onChange, ref, value = '' },
-        fieldState: { error, invalid },
-    } = useController({
+    const { field, fieldState } = useController({
         control,
         defaultValue: props.value ?? props.defaultValue ?? [],
         name: props.name,
     })
+
+    const { disabled: isDisabled, name, onBlur, onChange, ref } = field
+    const { error, invalid } = fieldState
+    const value = (field.value ?? []) as string[]
 
     return (
         <CheckboxGroup

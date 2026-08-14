@@ -5,7 +5,7 @@ import { getMockOptions } from '@ui-kit.ai/mocks'
 
 export default function FormSelectIsInvalid() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormSelect
                 isInvalid
                 items={getMockOptions({ withIcon: true, withSections: true })}

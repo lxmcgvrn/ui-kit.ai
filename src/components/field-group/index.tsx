@@ -11,22 +11,13 @@ const fieldGroupStyles = tv({
     extend: fieldVariants,
 })
 
-/**
- * Props accepted by {@link FieldGroup}. Everything `react-aria-components`'
- * `Group` accepts, plus this design system's presentational props.
- */
 export interface FieldGroupProps extends RACGroupProps {
-    /**
-     * When `true` the group is rendered without its border and background.
-     */
+    /** When `true` the group is rendered without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLDivElement>
 }
 
-/**
- * A group represents a set of related UI controls, and supports interactive
- * states for styling.
- */
+/** A set of related controls, styled as a single field. */
 export function FieldGroup({ isBorderless, ref, ...props }: FieldGroupProps) {
     return (
         <RACGroup

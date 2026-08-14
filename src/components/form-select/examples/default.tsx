@@ -5,7 +5,7 @@ import { getMockOptions } from '@ui-kit.ai/mocks'
 
 export default function FormSelectDefault() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormSelect
                 items={getMockOptions({ withIcon: true })}
                 name='select'

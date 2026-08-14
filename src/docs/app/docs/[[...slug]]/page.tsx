@@ -5,7 +5,9 @@ import { getMDXComponents } from '@/mdx-components'
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page'
 import { notFound } from 'next/navigation'
 
-type PageParams = { slug?: string[] }
+interface PageParams {
+    slug?: string[]
+}
 
 export function generateMetadata(props: { params: Promise<PageParams> }): Promise<Metadata> {
     return props.params.then((params) => {

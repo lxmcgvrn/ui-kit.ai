@@ -17,7 +17,7 @@ export default function HeadingDefault() {
                     key={level}
                     level={level}
                 >
-                    {`H${level} ${TEXT} `}
+                    {`H${String(level)} ${TEXT} `}
                 </Heading>
             ))}
         </div>

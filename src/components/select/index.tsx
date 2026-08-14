@@ -35,26 +35,17 @@ const selectButtonStyles = tv({
     extend: fieldVariants,
 })
 
-/**
- * Props accepted by {@link Select}. Everything `react-aria-components`'
- * `Select` accepts, plus this design system's presentational props.
- */
 export interface SelectProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
     extends RACSelectProps<T> {
-    /**
-     * The options rendered in the select's listbox.
-     */
+    /** The options rendered in the select's listbox. */
     items?: Iterable<T>
     ref?: ForwardedRef<HTMLDivElement>
-    /**
-     * When `true` a checkmark is rendered next to the selected option.
-     */
+
+    /** When `true` a checkmark is rendered next to the selected option. */
     showCheckmarkOnSelected?: boolean
 }
 
-/**
- * A select displays a collapsible list of options and allows a user to select one of them.
- */
+/** Displays a collapsible list of options, of which the user picks one. */
 export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>({
     children = SelectButton,
     items,
@@ -99,33 +90,18 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
 }
 Select.displayName = 'Select'
 
-/**
- * Props accepted by {@link SelectButton}. Everything `react-aria-components`'
- * `Button` accepts, plus this design system's presentational props.
- */
 export interface SelectButtonProps extends RACButtonProps {
-    /**
-     * When `true` the button is rendered without its border and background.
-     */
+    /** When `true` the button is rendered without its border and background. */
     isBorderless?: boolean
-    /**
-     * A decorative node (e.g. an icon) to render on the left side of the
-     * Button. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the left. */
     slotLeft?: SlotNode
-    /**
-     * A decorative node (e.g. an icon) to render on the right side of the
-     * Button. When a node is passed, the padding on the corresponding side is
-     * slightly reduced to maintain visual balance.
-     */
+
+    /** Decorative node (e.g. an icon) rendered on the right. */
     slotRight?: SlotNode
 }
 
-/**
- * A SelectButton triggers the Popover for a Select. It usually contains the
- * selected item's text value.
- */
+/** Trigger for a {@link Select}; shows the selected item's text. */
 export function SelectButton({
     isBorderless,
     slotLeft,
@@ -133,7 +109,7 @@ export function SelectButton({
     ...props
 }: SelectButtonProps) {
     const state = useContext(RACSelectStateContext)
-    const selectedItemIcon: null | SlotNode = state?.selectedItem?.props.icon
+    const selectedItemProps = state?.selectedItem?.props as undefined | { icon?: SlotNode }
 
     return (
         <RACButton
@@ -148,7 +124,7 @@ export function SelectButton({
             }
             data-variant-borderless={isBorderless}
         >
-            {renderSlot(selectedItemIcon ?? slotLeft, {
+            {renderSlot(selectedItemProps?.icon ?? slotLeft, {
                 className: 'text-placeholder [&:is(svg)]:size-3 [&:is(svg)]:shrink-0',
                 'data-slot': 'slot-left',
             })}

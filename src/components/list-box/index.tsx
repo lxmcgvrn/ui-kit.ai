@@ -6,22 +6,13 @@ import type { OptionsSchema } from '../types/options'
 
 import { OptionRenderer } from '../options'
 
-/**
- * Props accepted by {@link ListBox}. Everything `react-aria-components`'
- * `ListBox` accepts — minus the props this component owns — plus this design
- * system's presentational props.
- */
 export interface ListBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
     extends Omit<RACListBoxProps<T>, 'children' | 'layout' | 'orientation'> {
-    /**
-     * When `true` a checkmark is rendered next to the selected option(s).
-     */
+    /** When `true` a checkmark is rendered next to the selected option(s). */
     showCheckmarkOnSelected?: boolean
 }
 
-/**
- * A listbox displays a list of options and allows a user to select one or more of them.
- */
+/** A list of options, one or more of them selectable. */
 export function ListBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>({
     showCheckmarkOnSelected = true,
     ...props

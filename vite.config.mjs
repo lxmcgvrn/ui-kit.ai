@@ -7,18 +7,10 @@ import packageJson from './package.json' with { type: 'json' }
 
 const root = import.meta.dirname
 
-/**
- * Externalize everything declared as a dependency or peer dependency.
- *
- * `devDependencies` are deliberately *not* externalized: the repo is a single
- * package, so its dev dependencies are the whole toolchain (Next.js, Fumadocs,
- * ESLint, …) rather than things the library imports. Anything the published
- * bundle actually imports has to be declared in `dependencies`, and the pack
- * smoke test (`pnpm smoke:pack`) fails if that ever stops being true.
- */
 /** @type {{ dependencies?: Record<string, string>; peerDependencies?: Record<string, string> }} */
 const pkg = packageJson
 
+/** Externalize deps/peerDeps; devDeps are toolchain, guarded by smoke:pack. */
 const external = [
     ...Object.keys(pkg.dependencies ?? {}),
     ...Object.keys(pkg.peerDependencies ?? {}),
@@ -32,8 +24,6 @@ export default defineConfig({
             cssFileName: 'style',
             entry: [path.resolve(root, 'src/components/index.ts')],
             fileName: (_, name) => `${name}.js`,
-            // ESM only — the package is `"type": "module"` and ships no UMD
-            // build, so there is no need for a global name or globals map.
             formats: ['es'],
         },
         rollupOptions: {

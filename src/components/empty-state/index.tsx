@@ -20,36 +20,24 @@ const actionsStyle = tv({
     },
 })
 
-/**
- * Props accepted by {@link EmptyState}.
- */
 export interface EmptyStateProps {
-    /**
-     * Up to two react nodes — typically buttons — rendered below the body.
-     */
+    /** Up to two react nodes — typically buttons — rendered below the body. */
     actions?: [ReactNode, ReactNode?]
-    /**
-     * Supporting copy rendered below the title.
-     */
+
+    /** Supporting copy rendered below the title. */
     body?: ReactNode
-    /**
-     * Classes merged with the component's own styles.
-     */
+
+    /** Classes merged with the component's own styles. */
     className?: string
-    /**
-     * A decorative node rendered above the title. Defaults to an info icon.
-     */
+
+    /** A decorative node rendered above the title. Defaults to an info icon. */
     icon?: SlotNode
-    /**
-     * The headline describing why there is nothing to show.
-     */
+
+    /** The headline describing why there is nothing to show. */
     title: string
 }
 
-/**
- * An empty state is a fallback UI shown in the absence of data, e.g. for a search
- * with no results.
- */
+/** Fallback UI shown when there is no data to display. */
 export function EmptyState({
     actions,
     body,

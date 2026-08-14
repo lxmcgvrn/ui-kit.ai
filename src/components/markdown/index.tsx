@@ -129,25 +129,18 @@ const COMPONENTS = {
     ),
 } satisfies ReactMarkdownComponents
 
-/**
- * Props accepted by {@link Markdown}.
- */
 export interface MarkdownProps {
-    /**
-     * The markdown source to render.
-     */
+    /** The markdown source to render. */
     children: string
-    /**
-     * Classes applied to the wrapping element.
-     */
+
+    /** Classes applied to the wrapping element. */
     className?: string
-    /**
-     * Forwarded to `react-markdown`, for cases that need extra plugins or
-     * component overrides.
-     */
+
+    /** Forwarded to `react-markdown` for plugins or component overrides. */
     options?: ReactMarkdownOptions
 }
 
+/** Renders a markdown string using this design system's typography. */
 export function Markdown({ children, className, options }: MarkdownProps) {
     return (
         <div className={className}>

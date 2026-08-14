@@ -3,16 +3,9 @@ import type { LabelProps as RACLabelProps } from 'react-aria-components'
 import { Label as RACLabel } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Label} — everything `react-aria-components`' `Label`
- * accepts.
- */
 export interface LabelProps extends RACLabelProps {}
 
-/**
- * A Label is used when composing a form field, and handles associating the
- * label with the field via the `id` and `for` attributes on your behalf.
- */
+/** A field label, associated with its field automatically. */
 export function Label(props: LabelProps) {
     return (
         <RACLabel

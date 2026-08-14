@@ -5,20 +5,12 @@ import { Prism as SyntaxHighlighter, type SyntaxHighlighterProps } from 'react-s
 import { FieldButton } from '../field-button'
 import { Tooltip, TooltipTrigger } from '../tooltip'
 
-/**
- * Props accepted by {@link CodeBlock}. Everything `react-syntax-highlighter`'s
- * `SyntaxHighlighter` accepts.
- */
 export interface CodeBlockProps extends SyntaxHighlighterProps {
-    /**
-     * When `true` (the default) line numbers are rendered in the gutter.
-     */
+    /** When `true` (the default) line numbers are rendered in the gutter. */
     showLineNumbers?: boolean
 }
 
-/**
- * A syntax-highlighted code block component, built using `react-syntax-highlighter`.
- */
+/** A syntax-highlighted code block, with a copy button. */
 export function CodeBlock({ showLineNumbers = true, ...props }: CodeBlockProps) {
     const copyValue = useCallback(() => {
         if (props.children === '' || props.children.length === 0) return

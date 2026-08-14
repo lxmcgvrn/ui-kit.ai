@@ -4,11 +4,7 @@ import { describe, expect, test } from 'vitest'
 
 const componentsDir = path.join(__dirname, '..')
 
-/**
- * Every component lives in its own folder, entered through `index.tsx`.
- * Directories without one (`__tests__`, `hooks`, `styles`, `types`) are not
- * components.
- */
+/** Component folders are the ones with an `index.tsx`. */
 const componentEntries = fs
     .readdirSync(componentsDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
@@ -18,7 +14,7 @@ const componentEntries = fs
 describe.skip('JSDoc comments for named exports', async () => {
     for (const { dir, file } of componentEntries) {
         const fileContent = fs.readFileSync(file, 'utf8')
-        const module = await import(file)
+        const module = (await import(file)) as Record<string, unknown>
 
         Object.keys(module)
             .filter((key) => key !== 'default')

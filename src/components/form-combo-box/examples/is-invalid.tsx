@@ -15,7 +15,7 @@ import { LucideSearch } from 'lucide-react'
 
 export default function FormComboBoxIsInvalid() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormComboBox
                 isInvalid
                 items={getMockOptions({ withIcon: true, withSections: true })}

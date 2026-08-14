@@ -15,15 +15,9 @@ import {
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
-/**
- * Props accepted by {@link Tabs}. Everything `react-aria-components`' `Tabs`
- * accepts.
- */
 export interface TabsProps extends RACTabsProps {}
 
-/**
- * Tabs organize content into multiple sections and allow users to navigate between them.
- */
+/** Organizes content into navigable sections. */
 export function Tabs(props: TabsProps) {
     return (
         <RACTabs
@@ -52,18 +46,9 @@ const tabListStyles = tv({
     },
 })
 
-/**
- * Props accepted by {@link TabList}. Everything `react-aria-components`'
- * `TabList` accepts.
- */
 export interface TabListProps<T extends object = object> extends RACTabListProps<T> {}
 
-/**
-
- *
-
-
- */
+/** The row of {@link Tab}s within a {@link Tabs}. */
 export function TabList<T extends object>(props: TabListProps<T>) {
     return (
         <RACTabList
@@ -107,18 +92,9 @@ const tabStyles = tv({
     ],
 })
 
-/**
- * Props accepted by {@link Tab}. Everything `react-aria-components`' `Tab`
- * accepts.
- */
 export interface TabProps extends RACTabProps {}
 
-/**
- * A Tab can be clicked, tapped, or navigated to via arrow keys to switch between panels.
- *
-
-
- */
+/** Switches to its panel on click, tap, or arrow key. */
 export function Tab(props: TabProps) {
     return (
         <RACTab
@@ -134,18 +110,9 @@ export function Tab(props: TabProps) {
 }
 Tab.displayName = 'Tab'
 
-/**
- * Props accepted by {@link TabPanel}. Everything `react-aria-components`'
- * `TabPanel` accepts.
- */
 export interface TabPanelProps extends RACTabPanelProps {}
 
-/**
- * A TabPanel contains the content for a single tab.
- *
-
-
- */
+/** The content for a single {@link Tab}. */
 export function TabPanel(props: TabPanelProps) {
     return (
         <RACTabPanel

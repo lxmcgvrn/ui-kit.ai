@@ -19,7 +19,7 @@ import {
 export default function CardWithForm() {
     return (
         <Card className='w-full max-w-128'>
-            <Form onSubmit={() => {}}>
+            <Form onSubmit={() => undefined}>
                 <CardHeader>
                     <CardTitle>Card title</CardTitle>
                     <CardDescription>Card description</CardDescription>

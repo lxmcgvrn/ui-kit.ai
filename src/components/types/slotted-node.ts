@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactElement } from 'react'
 
 import { cloneElement } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -8,18 +8,18 @@ export enum Slot {
     RIGHT = 'slot-right',
 }
 
-export type SlotNode = React.JSX.Element
+export type SlotNode = ReactElement<SlotNodeProps>
 
-type SlotNodeProps = HTMLAttributes<HTMLElement> & {
-    [key: `data-${string}`]: unknown
-}
+export type SlotNodeProps = HTMLAttributes<HTMLElement> & Record<`data-${string}`, unknown>
 
 export function renderSlot(node: SlotNode | undefined, props: SlotNodeProps) {
     if (!node) return null
 
+    const nodeProps = node.props
+
     return cloneElement(node, {
-        ...node.props,
+        ...nodeProps,
         ...props,
-        className: twMerge(node.props.className, props.className),
+        className: twMerge(nodeProps.className, props.className),
     })
 }

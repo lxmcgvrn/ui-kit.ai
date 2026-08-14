@@ -18,22 +18,13 @@ const textAreaStyles = tv({
     extend: fieldVariants,
 })
 
-/**
- * Props accepted by {@link TextArea}. Everything `react-aria-components`'
- * `TextArea` accepts, plus this design system's presentational props.
- */
 export interface TextAreaProps extends ComponentProps<typeof RACTextArea> {
-    /**
-     * When `true` the text area is rendered without its border and background.
-     */
+    /** When `true` the text area is rendered without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLTextAreaElement>
 }
 
-/**
- * An TextArea is a primitive component used when composing fields, (e.g.
- * TextField, SearchField, NumberField).
- */
+/** The multi-line input primitive used to compose field components. */
 export const TextArea = ({ isBorderless, ref, ...props }: TextAreaProps) => {
     return (
         <div className='relative inline-flex w-full items-center'>

@@ -149,16 +149,6 @@ const TEXT_ACCENT: ShadeLightDark = {
     },
 }
 
-// const textAccentFn: ShadeFn = (hsl) => {
-//     const contrastRatio = wcagContrast(hsl, TEXT_HI_CONTRAST.light.vibrant(hsl))
-
-//     if (contrastRatio < 2.5) {
-//         return BG_BASE.light.muted(hsl)
-//     }
-
-//     return TEXT_HI_CONTRAST.light.muted(hsl)
-// }
-
 export const SHADES: Shades = {
     [Color.BG_BASE]: BG_BASE,
     [Color.BG_BASE_RAISED]: {

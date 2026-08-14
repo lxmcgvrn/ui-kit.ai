@@ -2,11 +2,7 @@ import type { ReactNode } from 'react'
 
 import { MockApiGate } from '@/components/mock-api'
 
-/**
- * The surface component demos are rendered on: a dot-grid canvas painted with
- * the ui-kit theme tokens (rather than the Fumadocs theme), so demos look the
- * same as they do in a consuming app.
- */
+/** Demo canvas painted with ui-kit tokens, not the Fumadocs theme. */
 export function DemoFrame({ children, mocks = false }: { children: ReactNode; mocks?: boolean }) {
     return (
         <div

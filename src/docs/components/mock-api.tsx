@@ -7,10 +7,7 @@ import { useEffect, useState } from 'react'
 
 let workerPromise: null | Promise<void> = null
 
-/**
- * Delays rendering its children until the mock API is intercepting requests,
- * so demos don't fire real network requests on first paint.
- */
+/** Renders children once the mock API is intercepting requests. */
 export function MockApiGate({ children }: { children: ReactNode }) {
     const [isReady, setIsReady] = useState(false)
 
@@ -31,13 +28,7 @@ export function MockApiGate({ children }: { children: ReactNode }) {
     return children
 }
 
-/**
- * Boots the MSW browser worker (once per page load) with the handlers from
- * `@ui-kit.ai/mocks`, so demos that call an API have something to talk to.
- *
- * The worker script itself lives at `public/mockServiceWorker.js` — regenerate
- * it with `pnpm --filter docs exec msw init public` after upgrading `msw`.
- */
+/** After upgrading msw, regenerate `public/mockServiceWorker.js`. */
 function startMockApi(): Promise<void> {
     workerPromise ??= (async () => {
         const [{ fibonacciStreamHandler, getStocksHandler, llmStreamHandler }, { setupWorker }] =

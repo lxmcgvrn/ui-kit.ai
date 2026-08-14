@@ -12,18 +12,9 @@ import {
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Breadcrumb}. Everything `react-aria-components`'
- * `Breadcrumb` accepts, plus its `Link`'s props.
- *
- * @note This is a type alias rather than an interface because the two sources
- * declare an incompatible `children` — an interface cannot extend both.
- */
 export type BreadcrumbProps = Omit<RACLinkProps, 'className'> & RACBreadcrumbProps
 
-/**
- * A breadcrumb is a link that represents a single item in a breadcrumb hierarchy.
- */
+/** A breadcrumb is a link that represents a single item in a breadcrumb hierarchy. */
 export function Breadcrumb(props: BreadcrumbProps) {
     return (
         <RACBreadcrumb
@@ -51,14 +42,9 @@ export function Breadcrumb(props: BreadcrumbProps) {
 }
 Breadcrumb.displayName = 'Breadcrumb'
 
-/**
- * Props accepted by {@link Breadcrumbs}.
- */
 export interface BreadcrumbsProps<T extends object = object> extends RACBreadcrumbsProps<T> {}
 
-/**
- * Breadcrumbs display a hierarchy of links to the current page or resource in an application.
- */
+/** A hierarchy of links to the current page or resource. */
 export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
     return (
         <RACBreadcrumbs

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 
 import { DemoFrame } from '@/components/demo-frame'
 import { highlight } from 'fumadocs-core/highlight'
@@ -10,32 +10,22 @@ import path from 'node:path'
 /** `src/components` — where examples live, next to their component. */
 const COMPONENTS_DIR = path.join(process.cwd(), '..', 'components')
 
-export type ComponentPreviewProps = {
-    /** The rendered demo, imported from `./examples/<example>`. */
+export interface ComponentPreviewProps {
+    /** The rendered demo, imported from `./examples/&lt;example>`. */
     children: ReactNode
-    /**
-     * Set to `true` when the demo talks to a mock API, so it is only rendered
-     * once the MSW service worker is ready.
-     */
+    /** Wait for the MSW mock API before rendering the demo. */
     mocks?: boolean
-    /**
-     * `<component>/<example>` — resolved to
-     * `src/components/<component>/examples/<example>.tsx`.
-     */
+    /** `&lt;component>/&lt;example>`, under that component's `examples` dir. */
     name: string
 }
 
-/**
- * Renders a component demo with a `Preview` tab (the live component) and a
- * `Code` tab containing the demo file's actual source, read from disk when the
- * page is statically generated.
- */
+/** Renders a demo in a `Preview` tab and its source in a `Code` tab. */
 export async function ComponentPreview({ children, mocks = false, name }: ComponentPreviewProps) {
     const source = await readExampleSource(name)
 
     const code = await highlight(source.trim(), {
         components: {
-            pre: (props) => (
+            pre: (props: ComponentProps<'pre'>) => (
                 <CodeBlock
                     className='my-0'
                     {...props}
@@ -65,10 +55,6 @@ export async function ComponentPreview({ children, mocks = false, name }: Compon
     )
 }
 
-/**
- * Reads an example's source straight off disk, so the `Code` tab always shows
- * what actually ran.
- */
 async function readExampleSource(name: string) {
     const [component = '', example = ''] = name.split('/')
 

@@ -2,7 +2,7 @@ import type { OptionsSchema } from '@ui-kit.ai/components'
 
 import { LucideApple, LucideBanana, LucideCarrot, LucideLeafyGreen } from 'lucide-react'
 
-type Options = {
+interface Options {
     withIcon?: boolean
     withSections?: boolean
 }

@@ -2,7 +2,7 @@ import type { ComponentProps, ForwardedRef } from 'react'
 import type { ComboBoxProps as RACComboBoxProps } from 'react-aria-components'
 
 import { LucideChevronsUpDown, LucideX } from 'lucide-react'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import {
     ComboBox as RACComboBox,
     ComboBoxStateContext as RACComboBoxStateContext,
@@ -18,16 +18,10 @@ import { Input } from '../input'
 import { OptionRenderer } from '../options'
 import { Popover } from '../popover'
 
-/**
- * Props accepted by {@link ComboBoxButton}.
- */
 export interface ComboBoxButtonProps
     extends Omit<ComponentProps<typeof FieldButton>, 'children' | 'isDisabled' | 'onPress'> {}
 
-/**
- * A button that triggers the ComboBox Popover. Props such as onPress and
- * isDisabled will be set by the ComboBox.
- */
+/** Opens the ComboBox popover. `onPress` and `isDisabled` are set for you. */
 export function ComboBoxButton(props: ComboBoxButtonProps) {
     return (
         <FieldButton {...props}>
@@ -37,20 +31,13 @@ export function ComboBoxButton(props: ComboBoxButtonProps) {
 }
 ComboBoxButton.displayName = 'ComboBoxButton'
 
-/**
- * Props accepted by {@link ComboBoxClearButton}.
- */
 export interface ComboBoxClearButtonProps
     extends Omit<
         ComponentProps<typeof FieldButton>,
         'children' | 'isDisabled' | 'onPress' | 'slot'
     > {}
 
-/**
- * A button that clears the selected key from the ComboBox. Only visible when
- * the ComboBox has a selected key. Props such as onPress and isDisabled will be
- * set by the ComboBox.
- */
+/** Clears the ComboBox selection. Hidden while the ComboBox is empty. */
 export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
     const state = useContext(RACComboBoxStateContext)
 
@@ -85,74 +72,56 @@ export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
 }
 ComboBoxClearButton.displayName = 'ComboBoxClearButton'
 
-/**
- * Props accepted by {@link ComboBoxFieldGroup}.
- */
 export interface ComboBoxFieldGroupProps extends ComponentProps<typeof FieldGroup> {}
 
-/**
- * A group that holds a ComboBoxInput and the related button controls.
- * Responsible for setting a ref used to measure the input and size the Popover
- * correctly.
- */
+/** Wraps the ComboBox input and its buttons; measured to size the popover. */
 export function ComboBoxFieldGroup(props: ComboBoxFieldGroupProps) {
     return <FieldGroup {...props} />
 }
 ComboBoxFieldGroup.displayName = 'ComboBoxFieldGroup'
 
-/**
- * Props accepted by {@link ComboBoxInput}. Everything {@link Input} accepts,
- * plus a ref to the underlying input element.
- */
 export interface ComboBoxInputProps extends ComponentProps<typeof Input> {
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/**
- * An input that is used to interact with a ComboBox. Is customized to
- * toggle the ComboBox on click.
- */
+/** The fields {@link ComboBoxInput} reads off the selected option's value. */
+interface SelectedOptionValue {
+    icon?: ComboBoxInputProps['icon']
+    name?: string
+}
+
+/** Text input for a ComboBox; toggles the popover on click. */
 export const ComboBoxInput = ({ ref, ...props }: ComboBoxInputProps) => {
     const state = useContext(RACComboBoxStateContext)
 
-    const { selectedItem, toggle } = state ?? {}
-    const { value } = selectedItem ?? {}
-    const { icon } = value ?? {}
+    const selected = state?.selectedItem?.value as SelectedOptionValue | undefined
 
     return (
         <Input
             {...props}
-            defaultValue={value?.name ?? props.defaultValue}
-            icon={icon ?? props.icon}
+            defaultValue={selected?.name ?? props.defaultValue}
+            icon={selected?.icon ?? props.icon}
             onClick={(e) => {
-                toggle?.(null, 'focus')
+                state?.toggle(null, 'focus')
                 props.onClick?.(e)
             }}
-            placeholder={selectedItem?.value.name ?? props.placeholder ?? ''}
+            placeholder={selected?.name ?? props.placeholder ?? ''}
             ref={ref}
         />
     )
 }
 ComboBoxInput.displayName = 'ComboBoxInput'
 
-/**
- * Props accepted by {@link ComboBox}. Everything `react-aria-components`'
- * `ComboBox` accepts, plus this design system's presentational props.
- */
 export interface ComboBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
     extends Pick<ComponentProps<typeof RACListBox>, 'renderEmptyState'>,
         RACComboBoxProps<T> {
     ref?: ForwardedRef<HTMLDivElement>
-    /**
-     * When `true` a checkmark is rendered next to the selected option.
-     */
+
+    /** When `true` a checkmark is rendered next to the selected option. */
     showCheckmarkOnSelected?: boolean
 }
 
-/**
- * A combo box combines a text input with a listbox, allowing users to filter a
- * list of options to items matching a query.
- */
+/** A text input plus listbox, letting users filter options by typing. */
 export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>({
     children,
     items,

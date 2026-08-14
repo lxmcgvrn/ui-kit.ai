@@ -30,7 +30,7 @@ import { tv } from 'tailwind-variants'
 import { Checkbox } from '../checkbox'
 import { Skeleton } from '../skeleton'
 
-const getRandomNumber = (min: number = 0, max: number = 100): number => {
+const getRandomNumber = (min = 0, max = 100): number => {
     return Math.floor(min + Math.random() * (max - min + 1))
 }
 
@@ -117,31 +117,15 @@ const cellSkeletonStyles = tv({
     },
 })
 
-// const resizerStyles = tv({
-//     base: [
-//         `bg-mid-contrast resizing:w-[2px] resizing:bg-primary-hover resizing:pl-[7px]
-//     forced-colors:resizing:bg-[Highlight] box-content h-5 w-px translate-x-[8px] cursor-col-resize
-//     rounded bg-clip-content px-[8px] py-1 -outline-offset-2 forced-colors:bg-[ButtonBorder]`,
-//     ],
-//     extend: focusRing,
-// })
-
-/**
- * Props accepted by {@link Cell}. Everything `react-aria-components`' `Cell`
- * accepts, plus this design system's presentational props.
- */
 export interface CellProps extends RACCellProps {
-    /**
-     * Horizontal alignment of the cell's content. Should match the alignment of
-     * the {@link Column} it belongs to.
-     */
+    /** Content alignment; should match the {@link Column} it belongs to. */
     alignment?: 'center' | 'end' | 'start'
-    /**
-     * When `true`, a {@link Skeleton} is rendered in place of the cell's children.
-     */
+
+    /** When `true`, a {@link Skeleton} is rendered in place of the cell's children. */
     showSkeleton?: boolean
 }
 
+/** One table cell; shows a {@link Skeleton} in place of loading data. */
 export function Cell({ alignment, children, className, showSkeleton, ...props }: CellProps) {
     return (
         <RACCell
@@ -159,7 +143,7 @@ export function Cell({ alignment, children, className, showSkeleton, ...props }:
                         alignment,
                     })}
                     style={{
-                        width: `${getRandomNumber(20, 50)}%`,
+                        width: `${String(getRandomNumber(20, 50))}%`,
                     }}
                 />
             ) : (
@@ -170,17 +154,12 @@ export function Cell({ alignment, children, className, showSkeleton, ...props }:
 }
 Cell.displayName = 'Cell'
 
-/**
- * Props accepted by {@link Column}. Everything `react-aria-components`'
- * `Column` accepts, plus this design system's presentational props.
- */
 export interface ColumnProps extends RACColumnProps {
-    /**
-     * Horizontal alignment of the column's content.
-     */
+    /** Horizontal alignment of the column's content. */
     alignment?: 'center' | 'end' | 'start'
 }
 
+/** A column header, growing a sort control when the table allows sorting. */
 export function Column({ alignment, children, className, textValue, ...props }: ColumnProps) {
     return (
         <RACColumn
@@ -239,6 +218,7 @@ function ColumnSortControl({ sortDirection }: { sortDirection: RACSortDirection 
 }
 ColumnSortControl.displayName = 'ColumnSortControl'
 
+/** The scroll container a {@link Table} needs before columns can resize. */
 export function ResizableTableContainer(props: RACResizableTableContainerProps) {
     return (
         <RACTableContainer
@@ -254,11 +234,9 @@ export function ResizableTableContainer(props: RACResizableTableContainerProps) 
 }
 ResizableTableContainer.displayName = 'ResizableTableContainer'
 
-/**
- * Props accepted by {@link Row}.
- */
 export interface RowProps<TColumn extends object = object> extends RACRowProps<TColumn> {}
 
+/** A table row, prepending drag and selection cells when those are on. */
 export function Row<TColumn extends object>({
     children,
     className,
@@ -299,23 +277,12 @@ export function Row<TColumn extends object>({
 }
 Row.displayName = 'Row'
 
-/**
- * Props accepted by {@link Table}. Everything `react-aria-components`' `Table`
- * accepts, plus this design system's presentational props.
- */
 export interface TableProps extends RACTableProps {
-    /**
-     * When `true`, the table's outer horizontal padding is removed so its
-     * content aligns with the surrounding container.
-     */
+    /** Removes the table's outer horizontal padding. */
     isCompact?: boolean
 }
 
-/**
- * A table displays data in rows and columns and enables a user to navigate its
- * contents via directional navigation keys, and optionally supports row
- * selection and sorting.
- */
+/** Rows and columns with keyboard navigation, selection, and sorting. */
 export function Table({ className, isCompact, ...props }: TableProps) {
     return (
         <RACTable
@@ -332,22 +299,18 @@ export function Table({ className, isCompact, ...props }: TableProps) {
 }
 Table.displayName = 'Table'
 
-/**
- * Props accepted by {@link TableBody}.
- */
 export interface TableBodyProps<T extends object = object> extends RACTableBodyProps<T> {}
 
+/** Holds the {@link Row}s; takes `renderEmptyState` for the empty case. */
 export function TableBody<T extends object>(props: TableBodyProps<T>) {
     return <RACTableBody<T> {...props} />
 }
 TableBody.displayName = 'TableBody'
 
-/**
- * Props accepted by {@link TableHeader}.
- */
 export interface TableHeaderProps<TColumn extends object = object>
     extends RACTableHeaderProps<TColumn> {}
 
+/** Holds the {@link Column}s, adding drag and selection columns as needed. */
 export function TableHeader<TColumn extends object>({ ...props }: TableHeaderProps<TColumn>) {
     const { allowsDragging, selectionBehavior, selectionMode } = useTableOptions()
 

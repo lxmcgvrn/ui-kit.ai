@@ -19,14 +19,11 @@ export function genVarName(intent: Intent, color: Color): VarName {
 }
 
 function paletteToThemeVars(palette: ReturnType<typeof generatePalette>, intent: Intent) {
-    return Object.entries(palette).reduce(
-        (acc, [key, [light, dark]]) => {
-            acc[genVarName(intent, key as Color)] =
-                `light-dark(${formatHsl(light)}, ${formatHsl(dark)})`
-            return acc
-        },
-        {} as Record<string, string>
-    )
+    return Object.entries(palette).reduce<Record<string, string>>((acc, [key, [light, dark]]) => {
+        acc[genVarName(intent, key as Color)] =
+            `light-dark(${formatHsl(light)}, ${formatHsl(dark)})`
+        return acc
+    }, {})
 }
 
 function serializeThemeVars(themeVars: Record<string, string>) {

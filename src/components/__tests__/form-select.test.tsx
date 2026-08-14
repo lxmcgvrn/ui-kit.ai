@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { expect, it, vi } from 'vitest'
+import { assert, expect, it, vi } from 'vitest'
 
 import { Button } from '../button'
 import { Form } from '../form'
@@ -33,9 +33,9 @@ it('submits form with `FormSelect`', async () => {
 
     expect(getByRole('listbox')).toBeInTheDocument()
 
-    const option = getAllByRole('option')[0]
-    expect(option).toBeInTheDocument()
-    await user.click(option as HTMLElement)
+    const [option] = getAllByRole('option')
+    assert(option, 'expected at least one option')
+    await user.click(option)
 
     const button = getByText('Submit')
     await user.click(button)
@@ -68,9 +68,9 @@ it('`FormSelect` clears when reset after submission', async () => {
 
     expect(getByRole('listbox')).toBeInTheDocument()
 
-    const option = getAllByRole('option')[0]
-    expect(option).toBeInTheDocument()
-    await user.click(option as HTMLElement)
+    const [option] = getAllByRole('option')
+    assert(option, 'expected at least one option')
+    await user.click(option)
 
     expect(field).toHaveTextContent('abc123')
 

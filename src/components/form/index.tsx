@@ -4,40 +4,24 @@ import type { FieldValues, SubmitErrorHandler, SubmitHandler, UseFormProps } fro
 import { FormProvider, useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Form}.
- */
 export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
-    /**
-     * Form field components & form submit button. They will be able to access `react-hook-form`'s form context.
-     */
+    /** Fields and a submit button; all get `react-hook-form` context. */
     children: ReactNode
 
-    /**
-     * Class name for the form.
-     */
+    /** Class name for the form. */
     className?: string
 
-    /**
-     * Function that will be called when form validation errors occur.
-     */
+    /** Function that will be called when form validation errors occur. */
     onError?: SubmitErrorHandler<TFieldValues>
 
-    /**
-     * Function that will be called when the form is submitted.
-     */
+    /** Function that will be called when the form is submitted. */
     onSubmit: SubmitHandler<TFieldValues>
 
-    /**
-     * Additional options passed to `react-hook-forms` `useForm` hook.
-     */
+    /** Additional options passed to `react-hook-forms` `useForm` hook. */
     options?: UseFormProps<TFieldValues>
 }
 
-/**
- * A form is a group of inputs that allows users to submit data to a server,
- * with support for providing field validation errors.
- */
+/** A group of fields with validation, submission and error handling. */
 export function Form<TFieldValues extends FieldValues = FieldValues>({
     children,
     className,

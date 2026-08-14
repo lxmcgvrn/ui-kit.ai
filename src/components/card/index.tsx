@@ -5,14 +5,9 @@ import { twMerge } from 'tailwind-merge'
 
 import { Heading } from '../heading'
 
-/**
- * Props accepted by {@link Card}.
- */
 export interface CardProps extends HTMLProps<HTMLElement> {}
 
-/**
- * A Card is a container that groups and organizes content in a consistent manner.
- */
+/** A Card is a container that groups and organizes content in a consistent manner. */
 export function Card(props: CardProps) {
     return (
         <section
@@ -26,14 +21,9 @@ export function Card(props: CardProps) {
 }
 Card.displayName = 'Card'
 
-/**
- * Props accepted by {@link CardLink}.
- */
 export interface CardLinkProps extends ComponentProps<typeof RACLink> {}
 
-/**
- * A Card is a container that groups and organizes content in a consistent manner.
- */
+/** A Card is a container that groups and organizes content in a consistent manner. */
 export function CardLink(props: CardLinkProps) {
     return (
         <RACLink
@@ -53,14 +43,9 @@ export function CardLink(props: CardLinkProps) {
 }
 CardLink.displayName = 'CardLink'
 
-/**
- * Props accepted by {@link CardHeader}.
- */
 export interface CardHeaderProps extends HTMLProps<HTMLElement> {}
 
-/**
- * A CardHeader is a container for the title of the card.
- */
+/** A CardHeader is a container for the title of the card. */
 export const CardHeader = (props: CardHeaderProps) => {
     return (
         <header
@@ -72,14 +57,9 @@ export const CardHeader = (props: CardHeaderProps) => {
 }
 CardHeader.displayName = 'CardHeader'
 
-/**
- * Props accepted by {@link CardTitle}.
- */
 export interface CardTitleProps extends Omit<ComponentProps<typeof Heading>, 'level' | 'slot'> {}
 
-/**
- * A CardTitle is a heading element that is used to display the title of the card.
- */
+/** A CardTitle is a heading element that is used to display the title of the card. */
 export function CardTitle({ children, ...props }: CardTitleProps) {
     return (
         <Heading
@@ -94,14 +74,9 @@ export function CardTitle({ children, ...props }: CardTitleProps) {
 }
 CardTitle.displayName = 'CardTitle'
 
-/**
- * Props accepted by {@link CardDescription}.
- */
 export interface CardDescriptionProps extends Omit<ComponentProps<'span'>, 'level' | 'slot'> {}
 
-/**
- * A CardDescription is an element used to add extra context to a card.
- */
+/** A CardDescription is an element used to add extra context to a card. */
 export function CardDescription({ children, ...props }: CardDescriptionProps) {
     return (
         <span
@@ -115,14 +90,9 @@ export function CardDescription({ children, ...props }: CardDescriptionProps) {
 }
 CardDescription.displayName = 'CardDescription'
 
-/**
- * Props accepted by {@link CardBody}.
- */
 export interface CardBodyProps extends HTMLProps<HTMLDivElement> {}
 
-/**
- * A CardBody is a container for the main content of the card.
- */
+/** A CardBody is a container for the main content of the card. */
 export function CardBody(props: CardBodyProps) {
     return (
         <div
@@ -133,14 +103,9 @@ export function CardBody(props: CardBodyProps) {
 }
 CardBody.displayName = 'CardBody'
 
-/**
- * Props accepted by {@link CardFooter}.
- */
 export interface CardFooterProps extends HTMLProps<HTMLElement> {}
 
-/**
- * A CardFooter is a container for additional actions or information related to the card.
- */
+/** Holds actions or supplementary information for the card. */
 export function CardFooter(props: CardFooterProps) {
     return (
         <footer

@@ -70,9 +70,7 @@ const dialogStyles = tv({
         'w-full max-w-[100dvw]',
         // border
         'rounded-none md:rounded-lg',
-        // `border-none` rather than `border-0`: the hairline `.border` override
-        // in `index.css` is last in the utilities layer, so it out-ranks any
-        // same-specificity width utility — killing the style instead wins.
+        // `border-none`, not `border-0`: `index.css`'s `.border` wins otherwise.
         'sm:max-sm:border-none',
         'border-default border',
         '[[data-placement]>&]:p-4',
@@ -86,20 +84,12 @@ const dialogStyles = tv({
     },
 })
 
-/**
- * Props accepted by {@link Dialog}. Everything `react-aria-components`'
- * `Dialog` accepts, plus this design system's presentational props.
- */
 export interface DialogProps extends RACDialogProps {
-    /**
-     * Controls the width of the dialog on viewports wider than `md`.
-     */
+    /** Controls the width of the dialog on viewports wider than `md`. */
     width?: 'lg' | 'md' | 'sm'
 }
 
-/**
- * A dialog is an overlay shown above other content in an application.
- */
+/** A dialog is an overlay shown above other content in an application. */
 export function Dialog({ width = 'sm', ...props }: DialogProps) {
     return (
         <RACDialog
@@ -110,13 +100,11 @@ export function Dialog({ width = 'sm', ...props }: DialogProps) {
 }
 Dialog.displayName = 'Dialog'
 
-/**
- * A button to close the dialog.
- */
+/** A button to close the dialog. */
 export function DialogCloseButton(
     props: Omit<ComponentProps<typeof Button>, 'aria-label' | 'name' | 'type' | 'variant'>
 ) {
-    const { close } = useContext(RACOverlayTriggerStateContext) ?? {}
+    const overlayTriggerState = useContext(RACOverlayTriggerStateContext)
     return (
         <Button
             {...props}
@@ -130,7 +118,7 @@ export function DialogCloseButton(
             name='close'
             onPress={(e) => {
                 props.onPress?.(e)
-                close?.()
+                overlayTriggerState?.close()
             }}
             type='button'
             variant='tertiary'
@@ -141,9 +129,7 @@ export function DialogCloseButton(
 }
 DialogCloseButton.displayName = 'DialogCloseButton'
 
-/**
- * Wrapper to render scrollable content within the dialog.
- */
+/** Wrapper to render scrollable content within the dialog. */
 export function DialogContent({ ref, ...props }: HTMLProps<HTMLDivElement>) {
     return (
         <div
@@ -165,9 +151,7 @@ export function DialogContent({ ref, ...props }: HTMLProps<HTMLDivElement>) {
 }
 DialogContent.displayName = 'DialogContent'
 
-/**
- * Wrapper to pin content to the bottom of the dialog.
- */
+/** Wrapper to pin content to the bottom of the dialog. */
 export function DialogFooter({ children, ...props }: HTMLProps<HTMLElement>) {
     return (
         <footer
@@ -188,9 +172,7 @@ export function DialogFooter({ children, ...props }: HTMLProps<HTMLElement>) {
 }
 DialogFooter.displayName = 'DialogFooter'
 
-/**
- * Wrapper to render the dialog header.
- */
+/** Wrapper to render the dialog header. */
 export function DialogHeader(props: HTMLProps<HTMLElement>) {
     return (
         <header
@@ -208,19 +190,9 @@ export function DialogHeader(props: HTMLProps<HTMLElement>) {
 }
 DialogHeader.displayName = 'DialogHeader'
 
-/**
- * Props accepted by {@link DialogTitle}.
- */
 export interface DialogTitleProps extends Omit<ComponentProps<typeof Heading>, 'level' | 'slot'> {}
 
-/**
- * Wraps a {@link Heading} component and adds the `title` slot which accessibly labels
- * the dialog.
- *
- * @note If a dialog does not have a {@link DialogTitle}, an `aria-label` or
- * `aria-labelledby` prop must be passed instead to identify the element to
- * assistive technology.
- */
+/** A {@link Heading} in the `title` slot, labelling the dialog. */
 export function DialogTitle({ children, ...props }: DialogTitleProps) {
     return (
         <Heading
@@ -235,27 +207,17 @@ export function DialogTitle({ children, ...props }: DialogTitleProps) {
 }
 DialogTitle.displayName = 'DialogTitle'
 
-/**
- * Props accepted by {@link DialogTrigger}.
- */
 export interface DialogTriggerProps extends RACDialogTriggerProps {}
 
-/**
- * A DialogTrigger opens a dialog when a trigger element is pressed.
- */
+/** A DialogTrigger opens a dialog when a trigger element is pressed. */
 export function DialogTrigger(props: DialogTriggerProps) {
     return <RACDialogTrigger {...props} />
 }
 DialogTrigger.displayName = 'DialogTrigger'
 
-/**
- * Props accepted by {@link DialogModal}.
- */
 export interface DialogModalProps extends RACModalOverlayProps {}
 
-/**
- * A DialogModal renders the dialog's modal container.
- */
+/** A DialogModal renders the dialog's modal container. */
 export function DialogModal({ isDismissable = true, ...props }: DialogModalProps) {
     return (
         <RACModal
@@ -274,14 +236,9 @@ export function DialogModal({ isDismissable = true, ...props }: DialogModalProps
 }
 DialogModal.displayName = 'DialogModal'
 
-/**
- * Props accepted by {@link DialogModalOverlay}.
- */
 export interface DialogModalOverlayProps extends Omit<RACModalOverlayProps, 'className'> {}
 
-/**
- * A DialogModalOverlay renders the backdrop behind a {@link DialogModal}.
- */
+/** A DialogModalOverlay renders the backdrop behind a {@link DialogModal}. */
 export function DialogModalOverlay({ isDismissable = true, ...props }: DialogModalOverlayProps) {
     return (
         <RACModalOverlay

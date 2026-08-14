@@ -2,14 +2,9 @@ import type { HTMLProps } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Skeleton} — everything a `div` accepts.
- */
 export interface SkeletonProps extends HTMLProps<HTMLDivElement> {}
 
-/**
- * An animated `Skeleton` component, for use as a loading placeholder.
- */
+/** An animated `Skeleton` component, for use as a loading placeholder. */
 export function Skeleton(props: SkeletonProps) {
     return (
         <div

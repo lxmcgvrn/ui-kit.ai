@@ -5,7 +5,7 @@ import { getMockOptions } from '@ui-kit.ai/mocks'
 
 export default function FormSelectDisabledKeys() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormSelect
                 disabledKeys={['carrot', 'spinach']}
                 items={getMockOptions({ withIcon: true, withSections: true })}

@@ -14,19 +14,11 @@ import { FieldButton } from '../field-button'
 import { Input } from '../input'
 import { Tooltip, TooltipTrigger } from '../tooltip'
 
-/**
- * Props accepted by {@link TextField}. Everything `react-aria-components`'
- * `TextField` accepts, plus a ref to the underlying input.
- */
 export interface TextFieldProps extends RACTextFieldProps {
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/**
- * TextFields are text inputs that allow users to input custom text entries with
- * a keyboard. Various decorations can be displayed around the field to
- * communicate the entry requirements.
- */
+/** A text input, composable with labels, icons and validation messages. */
 export function TextField({ children = <Input />, ref, ...props }: TextFieldProps) {
     const [value, setValue] = useState<RACTextFieldProps['value']>(
         props.value ?? props.defaultValue ?? ''
@@ -104,14 +96,9 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
 }
 TextField.displayName = 'TextField'
 
-/**
- * Props accepted by {@link TextFieldClearButton}.
- */
 export interface TextFieldClearButtonProps extends ComponentProps<typeof FieldButton> {}
 
-/**
- * A `FieldButton` to clear the text field.
- */
+/** A `FieldButton` to clear the text field. */
 export function TextFieldClearButton(props: TextFieldClearButtonProps) {
     return (
         <TooltipTrigger delay={0}>
@@ -137,14 +124,9 @@ export function TextFieldClearButton(props: TextFieldClearButtonProps) {
 }
 TextFieldClearButton.displayName = 'TextFieldClearButton'
 
-/**
- * Props accepted by {@link TextFieldCopyButton}.
- */
 export interface TextFieldCopyButtonProps extends ComponentProps<typeof FieldButton> {}
 
-/**
- * A `FieldButton` to copy the text field value to the clipboard.
- */
+/** A `FieldButton` to copy the text field value to the clipboard. */
 export function TextFieldCopyButton(props: TextFieldCopyButtonProps) {
     return (
         <TooltipTrigger delay={0}>
@@ -161,14 +143,9 @@ export function TextFieldCopyButton(props: TextFieldCopyButtonProps) {
 }
 TextFieldCopyButton.displayName = 'TextFieldCopyButton'
 
-/**
- * Props accepted by {@link TextFieldVisibilityButton}.
- */
 export interface TextFieldVisibilityButtonProps extends ComponentProps<typeof FieldButton> {}
 
-/**
- * A `FieldButton` to toggle the visibility of the text field value.
- */
+/** A `FieldButton` to toggle the visibility of the text field value. */
 export function TextFieldVisibilityButton(props: TextFieldVisibilityButtonProps) {
     const context = useSlottedContext(RACButtonContext, 'visibility')
 

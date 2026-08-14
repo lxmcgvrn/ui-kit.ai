@@ -28,11 +28,7 @@ const schema = z.object({
     email: z.string().min(1, 'Email address is required'),
 })
 
-/**
- * Inferring the form's field values from the schema gives `onSubmit` and
- * `onError` a correctly typed argument, and keeps the `name` of every field in
- * sync with the shape of the data you expect back.
- */
+/** Inferring field values from the schema types `onSubmit`, `onError` and `name`. */
 type FieldValues = z.infer<typeof schema>
 
 export default function FormDefault() {

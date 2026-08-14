@@ -4,17 +4,11 @@ import { type ForwardedRef } from 'react'
 import { FieldError as RACFieldError } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link FieldError}. Everything `react-aria-components`'
- * `FieldError` accepts, plus a ref to the underlying element.
- */
 export interface FieldErrorProps extends RACFieldErrorProps {
     ref?: ForwardedRef<HTMLDivElement>
 }
 
-/**
- * A field error displays validation errors for a field within a form.
- */
+/** A field error displays validation errors for a field within a form. */
 export function FieldError({ ref, ...props }: FieldErrorProps) {
     return (
         <RACFieldError

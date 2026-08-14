@@ -1,9 +1,6 @@
 /**
- * This hook implementation draws heavily form this article by Tania Rascia:
- * https://www.taniarascia.com/keyboard-shortcut-hook-react/#conclusion
- *
- * (You should also check out her excellent New Moon syntax theme, which I've
- * been using everyday since 2020: https://github.com/taniarascia/new-moon)
+ * Adapted from Tania Rascia's keyboard shortcut hook.
+ * @see https://www.taniarascia.com/keyboard-shortcut-hook-react/#conclusion
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'

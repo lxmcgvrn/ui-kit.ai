@@ -2,12 +2,11 @@ import type { AutocompleteProps as RACAutocompleteProps } from 'react-aria-compo
 
 import { Autocomplete as RACAutocomplete, useFilter } from 'react-aria-components'
 
-/**
- * An `Autocomplete` combines a `TextField` (or `SearchField`) with a `Menu` or `ListBox`, allowing users to search or filter a list of suggestions.
- */
+/** Filters a `Menu` or `ListBox` from a `TextField` or `SearchField`. */
 export function Autocomplete(props: RACAutocompleteProps) {
-    const { contains } = useFilter({ sensitivity: 'base' })
-    const filter = (textValue: string, inputValue: string) => contains(textValue, inputValue)
+    const baseFilter = useFilter({ sensitivity: 'base' })
+    const filter = (textValue: string, inputValue: string) =>
+        baseFilter.contains(textValue, inputValue)
 
     return (
         <RACAutocomplete

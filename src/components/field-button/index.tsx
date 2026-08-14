@@ -4,17 +4,10 @@ import { twMerge } from 'tailwind-merge'
 
 import { Button } from '../button'
 
-/**
- * Props accepted by {@link FieldButton}. Everything {@link Button} accepts,
- * minus the props `FieldButton` sets for you.
- */
 export interface FieldButtonProps
     extends Omit<ComponentProps<typeof Button>, 'excludeFromTabOrder' | 'isIcon' | 'variant'> {}
 
-/**
- * A field button can used inside a group component
- * to add additional functionality to a field.
- */
+/** An icon button for use inside a `FieldGroup`. */
 export function FieldButton({ ...props }: FieldButtonProps) {
     return (
         <Button

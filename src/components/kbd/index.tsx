@@ -2,14 +2,9 @@ import type { HTMLProps } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 
-/**
- * Props accepted by {@link Kbd} — everything a `div` accepts.
- */
 export interface KbdProps extends HTMLProps<HTMLDivElement> {}
 
-/**
- * Signals that a keyboard shortcut is available for the user to use.
- */
+/** Signals that a keyboard shortcut is available for the user to use. */
 export function Kbd(props: KbdProps) {
     return (
         <div

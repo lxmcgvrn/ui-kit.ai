@@ -24,7 +24,7 @@ import { ColorPalette, PRESETS } from '@ui-kit.ai/theme'
 import { LucideAlertTriangle, LucideCheckCircle, LucideInfo, LucidePipette } from 'lucide-react'
 import { useState } from 'react'
 
-type Palette = {
+interface Palette {
     accent: string
     error: string
     success: string
@@ -48,13 +48,7 @@ const PRESET_ITEMS: OptionsSchema<'listbox', Preset>[] = Object.entries(PRESETS)
     })
 )
 
-/**
- * A cut-down version of the old site's theme editor: pick a preset (or mix your
- * own palette) and see the generated ui-kit theme applied to live components.
- *
- * The generated CSS is scoped to the preview container, so it doesn't fight
- * with the site-wide theme.
- */
+/** Theme editor: pick a palette, see it applied to live components. */
 export function ThemePlayground() {
     const [palette, setPalette] = useState<Palette>(PRESETS.professional)
 
@@ -80,11 +74,9 @@ export function ThemePlayground() {
                         const preset = PRESETS[key as Preset]
                         setPalette(preset)
                     }}
-                    selectedKey={
-                        Object.keys(PRESETS).find(
-                            (id) => PRESETS[id as Preset].accent === palette.accent
-                        ) as Preset | undefined
-                    }
+                    selectedKey={Object.keys(PRESETS).find(
+                        (id) => PRESETS[id as Preset].accent === palette.accent
+                    )}
                 >
                     <Label>Preset</Label>
                     <SelectButton />

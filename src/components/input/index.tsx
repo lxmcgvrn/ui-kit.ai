@@ -16,26 +16,16 @@ const inputStyles = tv({
     },
 })
 
-/**
- * Props accepted by {@link Input}. Everything `react-aria-components`' `Input`
- * accepts, plus this design system's presentational props.
- */
 export interface InputProps extends ComponentProps<typeof RACInput> {
-    /**
-     * A decorative node (e.g. an icon) rendered inside the start of the input.
-     */
+    /** A decorative node (e.g. an icon) rendered inside the start of the input. */
     icon?: ReactNode
-    /**
-     * When `true` the input is rendered without its border and background.
-     */
+
+    /** When `true` the input is rendered without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/**
- * An input is a primitive component used when composing fields, like text
- * fields, search fields, etc.
- */
+/** The input primitive used to compose field components. */
 export const Input = ({ icon, isBorderless, ref, ...props }: InputProps) => {
     return (
         <div className='relative inline-flex w-full items-center'>

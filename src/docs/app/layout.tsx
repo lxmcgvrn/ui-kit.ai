@@ -35,8 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
                 <RootProvider
                     search={{
                         options: {
-                            // Static search indexes are exported to `/static.json`
-                            // at build time — see `app/static.json/route.ts`.
+                            // Built by `app/static.json/route.ts`.
                             api: '/static.json',
                             type: 'static',
                         },

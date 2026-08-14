@@ -4,7 +4,7 @@ import { Checkbox, Description, Form, FormCheckboxGroup, Label } from '@ui-kit.a
 
 export default function FormCheckboxGroupInvalid() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormCheckboxGroup
                 isInvalid
                 name='preferences'

@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+import type { Key as RACKey } from 'react-aria-components'
 
 import { useController, useFormContext } from 'react-hook-form'
 
@@ -7,22 +8,13 @@ import type { OptionsSchema } from '../types/options'
 import { ComboBox } from '../combo-box'
 import { FieldError } from '../field-error'
 
-/**
- * Props accepted by {@link FormComboBox} — every `ComboBox` prop, wired to
- * `react-hook-form` through `name`.
- */
 export interface FormComboBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
     extends ComponentProps<typeof ComboBox<T>> {
-    /**
-     * The field this combo box is registered under in the surrounding `Form`.
-     * The component throws when it is missing.
-     */
+    /** Field name in the surrounding `Form`. Required — throws when missing. */
     name?: string
 }
 
-/**
- * A `FormComboBox` connects a `ComboBox` to a `Form` component using `react-hook-form`.
- */
+/** Connects a `ComboBox` to the surrounding `Form`. */
 export function FormComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>({
     children,
     ...props
@@ -31,15 +23,16 @@ export function FormComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<
 
     const { control } = useFormContext()
 
-    const {
-        field: { disabled, name, onBlur, onChange, ref, value = '' },
-        fieldState: { error, invalid },
-    } = useController({
+    const { field, fieldState } = useController({
         control,
         defaultValue: props.selectedKey ?? props.defaultSelectedKey,
         disabled: props.isDisabled,
         name: props.name,
     })
+
+    const { disabled, name, onBlur, onChange, ref } = field
+    const { error, invalid } = fieldState
+    const selectedKey = (field.value ?? '') as RACKey
 
     return (
         <ComboBox
@@ -53,7 +46,7 @@ export function FormComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<
                 props.onSelectionChange?.(k)
             }}
             ref={ref}
-            selectedKey={value ?? ''}
+            selectedKey={selectedKey}
             validationBehavior='aria' // Let React Hook Form handle validation instead of the browser.
         >
             {(rp) => {

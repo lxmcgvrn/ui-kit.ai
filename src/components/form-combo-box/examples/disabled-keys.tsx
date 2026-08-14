@@ -15,7 +15,7 @@ import { LucideSearch } from 'lucide-react'
 
 export default function FormComboBoxDisabledKeys() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormComboBox
                 disabledKeys={['carrot', 'spinach']}
                 items={getMockOptions({ withIcon: true, withSections: true })}

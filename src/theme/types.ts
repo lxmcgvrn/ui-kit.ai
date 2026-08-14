@@ -27,7 +27,7 @@ export enum TwBorderUtility {
     FIELD_HOVER = 'border-field-hover',
 }
 
-export type ColorPaletteInput = {
+export interface ColorPaletteInput {
     accent: string
     error: string
     success: string

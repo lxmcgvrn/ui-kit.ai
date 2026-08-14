@@ -15,7 +15,7 @@ import { LucideSearch } from 'lucide-react'
 
 export default function FormComboBoxDefault() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormComboBox
                 items={getMockOptions({ withIcon: true })}
                 name='combobox'

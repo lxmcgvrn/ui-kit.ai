@@ -10,22 +10,13 @@ import type { OptionsSchema } from '../types/options'
 
 import { OptionRenderer } from '../options'
 
-/**
- * Props accepted by {@link Menu}. Everything `react-aria-components`' `Menu`
- * accepts — minus the props this component owns — plus this design system's
- * presentational props.
- */
 export interface MenuProps<T extends OptionsSchema<'menu'> = OptionsSchema<'menu'>>
     extends Omit<RACMenuProps<T>, 'children' | 'className'> {
-    /**
-     * When `true` a checkmark is rendered next to the selected option(s).
-     */
+    /** When `true` a checkmark is rendered next to the selected option(s). */
     showCheckmarkOnSelected?: boolean
 }
 
-/**
- * A menu displays a list of actions or options that a user can choose.
- */
+/** A menu displays a list of actions or options that a user can choose. */
 export function Menu<T extends OptionsSchema<'menu'>>({
     showCheckmarkOnSelected = true,
     ...props
@@ -48,13 +39,7 @@ export function Menu<T extends OptionsSchema<'menu'>>({
 }
 Menu.displayName = 'Menu'
 
-/**
- * A <MenuDecorativeSection> defines a section within a
- * `Popover` that is purely decorative and does not contain
- * any interactive elements.
- *
- * **Note** Compose this in the `Dropdown`, not in the `DropdownMenu`
- */
+/** A non-interactive section inside a `Popover`. */
 export function MenuDecorativeSection(props: { children: ReactNode }) {
     return (
         <div
@@ -65,14 +50,10 @@ export function MenuDecorativeSection(props: { children: ReactNode }) {
 }
 MenuDecorativeSection.displayName = 'MenuDecorativeSection'
 
-/**
- * Props accepted by {@link MenuTrigger}.
- */
 export interface MenuTriggerProps extends RACMenuTriggerProps {}
 
 /**
  * A `Trigger` component, for use with a `Menu` component.
- *
  * @see https://react-spectrum.adobe.com/react-aria/Menu#menutrigger
  */
 export function MenuTrigger(props: MenuTriggerProps) {

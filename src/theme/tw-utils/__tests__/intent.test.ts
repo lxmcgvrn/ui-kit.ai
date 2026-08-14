@@ -75,6 +75,6 @@ const EXPECTED = `
 }
 `
 
-test('genIntentUtils', async () => {
-    expect(`\n${await genIntentUtils()}\n`).toEqual(EXPECTED)
+test('genIntentUtils', () => {
+    expect(`\n${genIntentUtils()}\n`).toEqual(EXPECTED)
 })

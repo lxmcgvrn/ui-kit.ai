@@ -6,8 +6,8 @@ import { Loader } from '../loader'
 /**
  * Get the initials from a given name.
  * @example
- * getInitials("Foo") // "A"
- * getInitials("Foo Bar") // "AM"
+ * getInitials("Foo") // "F"
+ * getInitials("Foo Bar") // "FB"
  */
 export function getInitials(name?: string) {
     if (name == null) {
@@ -22,7 +22,7 @@ export function getInitials(name?: string) {
     if (last == null) {
         return first[0]
     }
-    return `${first[0]}${last[0]}`
+    return `${first[0] ?? ''}${last[0] ?? ''}`
 }
 getInitials.displayName = 'getInitials'
 
@@ -37,45 +37,27 @@ const avatarStyles = tv({
     },
 })
 
-/**
- * Props accepted by {@link Avatar}.
- */
 export interface AvatarProps {
-    /**
-     * Optional className
-     */
+    /** Optional className */
     className?: string
 
-    /**
-     * If true, the avatar will be displayed in grayscale.
-     */
+    /** Renders a loading spinner in place of the avatar. */
     isLoading?: boolean
-    /**
-     * The name of the person the avatar represents.
-     * If the name is provided, the avatar will display the initials of the name.
-     * If the name contains a space, the initials will be the first letter of the first 2 words.
-     * **Note:** If no `src` is provided, a `name` must be provided.
-     */
+
+    /** Shown as initials when `src` is absent. One of the two is required. */
     name?: string
-    /**
-     * A pixel value for the height and width of the avatar.
-     */
+
+    /** A pixel value for the height and width of the avatar. */
     size?: number
-    /**
-     * The URL of the image to display in the avatar. May be a remote URL or a data URL.
-     * **Note:** If no `name` is provided, an `src` must be provided.
-     */
+
+    /** Image URL, remote or `data:`. Required when no `name` is given. */
     src?: string
-    /**
-     * Controls the shape of the avatar.
-     */
+
+    /** Controls the shape of the avatar. */
     variant?: 'circle' | 'square'
 }
 
-/**
- * Renders an avatar. Falls back to initial letters if no image is provided.
-
- */
+/** Renders an avatar, falling back to initials when there is no image. */
 export function Avatar({ className, isLoading, name, src, variant = 'circle' }: AvatarProps) {
     const initials: string | undefined = getInitials(name)
 

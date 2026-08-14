@@ -16,34 +16,18 @@ import { tv } from 'tailwind-variants'
 
 import { Button, type ButtonProps } from '../button'
 
-/**
- * Props accepted by {@link TooltipInfoButton}. Everything {@link Button}
- * accepts, minus the props this component sets itself.
- */
 export interface TooltipInfoButtonProps
     extends Omit<ButtonProps, 'children' | 'isIcon' | 'variant'> {
-    /**
-     * A ref forwarded to the underlying `<button />` element.
-     */
+    /** A ref forwarded to the underlying `&lt;button />` element. */
     ref?: ForwardedRef<HTMLButtonElement>
 }
 
-/**
- * Props accepted by {@link Tooltip}. Everything `react-aria-components`'
- * `Tooltip` accepts, minus render-prop children.
- */
 export interface TooltipProps extends Omit<RACTooltipProps, 'children'> {
     children: React.ReactNode
 }
 
-/**
- * Props accepted by {@link TooltipTrigger}. Everything
- * `react-aria-components`' `TooltipTrigger` accepts.
- */
 export interface TooltipTriggerProps extends RACTooltipTriggerProps {
-    /**
-     * The delay in milliseconds before the tooltip is shown. Defaults to `0`.
-     */
+    /** The delay in milliseconds before the tooltip is shown. Defaults to `0`. */
     delay?: number
 }
 
@@ -82,9 +66,7 @@ const tooltipStyles = tv({
     ],
 })
 
-/**
- * A tooltip displays a description of an element on hover or focus.
- */
+/** A tooltip displays a description of an element on hover or focus. */
 export function Tooltip({ children, ...props }: TooltipProps) {
     return (
         <RACTooltip
@@ -116,9 +98,7 @@ export function Tooltip({ children, ...props }: TooltipProps) {
 }
 Tooltip.displayName = 'Tooltip'
 
-/**
- * A button with an info icon that triggers a tooltip.
- */
+/** A button with an info icon that triggers a tooltip. */
 export function TooltipInfoButton({ ref, ...props }: TooltipInfoButtonProps) {
     return (
         <Button
@@ -139,9 +119,7 @@ export function TooltipInfoButton({ ref, ...props }: TooltipInfoButtonProps) {
 }
 TooltipInfoButton.displayName = 'TooltipInfoButton'
 
-/**
- * A wrapper around an element that can receive focus that controls the tooltip.
- */
+/** A wrapper around an element that can receive focus that controls the tooltip. */
 export function TooltipTrigger({ delay = 0, ...props }: TooltipTriggerProps) {
     return (
         <RACTooltipTrigger

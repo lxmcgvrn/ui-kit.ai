@@ -1,10 +1,4 @@
-/**
- * Markdown fixture streamed by the fake LLM chat endpoint.
- *
- * Authored as a plain module rather than a `.md` file read with Vite's
- * `?raw` query: the repo no longer builds this package with Vite, and the
- * docs app's bundler claims every `.md` file for its own MDX loader.
- */
+/** Inlined, not a `.md` file: the docs bundler claims `.md` for MDX. */
 export const FIBONACCI_MARKDOWN = `## Fibonacci Sequence Implementations
 
 Here are implementations of the Fibonacci sequence in TypeScript, Python, and Rust:

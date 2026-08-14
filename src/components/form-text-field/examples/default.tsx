@@ -12,7 +12,7 @@ import { LucideAtSign } from 'lucide-react'
 
 export default function FormTextFieldDefault() {
     return (
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={() => undefined}>
             <FormTextField name='email'>
                 <Label>This is a label for a field</Label>
                 <FieldGroup>

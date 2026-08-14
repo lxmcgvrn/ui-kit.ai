@@ -8,16 +8,9 @@ const colorSwatchStyles = tv({
     base: ['inline-block', 'size-8', 'rounded', 'border-default border', 'shadow-sm'],
 })
 
-/**
- * Props accepted by {@link ColorSwatch}. Everything `react-aria-components`'
- * `ColorSwatch` accepts.
- */
 export interface ColorSwatchProps extends RACColorSwatchProps {}
 
-/**
- * A component for displaying a color swatch.
- * Provides visual representation of a color with proper accessibility semantics.
- */
+/** Displays a color as a swatch. */
 export function ColorSwatch(props: ColorSwatchProps) {
     return (
         <RACColorSwatch
