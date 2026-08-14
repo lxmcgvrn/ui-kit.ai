@@ -1,6 +1,20 @@
 import type { Oklch } from 'culori'
 
-import { clampChroma, converter, wcagContrast } from 'culori'
+import { clampChroma, converter } from 'culori'
+
+import { apcaLc } from './apca'
+import { APCA_TIERS, CONTRAST_POLICY, requiredLc } from './contrast'
+import { DEFAULT_RADIUS } from './presets'
+
+/** A pairing the solver could not bring up to its policy tier. */
+export interface ContrastWarning {
+    achievedLc: number
+    background: Token
+    foreground: Token
+    intent: Intent
+    scheme: Scheme
+    targetLc: number
+}
 
 export type Intent = 'default' | 'error' | 'info' | 'success' | 'warning'
 
@@ -22,7 +36,7 @@ export interface ThemeInput {
     depth?: ThemeSetting
 
     /** Base radius in rem — the `md` step. Every other step scales with it. */
-    radius: number
+    radius?: number
 
     /** How much of the seed's hue bleeds into backgrounds, borders and body text. */
     saturation?: ThemeSetting
@@ -50,6 +64,11 @@ export const DEFAULT_SETTING: ThemeSetting = 'some'
 
 export const INTENTS: readonly Intent[] = ['default', 'error', 'info', 'success', 'warning']
 
+/** Rounding a solved shade to 4 places costs a hair of the Lc it scored. */
+export const LC_SLACK = 0.1
+
+export const SCHEMES: readonly Scheme[] = ['dark', 'light']
+
 /** Weakest to strongest, the way the editor's sliders run. */
 export const THEME_SETTINGS: readonly ThemeSetting[] = ['none', 'some', 'lots']
 
@@ -68,31 +87,17 @@ export const TOKENS: readonly Token[] = [
     'text-placeholder',
 ]
 
-/** Everything one depth setting paints, in the units the stylesheet wants. */
-export interface DepthTreatment {
-    /** A lit top edge over a shaded bottom one. */
-    edgeHighlight: string
-
-    /** 1 paints the gradient on primary fills; 0 slides it out of the box. */
-    gradientAlpha: 0 | 1
-
-    /** Worn by buttons and fields. `some` is Tailwind's own `shadow-xs`. */
-    smallShadow: string
-
-    /** Letterpress under type on primary fills. */
-    textShadow: string
-}
-
 /** A theme with every optional knob resolved to a setting. */
 export interface ResolvedTheme extends ThemeInput {
     depth: ThemeSetting
+    radius: number
     saturation: ThemeSetting
 }
 
 interface Ground {
     color: Oklch
 
-    /** The ratio the token has to clear here. */
+    /** The APCA Lc the token has to clear here. */
     target: number
 }
 
@@ -116,52 +121,20 @@ type ShadeTable = Record<SurfaceToken, Record<Scheme, Shade>>
 /** Tokens read straight off a shade table, rather than solved from the seed. */
 type SurfaceToken = Exclude<Token, 'bg-primary' | 'bg-primary-hover' | 'text-accent'>
 
-/** The lit top edge's color; `lots`' text shadow casts the same light. */
-const EDGE_LIGHT = 'light-dark(oklch(1 0 0 / 0.3), oklch(1 0 0 / 0.16))'
-
-const FLAT_SHADOW = '0 0 #0000'
-
-export const DEPTH_TREATMENTS: Record<ThemeSetting, DepthTreatment> = {
-    lots: {
-        edgeHighlight: [
-            `inset 0 1px 0 0 ${EDGE_LIGHT}`,
-            'inset 0 -1px 0 0 light-dark(oklch(0 0 0 / 0.12), oklch(0 0 0 / 0.22))',
-        ].join(', '),
-        gradientAlpha: 1,
-        smallShadow: '0 1px 2px 0 rgb(0 0 0 / 0.09)',
-        textShadow: `0 1px 0 ${EDGE_LIGHT}`,
-    },
-    none: {
-        edgeHighlight: FLAT_SHADOW,
-        gradientAlpha: 0,
-        smallShadow: FLAT_SHADOW,
-        textShadow: 'none',
-    },
-    some: {
-        edgeHighlight: FLAT_SHADOW,
-        gradientAlpha: 0,
-        smallShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        textShadow: 'none',
-    },
-}
-
 /** Chroma of `text-accent` before gamut clamping — a tint, not a flat black/white. */
 const ACCENT_CHROMA = 0.05
 
-/** The solver drives each token to this ratio against its own background. */
-const CONTRAST_TARGETS = {
-    'bg-primary': 3,
-    'text-accent': 4.5,
-    'text-hi-contrast': 7,
-    'text-lo-contrast': 4.5,
-    'text-placeholder': 3,
-} as const
+/** The accent picks a side by scoring both poles against the fill. */
+const ACCENT_POLES = { dark: 0.02, light: 0.98 }
 
-/** How far `bg-primary-hover` lifts off `bg-primary`, in oklch lightness. */
+/** It then searches out from that side's most tinted readable lightness. */
+const ACCENT_STARTS = { dark: 0.25, light: 0.93 }
+
+/** How far `bg-primary-hover` moves off `bg-primary`, in oklch lightness. */
 const HOVER_LIFT = 0.05
 
-/** No text clears 4.5 on a mid fill, so lifted fills hold the UI ratio. */
-const LIFTED_TARGET = 3
+/** Hover stops short of the poles, where a move stops reading as a move. */
+const HOVER_RANGE = { max: 0.99, min: 0.01 }
 
 /** A seed at least this chromatic renders the theme at full saturation. */
 const REFERENCE_CHROMA = 0.15
@@ -257,6 +230,23 @@ const VIBRANT_SHADES: ShadeTable = {
 
 const toOklch = converter('oklch')
 
+/** Every pairing the solved palettes ship below its policy tier. */
+export function contrastWarnings(palettes: Palettes): readonly ContrastWarning[] {
+    return INTENTS.flatMap((intent) =>
+        SCHEMES.flatMap((scheme) =>
+            CONTRAST_POLICY.flatMap(({ background, foreground, tier }) => {
+                const palette = palettes[intent][scheme]
+                const achievedLc = Math.abs(apcaLc(palette[foreground], palette[background]))
+                const targetLc = APCA_TIERS[tier]
+
+                return achievedLc >= targetLc - LC_SLACK
+                    ? []
+                    : [{ achievedLc, background, foreground, intent, scheme, targetLc }]
+            })
+        )
+    )
+}
+
 /** Serializes an oklch color the way the stylesheet carries it. */
 export function formatOklch({ alpha, c, h, l }: Oklch): string {
     const channels = [round(l, 4), round(c, 4), round(h ?? 0, 2)].join(' ')
@@ -278,6 +268,7 @@ export function resolveTheme(input: ThemeInput): ResolvedTheme {
     return {
         ...input,
         depth: input.depth ?? DEFAULT_SETTING,
+        radius: input.radius ?? DEFAULT_RADIUS,
         saturation: input.saturation ?? DEFAULT_SETTING,
     }
 }
@@ -287,9 +278,14 @@ function chromaScale(seed: Oklch): number {
     return Math.min(1, seed.c / REFERENCE_CHROMA)
 }
 
+function clamp(value: number, min: number, max: number): number {
+    return Math.min(Math.max(value, min), max)
+}
+
 /** How far a color clears its worst ground: 1 sits on target. */
 function headroom(color: Oklch, grounds: Grounds): number {
-    return Math.min(...grounds.map(({ color: bg, target }) => wcagContrast(color, bg) / target))
+    // APCA's sign reports polarity, not size, so the targets ignore it.
+    return Math.min(...grounds.map(({ color: bg, target }) => Math.abs(apcaLc(color, bg)) / target))
 }
 
 function intentPalette(theme: ResolvedTheme, intent: Intent): IntentPalette {
@@ -299,11 +295,20 @@ function intentPalette(theme: ResolvedTheme, intent: Intent): IntentPalette {
     }
 
     const table = intent === 'default' ? MUTED_SHADES : VIBRANT_SHADES
+    const { saturation } = theme
 
     return {
-        dark: schemePalette(seed, table, { ...theme, scheme: 'dark' }),
-        light: schemePalette(seed, table, { ...theme, scheme: 'light' }),
+        dark: schemePalette(seed, table, { saturation, scheme: 'dark' }),
+        light: schemePalette(seed, table, { saturation, scheme: 'light' }),
     }
+}
+
+/** Which pole reads better on the fill — the side `text-accent` starts from. */
+function prefersDarkText(fill: Oklch, hue: number, chroma: number): boolean {
+    const lcAt = (lightness: number): number =>
+        Math.abs(apcaLc(shadeColor({ chroma, lightness }, hue), fill))
+
+    return lcAt(ACCENT_POLES.dark) >= lcAt(ACCENT_POLES.light)
 }
 
 function round(value: number, places: number): number {
@@ -325,26 +330,38 @@ function schemePalette(seed: Oklch, table: ShadeTable, knobs: Knobs): Palette {
 
     const bgBase = surface('bg-base')
     const bgPrimary = solveLightness({ chroma: seed.c, lightness: seed.l }, hue, [
-        { color: bgBase, target: CONTRAST_TARGETS['bg-primary'] },
+        { color: bgBase, target: requiredLc('bg-primary', 'bg-base') },
     ])
 
     const onText = (token: 'text-hi-contrast' | 'text-lo-contrast' | 'text-placeholder'): Oklch => {
         const shade = table[token][scheme]
 
         return solveLightness({ ...shade, chroma: shade.chroma * scale * bleed }, hue, [
-            { color: bgBase, target: CONTRAST_TARGETS[token] },
+            { color: bgBase, target: requiredLc(token, 'bg-base') },
         ])
     }
 
+    const accentChroma = ACCENT_CHROMA * scale
+    const darkAccent = prefersDarkText(bgPrimary, hue, accentChroma)
+
+    // Hover moves away from the accent's pole, which is where its headroom is.
+    const lift = darkAccent ? HOVER_LIFT : -HOVER_LIFT
     const bgPrimaryHover = shadeColor(
-        { chroma: bgPrimary.c, lightness: Math.min(bgPrimary.l + HOVER_LIFT, 0.99) },
+        {
+            chroma: bgPrimary.c,
+            lightness: clamp(bgPrimary.l + lift, HOVER_RANGE.min, HOVER_RANGE.max),
+        },
         hue
     )
 
     const accentGrounds: Grounds = [
-        { color: bgPrimary, target: CONTRAST_TARGETS['text-accent'] },
-        { color: bgPrimaryHover, target: LIFTED_TARGET },
+        { color: bgPrimary, target: requiredLc('text-accent', 'bg-primary') },
+        { color: bgPrimaryHover, target: requiredLc('text-accent', 'bg-primary-hover') },
     ]
+    const accentShade: Shade = {
+        chroma: accentChroma,
+        lightness: darkAccent ? ACCENT_STARTS.dark : ACCENT_STARTS.light,
+    }
 
     return {
         'bg-base': bgBase,
@@ -355,7 +372,7 @@ function schemePalette(seed: Oklch, table: ShadeTable, knobs: Knobs): Palette {
         'border-default': surface('border-default'),
         'border-field': surface('border-field'),
         'border-field-hover': surface('border-field-hover'),
-        'text-accent': textAccent(accentGrounds, hue, scale),
+        'text-accent': solveLightness(accentShade, hue, accentGrounds),
         'text-hi-contrast': onText('text-hi-contrast'),
         'text-lo-contrast': onText('text-lo-contrast'),
         'text-placeholder': onText('text-placeholder'),
@@ -414,16 +431,8 @@ function solveLightness(shade: Shade, hue: number, grounds: Grounds): Oklch {
     return (
         searchLightness(at, grounds, shade.lightness, away) ??
         searchLightness(at, grounds, ground.l, back) ??
+        // An unreachable target ships a pole, where the gamut sheds any tint.
         (headroom(at(0), grounds) >= headroom(at(1), grounds) ? at(0) : at(1))
     )
 }
 
-/** Sits on every primary fill, so it starts from whichever pole reads better. */
-function textAccent(grounds: Grounds, hue: number, scale: number): Oklch {
-    const chroma = ACCENT_CHROMA * scale
-    const prefersDarkText =
-        headroom(shadeColor({ chroma, lightness: 0.02 }, hue), grounds) >=
-        headroom(shadeColor({ chroma, lightness: 0.98 }, hue), grounds)
-
-    return solveLightness({ chroma, lightness: prefersDarkText ? 0.25 : 0.93 }, hue, grounds)
-}

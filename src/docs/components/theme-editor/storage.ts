@@ -41,7 +41,7 @@ function isThemeInput(value: unknown): value is ThemeInput {
 
     const { colors, depth, radius, saturation } = value as Record<string, unknown>
 
-    if (typeof radius !== 'number' || Number.isNaN(radius)) return false
+    if (radius != null && (typeof radius !== 'number' || Number.isNaN(radius))) return false
     if (typeof colors !== 'object' || colors == null) return false
     if (!isKnownSetting(depth) || !isKnownSetting(saturation)) return false
 

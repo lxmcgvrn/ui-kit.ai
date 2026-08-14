@@ -1,25 +1,34 @@
-import { wcagContrast } from 'culori'
+import type { Oklch } from 'culori'
+
+import { converter } from 'culori'
 import { expect, test } from 'vitest'
 
-import { DEFAULT_SETTING, INTENTS, PRESETS, THEME_SETTINGS, themeCss } from '../index'
+import type { ContrastWarning, Scheme, Token } from '../palette'
 
-type Scheme = 'dark' | 'light'
+import { apcaLc } from '../apca'
+import { APCA_TIERS, compromiseLc, CONTRAST_POLICY } from '../contrast'
+import {
+    DEFAULT_SETTING,
+    DEFAULT_THEME,
+    generateTheme,
+    INTENTS,
+    PRESETS,
+    THEME_SETTINGS,
+    TOKENS,
+} from '../index'
+import { intentPalettes, LC_SLACK, resolveTheme, SCHEMES } from '../palette'
+import { SYNTAX_INTENTS } from '../stylesheet'
 
-/** Every text token, against the background it actually sits on. */
-const PAIRS = [
-    { background: 'bg-base', foreground: 'text-hi-contrast', target: 7 },
-    { background: 'bg-base', foreground: 'text-lo-contrast', target: 4.5 },
-    { background: 'bg-base', foreground: 'text-placeholder', target: 3 },
-    { background: 'bg-base', foreground: 'bg-primary', target: 3 },
-    { background: 'bg-primary', foreground: 'text-accent', target: 4.5 },
-    // The lifted fills hold the UI ratio; 4.5 is unreachable on a mid fill.
-    { background: 'bg-primary-hover', foreground: 'text-accent', target: 3 },
-] as const
+/** A mid-tone tan fill: no lightness left for the accent to run to. */
+const UNREACHABLE_SEED = '#B89A80'
 
-const SCHEMES: readonly Scheme[] = ['dark', 'light']
+/** Every token the solver drives, each of which owns one or more grounds. */
+const SOLVED_TOKENS = [...new Set(CONTRAST_POLICY.map(({ foreground }) => foreground))]
 
-/** 12 tokens per intent, plus the four syntax colors. */
-const EXPECTED_VAR_COUNT = INTENTS.length * 12 + 4
+const toOklch = converter('oklch')
+
+/** Every token of every intent, plus the syntax colors. */
+const EXPECTED_VAR_COUNT = INTENTS.length * TOKENS.length + SYNTAX_INTENTS.length
 
 /** Each knob swept against the other's default — a cross-product buys nothing. */
 const SETTINGS = [
@@ -33,24 +42,54 @@ const SETTINGS = [
 for (const { depth, saturation } of SETTINGS) {
     for (const preset of PRESETS) {
         test(`${preset.name} at depth ${depth}, saturation ${saturation} meets every contrast target`, () => {
-            const vars = themeVars(themeCss({ ...preset.input, depth, saturation }))
+            const vars = themeVars(generateTheme({ ...preset.input, depth, saturation }).css)
             expect(Object.keys(vars)).toHaveLength(EXPECTED_VAR_COUNT)
 
             for (const intent of INTENTS) {
                 for (const scheme of SCHEMES) {
-                    for (const { background, foreground, target } of PAIRS) {
-                        const fg = colorOf(vars, `--theme-${intent}-${foreground}`, scheme)
-                        const bg = colorOf(vars, `--theme-${intent}-${background}`, scheme)
-
-                        expect(
-                            wcagContrast(fg, bg),
-                            `${intent}/${scheme}: ${foreground} on ${background}`
-                        ).toBeGreaterThanOrEqual(target)
+                    for (const foreground of SOLVED_TOKENS) {
+                        expectTokenMeetsPolicy(
+                            (token) => oklch(colorOf(vars, `--theme-${intent}-${token}`, scheme)),
+                            foreground,
+                            `${intent}/${scheme}`
+                        )
                     }
                 }
             }
         })
     }
+}
+
+test.each(PRESETS)('$name only warns where no color could have cleared the bar', (preset) => {
+    const palettes = intentPalettes(resolveTheme(preset.input))
+
+    for (const { background, intent, scheme, targetLc } of generateTheme(preset.input).warnings) {
+        const ground = palettes[intent][scheme][background]
+
+        expect(bestAchievableLc(ground), `${intent}/${scheme}`).toBeLessThan(targetLc)
+    }
+})
+
+test('a workable brand color warns about nothing', () => {
+    expect(warningsFor(DEFAULT_THEME.colors.default)).toHaveLength(0)
+})
+
+test('a mid-tone brand color warns about the accent it cannot lift', () => {
+    const warnings = warningsFor(UNREACHABLE_SEED)
+
+    expect(warnings.length).toBeGreaterThan(0)
+    for (const { achievedLc, foreground, targetLc } of warnings) {
+        expect(foreground).toBe('text-accent')
+        expect(achievedLc).toBeLessThan(targetLc)
+    }
+})
+
+/** The most Lc any text can score on this ground, which is a pole or nothing. */
+function bestAchievableLc(background: Oklch): number {
+    return Math.max(
+        Math.abs(apcaLc(oklch('#000'), background)),
+        Math.abs(apcaLc(oklch('#fff'), background))
+    )
 }
 
 function colorOf(vars: Record<string, Record<Scheme, string>>, name: string, scheme: Scheme) {
@@ -60,6 +99,40 @@ function colorOf(vars: Record<string, Record<Scheme, string>>, name: string, sch
     }
 
     return pair[scheme]
+}
+
+/** One ground out of reach makes the whole token a compromise, grounds and all. */
+function expectTokenMeetsPolicy(
+    colorOfToken: (token: Token) => Oklch,
+    foreground: Token,
+    where: string
+): void {
+    const text = colorOfToken(foreground)
+    const grounds = CONTRAST_POLICY.filter((entry) => entry.foreground === foreground).map(
+        ({ background, tier }) => ({
+            background,
+            color: colorOfToken(background),
+            floor: compromiseLc(tier),
+            target: APCA_TIERS[tier],
+        })
+    )
+    const reachable = grounds.every(({ color, target }) => bestAchievableLc(color) >= target)
+
+    for (const { background, color, floor, target } of grounds) {
+        expect(
+            Math.abs(apcaLc(text, color)),
+            `${where}: ${foreground} on ${background}`
+        ).toBeGreaterThanOrEqual(reachable ? target - LC_SLACK : floor)
+    }
+}
+
+function oklch(color: string): Oklch {
+    const parsed = toOklch(color)
+    if (parsed == null) {
+        throw new Error(`Invalid color: ${color}`)
+    }
+
+    return parsed
 }
 
 /** Reads the emitted stylesheet, so the assertions cover what actually ships. */
@@ -76,4 +149,13 @@ function themeVars(css: string): Record<string, Record<Scheme, string>> {
     }
 
     return vars
+}
+
+/** What the `default` intent reports when one brand color drives it. */
+function warningsFor(seed: string): readonly ContrastWarning[] {
+    const colors = { ...DEFAULT_THEME.colors, default: seed }
+
+    return generateTheme({ ...DEFAULT_THEME, colors }).warnings.filter(
+        ({ intent }) => intent === 'default'
+    )
 }

@@ -1,10 +1,19 @@
 'use client'
 
-import type { Intent, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
+import type { ContrastWarning, Intent, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
 
-import { DEFAULT_SETTING, DEFAULT_THEME, PRESETS, themeCss } from '@ui-kit.ai/theme'
+import {
+    DEFAULT_RADIUS,
+    DEFAULT_SETTING,
+    DEFAULT_THEME,
+    generateTheme,
+    INTENTS,
+    PRESETS,
+} from '@ui-kit.ai/theme'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
+import { toContrastErrors } from './contrast-warnings'
 import { applyThemeCss, removeThemeCss } from './inject'
 import { clearStoredTheme, readStoredTheme, writeStoredTheme } from './storage'
 
@@ -24,11 +33,16 @@ const SHIPPED: State = {
 }
 
 export interface ThemeEditorController extends State {
+    /** The intent's contrast complaint, if its seed missed a target. */
+    contrastError: (intent: Intent) => string | undefined
     css: () => string
 
     /** The input's depth, spelled out — presets inherit it rather than set it. */
     depth: ThemeSetting
     json: () => string
+
+    /** The input's radius, spelled out — presets inherit it rather than set it. */
+    radius: number
     reset: () => void
 
     /** The input's saturation, spelled out — presets inherit it rather than set it. */
@@ -52,18 +66,40 @@ export function useThemeInput(): ThemeEditorController {
     const [state, setState] = useState<State>(initialState)
     const hasApplied = useRef(false)
 
+    /* The form holds no values: it carries the engine's complaints, keyed by field. */
+    const { clearErrors, formState, setError } = useForm<{ colors: Record<Intent, string> }>()
+
+    const reportContrast = useCallback(
+        (warnings: readonly ContrastWarning[]) => {
+            const messages = toContrastErrors(warnings)
+
+            clearErrors('colors')
+            for (const intent of INTENTS) {
+                const message = messages[intent]
+                if (message == null) continue
+
+                setError(`colors.${intent}`, { message, type: 'contrast' })
+            }
+        },
+        [clearErrors, setError]
+    )
+
     useEffect(() => {
         if (!state.isOverridden) {
             clearStoredTheme()
             removeThemeCss()
+            clearErrors('colors')
             return
         }
 
         // The first apply races the paint; later edits wait for the debounce.
         const timeout = setTimeout(
             () => {
-                applyThemeCss(state.input)
+                const { css, warnings } = generateTheme(state.input)
+
+                applyThemeCss(css)
                 writeStoredTheme(state.input)
+                reportContrast(warnings)
             },
             hasApplied.current ? DEBOUNCE_MS : 0
         )
@@ -72,16 +108,24 @@ export function useThemeInput(): ThemeEditorController {
         return () => {
             clearTimeout(timeout)
         }
-    }, [state.input, state.isOverridden])
+    }, [clearErrors, reportContrast, state.input, state.isOverridden])
 
     const depth = state.input.depth ?? DEFAULT_SETTING
+    const radius = state.input.radius ?? DEFAULT_RADIUS
     const saturation = state.input.saturation ?? DEFAULT_SETTING
 
-    const css = useCallback(() => themeCss(state.input), [state.input])
+    const { errors } = formState
+
+    const contrastError = useCallback(
+        (intent: Intent) => errors.colors?.[intent]?.message,
+        [errors.colors]
+    )
+
+    const css = useCallback(() => generateTheme(state.input).css, [state.input])
 
     const json = useCallback(
-        () => JSON.stringify({ ...state.input, depth, saturation }, null, 4),
-        [depth, saturation, state.input]
+        () => JSON.stringify({ ...state.input, depth, radius, saturation }, null, 4),
+        [depth, radius, saturation, state.input]
     )
 
     const reset = useCallback(() => {
@@ -115,9 +159,11 @@ export function useThemeInput(): ThemeEditorController {
 
     return {
         ...state,
+        contrastError,
         css,
         depth,
         json,
+        radius,
         reset,
         saturation,
         selectPreset,

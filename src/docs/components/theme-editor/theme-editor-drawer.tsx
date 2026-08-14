@@ -51,6 +51,7 @@ export function ThemeEditorDrawer() {
                 <div className='flex flex-col gap-3'>
                     {INTENTS.map((intent) => (
                         <SeedColorField
+                            errorMessage={theme.contrastError(intent)}
                             key={intent}
                             label={toLabel(intent)}
                             onChange={(color) => {
@@ -63,7 +64,7 @@ export function ThemeEditorDrawer() {
 
                 <RadiusSlider
                     onChange={theme.setRadius}
-                    value={theme.input.radius}
+                    value={theme.radius}
                 />
 
                 <SettingSlider

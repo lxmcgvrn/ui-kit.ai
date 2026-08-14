@@ -10,9 +10,12 @@
     // the declaration bundle has to see it to inline it.
     "include": [
         "src/components/**/*",
+        "src/theme/apca.ts",
         "src/theme/css.ts",
         "src/theme/index.ts",
-        "src/theme/palette.ts"
+        "src/theme/palette.ts",
+        "src/theme/presets.ts",
+        "src/theme/stylesheet.ts"
     ],
     // `src/docs` is the docs app; `examples` folders are docs-only sources that
     // sit next to the components they document — neither is part of the bundle.

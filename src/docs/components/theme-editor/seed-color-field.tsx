@@ -8,6 +8,7 @@ import {
     ColorSwatch,
     DialogTrigger,
     FieldButton,
+    FieldError,
     FieldGroup,
     Input,
     Label,
@@ -21,13 +22,15 @@ import { FIELD_ROW, toLabel } from './field'
 const CHANNELS = ['hue', 'saturation', 'lightness'] as const
 
 export interface SeedColorFieldProps {
+    /** A contrast complaint about this seed. Advice, not a block — edits stay live. */
+    errorMessage?: string
     label: string
     onChange: (color: string) => void
     value: string
 }
 
 /** A hex field plus a swatch-popover picker for one intent's seed colour. */
-export function SeedColorField({ label, onChange, value }: SeedColorFieldProps) {
+export function SeedColorField({ errorMessage, label, onChange, value }: SeedColorFieldProps) {
     const onColorChange = (color: ComponentProps<typeof ColorField>['value']) => {
         if (color == null) return
 
@@ -37,7 +40,9 @@ export function SeedColorField({ label, onChange, value }: SeedColorFieldProps) 
     return (
         <ColorField
             className={FIELD_ROW}
+            isInvalid={errorMessage != null}
             onChange={onColorChange}
+            validationBehavior='aria'
             value={value}
         >
             <Label className='mb-0'>{label}</Label>
@@ -72,6 +77,9 @@ export function SeedColorField({ label, onChange, value }: SeedColorFieldProps) 
                     </Popover>
                 </DialogTrigger>
             </FieldGroup>
+
+            {/* Under the control, not the label column. */}
+            <FieldError className='col-start-2'>{errorMessage}</FieldError>
         </ColorField>
     )
 }

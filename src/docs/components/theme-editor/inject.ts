@@ -1,14 +1,10 @@
-import type { ThemeInput } from '@ui-kit.ai/theme'
-
-import { themeCss } from '@ui-kit.ai/theme'
-
 const STYLE_ID = 'theme-editor-override'
 
 /** Appends the generated theme to the document head, after the stylesheet. */
-export function applyThemeCss(input: ThemeInput) {
+export function applyThemeCss(css: string) {
     if (typeof document === 'undefined') return
 
-    styleElement().textContent = toRuntimeCss(themeCss(input))
+    styleElement().textContent = toRuntimeCss(css)
 }
 
 /** Hands the page back to the theme the site shipped with. */
