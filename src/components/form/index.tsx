@@ -11,13 +11,13 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
     /** Class name for the form. */
     className?: string
 
-    /** Function that will be called when form validation errors occur. */
+    /** The form calls this when validation errors occur. */
     onError?: SubmitErrorHandler<TFieldValues>
 
-    /** Function that will be called when the form is submitted. */
+    /** The form calls this on submit. */
     onSubmit: SubmitHandler<TFieldValues>
 
-    /** Additional options passed to `react-hook-forms` `useForm` hook. */
+    /** Options passed to `react-hook-form`'s `useForm` hook. */
     options?: UseFormProps<TFieldValues>
 }
 

@@ -12,7 +12,7 @@ import { OptionRenderer } from '../options'
 
 export interface MenuProps<T extends OptionsSchema<'menu'> = OptionsSchema<'menu'>>
     extends Omit<RACMenuProps<T>, 'children' | 'className'> {
-    /** When `true` a checkmark is rendered next to the selected option(s). */
+    /** When `true`, Menu renders a checkmark next to the selected option(s). */
     showCheckmarkOnSelected?: boolean
 }
 

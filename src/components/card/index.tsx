@@ -1,6 +1,6 @@
 import type { ComponentProps, HTMLProps } from 'react'
 
-import { Link as RACLink } from 'react-aria-components'
+import { composeRenderProps, Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Heading } from '../heading'
@@ -28,16 +28,14 @@ export function CardLink(props: CardLinkProps) {
     return (
         <RACLink
             {...props}
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     'border-default bg-base-raised relative overflow-hidden rounded-lg border shadow-xs',
                     'transition-all',
                     'hover:border-field hover:shadow-md',
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
+                    className
                 )
-            }
+            )}
         />
     )
 }
@@ -59,7 +57,7 @@ CardHeader.displayName = 'CardHeader'
 
 export interface CardTitleProps extends Omit<ComponentProps<typeof Heading>, 'level' | 'slot'> {}
 
-/** A CardTitle is a heading element that is used to display the title of the card. */
+/** A heading element that displays the card's title. */
 export function CardTitle({ children, ...props }: CardTitleProps) {
     return (
         <Heading

@@ -8,10 +8,7 @@ export function generatePalette(
     {
         shouldUseVibrantShades,
     }: {
-        /**
-         * If true, vibrant shades will be used for
-         * non-accent colors (e.g. bg, tint, text)
-         */
+        /** If true, non-accent colors (e.g. bg, tint, text) use vibrant shades. */
         shouldUseVibrantShades: boolean
     }
 ) {

@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge'
 
 export interface LoaderProps extends SVGProps<SVGSVGElement> {}
 
-/** A loader icon to indicate that content is loading. */
+/** A loader icon that shows content is loading. */
 export function Loader({ className, ...rest }: LoaderProps) {
     return (
         <LucideLoader2

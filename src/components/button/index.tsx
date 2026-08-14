@@ -4,7 +4,7 @@ import type {
     LinkProps as RACLinkProps,
 } from 'react-aria-components'
 
-import { Button as RACButton, Link as RACLink } from 'react-aria-components'
+import { composeRenderProps, Button as RACButton, Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -127,19 +127,17 @@ export function Button({
     return (
         <RACButton
             {...props}
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className, renderProps) =>
                 twMerge(
                     buttonStyle({
                         ...renderProps,
                         isIcon,
                         variant,
                     }),
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className,
+                    className,
                     intent
                 )
-            }
+            )}
             isPending={isPending}
             ref={ref}
         >
@@ -176,19 +174,17 @@ export const LinkButton = ({
     return (
         <RACLink
             {...props}
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className, renderProps) =>
                 twMerge(
                     buttonStyle({
                         ...renderProps,
                         isIcon,
                         variant,
                     }),
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className,
+                    className,
                     intent
                 )
-            }
+            )}
             ref={ref}
         >
             {(renderProps) => (

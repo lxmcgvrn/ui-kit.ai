@@ -1,3 +1,4 @@
+import { composeRenderProps } from 'react-aria-components'
 import { useController, useFormContext } from 'react-hook-form'
 
 import type { CheckboxGroupProps } from '../checkbox-group'
@@ -41,14 +42,12 @@ export function FormCheckboxGroup({ children, ...props }: FormCheckboxGroupProps
             validationBehavior='aria' // Let React Hook Form handle validation instead of the browser.
             value={value}
         >
-            {(renderProps) => {
-                return (
-                    <>
-                        {typeof children === 'function' ? children(renderProps) : children}
-                        <FieldError>{error?.message}</FieldError>
-                    </>
-                )
-            }}
+            {composeRenderProps(children, (children) => (
+                <>
+                    {children}
+                    <FieldError>{error?.message}</FieldError>
+                </>
+            ))}
         </CheckboxGroup>
     )
 }

@@ -36,7 +36,7 @@ Disclosure.displayName = 'Disclosure'
 
 export interface DisclosurePanelProps extends RACDisclosurePanelProps {}
 
-/** The content that appears/disappears when the disclosure is toggled. */
+/** Content that appears or disappears when the user toggles the disclosure. */
 export function DisclosurePanel({ children, className, ...props }: DisclosurePanelProps) {
     return (
         <RACDisclosurePanel

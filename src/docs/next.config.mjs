@@ -16,7 +16,7 @@ const resolveAlias = {
 
 /** @type {import('next').NextConfig} */
 const config = {
-    // Linting is owned by the repo root (`pnpm check:eslint`).
+    // The repo root owns linting (`pnpm check:eslint`).
     eslint: {
         ignoreDuringBuilds: true,
     },
@@ -28,7 +28,7 @@ const config = {
     output: 'export',
     // Next otherwise guesses the tracing root, and warns about it.
     outputFileTracingRoot: repoRoot,
-    // `ts-morph` (used by AutoTypeTable) is a server-only, CommonJS-ish dep.
+    // `ts-morph` (used by AutoTypeTable) runs server-side and is CommonJS-ish.
     serverExternalPackages: ['ts-morph'],
     turbopack: {
         resolveAlias,

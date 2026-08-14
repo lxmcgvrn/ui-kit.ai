@@ -27,7 +27,7 @@ export interface TooltipProps extends Omit<RACTooltipProps, 'children'> {
 }
 
 export interface TooltipTriggerProps extends RACTooltipTriggerProps {
-    /** The delay in milliseconds before the tooltip is shown. Defaults to `0`. */
+    /** Delay in milliseconds before the tooltip appears. Defaults to `0`. */
     delay?: number
 }
 
@@ -61,7 +61,7 @@ const tooltipStyles = tv({
             'exiting:opacity-0',
             'exiting:translate-y-(--origin-y)',
             'exiting:translate-x-(--origin-x)',
-            'exiting:pointer-events-none', // ensure content behind is immediately interactive
+            'exiting:pointer-events-none', // keeps content behind interactive during exit
         ],
     ],
 })
@@ -103,12 +103,9 @@ export function TooltipInfoButton({ ref, ...props }: TooltipInfoButtonProps) {
     return (
         <Button
             {...props}
-            className={(rp) =>
-                twMerge(
-                    'size-6',
-                    typeof props.className === 'function' ? props.className(rp) : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('size-6', className)
+            )}
             isIcon
             ref={ref}
             variant='tertiary'

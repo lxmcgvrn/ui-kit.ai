@@ -1,7 +1,11 @@
-import type { HeadingProps as RACHeadingProps } from 'react-aria-components'
+import type {
+    HeadingProps as RACHeadingProps,
+    ListBoxItemRenderProps as RACListBoxItemRenderProps,
+} from 'react-aria-components'
 
 import { LucideCheck } from 'lucide-react'
 import {
+    composeRenderProps,
     Collection as RACCollection,
     Header as RACHeader,
     ListBoxItem as RACListBoxItem,
@@ -94,15 +98,11 @@ function OptionsItem<TType extends OptionType>({
         <Component
             {...props}
             aria-label={props.textValue}
-            className={(renderProps) =>
-                twMerge(
-                    optionStyle(),
-                    intent,
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps<
+                string | undefined,
+                RACListBoxItemRenderProps & { defaultClassName: string | undefined },
+                string
+            >(props.className, (className) => twMerge(optionStyle(), intent, className))}
         >
             {({ isSelected }) => (
                 <>

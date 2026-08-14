@@ -1,6 +1,7 @@
 import type { ListBoxProps as RACListBoxProps } from 'react-aria-components'
 
-import { ListBox as RACListBox } from 'react-aria-components'
+import { composeRenderProps, ListBox as RACListBox } from 'react-aria-components'
+import { twMerge } from 'tailwind-merge'
 
 import type { OptionsSchema } from '../types/options'
 
@@ -8,7 +9,7 @@ import { OptionRenderer } from '../options'
 
 export interface ListBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchema<'listbox'>>
     extends Omit<RACListBoxProps<T>, 'children' | 'layout' | 'orientation'> {
-    /** When `true` a checkmark is rendered next to the selected option(s). */
+    /** When `true`, ListBox renders a checkmark next to the selected option(s). */
     showCheckmarkOnSelected?: boolean
 }
 
@@ -20,11 +21,8 @@ export function ListBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'list
     return (
         <RACListBox
             {...props}
-            className={(renderProps) => (
-                typeof props.className === 'function'
-                    ? props.className(renderProps)
-                    : props.className,
-                'outline-0'
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('outline-0', className)
             )}
         >
             {(props) => (

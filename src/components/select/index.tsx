@@ -1,12 +1,14 @@
-import type { ForwardedRef } from 'react'
+import type { ForwardedRef, ReactNode } from 'react'
 import type {
     ButtonProps as RACButtonProps,
     SelectProps as RACSelectProps,
+    SelectRenderProps as RACSelectRenderProps,
 } from 'react-aria-components'
 
 import { LucideChevronsUpDown } from 'lucide-react'
 import { useContext } from 'react'
 import {
+    composeRenderProps,
     Button as RACButton,
     ListBox as RACListBox,
     Select as RACSelect,
@@ -41,7 +43,7 @@ export interface SelectProps<T extends OptionsSchema<'listbox'> = OptionsSchema<
     items?: Iterable<T>
     ref?: ForwardedRef<HTMLDivElement>
 
-    /** When `true` a checkmark is rendered next to the selected option. */
+    /** When `true`, Select renders a checkmark next to the selected option. */
     showCheckmarkOnSelected?: boolean
 }
 
@@ -56,42 +58,41 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
     return (
         <RACSelect
             {...props}
-            className={(rp) =>
-                twMerge(
-                    'group invalid:error relative w-full !outline-0',
-                    typeof props.className === 'function' ? props.className(rp) : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('group invalid:error relative w-full !outline-0', className)
+            )}
             ref={ref}
         >
-            {(rp) => {
-                return (
-                    <>
-                        {typeof children === 'function' ? children(rp) : children}
-                        <Popover className='min-w-(--trigger-width)'>
-                            <RACListBox<T>
-                                className='max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.25rem)]'
-                                items={items}
-                            >
-                                {(props) => (
-                                    <OptionRenderer
-                                        {...props}
-                                        showCheckmarkOnSelected={showCheckmarkOnSelected}
-                                        type='listbox'
-                                    />
-                                )}
-                            </RACListBox>
-                        </Popover>
-                    </>
-                )
-            }}
+            {composeRenderProps<
+                ReactNode,
+                RACSelectRenderProps & { defaultChildren: ReactNode },
+                ReactNode
+            >(children, (children) => (
+                <>
+                    {children}
+                    <Popover className='min-w-(--trigger-width)'>
+                        <RACListBox<T>
+                            className='max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.25rem)]'
+                            items={items}
+                        >
+                            {(props) => (
+                                <OptionRenderer
+                                    {...props}
+                                    showCheckmarkOnSelected={showCheckmarkOnSelected}
+                                    type='listbox'
+                                />
+                            )}
+                        </RACListBox>
+                    </Popover>
+                </>
+            ))}
         </RACSelect>
     )
 }
 Select.displayName = 'Select'
 
 export interface SelectButtonProps extends RACButtonProps {
-    /** When `true` the button is rendered without its border and background. */
+    /** When `true`, SelectButton renders without its border and background. */
     isBorderless?: boolean
 
     /** Decorative node (e.g. an icon) rendered on the left. */
@@ -114,14 +115,14 @@ export function SelectButton({
     return (
         <RACButton
             {...props}
-            className={(rp) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     selectButtonStyles({
                         isBorderless,
                     }),
-                    typeof props.className === 'function' ? props.className(rp) : props.className
+                    className
                 )
-            }
+            )}
             data-variant-borderless={isBorderless}
         >
             {renderSlot(selectedItemProps?.icon ?? slotLeft, {

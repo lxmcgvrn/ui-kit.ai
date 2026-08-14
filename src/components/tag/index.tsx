@@ -4,7 +4,7 @@ import type {
 } from 'react-aria-components'
 
 import { type ForwardedRef, type HTMLProps } from 'react'
-import { Button as RACButton, Link as RACLink } from 'react-aria-components'
+import { composeRenderProps, Button as RACButton, Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -143,18 +143,18 @@ export function TagButton({
             }
             ref={ref}
         >
-            {(renderProps) => (
+            {composeRenderProps(children, (children) => (
                 <>
                     {renderSlot(slotLeft, {
                         'data-slot': Slot.LEFT,
                     })}
-                    {typeof children === 'function' ? children(renderProps) : children}
+                    {children}
 
                     {renderSlot(slotRight, {
                         'data-slot': Slot.RIGHT,
                     })}
                 </>
-            )}
+            ))}
         </RACButton>
     )
 }
@@ -191,18 +191,18 @@ export const TagLink = ({
             }
             ref={ref}
         >
-            {(renderProps) => (
+            {composeRenderProps(children, (children) => (
                 <>
                     {renderSlot(slotLeft, {
                         'data-slot': Slot.LEFT,
                     })}
-                    {typeof children === 'function' ? children(renderProps) : children}
+                    {children}
 
                     {renderSlot(slotRight, {
                         'data-slot': Slot.RIGHT,
                     })}
                 </>
-            )}
+            ))}
         </RACLink>
     )
 }

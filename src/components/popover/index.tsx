@@ -48,7 +48,7 @@ const popoverStyles = tv({
         'exiting:opacity-0',
         'exiting:translate-y-(--origin-y)',
         'exiting:translate-x-(--origin-x)',
-        'exiting:pointer-events-none', // ensure content behind is immediately interactive
+        'exiting:pointer-events-none', // keeps content behind interactive during exit
     ],
 })
 

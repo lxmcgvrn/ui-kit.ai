@@ -8,6 +8,7 @@ import type {
 import { LucideX } from 'lucide-react'
 import { useContext } from 'react'
 import {
+    composeRenderProps,
     Dialog as RACDialog,
     DialogTrigger as RACDialogTrigger,
     Modal as RACModal,
@@ -25,14 +26,13 @@ const modalOverlayStyles = tv({
         'fixed inset-0 z-50',
         'h-dvh w-dvw',
         'flex items-center justify-center text-center',
-        // 'bg-[#000000]/25 backdrop-blur-3xl',
-        // transition properties
+        // Blurred backdrop, disabled
         'transition-opacity ease-out',
         // entering
         'entering:opacity-0',
         // exiting
         'exiting:opacity-0',
-        'exiting:pointer-events-none', // ensure content behind is immediately interactive
+        'exiting:pointer-events-none', // keeps content behind interactive during exit
     ],
 })
 
@@ -52,7 +52,7 @@ const modalStyles = tv({
         // 'md:exiting:translate-y-4',
         'entering:ease-in',
         'md:entering:scale-98',
-        'exiting:pointer-events-none', // ensure content behind is immediately interactive
+        'exiting:pointer-events-none', // keeps content behind interactive during exit
     ],
 })
 
@@ -109,11 +109,7 @@ export function DialogCloseButton(
         <Button
             {...props}
             aria-label='Close'
-            className={(rp) =>
-                twMerge(
-                    typeof props.className === 'function' ? props.className(rp) : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) => twMerge(className))}
             isIcon
             name='close'
             onPress={(e) => {
@@ -209,7 +205,7 @@ DialogTitle.displayName = 'DialogTitle'
 
 export interface DialogTriggerProps extends RACDialogTriggerProps {}
 
-/** A DialogTrigger opens a dialog when a trigger element is pressed. */
+/** DialogTrigger opens a dialog when the user presses its trigger element. */
 export function DialogTrigger(props: DialogTriggerProps) {
     return <RACDialogTrigger {...props} />
 }
@@ -217,19 +213,14 @@ DialogTrigger.displayName = 'DialogTrigger'
 
 export interface DialogModalProps extends RACModalOverlayProps {}
 
-/** A DialogModal renders the dialog's modal container. */
+/** DialogModal renders the modal container for Dialog. */
 export function DialogModal({ isDismissable = true, ...props }: DialogModalProps) {
     return (
         <RACModal
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    modalStyles(),
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge(modalStyles(), className)
+            )}
             isDismissable={isDismissable}
         />
     )
@@ -238,7 +229,7 @@ DialogModal.displayName = 'DialogModal'
 
 export interface DialogModalOverlayProps extends Omit<RACModalOverlayProps, 'className'> {}
 
-/** A DialogModalOverlay renders the backdrop behind a {@link DialogModal}. */
+/** Renders the backdrop. It sits behind {@link DialogModal}. */
 export function DialogModalOverlay({ isDismissable = true, ...props }: DialogModalOverlayProps) {
     return (
         <RACModalOverlay

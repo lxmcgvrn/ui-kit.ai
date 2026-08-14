@@ -12,7 +12,7 @@ const fieldGroupStyles = tv({
 })
 
 export interface FieldGroupProps extends RACGroupProps {
-    /** When `true` the group is rendered without its border and background. */
+    /** When `true`, FieldGroup renders without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLDivElement>
 }

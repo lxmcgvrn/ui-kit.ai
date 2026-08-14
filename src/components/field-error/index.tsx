@@ -1,7 +1,7 @@
 import type { FieldErrorProps as RACFieldErrorProps } from 'react-aria-components'
 
 import { type ForwardedRef } from 'react'
-import { FieldError as RACFieldError } from 'react-aria-components'
+import { composeRenderProps, FieldError as RACFieldError } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 export interface FieldErrorProps extends RACFieldErrorProps {
@@ -13,15 +13,9 @@ export function FieldError({ ref, ...props }: FieldErrorProps) {
     return (
         <RACFieldError
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    'error text-lo-contrast block text-sm font-medium',
-                    'mt-1',
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('error text-lo-contrast block text-sm font-medium', 'mt-1', className)
+            )}
             ref={ref}
         />
     )

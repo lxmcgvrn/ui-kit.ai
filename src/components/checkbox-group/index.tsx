@@ -1,27 +1,21 @@
 import type { CheckboxGroupProps as RACCheckboxGroupProps } from 'react-aria-components'
 
 import { type ForwardedRef } from 'react'
-import { CheckboxGroup as RACCheckboxGroup } from 'react-aria-components'
+import { composeRenderProps, CheckboxGroup as RACCheckboxGroup } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 export interface CheckboxGroupProps extends RACCheckboxGroupProps {
     ref?: ForwardedRef<HTMLDivElement>
 }
 
-/** A checkbox group allows a user to select multiple items from a list of options. */
+/** Lets a user pick more than one option from a list. */
 export const CheckboxGroup = ({ ref, ...props }: CheckboxGroupProps) => {
     return (
         <RACCheckboxGroup
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    'group',
-                    props.isInvalid === true ? 'error' : '',
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('group', props.isInvalid === true ? 'error' : '', className)
+            )}
             ref={ref}
         >
             {props.children}

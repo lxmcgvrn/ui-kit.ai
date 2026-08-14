@@ -132,6 +132,8 @@ export default [
             ],
             '@typescript-eslint/strict-boolean-expressions': 'error',
             '@typescript-eslint/switch-exhaustiveness-check': 'error',
+            'comment-slop/write-clear': 'error',
+            'comment-slop/write-good': 'error',
             'comment-slop/write-short': 'error',
             eqeqeq: ['error', 'smart'],
             'jsdoc/multiline-blocks': [
@@ -224,7 +226,7 @@ export default [
         },
     },
     {
-        // Every exported component is public API, so it must be documented.
+        // Every exported component is public API, so document it.
         files: ['src/components/*/index.tsx'],
         rules: {
             'jsdoc/require-jsdoc': [

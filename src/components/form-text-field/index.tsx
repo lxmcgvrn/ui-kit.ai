@@ -1,12 +1,14 @@
-import type { ComponentProps } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+import type { TextFieldRenderProps as RACTextFieldRenderProps } from 'react-aria-components'
 
+import { composeRenderProps } from 'react-aria-components'
 import { useController, useFormContext } from 'react-hook-form'
 
 import { FieldError } from '../field-error'
 import { Input } from '../input'
 import { TextField } from '../text-field'
 
-/** `name` is required here: it binds the field to `react-hook-form`. */
+/** `name` binds the field to `react-hook-form`; omitting it throws. */
 export interface FormTextFieldProps extends Omit<ComponentProps<typeof TextField>, 'children'> {
     /** The field body. Defaults to a bare `Input`. */
     children?: ComponentProps<typeof TextField>['children']
@@ -45,14 +47,16 @@ export function FormTextField({ children = <Input />, ...props }: FormTextFieldP
             validationBehavior='aria' // Let React Hook Form handle validation instead of the browser.
             value={value}
         >
-            {(renderProps) => {
-                return (
-                    <>
-                        {typeof children === 'function' ? children(renderProps) : children}
-                        <FieldError>{error?.message}</FieldError>
-                    </>
-                )
-            }}
+            {composeRenderProps<
+                ReactNode,
+                RACTextFieldRenderProps & { defaultChildren: ReactNode },
+                ReactNode
+            >(children, (children) => (
+                <>
+                    {children}
+                    <FieldError>{error?.message}</FieldError>
+                </>
+            ))}
         </TextField>
     )
 }

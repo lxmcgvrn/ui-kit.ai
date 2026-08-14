@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
 
+import { composeRenderProps } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Button } from '../button'
@@ -14,7 +15,7 @@ export function FieldButton({ ...props }: FieldButtonProps) {
             isIcon
             variant='tertiary'
             {...props}
-            className={(rp) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     '!size-6',
                     'align-middle',
@@ -22,9 +23,9 @@ export function FieldButton({ ...props }: FieldButtonProps) {
                     'group-invalid:error',
                     'last-of-type:mr-1 [&:not(:last-of-type)]:mr-px',
                     '[&_svg]:size-3 [&_svg]:shrink-0',
-                    typeof props.className === 'function' ? props.className(rp) : props.className
+                    className
                 )
-            }
+            )}
             excludeFromTabOrder
         />
     )

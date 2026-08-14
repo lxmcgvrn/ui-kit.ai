@@ -111,7 +111,7 @@ describe('useKbd', () => {
         // Press wrong key
         await mockKeyDown('ArrowRight')
 
-        // Continue with sequence - should not trigger because sequence was broken
+        // Continue the sequence - it shouldn't trigger since the wrong key broke it
         await mockKeyDown('ArrowDown')
         await mockKeyDown('ArrowDown')
 

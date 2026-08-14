@@ -4,7 +4,7 @@ import type { ButtonProps } from '../button'
 
 import { Button } from '../button'
 
-/** The form drives `isDisabled`, so anything passed for it is ignored. */
+/** The form drives `isDisabled`; passing your own value has no effect. */
 export interface FormSubmitButtonProps extends ButtonProps {
     /** The button's label. Defaults to `Submit`. */
     children?: ButtonProps['children']

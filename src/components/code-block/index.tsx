@@ -6,7 +6,7 @@ import { FieldButton } from '../field-button'
 import { Tooltip, TooltipTrigger } from '../tooltip'
 
 export interface CodeBlockProps extends SyntaxHighlighterProps {
-    /** When `true` (the default) line numbers are rendered in the gutter. */
+    /** When `true` (the default), CodeBlock shows line numbers in the left-hand column. */
     showLineNumbers?: boolean
 }
 

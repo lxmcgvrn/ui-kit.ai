@@ -44,13 +44,13 @@ export interface AvatarProps {
     /** Renders a loading spinner in place of the avatar. */
     isLoading?: boolean
 
-    /** Shown as initials when `src` is absent. One of the two is required. */
+    /** Renders as initials when `src` is absent. Pass `name` or `src`. */
     name?: string
 
     /** A pixel value for the height and width of the avatar. */
     size?: number
 
-    /** Image URL, remote or `data:`. Required when no `name` is given. */
+    /** Image URL, remote or `data:`. Pass this when `name` is absent. */
     src?: string
 
     /** Controls the shape of the avatar. */

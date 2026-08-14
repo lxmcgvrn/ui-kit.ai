@@ -13,7 +13,7 @@ export function useKbd(
     map: [string, () => void][],
     options: UseKbdShortcutsOptions = { disableTextInputs: true }
 ) {
-    // Store callback refs to prevent unnecessary rerenders
+    // Cache callback refs; avoids extra re-renders
     const callbackRefs = useRef<Map<string, () => void>>(new Map())
     const [keySequences, setKeySequences] = useState<Map<string, string[]>>(new Map())
 
@@ -37,7 +37,7 @@ export function useKbd(
                 return
             }
 
-            // Cancel shortcut if key is being held down
+            // Cancel the shortcut if the user holds the key down
             if (e.repeat) {
                 return
             }
@@ -62,7 +62,7 @@ export function useKbd(
                     ) {
                         const finalKey = keyArray.pop()
 
-                        // Run handler if the modifier(s) + key have both been pressed
+                        // Run the handler once the user presses the modifier(s) and key
                         if (
                             keyArray.every((k) => modifierMap[k as keyof typeof modifierMap]) &&
                             finalKey?.toLowerCase() === e.key.toLowerCase()

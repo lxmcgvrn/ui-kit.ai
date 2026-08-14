@@ -29,7 +29,7 @@ export default function FormResetOnSubmitDefault() {
 
             <button type='submit'>Submit</button>
 
-            {/* The FormResetOnSubmit component will clear the form after successful submission */}
+            {/* FormResetOnSubmit clears the form after a successful submit */}
             <FormResetOnSubmit />
         </Form>
     )

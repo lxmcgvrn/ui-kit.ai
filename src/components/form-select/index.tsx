@@ -1,6 +1,7 @@
 import type { ComponentProps } from 'react'
 import type { Key as RACKey } from 'react-aria-components'
 
+import { composeRenderProps } from 'react-aria-components'
 import { useController, useFormContext } from 'react-hook-form'
 
 import type { OptionsSchema } from '../types/options'
@@ -48,14 +49,12 @@ export function FormSelect<T extends OptionsSchema<'listbox'> = OptionsSchema<'l
             selectedKey={selectedKey}
             validationBehavior='aria' // Let React Hook Form handle validation instead of the browser.
         >
-            {(renderProps) => {
-                return (
-                    <>
-                        {typeof children === 'function' ? children(renderProps) : children}
-                        <FieldError>{error?.message}</FieldError>
-                    </>
-                )
-            }}
+            {composeRenderProps(children, (children) => (
+                <>
+                    {children}
+                    <FieldError>{error?.message}</FieldError>
+                </>
+            ))}
         </Select>
     )
 }

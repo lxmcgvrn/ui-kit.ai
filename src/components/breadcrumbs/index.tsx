@@ -6,6 +6,7 @@ import type {
 
 import { LucideChevronRight } from 'lucide-react'
 import {
+    composeRenderProps,
     Breadcrumb as RACBreadcrumb,
     Breadcrumbs as RACBreadcrumbs,
     Link as RACLink,
@@ -19,14 +20,9 @@ export function Breadcrumb(props: BreadcrumbProps) {
     return (
         <RACBreadcrumb
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className,
-                    'flex items-center gap-2'
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge(className, 'flex items-center gap-2')
+            )}
         >
             <RACLink
                 {...props}

@@ -4,6 +4,7 @@ import type { ComboBoxProps as RACComboBoxProps } from 'react-aria-components'
 import { LucideChevronsUpDown, LucideX } from 'lucide-react'
 import { useContext } from 'react'
 import {
+    composeRenderProps,
     ComboBox as RACComboBox,
     ComboBoxStateContext as RACComboBoxStateContext,
     ListBox as RACListBox,
@@ -21,7 +22,7 @@ import { Popover } from '../popover'
 export interface ComboBoxButtonProps
     extends Omit<ComponentProps<typeof FieldButton>, 'children' | 'isDisabled' | 'onPress'> {}
 
-/** Opens the ComboBox popover. `onPress` and `isDisabled` are set for you. */
+/** Opens the ComboBox popover. ComboBox sets `onPress` and `isDisabled` for you. */
 export function ComboBoxButton(props: ComboBoxButtonProps) {
     return (
         <FieldButton {...props}>
@@ -47,21 +48,19 @@ export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
         <FieldButton
             {...props}
             aria-label='Clear'
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     'transition-opacity',
                     isEmpty ? 'invisible hidden opacity-0' : 'opacity-100',
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
+                    className
                 )
-            }
+            )}
             isDisabled={isEmpty}
             onPress={() => {
                 state?.setInputValue('')
                 state?.setSelectedKey(null)
             }}
-            slot={null} // Don't inherit default Button behavior from ComboBox.
+            slot={null} // Skip ComboBox's default Button behavior here.
         >
             <LucideX
                 aria-hidden
@@ -117,7 +116,7 @@ export interface ComboBoxProps<T extends OptionsSchema<'listbox'> = OptionsSchem
         RACComboBoxProps<T> {
     ref?: ForwardedRef<HTMLDivElement>
 
-    /** When `true` a checkmark is rendered next to the selected option. */
+    /** When `true`, ComboBox renders a checkmark next to the selected option. */
     showCheckmarkOnSelected?: boolean
 }
 
@@ -133,19 +132,14 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
     return (
         <RACComboBox<T>
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    'group relative w-full grow',
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('group relative w-full grow', className)
+            )}
             ref={ref}
         >
-            {(rp) => (
+            {composeRenderProps(children, (children) => (
                 <>
-                    {typeof children === 'function' ? children(rp) : children}
+                    {children}
 
                     <Popover
                         className='w-[calc(var(--trigger-width)+var(--spacing))]' // Account for the margin on the combobox button
@@ -165,7 +159,7 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
                         </RACListBox>
                     </Popover>
                 </>
-            )}
+            ))}
         </RACComboBox>
     )
 }

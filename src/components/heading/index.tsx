@@ -23,7 +23,7 @@ export interface HeadingProps extends Omit<RACHeadingProps, 'level'> {
     level?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
-/** A heading renders a semantic heading with pre-determined typography styles. */
+/** Renders a semantic heading with preset typography styles. */
 export function Heading({ level = 3, ...props }: HeadingProps) {
     return (
         <RACHeading

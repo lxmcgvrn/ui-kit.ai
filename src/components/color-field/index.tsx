@@ -1,7 +1,7 @@
 import type { ForwardedRef } from 'react'
 import type { ColorFieldProps as RACColorFieldProps } from 'react-aria-components'
 
-import { ColorField as RACColorField } from 'react-aria-components'
+import { composeRenderProps, ColorField as RACColorField } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Input } from '../input'
@@ -16,15 +16,12 @@ export function ColorField({ children = <Input />, ref, ...props }: ColorFieldPr
     return (
         <RACColorField
             {...props}
-            className={(rp) =>
-                twMerge(
-                    'group relative w-full grow',
-                    typeof props.className === 'function' ? props.className(rp) : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('group relative w-full grow', className)
+            )}
             ref={ref}
         >
-            {(renderProps) => (typeof children === 'function' ? children(renderProps) : children)}
+            {children}
         </RACColorField>
     )
 }

@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { Link as RACLink } from 'react-aria-components'
+import { composeRenderProps, Link as RACLink } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 export interface LinkProps extends ComponentProps<typeof RACLink> {}
@@ -10,15 +10,13 @@ export function Link(props: LinkProps) {
     return (
         <RACLink
             {...props}
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
                     `text-lo-contrast hover:text-hi-contrast hover:decoration-none underline decoration-dotted
                     transition-colors hover:no-underline`,
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
+                    className
                 )
-            }
+            )}
         />
     )
 }

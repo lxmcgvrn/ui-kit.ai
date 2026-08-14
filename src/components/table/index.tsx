@@ -11,11 +11,12 @@ import type {
 
 import { LucideArrowUp, LucideArrowUpDown } from 'lucide-react'
 import {
+    // ColumnResizer as RACColumnResizer,
+    composeRenderProps,
     Button as RACButton,
     Cell as RACCell,
     Collection as RACCollection,
     Column as RACColumn,
-    // ColumnResizer as RACColumnResizer,
     Group as RACGroup,
     Row as RACRow,
     Table as RACTable,
@@ -121,7 +122,7 @@ export interface CellProps extends RACCellProps {
     /** Content alignment; should match the {@link Column} it belongs to. */
     alignment?: 'center' | 'end' | 'start'
 
-    /** When `true`, a {@link Skeleton} is rendered in place of the cell's children. */
+    /** When `true`, Cell renders a {@link Skeleton} in place of its children. */
     showSkeleton?: boolean
 }
 
@@ -182,9 +183,10 @@ export function Column({ alignment, children, className, textValue, ...props }: 
                         tabIndex={-1}
                     >
                         <span className='inline-flex items-center truncate'>
-                            {typeof children === 'function'
-                                ? children(renderProps)
-                                : (children ?? textValue)}
+                            {composeRenderProps(
+                                children,
+                                (children) => children ?? textValue
+                            )(renderProps)}
                         </span>
 
                         {renderProps.allowsSorting ? (

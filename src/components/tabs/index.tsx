@@ -17,19 +17,17 @@ import { tv } from 'tailwind-variants'
 
 export interface TabsProps extends RACTabsProps {}
 
-/** Organizes content into navigable sections. */
+/** Groups content into sections the user can switch between. */
 export function Tabs(props: TabsProps) {
     return (
         <RACTabs
             {...props}
-            className={(renderProps) =>
+            className={composeRenderProps(props.className, (className) =>
                 twMerge(
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className,
+                    className,
                     'group/tabs orientation-horizontal:flex-col orientation vertical:flex-row flex'
                 )
-            }
+            )}
         />
     )
 }
@@ -117,12 +115,9 @@ export function TabPanel(props: TabPanelProps) {
     return (
         <RACTabPanel
             {...props}
-            className={(rp) =>
-                twMerge(
-                    'flex-1 outline-0',
-                    typeof props.className === 'function' ? props.className(rp) : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge('flex-1 outline-0', className)
+            )}
         />
     )
 }

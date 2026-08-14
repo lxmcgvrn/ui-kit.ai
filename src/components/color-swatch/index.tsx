@@ -1,6 +1,6 @@
 import type { ColorSwatchProps as RACColorSwatchProps } from 'react-aria-components'
 
-import { ColorSwatch as RACColorSwatch } from 'react-aria-components'
+import { composeRenderProps, ColorSwatch as RACColorSwatch } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -15,14 +15,9 @@ export function ColorSwatch(props: ColorSwatchProps) {
     return (
         <RACColorSwatch
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    colorSwatchStyles(),
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge(colorSwatchStyles(), className)
+            )}
         />
     )
 }

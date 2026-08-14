@@ -2,7 +2,7 @@ import type { SearchFieldProps as RACSearchFieldProps } from 'react-aria-compone
 
 import { LucideX } from 'lucide-react'
 import { type ComponentProps, type ForwardedRef, forwardRef } from 'react'
-import { SearchField as RACSearchField } from 'react-aria-components'
+import { composeRenderProps, SearchField as RACSearchField } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { FieldButton } from '../field-button'
@@ -22,14 +22,9 @@ export const SearchField = forwardRef(
         return (
             <RACSearchField
                 {...props}
-                className={(renderProps) =>
-                    twMerge(
-                        typeof props.className === 'function'
-                            ? props.className(renderProps)
-                            : props.className,
-                        'group relative w-full grow'
-                    )
-                }
+                className={composeRenderProps(props.className, (className) =>
+                    twMerge(className, 'group relative w-full grow')
+                )}
                 ref={ref}
             >
                 {children}

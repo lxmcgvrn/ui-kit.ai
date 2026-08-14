@@ -1,5 +1,5 @@
 import { type ComponentProps, type ForwardedRef, type ReactNode } from 'react'
-import { Input as RACInput } from 'react-aria-components'
+import { composeRenderProps, Input as RACInput } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -20,7 +20,7 @@ export interface InputProps extends ComponentProps<typeof RACInput> {
     /** A decorative node (e.g. an icon) rendered inside the start of the input. */
     icon?: ReactNode
 
-    /** When `true` the input is rendered without its border and background. */
+    /** When `true`, Input renders without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLInputElement>
 }
@@ -45,18 +45,16 @@ export const Input = ({ icon, isBorderless, ref, ...props }: InputProps) => {
             ) : null}
             <RACInput
                 {...props}
-                className={(rp) =>
+                className={composeRenderProps(props.className, (className, rp) =>
                     twMerge(
                         inputStyles({
                             ...rp,
                             hasIcon: Boolean(icon),
                             isBorderless,
                         }),
-                        typeof props.className === 'function'
-                            ? props.className(rp)
-                            : props.className
+                        className
                     )
-                }
+                )}
                 data-variant-borderless={isBorderless}
                 ref={ref}
             />

@@ -4,6 +4,7 @@ import type { TextFieldProps as RACTextFieldProps } from 'react-aria-components'
 import { LucideClipboard, LucideEye, LucideEyeOff, LucideX } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
+    composeRenderProps,
     ButtonContext as RACButtonContext,
     TextField as RACTextField,
     useSlottedContext,
@@ -18,7 +19,7 @@ export interface TextFieldProps extends RACTextFieldProps {
     ref?: ForwardedRef<HTMLInputElement>
 }
 
-/** A text input, composable with labels, icons and validation messages. */
+/** A text input. Pair it with labels, icons, and validation messages. */
 export function TextField({ children = <Input />, ref, ...props }: TextFieldProps) {
     const [value, setValue] = useState<RACTextFieldProps['value']>(
         props.value ?? props.defaultValue ?? ''
@@ -38,7 +39,7 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
         if (value == null) return
 
         return navigator.clipboard.writeText(value)
-        // .then(() => toast.success(i18n.copied_to_clipboard)) // ToDo: Add toast
+        // TODO: show a toast on copy success
     }, [value])
 
     useEffect(() => {
@@ -71,14 +72,9 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
         <RACButtonContext.Provider value={buttonContext}>
             <RACTextField
                 {...props}
-                className={(rp) =>
-                    twMerge(
-                        'group invalid:error relative w-full',
-                        typeof props.className === 'function'
-                            ? props.className(rp)
-                            : props.className
-                    )
-                }
+                className={composeRenderProps(props.className, (className) =>
+                    twMerge('group invalid:error relative w-full', className)
+                )}
                 onChange={(v) => {
                     setValue(v)
                     props.onChange?.(v)
@@ -87,9 +83,7 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
                 type={type}
                 value={value}
             >
-                {(renderProps) =>
-                    typeof children === 'function' ? children(renderProps) : children
-                }
+                {children}
             </RACTextField>
         </RACButtonContext.Provider>
     )
@@ -104,15 +98,13 @@ export function TextFieldClearButton(props: TextFieldClearButtonProps) {
         <TooltipTrigger delay={0}>
             <FieldButton
                 {...props}
-                className={(renderProps) =>
+                className={composeRenderProps(props.className, (className) =>
                     twMerge(
                         'transition-opacity',
                         'group:placeholder-shown:invisible group:placeholder-shown:hidden group:placeholder-shown:opacity-0',
-                        typeof props.className === 'function'
-                            ? props.className(renderProps)
-                            : props.className
+                        className
                     )
-                }
+                )}
                 slot='clear'
             >
                 <LucideX />

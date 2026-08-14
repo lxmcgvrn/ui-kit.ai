@@ -1,5 +1,5 @@
 import { type ComponentProps, type ForwardedRef } from 'react'
-import { TextArea as RACTextArea } from 'react-aria-components'
+import { composeRenderProps, TextArea as RACTextArea } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
@@ -12,14 +12,14 @@ const textAreaStyles = tv({
         'w-full',
         'text-start align-middle',
         'min-h-24',
-        // Users can resize vertically, but the width is fixed by the field.
+        // Users resize the textarea vertically; the field fixes its width.
         'resize-y',
     ],
     extend: fieldVariants,
 })
 
 export interface TextAreaProps extends ComponentProps<typeof RACTextArea> {
-    /** When `true` the text area is rendered without its border and background. */
+    /** When `true`, TextArea renders without its border and background. */
     isBorderless?: boolean
     ref?: ForwardedRef<HTMLTextAreaElement>
 }
@@ -30,17 +30,15 @@ export const TextArea = ({ isBorderless, ref, ...props }: TextAreaProps) => {
         <div className='relative inline-flex w-full items-center'>
             <RACTextArea
                 {...props}
-                className={(rp) =>
+                className={composeRenderProps(props.className, (className, rp) =>
                     twMerge(
                         textAreaStyles({
                             ...rp,
                             isBorderless,
                         }),
-                        typeof props.className === 'function'
-                            ? props.className(rp)
-                            : props.className
+                        className
                     )
-                }
+                )}
                 data-variant-borderless={isBorderless}
                 ref={ref}
             />

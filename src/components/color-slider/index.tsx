@@ -1,6 +1,7 @@
 import type { ColorSliderProps as RACColorSliderProps } from 'react-aria-components'
 
 import {
+    composeRenderProps,
     ColorSlider as RACColorSlider,
     ColorThumb as RACColorThumb,
     SliderTrack as RACSliderTrack,
@@ -30,14 +31,9 @@ export function ColorSlider(props: ColorSliderProps) {
     return (
         <RACColorSlider
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    sliderStyles(),
-                    typeof props.className === 'function'
-                        ? props.className(renderProps)
-                        : props.className
-                )
-            }
+            className={composeRenderProps(props.className, (className) =>
+                twMerge(sliderStyles(), className)
+            )}
         >
             {(renderProps) => (
                 <>
