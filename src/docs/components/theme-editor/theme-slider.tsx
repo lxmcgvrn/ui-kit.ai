@@ -1,9 +1,8 @@
 'use client'
 
-import type { Depth } from '@ui-kit.ai/theme'
+import type { SliderProps as RACSliderProps } from 'react-aria-components'
 
 import { Label } from '@ui-kit.ai/components'
-import { DEFAULT_DEPTH, DEPTHS } from '@ui-kit.ai/theme'
 import {
     Slider as RACSlider,
     SliderOutput as RACSliderOutput,
@@ -11,34 +10,23 @@ import {
     SliderTrack as RACSliderTrack,
 } from 'react-aria-components'
 
-const LABELS: Record<Depth, string> = {
-    lots: 'Lots',
-    none: 'None',
-    some: 'Some',
+export interface ThemeSliderProps extends Omit<RACSliderProps<number>, 'children' | 'className'> {
+    /** The current value, spelled for the reader. */
+    display: string
+    label: string
 }
 
-export interface DepthSliderProps {
-    onChange: (depth: Depth) => void
-    value: Depth
-}
-
-/** The radius slider's twin, walked along three detents instead of a range. */
-export function DepthSlider({ onChange, value }: DepthSliderProps) {
+/** Docs-local slider chrome, styled to match the library's fields. */
+export function ThemeSlider({ display, label, ...props }: ThemeSliderProps) {
     return (
         <RACSlider
+            {...props}
             className='w-full'
-            maxValue={DEPTHS.length - 1}
-            minValue={0}
-            onChange={(index) => {
-                onChange(DEPTHS[index] ?? DEFAULT_DEPTH)
-            }}
-            step={1}
-            value={DEPTHS.indexOf(value)}
         >
             <div className='flex items-baseline justify-between gap-2'>
-                <Label>Depth</Label>
-                <RACSliderOutput className='text-lo-contrast mb-1 text-sm'>
-                    {LABELS[value]}
+                <Label>{label}</Label>
+                <RACSliderOutput className='text-lo-contrast mb-1 text-sm tabular-nums'>
+                    {display}
                 </RACSliderOutput>
             </div>
 

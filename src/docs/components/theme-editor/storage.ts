@@ -1,17 +1,13 @@
 import type { ThemeInput } from '@ui-kit.ai/theme'
 
-import { DEPTHS, INTENTS, SATURATIONS } from '@ui-kit.ai/theme'
+import { INTENTS, THEME_SETTINGS } from '@ui-kit.ai/theme'
 
 const STORAGE_KEY = 'ui-kit.theme'
 
 export function clearStoredTheme() {
-    if (typeof localStorage === 'undefined') return
-
-    try {
+    tolerateBlockedStorage(() => {
         localStorage.removeItem(STORAGE_KEY)
-    } catch {
-        // Storage is unavailable (private mode, blocked cookies) — nothing to do.
-    }
+    })
 }
 
 export function readStoredTheme(): null | ThemeInput {
@@ -30,13 +26,14 @@ export function readStoredTheme(): null | ThemeInput {
 }
 
 export function writeStoredTheme(input: ThemeInput) {
-    if (typeof localStorage === 'undefined') return
-
-    try {
+    tolerateBlockedStorage(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(input))
-    } catch {
-        // Storage is unavailable (private mode, blocked cookies) — nothing to do.
-    }
+    })
+}
+
+/** Themes saved before a knob existed are still good; they take the default. */
+function isKnownSetting(value: unknown) {
+    return value == null || THEME_SETTINGS.some((setting) => setting === value)
 }
 
 function isThemeInput(value: unknown): value is ThemeInput {
@@ -46,14 +43,20 @@ function isThemeInput(value: unknown): value is ThemeInput {
 
     if (typeof radius !== 'number' || Number.isNaN(radius)) return false
     if (typeof colors !== 'object' || colors == null) return false
-
-    // Themes saved before a knob existed are still good; they take the default.
-    if (depth != null && !DEPTHS.some((candidate) => candidate === depth)) return false
-    if (saturation != null && !SATURATIONS.some((candidate) => candidate === saturation)) {
-        return false
-    }
+    if (!isKnownSetting(depth) || !isKnownSetting(saturation)) return false
 
     const seeds = colors as Record<string, unknown>
 
     return INTENTS.every((intent) => typeof seeds[intent] === 'string')
+}
+
+/** Storage throws in private mode and with cookies blocked. */
+function tolerateBlockedStorage(write: () => void) {
+    if (typeof localStorage === 'undefined') return
+
+    try {
+        write()
+    } catch {
+        // The theme does not survive a reload, which is the whole cost.
+    }
 }

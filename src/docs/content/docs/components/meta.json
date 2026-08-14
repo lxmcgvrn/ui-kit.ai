@@ -18,6 +18,7 @@
         "description",
         "dialog",
         "disclosure",
+        "drawer",
         "empty-state",
         "field-button",
         "field-error",

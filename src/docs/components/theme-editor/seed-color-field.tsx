@@ -16,6 +16,10 @@ import {
 } from '@ui-kit.ai/components'
 import { LucidePipette } from 'lucide-react'
 
+import { FIELD_ROW, toLabel } from './field'
+
+const CHANNELS = ['hue', 'saturation', 'lightness'] as const
+
 export interface SeedColorFieldProps {
     label: string
     onChange: (color: string) => void
@@ -32,7 +36,7 @@ export function SeedColorField({ label, onChange, value }: SeedColorFieldProps) 
 
     return (
         <ColorField
-            className='grid grid-cols-[5rem_1fr] items-center gap-3'
+            className={FIELD_ROW}
             onChange={onColorChange}
             value={value}
         >
@@ -53,30 +57,17 @@ export function SeedColorField({ label, onChange, value }: SeedColorFieldProps) 
                     </FieldButton>
                     <Popover>
                         <PopoverDialog className='flex min-w-64 flex-col gap-4'>
-                            <ColorSlider
-                                channel='hue'
-                                colorSpace='hsl'
-                                onChange={onColorChange}
-                                value={value}
-                            >
-                                <Label>Hue</Label>
-                            </ColorSlider>
-                            <ColorSlider
-                                channel='saturation'
-                                colorSpace='hsl'
-                                onChange={onColorChange}
-                                value={value}
-                            >
-                                <Label>Saturation</Label>
-                            </ColorSlider>
-                            <ColorSlider
-                                channel='lightness'
-                                colorSpace='hsl'
-                                onChange={onColorChange}
-                                value={value}
-                            >
-                                <Label>Lightness</Label>
-                            </ColorSlider>
+                            {CHANNELS.map((channel) => (
+                                <ColorSlider
+                                    channel={channel}
+                                    colorSpace='hsl'
+                                    key={channel}
+                                    onChange={onColorChange}
+                                    value={value}
+                                >
+                                    <Label>{toLabel(channel)}</Label>
+                                </ColorSlider>
+                            ))}
                         </PopoverDialog>
                     </Popover>
                 </DialogTrigger>

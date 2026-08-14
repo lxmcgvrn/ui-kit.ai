@@ -1,14 +1,8 @@
 'use client'
 
-import type { Depth, Intent, Saturation, ThemeInput } from '@ui-kit.ai/theme'
+import type { Intent, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
 
-import {
-    DEFAULT_DEPTH,
-    DEFAULT_SATURATION,
-    DEFAULT_THEME,
-    PRESETS,
-    themeCss,
-} from '@ui-kit.ai/theme'
+import { DEFAULT_SETTING, DEFAULT_THEME, PRESETS, themeCss } from '@ui-kit.ai/theme'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { applyThemeCss, removeThemeCss } from './inject'
@@ -22,21 +16,28 @@ const DEBOUNCE_MS = 80
 /* Identity, not colour matching: a value match would mislabel edits. */
 const DEFAULT_PRESET = PRESETS.find((preset) => preset.input === DEFAULT_THEME)?.name
 
+/** The site as shipped, with nothing injected and nothing stored. */
+const SHIPPED: State = {
+    input: DEFAULT_THEME,
+    isOverridden: false,
+    preset: DEFAULT_PRESET ?? CUSTOM_PRESET,
+}
+
 export interface ThemeEditorController extends State {
     css: () => string
 
     /** The input's depth, spelled out — presets inherit it rather than set it. */
-    depth: Depth
+    depth: ThemeSetting
     json: () => string
     reset: () => void
 
     /** The input's saturation, spelled out — presets inherit it rather than set it. */
-    saturation: Saturation
+    saturation: ThemeSetting
     selectPreset: (name: string) => void
     setColor: (intent: Intent, color: string) => void
-    setDepth: (depth: Depth) => void
+    setDepth: (depth: ThemeSetting) => void
     setRadius: (radius: number) => void
-    setSaturation: (saturation: Saturation) => void
+    setSaturation: (saturation: ThemeSetting) => void
 }
 
 interface State {
@@ -73,8 +74,8 @@ export function useThemeInput(): ThemeEditorController {
         }
     }, [state.input, state.isOverridden])
 
-    const depth = state.input.depth ?? DEFAULT_DEPTH
-    const saturation = state.input.saturation ?? DEFAULT_SATURATION
+    const depth = state.input.depth ?? DEFAULT_SETTING
+    const saturation = state.input.saturation ?? DEFAULT_SETTING
 
     const css = useCallback(() => themeCss(state.input), [state.input])
 
@@ -84,11 +85,7 @@ export function useThemeInput(): ThemeEditorController {
     )
 
     const reset = useCallback(() => {
-        setState({
-            input: DEFAULT_THEME,
-            isOverridden: false,
-            preset: DEFAULT_PRESET ?? CUSTOM_PRESET,
-        })
+        setState(SHIPPED)
     }, [])
 
     const selectPreset = useCallback((name: string) => {
@@ -99,35 +96,21 @@ export function useThemeInput(): ThemeEditorController {
     }, [])
 
     const setColor = useCallback((intent: Intent, color: string) => {
-        setState((current) => ({
-            input: { ...current.input, colors: { ...current.input.colors, [intent]: color } },
-            isOverridden: true,
-            preset: CUSTOM_PRESET,
-        }))
+        setState((current) =>
+            customise(current, { colors: { ...current.input.colors, [intent]: color } })
+        )
     }, [])
 
-    const setDepth = useCallback((next: Depth) => {
-        setState((current) => ({
-            input: { ...current.input, depth: next },
-            isOverridden: true,
-            preset: CUSTOM_PRESET,
-        }))
+    const setDepth = useCallback((depth: ThemeSetting) => {
+        setState((current) => customise(current, { depth }))
     }, [])
 
     const setRadius = useCallback((radius: number) => {
-        setState((current) => ({
-            input: { ...current.input, radius },
-            isOverridden: true,
-            preset: CUSTOM_PRESET,
-        }))
+        setState((current) => customise(current, { radius }))
     }, [])
 
-    const setSaturation = useCallback((next: Saturation) => {
-        setState((current) => ({
-            input: { ...current.input, saturation: next },
-            isOverridden: true,
-            preset: CUSTOM_PRESET,
-        }))
+    const setSaturation = useCallback((saturation: ThemeSetting) => {
+        setState((current) => customise(current, { saturation }))
     }, [])
 
     return {
@@ -145,16 +128,18 @@ export function useThemeInput(): ThemeEditorController {
     }
 }
 
+/** Every hand edit lands the same way: override on, preset switched to Custom. */
+function customise(current: State, changes: Partial<ThemeInput>): State {
+    return {
+        input: { ...current.input, ...changes },
+        isOverridden: true,
+        preset: CUSTOM_PRESET,
+    }
+}
+
 function initialState(): State {
     const stored = readStoredTheme()
-
-    if (stored == null) {
-        return {
-            input: DEFAULT_THEME,
-            isOverridden: false,
-            preset: DEFAULT_PRESET ?? CUSTOM_PRESET,
-        }
-    }
+    if (stored == null) return SHIPPED
 
     // Storage keeps colours, never the preset name.
     return { input: stored, isOverridden: true, preset: CUSTOM_PRESET }

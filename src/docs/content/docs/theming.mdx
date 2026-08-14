@@ -124,3 +124,17 @@ The available border colors are also quite limited:
 | `--theme-default-border-default`     | `border-default`     |
 | `--theme-default-border-field`       | `border-field`       |
 | `--theme-default-border-field-hover` | `border-field-hover` |
+
+## Surfaces
+
+The `bg-*`, `text-*` and `border-*` utilities each paint one property. An interactive accent
+fill needs several of them at once, plus whatever the current `depth` adds, so it gets a single
+utility instead:
+
+`surface-primary` paints the accent fill, its gradient, `text-accent`, the letterpress and the
+depth shadows, and moves through its hover and pressed states off React Aria's `data-hovered`
+and `data-pressed` attributes.
+
+`Button`, `Tag` and `Checkbox` are built on it, and it follows the intent API like every other
+utility. Reach for the plain `bg-primary` when you want the colour alone — a swatch, say — and
+`surface-primary` when the element is something the user presses.

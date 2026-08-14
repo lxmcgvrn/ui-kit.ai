@@ -1,15 +1,7 @@
 import { wcagContrast } from 'culori'
 import { expect, test } from 'vitest'
 
-import {
-    DEFAULT_DEPTH,
-    DEFAULT_SATURATION,
-    DEPTHS,
-    INTENTS,
-    PRESETS,
-    SATURATIONS,
-    themeCss,
-} from '../index'
+import { DEFAULT_SETTING, INTENTS, PRESETS, THEME_SETTINGS, themeCss } from '../index'
 
 type Scheme = 'dark' | 'light'
 
@@ -24,21 +16,16 @@ const PAIRS = [
     { background: 'bg-primary-hover', foreground: 'text-accent', target: 3 },
 ] as const
 
-/** `lots` gradients the primary fills, so the brighter stop reads behind text. */
-const LOTS_PAIRS = [
-    { background: 'depth-primary-brighter', foreground: 'text-accent', target: 3 },
-] as const
-
 const SCHEMES: readonly Scheme[] = ['dark', 'light']
 
-/** 13 tokens per intent, plus the four syntax colors. */
-const EXPECTED_VAR_COUNT = INTENTS.length * 13 + 4
+/** 12 tokens per intent, plus the four syntax colors. */
+const EXPECTED_VAR_COUNT = INTENTS.length * 12 + 4
 
 /** Each knob swept against the other's default — a cross-product buys nothing. */
 const SETTINGS = [
-    ...DEPTHS.map((depth) => ({ depth, saturation: DEFAULT_SATURATION })),
-    ...SATURATIONS.filter((saturation) => saturation !== DEFAULT_SATURATION).map((saturation) => ({
-        depth: DEFAULT_DEPTH,
+    ...THEME_SETTINGS.map((depth) => ({ depth, saturation: DEFAULT_SETTING })),
+    ...THEME_SETTINGS.filter((setting) => setting !== DEFAULT_SETTING).map((saturation) => ({
+        depth: DEFAULT_SETTING,
         saturation,
     })),
 ]
@@ -49,11 +36,9 @@ for (const { depth, saturation } of SETTINGS) {
             const vars = themeVars(themeCss({ ...preset.input, depth, saturation }))
             expect(Object.keys(vars)).toHaveLength(EXPECTED_VAR_COUNT)
 
-            const pairs = depth === 'lots' ? [...PAIRS, ...LOTS_PAIRS] : PAIRS
-
             for (const intent of INTENTS) {
                 for (const scheme of SCHEMES) {
-                    for (const { background, foreground, target } of pairs) {
+                    for (const { background, foreground, target } of PAIRS) {
                         const fg = colorOf(vars, `--theme-${intent}-${foreground}`, scheme)
                         const bg = colorOf(vars, `--theme-${intent}-${background}`, scheme)
 

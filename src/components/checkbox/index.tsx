@@ -48,18 +48,9 @@ const boxStyles = tv({
         // hover
         'group-hover:bg-tint',
         'group-hover:border-field-hover',
-        // selected
-        'group-selected:bg-primary',
-        'group-selected:group-hover:bg-primary',
-        'group-selected:border-accent',
-        'group-selected:group-hover:border-accent',
-        'group-selected:inset-shadow-depth',
-        // indeterminate
-        'group-indeterminate:bg-primary',
-        'group-indeterminate:group-hover:bg-primary',
-        'group-indeterminate:border-accent',
-        'group-indeterminate:group-hover:border-accent',
-        'group-indeterminate:inset-shadow-depth',
+        // checked, either way
+        'group-selected:surface-primary',
+        'group-indeterminate:surface-primary',
     ],
 })
 

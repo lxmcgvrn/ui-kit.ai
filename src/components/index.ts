@@ -67,6 +67,22 @@ export {
     type DisclosurePanelProps,
     type DisclosureProps,
 } from './disclosure'
+export {
+    Drawer,
+    DrawerCloseButton,
+    type DrawerCloseButtonProps,
+    DrawerContent,
+    type DrawerContentProps,
+    DrawerFooter,
+    type DrawerFooterProps,
+    DrawerHeader,
+    type DrawerHeaderProps,
+    type DrawerProps,
+    DrawerTitle,
+    type DrawerTitleProps,
+    DrawerTrigger,
+    type DrawerTriggerProps,
+} from './drawer'
 export { EmptyState, type EmptyStateProps } from './empty-state'
 export { FieldButton, type FieldButtonProps } from './field-button'
 export { FieldError, type FieldErrorProps } from './field-error'

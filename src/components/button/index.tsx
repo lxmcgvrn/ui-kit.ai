@@ -37,13 +37,7 @@ const buttonStyle = tv({
             true: 'aspect-square w-(--height-ui-element) px-2 [&_svg]:mx-auto',
         },
         variant: {
-            primary: [
-                'text-accent',
-                'inset-shadow-depth shadow-xs',
-                'border-field bg-primary',
-                'hover:bg-primary-hover',
-                'pressed:bg-primary',
-            ],
+            primary: 'surface-primary',
             secondary: [
                 'shadow-xs',
                 'border-field text-lo-contrast bg-transparent',

@@ -3,6 +3,12 @@ import type { Intent } from '@ui-kit.ai/theme'
 import { INTENTS } from '@ui-kit.ai/theme'
 import { tv } from 'tailwind-variants'
 
+interface CellProps {
+    intent: Intent
+    row: TokenRow
+    variant: CellVariant
+}
+
 type CellVariant = 'bg' | 'border' | 'text'
 
 interface TokenGroup {
@@ -102,7 +108,7 @@ export function TokenPreview() {
 }
 
 /** One swatch, wrapped in the intent utility that remaps its tokens. */
-function Cell({ intent, row, variant }: { intent: Intent; row: TokenRow; variant: CellVariant }) {
+function Cell({ intent, row, variant }: CellProps) {
     return (
         <span className={intent === 'default' ? undefined : intent}>
             <span
