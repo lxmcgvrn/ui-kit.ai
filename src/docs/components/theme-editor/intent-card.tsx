@@ -8,7 +8,6 @@ import { twMerge } from 'tailwind-merge'
 import type { ThemeEditorController } from './use-theme-input'
 
 import { hasOwnDarkSeed, seedFor } from './color'
-import { SEED_CHANNELS } from './color-picker-button'
 import { ColorRowField } from './color-row-field'
 import { CARD_ROW, toLabel } from './field'
 import { TokenRow } from './token-row'
@@ -47,7 +46,7 @@ export function IntentCard({
                     <span className='text-hi-contrast truncate text-sm font-medium'>{label}</span>
 
                     <ColorRowField
-                        channels={SEED_CHANNELS}
+                        hasAlpha={false}
                         isDerived={!isAimed}
                         label={`${label} seed, ${scheme}`}
                         onChange={(color) => {

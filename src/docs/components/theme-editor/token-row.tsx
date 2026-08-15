@@ -5,7 +5,6 @@ import { formatOklch } from '@ui-kit.ai/theme'
 import type { TokenAddress } from './tokens'
 import type { ThemeEditorController } from './use-theme-input'
 
-import { TOKEN_CHANNELS } from './color-picker-button'
 import { ColorRowField } from './color-row-field'
 import { CARD_ROW } from './field'
 import { toShortToken } from './tokens'
@@ -33,8 +32,8 @@ export function TokenRow({ address, theme }: TokenRowProps) {
             </code>
 
             <ColorRowField
-                channels={TOKEN_CHANNELS}
                 className={COMPACT}
+                hasAlpha
                 isDerived={!isOverridden}
                 label={`${token}, ${scheme}`}
                 onChange={(color) => {

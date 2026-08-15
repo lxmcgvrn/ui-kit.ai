@@ -8,16 +8,15 @@ import {
     TextFieldClearButton,
 } from '@ui-kit.ai/components'
 
-import type { PickerChannel } from './color-picker-button'
-
 import { toCssColor, toThemeColor } from './color'
 import { ColorPickerButton } from './color-picker-button'
 
 export interface ColorRowFieldProps {
-    channels: readonly PickerChannel[]
-
     /** Local sizing for the row this field sits in. */
     className?: string
+
+    /** Borders are translucent by design, so those colors get an opacity section. */
+    hasAlpha: boolean
 
     /** A derived color is a readout: muted, uneditable, and left to the picker. */
     isDerived: boolean
@@ -31,8 +30,8 @@ export interface ColorRowFieldProps {
 
 /** One color in one scheme: a swatch, its value, a picker, and a way out. */
 export function ColorRowField({
-    channels,
     className,
+    hasAlpha,
     isDerived,
     label,
     onChange,
@@ -71,7 +70,7 @@ export function ColorRowField({
                 {onClear == null ? null : <TextFieldClearButton onPress={onClear} />}
 
                 <ColorPickerButton
-                    channels={channels}
+                    hasAlpha={hasAlpha}
                     label={label}
                     onChange={onChange}
                     value={value}

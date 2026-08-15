@@ -1,62 +1,127 @@
 import type { ComponentType, ReactNode } from 'react'
 
+import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import './styles.css'
 
-import Calendar from '../src/components/calendar/examples/default'
-import ColorArea from '../src/components/color-area/examples/default'
-import ColorPicker from '../src/components/color-picker/examples/default'
-import ColorSwatchPicker from '../src/components/color-swatch-picker/examples/default'
-import ColorWheel from '../src/components/color-wheel/examples/default'
-import DateField from '../src/components/date-field/examples/default'
-import DatePicker from '../src/components/date-picker/examples/default'
-import DateRangePicker from '../src/components/date-range-picker/examples/default'
-import DropZone from '../src/components/drop-zone/examples/with-file-trigger'
-import FileTrigger from '../src/components/file-trigger/examples/default'
-import GridList from '../src/components/grid-list/examples/multiple-selection'
-import Meter from '../src/components/meter/examples/default'
-import NumberField from '../src/components/number-field/examples/default'
-import ProgressBar from '../src/components/progress-bar/examples/default'
-import RadioGroup from '../src/components/radio-group/examples/default'
-import RangeCalendar from '../src/components/range-calendar/examples/default'
-import Separator from '../src/components/separator/examples/default'
-import Slider from '../src/components/slider/examples/default'
-import Switch from '../src/components/switch/examples/default'
-import TagGroup from '../src/components/tag-group/examples/removable'
-import TimeField from '../src/components/time-field/examples/default'
-import ToggleButton from '../src/components/toggle-button/examples/default'
-import ToggleButtonGroup from '../src/components/toggle-button-group/examples/default'
-import Toolbar from '../src/components/toolbar/examples/default'
-import Tree from '../src/components/tree/examples/default'
+import { ColorPickerPanel } from '../src/docs/components/theme-editor/color-picker-panel'
+import { ColorRowField } from '../src/docs/components/theme-editor/color-row-field'
+
+/** A seed: opaque, and never given an opacity section. */
+const SEED = 'oklch(0.5438 0.191 267.01)'
+
+/** A border token: translucent, so its picker grows an opacity section. */
+const TOKEN = 'oklch(0.895 0.04 267.01 / 0.11)'
+
+interface PickerHarnessProps {
+    hasAlpha: boolean
+    initial: string
+    label: string
+}
+
+/** Counts every `onChange`, so opening the popover can be proven silent. */
+function useEdits(initial: string) {
+    const [state, setState] = useState({ edits: 0, value: initial })
+
+    return {
+        ...state,
+        onChange: (value: string) => {
+            setState((current) => ({ edits: current.edits + 1, value }))
+        },
+    }
+}
+
+function Readout({ edits, value }: { edits: number; value: string }) {
+    return (
+        <p className='text-lo-contrast font-mono text-xs'>
+            {edits} edits — {value}
+        </p>
+    )
+}
+
+/** The picker as the drawer uses it: a row, with the popover behind a pipette. */
+function RowHarness({ hasAlpha, initial, label }: PickerHarnessProps) {
+    const { edits, onChange, value } = useEdits(initial)
+
+    return (
+        <div className='flex w-72 flex-col gap-2'>
+            <ColorRowField
+                hasAlpha={hasAlpha}
+                isDerived={false}
+                label={label}
+                onChange={onChange}
+                value={value}
+            />
+            <Readout
+                edits={edits}
+                value={value}
+            />
+        </div>
+    )
+}
+
+/* The popover portals to the body, so only an inline panel wears both schemes. */
+function PanelHarness({ hasAlpha, initial }: PickerHarnessProps) {
+    const { edits, onChange, value } = useEdits(initial)
+
+    return (
+        <div className='border-default bg-base-raised flex w-72 flex-col gap-3 rounded-sm border p-4'>
+            <ColorPickerPanel
+                hasAlpha={hasAlpha}
+                onChange={onChange}
+                value={value}
+            />
+            <Readout
+                edits={edits}
+                value={value}
+            />
+        </div>
+    )
+}
 
 /** Swap in whatever needs eyeballing; this file is the whole harness. */
 const DEMOS: [name: string, demo: ComponentType][] = [
-    ['switch', Switch],
-    ['radio-group', RadioGroup],
-    ['number-field', NumberField],
-    ['slider', Slider],
-    ['toggle-button', ToggleButton],
-    ['toggle-button-group', ToggleButtonGroup],
-    ['toolbar', Toolbar],
-    ['progress-bar', ProgressBar],
-    ['meter', Meter],
-    ['separator', Separator],
-    ['tag-group', TagGroup],
-    ['grid-list', GridList],
-    ['tree', Tree],
-    ['date-field', DateField],
-    ['time-field', TimeField],
-    ['calendar', Calendar],
-    ['range-calendar', RangeCalendar],
-    ['date-picker', DatePicker],
-    ['date-range-picker', DateRangePicker],
-    ['color-area', ColorArea],
-    ['color-wheel', ColorWheel],
-    ['color-swatch-picker', ColorSwatchPicker],
-    ['color-picker', ColorPicker],
-    ['drop-zone', DropZone],
-    ['file-trigger', FileTrigger],
+    [
+        'panel — token (alpha)',
+        () => (
+            <PanelHarness
+                hasAlpha
+                initial={TOKEN}
+                label='border-default'
+            />
+        ),
+    ],
+    [
+        'panel — seed (no alpha)',
+        () => (
+            <PanelHarness
+                hasAlpha={false}
+                initial={SEED}
+                label='Default seed'
+            />
+        ),
+    ],
+    [
+        'row — token (alpha)',
+        () => (
+            <RowHarness
+                hasAlpha
+                initial={TOKEN}
+                label='border-default, light'
+            />
+        ),
+    ],
+    [
+        'row — seed (no alpha)',
+        () => (
+            <RowHarness
+                hasAlpha={false}
+                initial={SEED}
+                label='Default seed, light'
+            />
+        ),
+    ],
 ]
 
 /** `?from=N&to=M` renders a slice, so screenshots never need scrolling. */
