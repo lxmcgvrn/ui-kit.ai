@@ -143,6 +143,7 @@ export {
     type TabProps,
     Tabs,
     type TabsProps,
+    type TabsVariant,
 } from './tabs'
 export {
     Tag,
