@@ -1,0 +1,67 @@
+---
+title: Toggle Button
+description: A button that stays pressed in for as long as its option stays on.
+---
+
+import ToggleButtonDefault from './examples/default'
+import ToggleButtonDisabled from './examples/disabled'
+import ToggleButtonIcon from './examples/icon'
+import ToggleButtonVariants from './examples/variants'
+
+<ComponentPreview name='toggle-button/default'>
+    <ToggleButtonDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ToggleButton } from '@ui-kit.ai/components'
+```
+
+`ToggleButton` carries a selected state of its own, unlike `Button`. Use `defaultSelected` for
+uncontrolled state, or `isSelected` with `onChange` to drive it yourself.
+
+Reach for it when an action has two persistent states — bold on or off, a filter applied or not.
+For an action that simply fires, use `Button`; for a form field, use `Checkbox` or `Switch`.
+
+## Variants
+
+The `variant` prop matches `Button`: `primary`, `secondary`, and `tertiary` set the resting,
+unselected look. Selected always reads the same — tinted with `bg-tint`, ruled with `border-field`,
+and sitting in rather than on the surface.
+
+<Callout type='info'>
+    `ToggleButton` defaults to `secondary`, not `primary`. An unselected toggle is an offer, not the
+    main action on the screen.
+</Callout>
+
+<ComponentPreview name='toggle-button/variants'>
+    <ToggleButtonVariants />
+</ComponentPreview>
+
+## Icons
+
+Set `isIcon` for a square button, and `slotLeft` / `slotRight` to sit an icon beside the label.
+
+<Callout type='warn'>
+    Set an `aria-label` to give the button an accessible name when you do this.
+</Callout>
+
+<ComponentPreview name='toggle-button/icon'>
+    <ToggleButtonIcon />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the button, and prevent focus and interaction.
+
+<ComponentPreview name='toggle-button/disabled'>
+    <ToggleButtonDisabled />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ToggleButtonProps'
+    path='../components/toggle-button/index.tsx'
+/>

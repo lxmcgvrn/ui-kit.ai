@@ -1,0 +1,85 @@
+---
+title: DateRangePicker
+description: Combines a pair of date fields with a range calendar popover, letting users type a date range or pick one from a grid.
+---
+
+import DateRangePickerDefault from './examples/default'
+import DateRangePickerDisabled from './examples/disabled'
+import DateRangePickerGranularity from './examples/granularity'
+import DateRangePickerInvalid from './examples/invalid'
+
+<ComponentPreview name='date-range-picker/default'>
+    <DateRangePickerDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    DateRangePicker,
+    DateRangePickerButton,
+    DateRangePickerFieldGroup,
+    DateRangePickerInput,
+} from '@ui-kit.ai/components'
+```
+
+`DateRangePickerFieldGroup` draws the field border around a `DateRangePickerInput` and a
+`DateRangePickerButton`, and renders both by default. `DateRangePickerInput` pairs the start and end
+`DateInput`s with a dash between them. `DateRangePicker` supplies the popover and the
+`RangeCalendar` inside it.
+
+The value is an object with `start` and `end` dates rather than a single date.
+
+## Granularity
+
+The `granularity` prop adds time segments to both fields. Use `hour`, `minute`, or `second`.
+
+<ComponentPreview name='date-range-picker/granularity'>
+    <DateRangePickerGranularity />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop applies the error styling to the field.
+
+<ComponentPreview name='date-range-picker/invalid'>
+    <DateRangePickerInvalid />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the picker, and prevent focus and interaction.
+
+<ComponentPreview name='date-range-picker/disabled'>
+    <DateRangePickerDisabled />
+</ComponentPreview>
+
+## Props
+
+### DateRangePicker
+
+<AutoTypeTable
+    name='DateRangePickerProps'
+    path='../components/date-range-picker/index.tsx'
+/>
+
+### DateRangePickerFieldGroup
+
+<AutoTypeTable
+    name='DateRangePickerFieldGroupProps'
+    path='../components/date-range-picker/index.tsx'
+/>
+
+### DateRangePickerInput
+
+<AutoTypeTable
+    name='DateRangePickerInputProps'
+    path='../components/date-range-picker/index.tsx'
+/>
+
+### DateRangePickerButton
+
+<AutoTypeTable
+    name='DateRangePickerButtonProps'
+    path='../components/date-range-picker/index.tsx'
+/>

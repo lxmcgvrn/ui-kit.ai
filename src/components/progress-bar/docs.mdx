@@ -1,0 +1,62 @@
+---
+title: Progress Bar
+description: Shows how far along an operation is, or that one is under way.
+---
+
+import ProgressBarDefault from './examples/default'
+import ProgressBarIndeterminate from './examples/indeterminate'
+import ProgressBarUnlabelled from './examples/unlabelled'
+import ProgressBarValueLabel from './examples/value-label'
+
+<ComponentPreview name='progress-bar/default'>
+    <ProgressBarDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ProgressBar } from '@ui-kit.ai/components'
+```
+
+`value` runs from `minValue` to `maxValue`, which default to 0 and 100. Pass `label` and the bar
+renders a `Label` above the track with the formatted value opposite it.
+
+Use `ProgressBar` for work that finishes — an upload, an import. For a measurement that simply
+holds a value, such as disk usage, use `Meter`.
+
+## Indeterminate
+
+Set `isIndeterminate` when the work has started but its size is unknown. The fill gives up its
+width and sweeps the track instead.
+
+<ComponentPreview name='progress-bar/indeterminate'>
+    <ProgressBarIndeterminate />
+</ComponentPreview>
+
+## Value label
+
+The value is formatted as a percentage by default. Pass `formatOptions` to change that, or
+`valueLabel` to write it yourself.
+
+<ComponentPreview name='progress-bar/value-label'>
+    <ProgressBarValueLabel />
+</ComponentPreview>
+
+## Without a visible label
+
+Leave `label` off for a bare track.
+
+<Callout type='warn'>
+    Set an `aria-label` to give the progress bar an accessible name when you do this.
+</Callout>
+
+<ComponentPreview name='progress-bar/unlabelled'>
+    <ProgressBarUnlabelled />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ProgressBarProps'
+    path='../components/progress-bar/index.tsx'
+/>

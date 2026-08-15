@@ -1,0 +1,63 @@
+---
+title: RadioGroup
+description: Lets a user select exactly one item from a list of options.
+---
+
+import RadioGroupDefault from './examples/default'
+import RadioGroupIsDisabled from './examples/is-disabled'
+import RadioGroupIsInvalid from './examples/is-invalid'
+import RadioGroupTextPositionLeft from './examples/text-position-left'
+
+<ComponentPreview name='radio-group/default'>
+    <RadioGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Description, Label, Radio, RadioGroup } from '@ui-kit.ai/components'
+```
+
+Compose a `RadioGroup` from a `Label`, one `Radio` per option, and an optional `Description`. Each
+`Radio` needs a `value`, which is what the group reports as selected. A `Radio` renders its own
+`label` and `description`, and only works inside a group.
+
+## Text position
+
+The `textPosition` prop on a `Radio` controls which side of the circle its text sits on.
+
+<ComponentPreview name='radio-group/text-position-left'>
+    <RadioGroupTextPositionLeft />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop marks the whole group as failing validation.
+
+<ComponentPreview name='radio-group/is-invalid'>
+    <RadioGroupIsInvalid />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop grays out every radio in the group and prevents focus and interaction.
+
+<ComponentPreview name='radio-group/is-disabled'>
+    <RadioGroupIsDisabled />
+</ComponentPreview>
+
+## Props
+
+### RadioGroup
+
+<AutoTypeTable
+    name='RadioGroupProps'
+    path='../components/radio-group/index.tsx'
+/>
+
+### Radio
+
+<AutoTypeTable
+    name='RadioProps'
+    path='../components/radio-group/index.tsx'
+/>

@@ -1,0 +1,47 @@
+---
+title: FormNumberField
+description: Connects a NumberField to a Form component using react-hook-form.
+---
+
+import FormNumberFieldDefault from './examples/default'
+import FormNumberFieldIsInvalid from './examples/is-invalid'
+
+<ComponentPreview name='form-number-field/default'>
+    <FormNumberFieldDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    FieldGroup,
+    Form,
+    FormNumberField,
+    Input,
+    Label,
+    NumberFieldDecrementButton,
+    NumberFieldIncrementButton,
+} from '@ui-kit.ai/components'
+```
+
+`FormNumberField` registers itself with the surrounding `Form` under the `name` you give it, and
+renders a `FieldError` for you so validation messages from `react-hook-form` appear without any
+extra wiring. Compose the field body from a `Label` and a `FieldGroup` containing an `Input` and,
+optionally, the stepper buttons. The form value is a `number`, or `null` while the field is empty.
+The `name` prop is required — the component throws without it.
+
+## Invalid
+
+The `isInvalid` prop marks the field as failing validation. The field is also marked invalid
+automatically whenever the form reports an error for it.
+
+<ComponentPreview name='form-number-field/is-invalid'>
+    <FormNumberFieldIsInvalid />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='FormNumberFieldProps'
+    path='../components/form-number-field/index.tsx'
+/>

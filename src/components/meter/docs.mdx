@@ -1,0 +1,48 @@
+---
+title: Meter
+description: Shows a measurement within a known range, such as disk or quota usage.
+---
+
+import MeterDefault from './examples/default'
+import MeterFormatted from './examples/formatted'
+import MeterThresholds from './examples/thresholds'
+
+<ComponentPreview name='meter/default'>
+    <MeterDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Meter } from '@ui-kit.ai/components'
+```
+
+`value` runs from `minValue` to `maxValue`, which default to 0 and 100. Pass `label` and the meter
+renders a `Label` above the track with the formatted value opposite it.
+
+Use `Meter` for a quantity that holds a value — storage used, budget spent. For work that runs to
+completion, use `ProgressBar`.
+
+## Intent
+
+Pass `intent` to color the fill. Switch it at a threshold to warn as the measurement climbs.
+
+<ComponentPreview name='meter/thresholds'>
+    <MeterThresholds />
+</ComponentPreview>
+
+## Formatting
+
+The value is formatted as a percentage by default. Pass `formatOptions` to change that, or
+`valueLabel` to write it yourself.
+
+<ComponentPreview name='meter/formatted'>
+    <MeterFormatted />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='MeterProps'
+    path='../components/meter/index.tsx'
+/>

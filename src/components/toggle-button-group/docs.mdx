@@ -1,0 +1,62 @@
+---
+title: Toggle Button Group
+description: A set of toggle buttons joined into one run, sharing one selection between them.
+---
+
+import ToggleButtonGroupDefault from './examples/default'
+import ToggleButtonGroupDetached from './examples/detached'
+import ToggleButtonGroupMultiple from './examples/multiple'
+import ToggleButtonGroupVertical from './examples/vertical'
+
+<ComponentPreview name='toggle-button-group/default'>
+    <ToggleButtonGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ToggleButton, ToggleButtonGroup } from '@ui-kit.ai/components'
+```
+
+Give every `ToggleButton` an `id` — that is the key the group reports through `selectedKeys` and
+`onSelectionChange`. Arrow keys move between the buttons.
+
+<Callout type='warn'>
+    Set an `aria-label` on the group to give the set of toggles an accessible name.
+</Callout>
+
+Set `variant` once on the group and every button inside it picks it up, the way `Tabs` passes its
+variant to each `Tab`. A button can still set its own `variant` to opt out.
+
+## Multiple selection
+
+Set `selectionMode='multiple'` to let more than one option be on at a time. The default is
+`single`; add `disallowEmptySelection` to keep one option always chosen.
+
+<ComponentPreview name='toggle-button-group/multiple'>
+    <ToggleButtonGroupMultiple />
+</ComponentPreview>
+
+## Detached
+
+The buttons are attached by default. Set `isAttached={false}` to space them out instead — useful
+for a row of filter chips, where the options are not alternatives to each other.
+
+<ComponentPreview name='toggle-button-group/detached'>
+    <ToggleButtonGroupDetached />
+</ComponentPreview>
+
+## Vertical orientation
+
+Set `orientation='vertical'` to stack the run. The shared edges and rounded corners follow.
+
+<ComponentPreview name='toggle-button-group/vertical'>
+    <ToggleButtonGroupVertical />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ToggleButtonGroupProps'
+    path='../components/toggle-button-group/index.tsx'
+/>

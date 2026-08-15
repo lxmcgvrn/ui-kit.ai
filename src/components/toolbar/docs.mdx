@@ -1,0 +1,43 @@
+---
+title: Toolbar
+description: A container for related controls, with arrow-key navigation between them.
+---
+
+import ToolbarDefault from './examples/default'
+import ToolbarVertical from './examples/vertical'
+
+<ComponentPreview name='toolbar/default'>
+    <ToolbarDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Toolbar } from '@ui-kit.ai/components'
+```
+
+`Toolbar` takes the controls out of the tab sequence and puts them on the arrow keys instead: one
+Tab press reaches the toolbar, then Left and Right move within it. Use it for a row of buttons and
+toggles that belong together, such as a text formatting bar.
+
+<Callout type='warn'>
+    Set an `aria-label` on the toolbar to give the set of controls an accessible name.
+</Callout>
+
+Drop a `Separator` between groups of controls to rule them apart. In a horizontal toolbar, give it
+`orientation='vertical'`.
+
+## Vertical orientation
+
+Set `orientation='vertical'` to stack the controls, moving between them with Up and Down.
+
+<ComponentPreview name='toolbar/vertical'>
+    <ToolbarVertical />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ToolbarProps'
+    path='../components/toolbar/index.tsx'
+/>

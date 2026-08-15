@@ -10,6 +10,7 @@ import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
 import { checkerboard } from '../styles/checkerboard'
+import { colorThumbStyles } from '../styles/color-thumb'
 
 /** Coarse enough to stay quiet under the track's own gradient. */
 const CHECK_SIZE = '16px'
@@ -20,10 +21,6 @@ const sliderStyles = tv({
 
 const trackStyles = tv({
     base: ['relative', 'w-full', 'h-6', 'rounded-sm'],
-})
-
-const thumbStyles = tv({
-    base: ['size-6', 'inset-y-1/2', 'rounded-full', 'border-3 border-[#ffffff]', 'shadow-lg'],
 })
 
 export interface ColorSliderProps extends RACColorSliderProps {
@@ -51,7 +48,7 @@ export function ColorSlider(props: ColorSliderProps) {
                             background: `${String(defaultStyle.background)}, ${checkerboard(CHECK_SIZE)}`,
                         })}
                     >
-                        <RACColorThumb className={thumbStyles()} />
+                        <RACColorThumb className={colorThumbStyles({ className: 'inset-y-1/2' })} />
                     </RACSliderTrack>
                 </>
             )}

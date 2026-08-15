@@ -1,0 +1,63 @@
+---
+title: ColorSwatchPicker
+description: Lets a user pick one color from a fixed set of swatches.
+---
+
+import ColorSwatchPickerCustomSwatch from './examples/custom-swatch'
+import ColorSwatchPickerDefault from './examples/default'
+import ColorSwatchPickerDisabledItem from './examples/disabled-item'
+import ColorSwatchPickerStack from './examples/stack'
+
+<ComponentPreview name='color-swatch-picker/default'>
+    <ColorSwatchPickerDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ColorSwatchPicker, ColorSwatchPickerItem } from '@ui-kit.ai/components'
+```
+
+Give each `ColorSwatchPickerItem` a `color`, and the picker a `defaultValue` or `value`. Each item
+renders a `ColorSwatch` of its own color, so it needs no children. The selected item is ringed in
+the accent color.
+
+## Layout
+
+`layout` sets both the visual direction and the arrow keys that move between swatches — `grid`
+(the default) wraps horizontally, `stack` runs down a single column.
+
+<ComponentPreview name='color-swatch-picker/stack'>
+    <ColorSwatchPickerStack />
+</ComponentPreview>
+
+## Custom swatch
+
+Pass a `ColorSwatch` as the item's children to restyle it. Leave off its `color` — the item
+supplies it.
+
+<ComponentPreview name='color-swatch-picker/custom-swatch'>
+    <ColorSwatchPickerCustomSwatch />
+</ComponentPreview>
+
+## Disabled
+
+An item with `isDisabled` fades and cannot be selected.
+
+<ComponentPreview name='color-swatch-picker/disabled-item'>
+    <ColorSwatchPickerDisabledItem />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ColorSwatchPickerProps'
+    path='../components/color-swatch-picker/index.tsx'
+/>
+
+### ColorSwatchPickerItem
+
+<AutoTypeTable
+    name='ColorSwatchPickerItemProps'
+    path='../components/color-swatch-picker/index.tsx'
+/>
