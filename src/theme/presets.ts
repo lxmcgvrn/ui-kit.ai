@@ -12,11 +12,11 @@ export const DEFAULT_RADIUS = 0.375
 
 export const DEFAULT_THEME: ThemeInput = {
     colors: {
-        default: '#3E63DD',
-        error: '#E54666',
-        info: '#3E63DD',
-        success: '#29A383',
-        warning: '#FFC53D',
+        default: 'oklch(0.5438 0.191 267.01)',
+        error: 'oklch(0.6284 0.1949 13.15)',
+        info: 'oklch(0.5438 0.191 267.01)',
+        success: 'oklch(0.6422 0.115 170.73)',
+        warning: 'oklch(0.8537 0.1572 84.13)',
     },
 }
 
@@ -24,11 +24,11 @@ export const PRESETS: readonly Preset[] = [
     {
         input: {
             colors: {
-                default: '#FFA057',
-                error: '#FF977D',
-                info: '#FFA057',
-                success: '#3E7949',
-                warning: '#F6E2B4',
+                default: 'oklch(0.7888 0.1434 56.21)',
+                error: 'oklch(0.7794 0.131 34.91)',
+                info: 'oklch(0.7888 0.1434 56.21)',
+                success: 'oklch(0.5229 0.0973 148.32)',
+                warning: 'oklch(0.9178 0.0636 87.27)',
             },
         },
         label: 'Autumnal',
@@ -37,11 +37,11 @@ export const PRESETS: readonly Preset[] = [
     {
         input: {
             colors: {
-                default: '#2A7E68',
-                error: '#C8462D',
-                info: '#2A7E68',
-                success: '#2A7E68',
-                warning: '#F5B961',
+                default: 'oklch(0.5365 0.0875 172.23)',
+                error: 'oklch(0.5716 0.1702 32.92)',
+                info: 'oklch(0.5365 0.0875 172.23)',
+                success: 'oklch(0.5365 0.0875 172.23)',
+                warning: 'oklch(0.8238 0.1259 74.94)',
             },
         },
         label: 'Boreal',
@@ -50,11 +50,11 @@ export const PRESETS: readonly Preset[] = [
     {
         input: {
             colors: {
-                default: '#70B8FF',
-                error: '#FF92AD',
-                info: '#70B8FF',
-                success: '#0BD8B6',
-                warning: '#F6EEB4',
+                default: 'oklch(0.7642 0.1257 249.46)',
+                error: 'oklch(0.7825 0.1338 4.74)',
+                info: 'oklch(0.7642 0.1257 249.46)',
+                success: 'oklch(0.7886 0.1467 175.73)',
+                warning: 'oklch(0.9415 0.0748 101.11)',
             },
         },
         label: 'Glacial',
@@ -63,11 +63,11 @@ export const PRESETS: readonly Preset[] = [
     {
         input: {
             colors: {
-                default: '#111111',
-                error: '#B54548',
-                info: '#111111',
-                success: '#30A46C',
-                warning: '#FFC53D',
+                default: 'oklch(0.1776 0 0)',
+                error: 'oklch(0.5436 0.1458 21.76)',
+                info: 'oklch(0.1776 0 0)',
+                success: 'oklch(0.6406 0.1329 157.68)',
+                warning: 'oklch(0.8537 0.1572 84.13)',
             },
         },
         label: 'Neutral',
@@ -76,11 +76,11 @@ export const PRESETS: readonly Preset[] = [
     {
         input: {
             colors: {
-                default: '#591C47',
-                error: '#E93D82',
-                info: '#591C47',
-                success: '#0BD8B6',
-                warning: '#F6EEB4',
+                default: 'oklch(0.338 0.1047 341.18)',
+                error: 'oklch(0.6341 0.213 1.28)',
+                info: 'oklch(0.338 0.1047 341.18)',
+                success: 'oklch(0.7886 0.1467 175.73)',
+                warning: 'oklch(0.9415 0.0748 101.11)',
             },
         },
         label: 'Nocturnal',

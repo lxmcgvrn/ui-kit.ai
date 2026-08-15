@@ -5,6 +5,7 @@ import type { OptionsSchema } from '@ui-kit.ai/components'
 import { ColorSwatch, Label, Select, SelectButton } from '@ui-kit.ai/components'
 import { PRESETS } from '@ui-kit.ai/theme'
 
+import { seedFor, toCssColor } from './color'
 import { FIELD_ROW } from './field'
 import { CUSTOM_PRESET } from './use-theme-input'
 
@@ -14,7 +15,7 @@ const ITEMS: OptionsSchema<'listbox'>[] = [
         icon: (
             <ColorSwatch
                 className='size-4'
-                color={preset.input.colors.default}
+                color={toCssColor(seedFor(preset.input.colors.default, 'light'))}
             />
         ),
         id: preset.name,

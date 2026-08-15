@@ -28,12 +28,18 @@ export type Palettes = Record<Intent, IntentPalette>
 
 export type Scheme = 'dark' | 'light'
 
+/** One brand color for both schemes, or one per scheme to re-aim each. */
+export type SeedColor = Record<Scheme, string> | string
+
 export interface ThemeInput {
     /** One seed per intent, in any CSS color syntax. Every shade derives from these. */
-    colors: Record<Intent, string>
+    colors: Record<Intent, SeedColor>
 
     /** How much the surfaces lift off the page: shadows, edge highlights, gradients. */
     depth?: ThemeSetting
+
+    /** Colors to take verbatim, in place of the ones derivation would reach. */
+    overrides?: ThemeOverrides
 
     /** Base radius in rem — the `md` step. Every other step scales with it. */
     radius?: number
@@ -41,6 +47,9 @@ export interface ThemeInput {
     /** How much of the seed's hue bleeds into backgrounds, borders and body text. */
     saturation?: ThemeSetting
 }
+
+/** Hand-picked colors, by intent, then token, then scheme. */
+export type ThemeOverrides = Partial<Record<Intent, TokenOverrides>>
 
 /** How far a knob turns up. */
 export type ThemeSetting = 'lots' | 'none' | 'some'
@@ -106,9 +115,13 @@ type Grounds = readonly [Ground, ...Ground[]]
 
 /** Everything a single palette's derivation turns on, beyond the seed. */
 interface Knobs {
+    overrides: SchemeOverrides
     saturation: ThemeSetting
     scheme: Scheme
 }
+
+/** One scheme's slice of the overrides, parsed and ready to drop in. */
+type SchemeOverrides = Partial<Record<Token, Oklch>>
 
 interface Shade {
     alpha?: number
@@ -120,6 +133,9 @@ type ShadeTable = Record<SurfaceToken, Record<Scheme, Shade>>
 
 /** Tokens read straight off a shade table, rather than solved from the seed. */
 type SurfaceToken = Exclude<Token, 'bg-primary' | 'bg-primary-hover' | 'text-accent'>
+
+/** One intent's overrides, before a scheme picks its side of each token. */
+type TokenOverrides = Partial<Record<Token, Partial<Record<Scheme, string>>>>
 
 /** Chroma of `text-accent` before gamut clamping — a tint, not a flat black/white. */
 const ACCENT_CHROMA = 0.05
@@ -289,18 +305,28 @@ function headroom(color: Oklch, grounds: Grounds): number {
 }
 
 function intentPalette(theme: ResolvedTheme, intent: Intent): IntentPalette {
-    const seed = toOklch(theme.colors[intent])
-    if (seed == null) {
-        throw new Error(`Invalid ${intent} color: ${theme.colors[intent]}`)
-    }
-
+    const seed = theme.colors[intent]
     const table = intent === 'default' ? MUTED_SHADES : VIBRANT_SHADES
-    const { saturation } = theme
+    const overrides = theme.overrides?.[intent] ?? {}
 
-    return {
-        dark: schemePalette(seed, table, { saturation, scheme: 'dark' }),
-        light: schemePalette(seed, table, { saturation, scheme: 'light' }),
+    const palette = (scheme: Scheme): Palette =>
+        schemePalette(parseColor(seedFor(seed, scheme), `${intent} ${scheme} color`), table, {
+            overrides: schemeOverrides(overrides, scheme, intent),
+            saturation: theme.saturation,
+            scheme,
+        })
+
+    return { dark: palette('dark'), light: palette('light') }
+}
+
+/** Reads a color the theme supplies, naming it when culori cannot parse it. */
+function parseColor(color: string, label: string): Oklch {
+    const parsed = toOklch(color)
+    if (parsed == null) {
+        throw new Error(`Invalid ${label}: ${color}`)
     }
+
+    return parsed
 }
 
 /** Which pole reads better on the fill — the side `text-accent` starts from. */
@@ -315,43 +341,69 @@ function round(value: number, places: number): number {
     return Number(value.toFixed(places))
 }
 
+/** One intent's overrides for one scheme, in the color space derivation works in. */
+function schemeOverrides(
+    overrides: TokenOverrides,
+    scheme: Scheme,
+    intent: Intent
+): SchemeOverrides {
+    const entries = TOKENS.flatMap((token) => {
+        const color = overrides[token]?.[scheme]
+
+        return color == null
+            ? []
+            : [[token, parseColor(color, `${intent} ${scheme} ${token} override`)] as const]
+    })
+
+    return Object.fromEntries(entries)
+}
+
+// Overrides land as derivation reaches each token, so everything below follows.
 function schemePalette(seed: Oklch, table: ShadeTable, knobs: Knobs): Palette {
-    const { saturation, scheme } = knobs
+    const { overrides, saturation, scheme } = knobs
     const hue = seed.h ?? 0
     const scale = chromaScale(seed)
     const bleed = SATURATION_SCALES[saturation]
 
-    // `bg-tint` is the seed's own wash, so the saturation knob passes it by.
-    const surface = (token: SurfaceToken, multiplier = bleed): Oklch => {
-        const shade = table[token][scheme]
+    const chosen = (token: Token, derive: () => Oklch): Oklch => overrides[token] ?? derive()
 
-        return shadeColor({ ...shade, chroma: shade.chroma * scale * multiplier }, hue)
-    }
+    // `bg-tint` is the seed's own wash, so the saturation knob passes it by.
+    const surface = (token: SurfaceToken, multiplier = bleed): Oklch =>
+        chosen(token, () => {
+            const shade = table[token][scheme]
+
+            return shadeColor({ ...shade, chroma: shade.chroma * scale * multiplier }, hue)
+        })
 
     const bgBase = surface('bg-base')
-    const bgPrimary = solveLightness({ chroma: seed.c, lightness: seed.l }, hue, [
-        { color: bgBase, target: requiredLc('bg-primary', 'bg-base') },
-    ])
-
-    const onText = (token: 'text-hi-contrast' | 'text-lo-contrast' | 'text-placeholder'): Oklch => {
-        const shade = table[token][scheme]
-
-        return solveLightness({ ...shade, chroma: shade.chroma * scale * bleed }, hue, [
-            { color: bgBase, target: requiredLc(token, 'bg-base') },
+    const bgPrimary = chosen('bg-primary', () =>
+        solveLightness({ chroma: seed.c, lightness: seed.l }, hue, [
+            { color: bgBase, target: requiredLc('bg-primary', 'bg-base') },
         ])
-    }
+    )
+
+    const onText = (token: 'text-hi-contrast' | 'text-lo-contrast' | 'text-placeholder'): Oklch =>
+        chosen(token, () => {
+            const shade = table[token][scheme]
+
+            return solveLightness({ ...shade, chroma: shade.chroma * scale * bleed }, hue, [
+                { color: bgBase, target: requiredLc(token, 'bg-base') },
+            ])
+        })
 
     const accentChroma = ACCENT_CHROMA * scale
     const darkAccent = prefersDarkText(bgPrimary, hue, accentChroma)
 
     // Hover moves away from the accent's pole, which is where its headroom is.
     const lift = darkAccent ? HOVER_LIFT : -HOVER_LIFT
-    const bgPrimaryHover = shadeColor(
-        {
-            chroma: bgPrimary.c,
-            lightness: clamp(bgPrimary.l + lift, HOVER_RANGE.min, HOVER_RANGE.max),
-        },
-        hue
+    const bgPrimaryHover = chosen('bg-primary-hover', () =>
+        shadeColor(
+            {
+                chroma: bgPrimary.c,
+                lightness: clamp(bgPrimary.l + lift, HOVER_RANGE.min, HOVER_RANGE.max),
+            },
+            bgPrimary.h ?? hue
+        )
     )
 
     const accentGrounds: Grounds = [
@@ -372,7 +424,7 @@ function schemePalette(seed: Oklch, table: ShadeTable, knobs: Knobs): Palette {
         'border-default': surface('border-default'),
         'border-field': surface('border-field'),
         'border-field-hover': surface('border-field-hover'),
-        'text-accent': solveLightness(accentShade, hue, accentGrounds),
+        'text-accent': chosen('text-accent', () => solveLightness(accentShade, hue, accentGrounds)),
         'text-hi-contrast': onText('text-hi-contrast'),
         'text-lo-contrast': onText('text-lo-contrast'),
         'text-placeholder': onText('text-placeholder'),
@@ -402,6 +454,11 @@ function searchLightness(
     }
 
     return at(pass)
+}
+
+/** Which brand color aims this scheme. A lone string aims both. */
+function seedFor(seed: SeedColor, scheme: Scheme): string {
+    return typeof seed === 'string' ? seed : seed[scheme]
 }
 
 /** Rounds to what CSS will carry, so a solved contrast survives serialization. */
@@ -435,4 +492,3 @@ function solveLightness(shade: Shade, hue: number, grounds: Grounds): Oklch {
         (headroom(at(0), grounds) >= headroom(at(1), grounds) ? at(0) : at(1))
     )
 }
-

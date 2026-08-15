@@ -35,9 +35,10 @@ export interface DepthTreatment {
     textShadow: string
 }
 
-/** A stylesheet, and every contrast target its palettes fell short of. */
+/** A stylesheet, its colors, and every contrast target they fell short of. */
 export interface GeneratedTheme {
     css: string
+    palettes: Palettes
     warnings: readonly ContrastWarning[]
 }
 
@@ -132,6 +133,7 @@ export function generateTheme(input: ThemeInput): GeneratedTheme {
             utility('surface-primary', SURFACE_PRIMARY),
             ...INTENTS.filter((intent) => intent !== 'default').map(remapUtility),
         ].join('\n'),
+        palettes,
         warnings: contrastWarnings(palettes),
     }
 }

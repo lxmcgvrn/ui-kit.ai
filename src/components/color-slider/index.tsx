@@ -9,6 +9,11 @@ import {
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
 
+import { checkerboard } from '../styles/checkerboard'
+
+/** Coarse enough to stay quiet under the track's own gradient. */
+const CHECK_SIZE = '16px'
+
 const sliderStyles = tv({
     base: ['w-full'],
 })
@@ -43,8 +48,7 @@ export function ColorSlider(props: ColorSliderProps) {
                     <RACSliderTrack
                         className={trackStyles()}
                         style={({ defaultStyle }) => ({
-                            background: `${String(defaultStyle.background)},
-      repeating-conic-gradient(var(--theme-default-bg-tint) 0% 25%, var(--theme-default-bg-base) 0% 50%) 50% / 16px 16px`,
+                            background: `${String(defaultStyle.background)}, ${checkerboard(CHECK_SIZE)}`,
                         })}
                     >
                         <RACColorThumb className={thumbStyles()} />

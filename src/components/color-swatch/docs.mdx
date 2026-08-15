@@ -5,6 +5,7 @@ description: Displays a color, with the accessibility semantics of a color previ
 
 import ColorSwatchCustomSize from './examples/custom-size'
 import ColorSwatchDefault from './examples/default'
+import ColorSwatchTranslucent from './examples/translucent'
 import ColorSwatchWithBorder from './examples/with-border'
 
 <ComponentPreview name='color-swatch/default'>
@@ -34,6 +35,15 @@ The default border can be replaced the same way.
 
 <ComponentPreview name='color-swatch/with-border'>
     <ColorSwatchWithBorder />
+</ComponentPreview>
+
+## Alpha
+
+A translucent color sits on a checkerboard, so its alpha reads as alpha rather than as a lighter
+shade of the surface behind it.
+
+<ComponentPreview name='color-swatch/translucent'>
+    <ColorSwatchTranslucent />
 </ComponentPreview>
 
 ## Props

@@ -1,6 +1,8 @@
-import type { ContrastWarning, Intent, Token } from '@ui-kit.ai/theme'
+import type { ContrastWarning, Intent, ThemeOverrides, Token } from '@ui-kit.ai/theme'
 
-/** One message per intent whose seed misses a contrast target. */
+import { overrideAt } from './overrides'
+
+/** One message per intent whose colours miss a contrast target. */
 export type ContrastErrors = Partial<Record<Intent, string>>
 
 /** Each pairing the engine checks, named the way the page shows it. */
@@ -14,11 +16,14 @@ const SUBJECTS: Partial<Record<`${Token} on ${Token}`, string>> = {
 }
 
 /** Folds the engine's warnings into one message per intent field. */
-export function toContrastErrors(warnings: readonly ContrastWarning[]): ContrastErrors {
+export function toContrastErrors(
+    warnings: readonly ContrastWarning[],
+    overrides: ThemeOverrides | undefined
+): ContrastErrors {
     const errors: ContrastErrors = {}
 
     for (const [intent, group] of groupByIntent(warnings)) {
-        errors[intent] = toMessage(group)
+        errors[intent] = toMessage(group, overrides)
     }
 
     return errors
@@ -42,6 +47,15 @@ function lc(value: number) {
     return Math.round(Math.abs(value))
 }
 
+/** The hand-picked half of a failing pairing, which is the half to blame. */
+function overriddenToken(warning: ContrastWarning, overrides: ThemeOverrides | undefined) {
+    const { background, foreground, intent, scheme } = warning
+
+    return [foreground, background].find(
+        (token) => overrideAt(overrides, { intent, scheme, token }) != null
+    )
+}
+
 function shortfall(warning: ContrastWarning) {
     return lc(warning.targetLc) - lc(warning.achievedLc)
 }
@@ -53,7 +67,7 @@ function subject({ background, foreground }: ContrastWarning) {
 }
 
 /** The worst shortfall speaks for the intent; the rest are the same advice twice. */
-function toMessage(group: readonly ContrastWarning[]) {
+function toMessage(group: readonly ContrastWarning[], overrides: ThemeOverrides | undefined) {
     const worst = group.reduce((worst, warning) =>
         shortfall(warning) > shortfall(worst) ? warning : worst
     )
@@ -66,5 +80,9 @@ function toMessage(group: readonly ContrastWarning[]) {
         ? ` in ${worst.scheme} mode`
         : ''
 
-    return `${subject(worst)} contrast reaches Lc ${achieved} of the Lc ${target} target${scheme} — pick a darker or lighter shade.`
+    const overridden = overriddenToken(worst, overrides)
+
+    return overridden == null
+        ? `${subject(worst)} contrast reaches Lc ${achieved} of the Lc ${target} target${scheme} — pick a darker or lighter shade.`
+        : `Your ${overridden} override reaches Lc ${achieved} of the Lc ${target} target${scheme} — clear it, or pick a shade further from what it sits on.`
 }

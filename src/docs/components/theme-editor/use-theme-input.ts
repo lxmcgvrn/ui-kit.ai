@@ -1,6 +1,14 @@
 'use client'
 
-import type { ContrastWarning, Intent, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
+import type {
+    ContrastWarning,
+    Intent,
+    Palettes,
+    Scheme,
+    ThemeInput,
+    ThemeOverrides,
+    ThemeSetting,
+} from '@ui-kit.ai/theme'
 
 import {
     DEFAULT_RADIUS,
@@ -10,11 +18,15 @@ import {
     INTENTS,
     PRESETS,
 } from '@ui-kit.ai/theme'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import type { TokenAddress } from './tokens'
+
+import { seedFor, withSeed } from './color'
 import { toContrastErrors } from './contrast-warnings'
 import { applyThemeCss, removeThemeCss } from './inject'
+import { overrideAt, withoutOverride, withOverride } from './overrides'
 import { clearStoredTheme, readStoredTheme, writeStoredTheme } from './storage'
 
 /** Preset key for a hand-mixed palette. */
@@ -33,13 +45,25 @@ const SHIPPED: State = {
 }
 
 export interface ThemeEditorController extends State {
-    /** The intent's contrast complaint, if its seed missed a target. */
+    /** Hands the dark scheme back to the light seed. */
+    clearDarkSeed: (intent: Intent) => void
+
+    /** Hands one token back to derivation. */
+    clearOverride: (address: TokenAddress) => void
+
+    /** The intent's contrast complaint, if one of its colours missed a target. */
     contrastError: (intent: Intent) => string | undefined
     css: () => string
 
     /** The input's depth, spelled out — presets inherit it rather than set it. */
     depth: ThemeSetting
     json: () => string
+
+    /** The hand-picked colour at an address, if the user set one. */
+    override: (address: TokenAddress) => string | undefined
+
+    /** Every solved colour, hand-picked ones included. */
+    palettes: Palettes
 
     /** The input's radius, spelled out — presets inherit it rather than set it. */
     radius: number
@@ -48,8 +72,9 @@ export interface ThemeEditorController extends State {
     /** The input's saturation, spelled out — presets inherit it rather than set it. */
     saturation: ThemeSetting
     selectPreset: (name: string) => void
-    setColor: (intent: Intent, color: string) => void
+    setColor: (intent: Intent, scheme: Scheme, color: string) => void
     setDepth: (depth: ThemeSetting) => void
+    setOverride: (address: TokenAddress, color: string) => void
     setRadius: (radius: number) => void
     setSaturation: (saturation: ThemeSetting) => void
 }
@@ -66,12 +91,14 @@ export function useThemeInput(): ThemeEditorController {
     const [state, setState] = useState<State>(initialState)
     const hasApplied = useRef(false)
 
+    const generated = useMemo(() => generateTheme(state.input), [state.input])
+
     /* The form holds no values: it carries the engine's complaints, keyed by field. */
     const { clearErrors, formState, setError } = useForm<{ colors: Record<Intent, string> }>()
 
     const reportContrast = useCallback(
-        (warnings: readonly ContrastWarning[]) => {
-            const messages = toContrastErrors(warnings)
+        (warnings: readonly ContrastWarning[], overrides: ThemeOverrides | undefined) => {
+            const messages = toContrastErrors(warnings, overrides)
 
             clearErrors('colors')
             for (const intent of INTENTS) {
@@ -95,11 +122,9 @@ export function useThemeInput(): ThemeEditorController {
         // The first apply races the paint; later edits wait for the debounce.
         const timeout = setTimeout(
             () => {
-                const { css, warnings } = generateTheme(state.input)
-
-                applyThemeCss(css)
+                applyThemeCss(generated.css)
                 writeStoredTheme(state.input)
-                reportContrast(warnings)
+                reportContrast(generated.warnings, state.input.overrides)
             },
             hasApplied.current ? DEBOUNCE_MS : 0
         )
@@ -108,7 +133,7 @@ export function useThemeInput(): ThemeEditorController {
         return () => {
             clearTimeout(timeout)
         }
-    }, [clearErrors, reportContrast, state.input, state.isOverridden])
+    }, [clearErrors, generated, reportContrast, state.input, state.isOverridden])
 
     const depth = state.input.depth ?? DEFAULT_SETTING
     const radius = state.input.radius ?? DEFAULT_RADIUS
@@ -121,11 +146,16 @@ export function useThemeInput(): ThemeEditorController {
         [errors.colors]
     )
 
-    const css = useCallback(() => generateTheme(state.input).css, [state.input])
+    const css = useCallback(() => generated.css, [generated])
 
     const json = useCallback(
         () => JSON.stringify({ ...state.input, depth, radius, saturation }, null, 4),
         [depth, radius, saturation, state.input]
+    )
+
+    const override = useCallback(
+        (address: TokenAddress) => overrideAt(state.input.overrides, address),
+        [state.input.overrides]
     )
 
     const reset = useCallback(() => {
@@ -133,15 +163,40 @@ export function useThemeInput(): ThemeEditorController {
     }, [])
 
     const selectPreset = useCallback((name: string) => {
-        const preset = PRESETS.find((candidate) => candidate.name === name)
-        if (preset == null) return
+        setState((current) => {
+            const preset = PRESETS.find((candidate) => candidate.name === name)
+            if (preset == null) return current
 
-        setState({ input: preset.input, isOverridden: true, preset: name })
+            // A preset re-seeds the palette; hand-picked colours ride along.
+            return {
+                input: { ...current.input, ...preset.input },
+                isOverridden: true,
+                preset: name,
+            }
+        })
     }, [])
 
-    const setColor = useCallback((intent: Intent, color: string) => {
+    const clearDarkSeed = useCallback((intent: Intent) => {
         setState((current) =>
-            customise(current, { colors: { ...current.input.colors, [intent]: color } })
+            recolour(current, intent, seedFor(current.input.colors[intent], 'light'))
+        )
+    }, [])
+
+    const setColor = useCallback((intent: Intent, scheme: Scheme, color: string) => {
+        setState((current) =>
+            recolour(current, intent, withSeed(current.input.colors[intent], scheme, color))
+        )
+    }, [])
+
+    const clearOverride = useCallback((address: TokenAddress) => {
+        setState((current) =>
+            customise(current, { overrides: withoutOverride(current.input.overrides, address) })
+        )
+    }, [])
+
+    const setOverride = useCallback((address: TokenAddress, color: string) => {
+        setState((current) =>
+            customise(current, { overrides: withOverride(current.input.overrides, address, color) })
         )
     }, [])
 
@@ -159,16 +214,21 @@ export function useThemeInput(): ThemeEditorController {
 
     return {
         ...state,
+        clearDarkSeed,
+        clearOverride,
         contrastError,
         css,
         depth,
         json,
+        override,
+        palettes: generated.palettes,
         radius,
         reset,
         saturation,
         selectPreset,
         setColor,
         setDepth,
+        setOverride,
         setRadius,
         setSaturation,
     }
@@ -189,4 +249,9 @@ function initialState(): State {
 
     // Storage keeps colours, never the preset name.
     return { input: stored, isOverridden: true, preset: CUSTOM_PRESET }
+}
+
+/** Re-seeds one intent, leaving every hand-picked colour untouched. */
+function recolour(current: State, intent: Intent, seed: ThemeInput['colors'][Intent]): State {
+    return customise(current, { colors: { ...current.input.colors, [intent]: seed } })
 }

@@ -3,7 +3,7 @@ import type { Oklch } from 'culori'
 import { converter } from 'culori'
 import { expect, test } from 'vitest'
 
-import type { ContrastWarning, Scheme, Token } from '../palette'
+import type { ContrastWarning, Scheme, SeedColor, Token } from '../palette'
 
 import { apcaLc } from '../apca'
 import { APCA_TIERS, compromiseLc, CONTRAST_POLICY } from '../contrast'
@@ -21,6 +21,9 @@ import { SYNTAX_INTENTS } from '../stylesheet'
 
 /** A mid-tone tan fill: no lightness left for the accent to run to. */
 const UNREACHABLE_SEED = '#B89A80'
+
+/** Body text a shade off the page it sits on — readable at no size. */
+const WASHED_TEXT = 'oklch(0.95 0.01 267)'
 
 /** Every token the solver drives, each of which owns one or more grounds. */
 const SOLVED_TOKENS = [...new Set(CONTRAST_POLICY.map(({ foreground }) => foreground))]
@@ -72,6 +75,19 @@ test.each(PRESETS)('$name only warns where no color could have cleared the bar',
 
 test('a workable brand color warns about nothing', () => {
     expect(warningsFor(DEFAULT_THEME.colors.default)).toHaveLength(0)
+})
+
+test('an override that breaks contrast still warns', () => {
+    const overrides = { default: { 'text-hi-contrast': { light: WASHED_TEXT } } }
+
+    expect(generateTheme({ ...DEFAULT_THEME, overrides }).warnings).toContainEqual(
+        expect.objectContaining({
+            background: 'bg-base',
+            foreground: 'text-hi-contrast',
+            intent: 'default',
+            scheme: 'light',
+        })
+    )
 })
 
 test('a mid-tone brand color warns about the accent it cannot lift', () => {
@@ -152,7 +168,7 @@ function themeVars(css: string): Record<string, Record<Scheme, string>> {
 }
 
 /** What the `default` intent reports when one brand color drives it. */
-function warningsFor(seed: string): readonly ContrastWarning[] {
+function warningsFor(seed: SeedColor): readonly ContrastWarning[] {
     const colors = { ...DEFAULT_THEME.colors, default: seed }
 
     return generateTheme({ ...DEFAULT_THEME, colors }).warnings.filter(

@@ -5,6 +5,7 @@ import type {
 
 import { LucideChevronRight } from 'lucide-react'
 import {
+    composeRenderProps,
     Disclosure as RACDisclosure,
     DisclosurePanel as RACDisclosurePanel,
 } from 'react-aria-components'
@@ -59,29 +60,31 @@ export interface DisclosureButtonProps extends ButtonProps {
     variant?: ButtonProps['variant']
 }
 
-/** Toggles a {@link Disclosure}; its chevron rotates when open. */
+/** Toggles a {@link Disclosure}; `isIcon` shrinks it to its rotating chevron. */
 export function DisclosureButton({
     children,
     className,
+    isIcon = false,
     variant = 'tertiary',
     ...props
 }: DisclosureButtonProps) {
+    const chevron = (
+        <LucideChevronRight className='group-expanded:rotate-90 transition-transform ease-out' />
+    )
+
     return (
         <Button
             {...props}
-            className={(renderProps) =>
-                twMerge(
-                    'w-full justify-start',
-                    typeof className === 'function' ? className(renderProps) : className
-                )
-            }
+            className={composeRenderProps(className, (resolved) =>
+                twMerge(isIcon ? undefined : 'w-full justify-start', resolved)
+            )}
+            isIcon={isIcon}
             slot='trigger'
-            slotLeft={
-                <LucideChevronRight className='group-expanded:rotate-90 transition-transform ease-out' />
-            }
+            // Without a label the chevron is the button, rather than its slot.
+            slotLeft={isIcon ? undefined : chevron}
             variant={variant}
         >
-            {children}
+            {isIcon ? chevron : children}
         </Button>
     )
 }

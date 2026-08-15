@@ -10,16 +10,14 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from '@ui-kit.ai/components'
-import { INTENTS } from '@ui-kit.ai/theme'
 
+import { ColorsSection } from './colors-section'
 import { CopyButton } from './copy-button'
-import { toLabel } from './field'
+import { SECTION_HEADING } from './field'
 import { PresetSelect } from './preset-select'
 import { RadiusSlider } from './radius-slider'
-import { SeedColorField } from './seed-color-field'
 import { SettingSlider } from './setting-slider'
 import { setThemeEditorOpen, useIsThemeEditorOpen } from './store'
-import { TokenPreview } from './token-preview'
 import { useThemeInput } from './use-theme-input'
 
 /** The site-wide theme editor: a right-hand drawer over the live page. */
@@ -29,6 +27,8 @@ export function ThemeEditorDrawer() {
 
     return (
         <Drawer
+            // Wide enough to read a whole oklch value without scrolling the field.
+            className='sm:w-[29rem]'
             isOpen={isOpen}
             onOpenChange={setThemeEditorOpen}
         >
@@ -48,38 +48,28 @@ export function ThemeEditorDrawer() {
                     value={theme.preset}
                 />
 
-                <div className='flex flex-col gap-3'>
-                    {INTENTS.map((intent) => (
-                        <SeedColorField
-                            errorMessage={theme.contrastError(intent)}
-                            key={intent}
-                            label={toLabel(intent)}
-                            onChange={(color) => {
-                                theme.setColor(intent, color)
-                            }}
-                            value={theme.input.colors[intent]}
-                        />
-                    ))}
+                <ColorsSection theme={theme} />
+
+                <div className='flex flex-col gap-4'>
+                    <h3 className={SECTION_HEADING}>Style</h3>
+
+                    <RadiusSlider
+                        onChange={theme.setRadius}
+                        value={theme.radius}
+                    />
+
+                    <SettingSlider
+                        label='Depth'
+                        onChange={theme.setDepth}
+                        value={theme.depth}
+                    />
+
+                    <SettingSlider
+                        label='Saturation'
+                        onChange={theme.setSaturation}
+                        value={theme.saturation}
+                    />
                 </div>
-
-                <RadiusSlider
-                    onChange={theme.setRadius}
-                    value={theme.radius}
-                />
-
-                <SettingSlider
-                    label='Depth'
-                    onChange={theme.setDepth}
-                    value={theme.depth}
-                />
-
-                <SettingSlider
-                    label='Saturation'
-                    onChange={theme.setSaturation}
-                    value={theme.saturation}
-                />
-
-                <TokenPreview />
             </DrawerContent>
 
             <DrawerFooter>

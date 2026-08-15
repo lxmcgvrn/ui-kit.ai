@@ -1,16 +1,17 @@
 'use client'
 
 import { ColorSwatch } from '@ui-kit.ai/components'
-import { DEFAULT_THEME } from '@ui-kit.ai/theme'
+
+import { PALETTE } from './palette'
 
 export default function ColorSwatchWithBorder() {
     return (
         <div className='flex items-center gap-2'>
-            {Object.entries(DEFAULT_THEME.colors).map(([name, color]) => (
+            {PALETTE.map((color) => (
                 <ColorSwatch
                     className='border-2 border-black'
                     color={color}
-                    key={name}
+                    key={color}
                 />
             ))}
         </div>
