@@ -36,8 +36,18 @@ test.each(THEME_SETTINGS)('generateTheme at depth %s', (depth) => {
     expect(generateTheme({ ...DEFAULT_THEME, depth }).css).toMatchSnapshot()
 })
 
+test.each(THEME_SETTINGS)('generateTheme at radius %s', (radius) => {
+    expect(generateTheme({ ...DEFAULT_THEME, radius }).css).toMatchSnapshot()
+})
+
 test.each(THEME_SETTINGS)('generateTheme at saturation %s', (saturation) => {
     expect(generateTheme({ ...DEFAULT_THEME, saturation }).css).toMatchSnapshot()
+})
+
+test('a theme with no radius set takes `some`', () => {
+    expect(generateTheme(DEFAULT_THEME).css).toBe(
+        generateTheme({ ...DEFAULT_THEME, radius: 'some' }).css
+    )
 })
 
 test('hover darkens under a light accent', () => {

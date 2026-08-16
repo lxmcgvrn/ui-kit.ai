@@ -13,9 +13,9 @@ functionality, like the **intent API**.
 ## Theme editor
 
 The theme editor lives in the site nav — the palette button, on every page. Pick a preset or mix
-your own seed colours, drag the radius, and the entire site re-themes as you type. Your theme is
-kept in this browser until you reset it, and **Copy CSS** hands you a stylesheet that overrides
-the one shipped in `@ui-kit.ai/components/style.css`.
+your own seed colours, turn the style knobs, and the entire site re-themes as you type. Your
+theme is kept in this browser until you reset it, and **Copy CSS** hands you a stylesheet that
+overrides the one shipped in `@ui-kit.ai/components/style.css`.
 
 <ThemeEditorButton />
 
@@ -33,7 +33,7 @@ const css = themeCss({
         warning: '#FFC53D',
     },
     depth: 'some',
-    radius: 0.375,
+    radius: 'some',
     saturation: 'some',
 })
 ```
@@ -48,6 +48,18 @@ defaults to `some`.
 | `none` | Flat: small elements drop their shadow. Overlays keep theirs.    |
 | `some` | The default — a hairline shadow under buttons, fields and cards. |
 | `lots` | Adds a lit top edge and a soft gradient to every accent fill.    |
+
+## Radius
+
+`radius` sets how far corners round, by the scale of the thing wearing them. Turning it up
+pills the controls and leaves the surfaces around them in proportion. It is optional, and
+defaults to `some`.
+
+| Radius | Look                                                         |
+| ------ | ------------------------------------------------------------ |
+| `none` | Square: every step collapses to zero.                        |
+| `some` | The default — Tailwind's own scale, from `xs` through `4xl`. |
+| `lots` | Buttons and fields go pill; cards and dialogs round a shade. |
 
 ## Saturation
 

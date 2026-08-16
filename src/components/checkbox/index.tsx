@@ -42,7 +42,8 @@ const boxStyles = tv({
         'size-4',
         'transition-colors',
         'flex flex-shrink-0 items-center justify-center',
-        'rounded-sm',
+        // The step that stays square-shouldered: `sm` would round this to a circle.
+        'rounded-xs',
         // disabled
         'group-disabled:opacity-50',
         // hover

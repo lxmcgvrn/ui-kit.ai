@@ -19,7 +19,7 @@ export interface SettingSliderProps {
     value: ThemeSetting
 }
 
-/** The radius slider's twin, walked along detents instead of a range. */
+/** One theme knob, walked along a detent per setting. */
 export function SettingSlider({ label, onChange, value }: SettingSliderProps) {
     return (
         <ThemeSlider

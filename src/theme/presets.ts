@@ -7,9 +7,6 @@ export interface Preset {
     name: string
 }
 
-/** The `md` radius step in rem, when the theme leaves it out. */
-export const DEFAULT_RADIUS = 0.375
-
 export const DEFAULT_THEME: ThemeInput = {
     colors: {
         default: 'oklch(0.5438 0.191 267.01)',

@@ -3,7 +3,7 @@
 exports[`generateTheme at depth lots 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -174,7 +174,7 @@ exports[`generateTheme at depth lots 1`] = `
 exports[`generateTheme at depth none 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -345,7 +345,520 @@ exports[`generateTheme at depth none 1`] = `
 exports[`generateTheme at depth some 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --radius-4xl: 2rem;
+    --depth-edge-highlight: 0 0 #0000;
+    --depth-gradient-alpha: 0;
+    --depth-small-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --depth-text-shadow: none;
+    --inset-shadow-depth: var(--depth-edge-highlight);
+    --shadow-xs: var(--depth-small-shadow);
+    --theme-default-bg-base: light-dark(oklch(0.992 0.002 267.01), oklch(0.179 0.004 267.01));
+    --theme-default-bg-base-raised: light-dark(oklch(0.983 0.003 267.01), oklch(0.212 0.005 267.01));
+    --theme-default-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5755 0.191 267.01));
+    --theme-default-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5255 0.191 267.01));
+    --theme-default-bg-tint: light-dark(oklch(0.936 0.005 267.01), oklch(0.274 0.009 267.01));
+    --theme-default-border-default: light-dark(oklch(0.167 0.07 267.01 / 0.09), oklch(0.895 0.04 267.01 / 0.11));
+    --theme-default-border-field: light-dark(oklch(0.176 0.08 267.01 / 0.12), oklch(0.91 0.042 267.01 / 0.15));
+    --theme-default-border-field-hover: light-dark(oklch(0.167 0.074 267.01 / 0.15), oklch(0.911 0.04 267.01 / 0.19));
+    --theme-default-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-default-text-hi-contrast: light-dark(oklch(0.239 0.013 267.01), oklch(0.952 0.003 267.01));
+    --theme-default-text-lo-contrast: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --theme-default-text-placeholder: light-dark(oklch(0.614 0.014 267.01), oklch(0.6725 0.015 267.01));
+    --theme-error-bg-base: light-dark(oklch(0.991 0.0044 13.15), oklch(0.2 0.022 13.15));
+    --theme-error-bg-base-raised: light-dark(oklch(0.98 0.0098 13.15), oklch(0.222 0.028 13.15));
+    --theme-error-bg-primary: light-dark(oklch(0.6284 0.1949 13.15), oklch(0.6284 0.1949 13.15));
+    --theme-error-bg-primary-hover: light-dark(oklch(0.5784 0.1949 13.15), oklch(0.5784 0.1949 13.15));
+    --theme-error-bg-tint: light-dark(oklch(0.95 0.0251 13.15), oklch(0.36 0.085 13.15));
+    --theme-error-border-default: light-dark(oklch(0.6 0.18 13.15 / 0.12), oklch(0.72 0.17 13.15 / 0.34));
+    --theme-error-border-field: light-dark(oklch(0.6 0.18 13.15 / 0.18), oklch(0.72 0.165 13.15 / 0.42));
+    --theme-error-border-field-hover: light-dark(oklch(0.6 0.18 13.15 / 0.24), oklch(0.72 0.16 13.15 / 0.49));
+    --theme-error-text-accent: light-dark(oklch(0.954 0.023 13.15), oklch(0.954 0.023 13.15));
+    --theme-error-text-hi-contrast: light-dark(oklch(0.35 0.09 13.15), oklch(0.93 0.0358 13.15));
+    --theme-error-text-lo-contrast: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --theme-error-text-placeholder: light-dark(oklch(0.6 0.19 13.15), oklch(0.72 0.17 13.15));
+    --theme-info-bg-base: light-dark(oklch(0.991 0.0042 267.01), oklch(0.2 0.022 267.01));
+    --theme-info-bg-base-raised: light-dark(oklch(0.98 0.0093 267.01), oklch(0.222 0.028 267.01));
+    --theme-info-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5784 0.191 267.01));
+    --theme-info-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5284 0.191 267.01));
+    --theme-info-bg-tint: light-dark(oklch(0.95 0.0236 267.01), oklch(0.36 0.085 267.01));
+    --theme-info-border-default: light-dark(oklch(0.6 0.18 267.01 / 0.12), oklch(0.72 0.1446 267.01 / 0.34));
+    --theme-info-border-field: light-dark(oklch(0.6 0.18 267.01 / 0.18), oklch(0.72 0.1446 267.01 / 0.42));
+    --theme-info-border-field-hover: light-dark(oklch(0.6 0.18 267.01 / 0.24), oklch(0.72 0.1446 267.01 / 0.49));
+    --theme-info-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-hi-contrast: light-dark(oklch(0.35 0.09 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-lo-contrast: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --theme-info-text-placeholder: light-dark(oklch(0.6 0.19 267.01), oklch(0.72 0.1446 267.01));
+    --theme-success-bg-base: light-dark(oklch(0.991 0.0046 170.73), oklch(0.2 0.0169 170.73));
+    --theme-success-bg-base-raised: light-dark(oklch(0.98 0.0084 170.73), oklch(0.222 0.0215 170.73));
+    --theme-success-bg-primary: light-dark(oklch(0.6422 0.115 170.73), oklch(0.6422 0.115 170.73));
+    --theme-success-bg-primary-hover: light-dark(oklch(0.5922 0.115 170.73), oklch(0.5922 0.115 170.73));
+    --theme-success-bg-tint: light-dark(oklch(0.95 0.0253 170.73), oklch(0.36 0.0652 170.73));
+    --theme-success-border-default: light-dark(oklch(0.6 0.1179 170.73 / 0.12), oklch(0.72 0.1303 170.73 / 0.34));
+    --theme-success-border-field: light-dark(oklch(0.6 0.1179 170.73 / 0.18), oklch(0.72 0.1265 170.73 / 0.42));
+    --theme-success-border-field-hover: light-dark(oklch(0.6 0.1179 170.73 / 0.24), oklch(0.72 0.1227 170.73 / 0.49));
+    --theme-success-text-accent: light-dark(oklch(0.9802 0.0275 170.73), oklch(0.9802 0.0275 170.73));
+    --theme-success-text-hi-contrast: light-dark(oklch(0.35 0.0687 170.73), oklch(0.93 0.0345 170.73));
+    --theme-success-text-lo-contrast: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+    --theme-success-text-placeholder: light-dark(oklch(0.6 0.1179 170.73), oklch(0.72 0.1303 170.73));
+    --theme-warning-bg-base: light-dark(oklch(0.991 0.006 84.13), oklch(0.2 0.022 84.13));
+    --theme-warning-bg-base-raised: light-dark(oklch(0.98 0.011 84.13), oklch(0.222 0.028 84.13));
+    --theme-warning-bg-primary: light-dark(oklch(0.8219 0.1572 84.13), oklch(0.8537 0.1572 84.13));
+    --theme-warning-bg-primary-hover: light-dark(oklch(0.8719 0.1365 84.13), oklch(0.9037 0.1012 84.13));
+    --theme-warning-bg-tint: light-dark(oklch(0.95 0.033 84.13), oklch(0.36 0.0738 84.13));
+    --theme-warning-border-default: light-dark(oklch(0.6 0.1231 84.13 / 0.12), oklch(0.72 0.1477 84.13 / 0.34));
+    --theme-warning-border-field: light-dark(oklch(0.6 0.1231 84.13 / 0.18), oklch(0.72 0.1477 84.13 / 0.42));
+    --theme-warning-border-field-hover: light-dark(oklch(0.6 0.1231 84.13 / 0.24), oklch(0.72 0.1477 84.13 / 0.49));
+    --theme-warning-text-accent: light-dark(oklch(0.25 0.05 84.13), oklch(0.25 0.05 84.13));
+    --theme-warning-text-hi-contrast: light-dark(oklch(0.35 0.0718 84.13), oklch(0.93 0.045 84.13));
+    --theme-warning-text-lo-contrast: light-dark(oklch(0.52 0.1067 84.13), oklch(0.85 0.11 84.13));
+    --theme-warning-text-placeholder: light-dark(oklch(0.6 0.1231 84.13), oklch(0.72 0.1477 84.13));
+    --color-syntax-1: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --color-syntax-2: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --color-syntax-3: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --color-syntax-4: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+}
+@utility bg-* {
+    background-color: --value(--theme-default-bg-*, [color]);
+    background-color: --alpha(--value(--theme-default-bg-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility border-* {
+    border-color: --value(--theme-default-border-*, [color]);
+    border-color: --alpha(--value(--theme-default-border-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility text-* {
+    color: --value(--theme-default-text-*, [color]);
+    color: --alpha(--value(--theme-default-text-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility surface-primary {
+    &[data-hovered] {
+        background-color: var(--theme-default-bg-primary-hover);
+        background-image: none;
+    }
+    &[data-pressed] {
+        background-color: var(--theme-default-bg-primary);
+        background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    }
+    background-color: var(--theme-default-bg-primary);
+    background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    border-bottom-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), black calc(var(--depth-gradient-alpha) * 12%));
+    border-left-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-right-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-top-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), white calc(var(--depth-gradient-alpha) * 12%));
+    box-shadow: var(--depth-edge-highlight), var(--depth-small-shadow);
+    color: var(--theme-default-text-accent);
+    text-shadow: var(--depth-text-shadow);
+}
+@utility error {
+    --theme-default-bg-base: var(--theme-error-bg-base);
+    --theme-default-bg-base-raised: var(--theme-error-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-error-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-error-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-error-bg-tint);
+    --theme-default-border-default: var(--theme-error-border-default);
+    --theme-default-border-field: var(--theme-error-border-field);
+    --theme-default-border-field-hover: var(--theme-error-border-field-hover);
+    --theme-default-text-accent: var(--theme-error-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-error-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-error-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-error-text-placeholder);
+}
+@utility info {
+    --theme-default-bg-base: var(--theme-info-bg-base);
+    --theme-default-bg-base-raised: var(--theme-info-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-info-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-info-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-info-bg-tint);
+    --theme-default-border-default: var(--theme-info-border-default);
+    --theme-default-border-field: var(--theme-info-border-field);
+    --theme-default-border-field-hover: var(--theme-info-border-field-hover);
+    --theme-default-text-accent: var(--theme-info-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-info-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-info-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-info-text-placeholder);
+}
+@utility success {
+    --theme-default-bg-base: var(--theme-success-bg-base);
+    --theme-default-bg-base-raised: var(--theme-success-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-success-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-success-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-success-bg-tint);
+    --theme-default-border-default: var(--theme-success-border-default);
+    --theme-default-border-field: var(--theme-success-border-field);
+    --theme-default-border-field-hover: var(--theme-success-border-field-hover);
+    --theme-default-text-accent: var(--theme-success-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-success-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-success-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-success-text-placeholder);
+}
+@utility warning {
+    --theme-default-bg-base: var(--theme-warning-bg-base);
+    --theme-default-bg-base-raised: var(--theme-warning-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-warning-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-warning-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-warning-bg-tint);
+    --theme-default-border-default: var(--theme-warning-border-default);
+    --theme-default-border-field: var(--theme-warning-border-field);
+    --theme-default-border-field-hover: var(--theme-warning-border-field-hover);
+    --theme-default-text-accent: var(--theme-warning-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-warning-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-warning-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-warning-text-placeholder);
+}"
+`;
+
+exports[`generateTheme at radius lots 1`] = `
+"@theme {
+    --color-*: initial;
+    --radius-xs: 0.375rem;
+    --radius-sm: 1rem;
+    --radius-md: 1.125rem;
+    --radius-lg: 0.625rem;
+    --radius-xl: 0.9375rem;
+    --radius-2xl: 1.25rem;
+    --radius-3xl: 1.875rem;
+    --radius-4xl: 2.5rem;
+    --depth-edge-highlight: 0 0 #0000;
+    --depth-gradient-alpha: 0;
+    --depth-small-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --depth-text-shadow: none;
+    --inset-shadow-depth: var(--depth-edge-highlight);
+    --shadow-xs: var(--depth-small-shadow);
+    --theme-default-bg-base: light-dark(oklch(0.992 0.002 267.01), oklch(0.179 0.004 267.01));
+    --theme-default-bg-base-raised: light-dark(oklch(0.983 0.003 267.01), oklch(0.212 0.005 267.01));
+    --theme-default-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5755 0.191 267.01));
+    --theme-default-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5255 0.191 267.01));
+    --theme-default-bg-tint: light-dark(oklch(0.936 0.005 267.01), oklch(0.274 0.009 267.01));
+    --theme-default-border-default: light-dark(oklch(0.167 0.07 267.01 / 0.09), oklch(0.895 0.04 267.01 / 0.11));
+    --theme-default-border-field: light-dark(oklch(0.176 0.08 267.01 / 0.12), oklch(0.91 0.042 267.01 / 0.15));
+    --theme-default-border-field-hover: light-dark(oklch(0.167 0.074 267.01 / 0.15), oklch(0.911 0.04 267.01 / 0.19));
+    --theme-default-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-default-text-hi-contrast: light-dark(oklch(0.239 0.013 267.01), oklch(0.952 0.003 267.01));
+    --theme-default-text-lo-contrast: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --theme-default-text-placeholder: light-dark(oklch(0.614 0.014 267.01), oklch(0.6725 0.015 267.01));
+    --theme-error-bg-base: light-dark(oklch(0.991 0.0044 13.15), oklch(0.2 0.022 13.15));
+    --theme-error-bg-base-raised: light-dark(oklch(0.98 0.0098 13.15), oklch(0.222 0.028 13.15));
+    --theme-error-bg-primary: light-dark(oklch(0.6284 0.1949 13.15), oklch(0.6284 0.1949 13.15));
+    --theme-error-bg-primary-hover: light-dark(oklch(0.5784 0.1949 13.15), oklch(0.5784 0.1949 13.15));
+    --theme-error-bg-tint: light-dark(oklch(0.95 0.0251 13.15), oklch(0.36 0.085 13.15));
+    --theme-error-border-default: light-dark(oklch(0.6 0.18 13.15 / 0.12), oklch(0.72 0.17 13.15 / 0.34));
+    --theme-error-border-field: light-dark(oklch(0.6 0.18 13.15 / 0.18), oklch(0.72 0.165 13.15 / 0.42));
+    --theme-error-border-field-hover: light-dark(oklch(0.6 0.18 13.15 / 0.24), oklch(0.72 0.16 13.15 / 0.49));
+    --theme-error-text-accent: light-dark(oklch(0.954 0.023 13.15), oklch(0.954 0.023 13.15));
+    --theme-error-text-hi-contrast: light-dark(oklch(0.35 0.09 13.15), oklch(0.93 0.0358 13.15));
+    --theme-error-text-lo-contrast: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --theme-error-text-placeholder: light-dark(oklch(0.6 0.19 13.15), oklch(0.72 0.17 13.15));
+    --theme-info-bg-base: light-dark(oklch(0.991 0.0042 267.01), oklch(0.2 0.022 267.01));
+    --theme-info-bg-base-raised: light-dark(oklch(0.98 0.0093 267.01), oklch(0.222 0.028 267.01));
+    --theme-info-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5784 0.191 267.01));
+    --theme-info-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5284 0.191 267.01));
+    --theme-info-bg-tint: light-dark(oklch(0.95 0.0236 267.01), oklch(0.36 0.085 267.01));
+    --theme-info-border-default: light-dark(oklch(0.6 0.18 267.01 / 0.12), oklch(0.72 0.1446 267.01 / 0.34));
+    --theme-info-border-field: light-dark(oklch(0.6 0.18 267.01 / 0.18), oklch(0.72 0.1446 267.01 / 0.42));
+    --theme-info-border-field-hover: light-dark(oklch(0.6 0.18 267.01 / 0.24), oklch(0.72 0.1446 267.01 / 0.49));
+    --theme-info-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-hi-contrast: light-dark(oklch(0.35 0.09 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-lo-contrast: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --theme-info-text-placeholder: light-dark(oklch(0.6 0.19 267.01), oklch(0.72 0.1446 267.01));
+    --theme-success-bg-base: light-dark(oklch(0.991 0.0046 170.73), oklch(0.2 0.0169 170.73));
+    --theme-success-bg-base-raised: light-dark(oklch(0.98 0.0084 170.73), oklch(0.222 0.0215 170.73));
+    --theme-success-bg-primary: light-dark(oklch(0.6422 0.115 170.73), oklch(0.6422 0.115 170.73));
+    --theme-success-bg-primary-hover: light-dark(oklch(0.5922 0.115 170.73), oklch(0.5922 0.115 170.73));
+    --theme-success-bg-tint: light-dark(oklch(0.95 0.0253 170.73), oklch(0.36 0.0652 170.73));
+    --theme-success-border-default: light-dark(oklch(0.6 0.1179 170.73 / 0.12), oklch(0.72 0.1303 170.73 / 0.34));
+    --theme-success-border-field: light-dark(oklch(0.6 0.1179 170.73 / 0.18), oklch(0.72 0.1265 170.73 / 0.42));
+    --theme-success-border-field-hover: light-dark(oklch(0.6 0.1179 170.73 / 0.24), oklch(0.72 0.1227 170.73 / 0.49));
+    --theme-success-text-accent: light-dark(oklch(0.9802 0.0275 170.73), oklch(0.9802 0.0275 170.73));
+    --theme-success-text-hi-contrast: light-dark(oklch(0.35 0.0687 170.73), oklch(0.93 0.0345 170.73));
+    --theme-success-text-lo-contrast: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+    --theme-success-text-placeholder: light-dark(oklch(0.6 0.1179 170.73), oklch(0.72 0.1303 170.73));
+    --theme-warning-bg-base: light-dark(oklch(0.991 0.006 84.13), oklch(0.2 0.022 84.13));
+    --theme-warning-bg-base-raised: light-dark(oklch(0.98 0.011 84.13), oklch(0.222 0.028 84.13));
+    --theme-warning-bg-primary: light-dark(oklch(0.8219 0.1572 84.13), oklch(0.8537 0.1572 84.13));
+    --theme-warning-bg-primary-hover: light-dark(oklch(0.8719 0.1365 84.13), oklch(0.9037 0.1012 84.13));
+    --theme-warning-bg-tint: light-dark(oklch(0.95 0.033 84.13), oklch(0.36 0.0738 84.13));
+    --theme-warning-border-default: light-dark(oklch(0.6 0.1231 84.13 / 0.12), oklch(0.72 0.1477 84.13 / 0.34));
+    --theme-warning-border-field: light-dark(oklch(0.6 0.1231 84.13 / 0.18), oklch(0.72 0.1477 84.13 / 0.42));
+    --theme-warning-border-field-hover: light-dark(oklch(0.6 0.1231 84.13 / 0.24), oklch(0.72 0.1477 84.13 / 0.49));
+    --theme-warning-text-accent: light-dark(oklch(0.25 0.05 84.13), oklch(0.25 0.05 84.13));
+    --theme-warning-text-hi-contrast: light-dark(oklch(0.35 0.0718 84.13), oklch(0.93 0.045 84.13));
+    --theme-warning-text-lo-contrast: light-dark(oklch(0.52 0.1067 84.13), oklch(0.85 0.11 84.13));
+    --theme-warning-text-placeholder: light-dark(oklch(0.6 0.1231 84.13), oklch(0.72 0.1477 84.13));
+    --color-syntax-1: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --color-syntax-2: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --color-syntax-3: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --color-syntax-4: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+}
+@utility bg-* {
+    background-color: --value(--theme-default-bg-*, [color]);
+    background-color: --alpha(--value(--theme-default-bg-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility border-* {
+    border-color: --value(--theme-default-border-*, [color]);
+    border-color: --alpha(--value(--theme-default-border-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility text-* {
+    color: --value(--theme-default-text-*, [color]);
+    color: --alpha(--value(--theme-default-text-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility surface-primary {
+    &[data-hovered] {
+        background-color: var(--theme-default-bg-primary-hover);
+        background-image: none;
+    }
+    &[data-pressed] {
+        background-color: var(--theme-default-bg-primary);
+        background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    }
+    background-color: var(--theme-default-bg-primary);
+    background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    border-bottom-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), black calc(var(--depth-gradient-alpha) * 12%));
+    border-left-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-right-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-top-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), white calc(var(--depth-gradient-alpha) * 12%));
+    box-shadow: var(--depth-edge-highlight), var(--depth-small-shadow);
+    color: var(--theme-default-text-accent);
+    text-shadow: var(--depth-text-shadow);
+}
+@utility error {
+    --theme-default-bg-base: var(--theme-error-bg-base);
+    --theme-default-bg-base-raised: var(--theme-error-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-error-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-error-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-error-bg-tint);
+    --theme-default-border-default: var(--theme-error-border-default);
+    --theme-default-border-field: var(--theme-error-border-field);
+    --theme-default-border-field-hover: var(--theme-error-border-field-hover);
+    --theme-default-text-accent: var(--theme-error-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-error-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-error-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-error-text-placeholder);
+}
+@utility info {
+    --theme-default-bg-base: var(--theme-info-bg-base);
+    --theme-default-bg-base-raised: var(--theme-info-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-info-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-info-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-info-bg-tint);
+    --theme-default-border-default: var(--theme-info-border-default);
+    --theme-default-border-field: var(--theme-info-border-field);
+    --theme-default-border-field-hover: var(--theme-info-border-field-hover);
+    --theme-default-text-accent: var(--theme-info-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-info-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-info-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-info-text-placeholder);
+}
+@utility success {
+    --theme-default-bg-base: var(--theme-success-bg-base);
+    --theme-default-bg-base-raised: var(--theme-success-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-success-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-success-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-success-bg-tint);
+    --theme-default-border-default: var(--theme-success-border-default);
+    --theme-default-border-field: var(--theme-success-border-field);
+    --theme-default-border-field-hover: var(--theme-success-border-field-hover);
+    --theme-default-text-accent: var(--theme-success-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-success-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-success-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-success-text-placeholder);
+}
+@utility warning {
+    --theme-default-bg-base: var(--theme-warning-bg-base);
+    --theme-default-bg-base-raised: var(--theme-warning-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-warning-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-warning-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-warning-bg-tint);
+    --theme-default-border-default: var(--theme-warning-border-default);
+    --theme-default-border-field: var(--theme-warning-border-field);
+    --theme-default-border-field-hover: var(--theme-warning-border-field-hover);
+    --theme-default-text-accent: var(--theme-warning-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-warning-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-warning-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-warning-text-placeholder);
+}"
+`;
+
+exports[`generateTheme at radius none 1`] = `
+"@theme {
+    --color-*: initial;
+    --radius-xs: 0rem;
+    --radius-sm: 0rem;
+    --radius-md: 0rem;
+    --radius-lg: 0rem;
+    --radius-xl: 0rem;
+    --radius-2xl: 0rem;
+    --radius-3xl: 0rem;
+    --radius-4xl: 0rem;
+    --depth-edge-highlight: 0 0 #0000;
+    --depth-gradient-alpha: 0;
+    --depth-small-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --depth-text-shadow: none;
+    --inset-shadow-depth: var(--depth-edge-highlight);
+    --shadow-xs: var(--depth-small-shadow);
+    --theme-default-bg-base: light-dark(oklch(0.992 0.002 267.01), oklch(0.179 0.004 267.01));
+    --theme-default-bg-base-raised: light-dark(oklch(0.983 0.003 267.01), oklch(0.212 0.005 267.01));
+    --theme-default-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5755 0.191 267.01));
+    --theme-default-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5255 0.191 267.01));
+    --theme-default-bg-tint: light-dark(oklch(0.936 0.005 267.01), oklch(0.274 0.009 267.01));
+    --theme-default-border-default: light-dark(oklch(0.167 0.07 267.01 / 0.09), oklch(0.895 0.04 267.01 / 0.11));
+    --theme-default-border-field: light-dark(oklch(0.176 0.08 267.01 / 0.12), oklch(0.91 0.042 267.01 / 0.15));
+    --theme-default-border-field-hover: light-dark(oklch(0.167 0.074 267.01 / 0.15), oklch(0.911 0.04 267.01 / 0.19));
+    --theme-default-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-default-text-hi-contrast: light-dark(oklch(0.239 0.013 267.01), oklch(0.952 0.003 267.01));
+    --theme-default-text-lo-contrast: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --theme-default-text-placeholder: light-dark(oklch(0.614 0.014 267.01), oklch(0.6725 0.015 267.01));
+    --theme-error-bg-base: light-dark(oklch(0.991 0.0044 13.15), oklch(0.2 0.022 13.15));
+    --theme-error-bg-base-raised: light-dark(oklch(0.98 0.0098 13.15), oklch(0.222 0.028 13.15));
+    --theme-error-bg-primary: light-dark(oklch(0.6284 0.1949 13.15), oklch(0.6284 0.1949 13.15));
+    --theme-error-bg-primary-hover: light-dark(oklch(0.5784 0.1949 13.15), oklch(0.5784 0.1949 13.15));
+    --theme-error-bg-tint: light-dark(oklch(0.95 0.0251 13.15), oklch(0.36 0.085 13.15));
+    --theme-error-border-default: light-dark(oklch(0.6 0.18 13.15 / 0.12), oklch(0.72 0.17 13.15 / 0.34));
+    --theme-error-border-field: light-dark(oklch(0.6 0.18 13.15 / 0.18), oklch(0.72 0.165 13.15 / 0.42));
+    --theme-error-border-field-hover: light-dark(oklch(0.6 0.18 13.15 / 0.24), oklch(0.72 0.16 13.15 / 0.49));
+    --theme-error-text-accent: light-dark(oklch(0.954 0.023 13.15), oklch(0.954 0.023 13.15));
+    --theme-error-text-hi-contrast: light-dark(oklch(0.35 0.09 13.15), oklch(0.93 0.0358 13.15));
+    --theme-error-text-lo-contrast: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --theme-error-text-placeholder: light-dark(oklch(0.6 0.19 13.15), oklch(0.72 0.17 13.15));
+    --theme-info-bg-base: light-dark(oklch(0.991 0.0042 267.01), oklch(0.2 0.022 267.01));
+    --theme-info-bg-base-raised: light-dark(oklch(0.98 0.0093 267.01), oklch(0.222 0.028 267.01));
+    --theme-info-bg-primary: light-dark(oklch(0.5438 0.191 267.01), oklch(0.5784 0.191 267.01));
+    --theme-info-bg-primary-hover: light-dark(oklch(0.4938 0.191 267.01), oklch(0.5284 0.191 267.01));
+    --theme-info-bg-tint: light-dark(oklch(0.95 0.0236 267.01), oklch(0.36 0.085 267.01));
+    --theme-info-border-default: light-dark(oklch(0.6 0.18 267.01 / 0.12), oklch(0.72 0.1446 267.01 / 0.34));
+    --theme-info-border-field: light-dark(oklch(0.6 0.18 267.01 / 0.18), oklch(0.72 0.1446 267.01 / 0.42));
+    --theme-info-border-field-hover: light-dark(oklch(0.6 0.18 267.01 / 0.24), oklch(0.72 0.1446 267.01 / 0.49));
+    --theme-info-text-accent: light-dark(oklch(0.93 0.0333 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-hi-contrast: light-dark(oklch(0.35 0.09 267.01), oklch(0.93 0.0333 267.01));
+    --theme-info-text-lo-contrast: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --theme-info-text-placeholder: light-dark(oklch(0.6 0.19 267.01), oklch(0.72 0.1446 267.01));
+    --theme-success-bg-base: light-dark(oklch(0.991 0.0046 170.73), oklch(0.2 0.0169 170.73));
+    --theme-success-bg-base-raised: light-dark(oklch(0.98 0.0084 170.73), oklch(0.222 0.0215 170.73));
+    --theme-success-bg-primary: light-dark(oklch(0.6422 0.115 170.73), oklch(0.6422 0.115 170.73));
+    --theme-success-bg-primary-hover: light-dark(oklch(0.5922 0.115 170.73), oklch(0.5922 0.115 170.73));
+    --theme-success-bg-tint: light-dark(oklch(0.95 0.0253 170.73), oklch(0.36 0.0652 170.73));
+    --theme-success-border-default: light-dark(oklch(0.6 0.1179 170.73 / 0.12), oklch(0.72 0.1303 170.73 / 0.34));
+    --theme-success-border-field: light-dark(oklch(0.6 0.1179 170.73 / 0.18), oklch(0.72 0.1265 170.73 / 0.42));
+    --theme-success-border-field-hover: light-dark(oklch(0.6 0.1179 170.73 / 0.24), oklch(0.72 0.1227 170.73 / 0.49));
+    --theme-success-text-accent: light-dark(oklch(0.9802 0.0275 170.73), oklch(0.9802 0.0275 170.73));
+    --theme-success-text-hi-contrast: light-dark(oklch(0.35 0.0687 170.73), oklch(0.93 0.0345 170.73));
+    --theme-success-text-lo-contrast: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+    --theme-success-text-placeholder: light-dark(oklch(0.6 0.1179 170.73), oklch(0.72 0.1303 170.73));
+    --theme-warning-bg-base: light-dark(oklch(0.991 0.006 84.13), oklch(0.2 0.022 84.13));
+    --theme-warning-bg-base-raised: light-dark(oklch(0.98 0.011 84.13), oklch(0.222 0.028 84.13));
+    --theme-warning-bg-primary: light-dark(oklch(0.8219 0.1572 84.13), oklch(0.8537 0.1572 84.13));
+    --theme-warning-bg-primary-hover: light-dark(oklch(0.8719 0.1365 84.13), oklch(0.9037 0.1012 84.13));
+    --theme-warning-bg-tint: light-dark(oklch(0.95 0.033 84.13), oklch(0.36 0.0738 84.13));
+    --theme-warning-border-default: light-dark(oklch(0.6 0.1231 84.13 / 0.12), oklch(0.72 0.1477 84.13 / 0.34));
+    --theme-warning-border-field: light-dark(oklch(0.6 0.1231 84.13 / 0.18), oklch(0.72 0.1477 84.13 / 0.42));
+    --theme-warning-border-field-hover: light-dark(oklch(0.6 0.1231 84.13 / 0.24), oklch(0.72 0.1477 84.13 / 0.49));
+    --theme-warning-text-accent: light-dark(oklch(0.25 0.05 84.13), oklch(0.25 0.05 84.13));
+    --theme-warning-text-hi-contrast: light-dark(oklch(0.35 0.0718 84.13), oklch(0.93 0.045 84.13));
+    --theme-warning-text-lo-contrast: light-dark(oklch(0.52 0.1067 84.13), oklch(0.85 0.11 84.13));
+    --theme-warning-text-placeholder: light-dark(oklch(0.6 0.1231 84.13), oklch(0.72 0.1477 84.13));
+    --color-syntax-1: light-dark(oklch(0.52 0.175 267.01), oklch(0.85 0.0736 267.01));
+    --color-syntax-2: light-dark(oklch(0.499 0.015 267.01), oklch(0.765 0.012 267.01));
+    --color-syntax-3: light-dark(oklch(0.52 0.175 13.15), oklch(0.85 0.0828 13.15));
+    --color-syntax-4: light-dark(oklch(0.52 0.1021 170.73), oklch(0.85 0.0843 170.73));
+}
+@utility bg-* {
+    background-color: --value(--theme-default-bg-*, [color]);
+    background-color: --alpha(--value(--theme-default-bg-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility border-* {
+    border-color: --value(--theme-default-border-*, [color]);
+    border-color: --alpha(--value(--theme-default-border-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility text-* {
+    color: --value(--theme-default-text-*, [color]);
+    color: --alpha(--value(--theme-default-text-*, [color]) / calc(--modifier(integer) * 1%));
+}
+@utility surface-primary {
+    &[data-hovered] {
+        background-color: var(--theme-default-bg-primary-hover);
+        background-image: none;
+    }
+    &[data-pressed] {
+        background-color: var(--theme-default-bg-primary);
+        background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    }
+    background-color: var(--theme-default-bg-primary);
+    background-image: linear-gradient(to bottom, var(--theme-default-bg-primary-hover) calc(var(--depth-gradient-alpha) * 100% - 100%), var(--theme-default-bg-primary) calc(var(--depth-gradient-alpha) * 100%));
+    border-bottom-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), black calc(var(--depth-gradient-alpha) * 12%));
+    border-left-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-right-color: color-mix(in oklab, var(--theme-default-bg-primary), black 15%);
+    border-top-color: color-mix(in oklab, color-mix(in oklab, var(--theme-default-bg-primary), black 15%), white calc(var(--depth-gradient-alpha) * 12%));
+    box-shadow: var(--depth-edge-highlight), var(--depth-small-shadow);
+    color: var(--theme-default-text-accent);
+    text-shadow: var(--depth-text-shadow);
+}
+@utility error {
+    --theme-default-bg-base: var(--theme-error-bg-base);
+    --theme-default-bg-base-raised: var(--theme-error-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-error-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-error-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-error-bg-tint);
+    --theme-default-border-default: var(--theme-error-border-default);
+    --theme-default-border-field: var(--theme-error-border-field);
+    --theme-default-border-field-hover: var(--theme-error-border-field-hover);
+    --theme-default-text-accent: var(--theme-error-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-error-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-error-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-error-text-placeholder);
+}
+@utility info {
+    --theme-default-bg-base: var(--theme-info-bg-base);
+    --theme-default-bg-base-raised: var(--theme-info-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-info-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-info-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-info-bg-tint);
+    --theme-default-border-default: var(--theme-info-border-default);
+    --theme-default-border-field: var(--theme-info-border-field);
+    --theme-default-border-field-hover: var(--theme-info-border-field-hover);
+    --theme-default-text-accent: var(--theme-info-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-info-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-info-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-info-text-placeholder);
+}
+@utility success {
+    --theme-default-bg-base: var(--theme-success-bg-base);
+    --theme-default-bg-base-raised: var(--theme-success-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-success-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-success-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-success-bg-tint);
+    --theme-default-border-default: var(--theme-success-border-default);
+    --theme-default-border-field: var(--theme-success-border-field);
+    --theme-default-border-field-hover: var(--theme-success-border-field-hover);
+    --theme-default-text-accent: var(--theme-success-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-success-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-success-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-success-text-placeholder);
+}
+@utility warning {
+    --theme-default-bg-base: var(--theme-warning-bg-base);
+    --theme-default-bg-base-raised: var(--theme-warning-bg-base-raised);
+    --theme-default-bg-primary: var(--theme-warning-bg-primary);
+    --theme-default-bg-primary-hover: var(--theme-warning-bg-primary-hover);
+    --theme-default-bg-tint: var(--theme-warning-bg-tint);
+    --theme-default-border-default: var(--theme-warning-border-default);
+    --theme-default-border-field: var(--theme-warning-border-field);
+    --theme-default-border-field-hover: var(--theme-warning-border-field-hover);
+    --theme-default-text-accent: var(--theme-warning-text-accent);
+    --theme-default-text-hi-contrast: var(--theme-warning-text-hi-contrast);
+    --theme-default-text-lo-contrast: var(--theme-warning-text-lo-contrast);
+    --theme-default-text-placeholder: var(--theme-warning-text-placeholder);
+}"
+`;
+
+exports[`generateTheme at radius some 1`] = `
+"@theme {
+    --color-*: initial;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -516,7 +1029,7 @@ exports[`generateTheme at depth some 1`] = `
 exports[`generateTheme at saturation lots 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -687,7 +1200,7 @@ exports[`generateTheme at saturation lots 1`] = `
 exports[`generateTheme at saturation none 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -858,7 +1371,7 @@ exports[`generateTheme at saturation none 1`] = `
 exports[`generateTheme at saturation some 1`] = `
 "@theme {
     --color-*: initial;
-    --radius-xs: 0.125rem;
+    --radius-xs: 0.25rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;

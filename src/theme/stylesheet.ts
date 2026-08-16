@@ -80,16 +80,16 @@ const FUNCTIONAL_UTILITIES: readonly [name: string, block: Block][] = [
     ['text-*', { color: tokenValue('text') }],
 ]
 
-/** Tailwind's own proportions, expressed against the `md` step. */
-const RADIUS_STEPS: readonly [step: string, factor: number][] = [
-    ['xs', 1 / 3],
-    ['sm', 2 / 3],
-    ['md', 1],
-    ['lg', 4 / 3],
-    ['xl', 2],
-    ['2xl', 8 / 3],
-    ['3xl', 4],
-    ['4xl', 16 / 3],
+/** Tailwind's own scale at `some`; at `lots` small steps pill and large ones damp. */
+const RADIUS_STEPS: readonly [step: string, radii: Record<ThemeSetting, number>][] = [
+    ['xs', { lots: 0.375, none: 0, some: 0.25 }],
+    ['sm', { lots: 1, none: 0, some: 0.25 }],
+    ['md', { lots: 1.125, none: 0, some: 0.375 }],
+    ['lg', { lots: 0.625, none: 0, some: 0.5 }],
+    ['xl', { lots: 0.9375, none: 0, some: 0.75 }],
+    ['2xl', { lots: 1.25, none: 0, some: 1 }],
+    ['3xl', { lots: 1.875, none: 0, some: 1.5 }],
+    ['4xl', { lots: 2.5, none: 0, some: 2 }],
 ]
 
 /** The fill's own rim: `bg-primary` pulled toward black, never a neutral. */
@@ -173,15 +173,12 @@ function lightDark(palette: IntentPalette, token: Token): string {
     return `light-dark(${formatOklch(palette.light[token])}, ${formatOklch(palette.dark[token])})`
 }
 
-function radiusVars(radius: number): Block {
+function radiusVars(radius: ThemeSetting): Block {
     return varBlock(
-        RADIUS_STEPS.map(([step, factor]): VarEntry => [`--radius-${step}`, rem(radius * factor)])
+        RADIUS_STEPS.map(
+            ([step, radii]): VarEntry => [`--radius-${step}`, `${String(radii[radius])}rem`]
+        )
     )
-}
-
-/** Trims the float noise a fractional step leaves behind. */
-function rem(length: number): string {
-    return `${String(Number(length.toFixed(4)))}rem`
 }
 
 /** Repoints every `default` token at this intent's, for everything below. */

@@ -73,9 +73,8 @@ function isThemeInput(value: unknown): value is ThemeInput {
 
     const { colors, depth, overrides, radius, saturation } = value as Record<string, unknown>
 
-    if (radius != null && (typeof radius !== 'number' || Number.isNaN(radius))) return false
     if (typeof colors !== 'object' || colors == null) return false
-    if (!isKnownSetting(depth) || !isKnownSetting(saturation)) return false
+    if (![depth, radius, saturation].every(isKnownSetting)) return false
     if (!isOverrides(overrides)) return false
 
     const seeds = colors as Record<string, unknown>

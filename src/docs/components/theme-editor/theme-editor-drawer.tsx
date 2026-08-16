@@ -15,7 +15,6 @@ import { ColorsSection } from './colors-section'
 import { CopyButton } from './copy-button'
 import { SECTION_HEADING } from './field'
 import { PresetSelect } from './preset-select'
-import { RadiusSlider } from './radius-slider'
 import { SettingSlider } from './setting-slider'
 import { setThemeEditorOpen, useIsThemeEditorOpen } from './store'
 import { useThemeInput } from './use-theme-input'
@@ -53,7 +52,8 @@ export function ThemeEditorDrawer() {
                 <div className='flex flex-col gap-4'>
                     <h3 className={SECTION_HEADING}>Style</h3>
 
-                    <RadiusSlider
+                    <SettingSlider
+                        label='Radius'
                         onChange={theme.setRadius}
                         value={theme.radius}
                     />

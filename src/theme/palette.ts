@@ -4,7 +4,6 @@ import { clampChroma, converter } from 'culori'
 
 import { apcaLc } from './apca'
 import { APCA_TIERS, CONTRAST_POLICY, requiredLc } from './contrast'
-import { DEFAULT_RADIUS } from './presets'
 
 /** A pairing the solver could not bring up to its policy tier. */
 export interface ContrastWarning {
@@ -41,8 +40,8 @@ export interface ThemeInput {
     /** Colors to take verbatim, in place of the ones derivation would reach. */
     overrides?: ThemeOverrides
 
-    /** Base radius in rem — the `md` step. Every other step scales with it. */
-    radius?: number
+    /** How far the corners round. Large surfaces round less hard than small ones. */
+    radius?: ThemeSetting
 
     /** How much of the seed's hue bleeds into backgrounds, borders and body text. */
     saturation?: ThemeSetting
@@ -99,7 +98,7 @@ export const TOKENS: readonly Token[] = [
 /** A theme with every optional knob resolved to a setting. */
 export interface ResolvedTheme extends ThemeInput {
     depth: ThemeSetting
-    radius: number
+    radius: ThemeSetting
     saturation: ThemeSetting
 }
 
@@ -284,7 +283,7 @@ export function resolveTheme(input: ThemeInput): ResolvedTheme {
     return {
         ...input,
         depth: input.depth ?? DEFAULT_SETTING,
-        radius: input.radius ?? DEFAULT_RADIUS,
+        radius: input.radius ?? DEFAULT_SETTING,
         saturation: input.saturation ?? DEFAULT_SETTING,
     }
 }

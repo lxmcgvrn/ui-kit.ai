@@ -10,14 +10,7 @@ import type {
     ThemeSetting,
 } from '@ui-kit.ai/theme'
 
-import {
-    DEFAULT_RADIUS,
-    DEFAULT_SETTING,
-    DEFAULT_THEME,
-    generateTheme,
-    INTENTS,
-    PRESETS,
-} from '@ui-kit.ai/theme'
+import { DEFAULT_SETTING, DEFAULT_THEME, generateTheme, INTENTS, PRESETS } from '@ui-kit.ai/theme'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -66,7 +59,7 @@ export interface ThemeEditorController extends State {
     palettes: Palettes
 
     /** The input's radius, spelled out — presets inherit it rather than set it. */
-    radius: number
+    radius: ThemeSetting
     reset: () => void
 
     /** The input's saturation, spelled out — presets inherit it rather than set it. */
@@ -75,7 +68,7 @@ export interface ThemeEditorController extends State {
     setColor: (intent: Intent, scheme: Scheme, color: string) => void
     setDepth: (depth: ThemeSetting) => void
     setOverride: (address: TokenAddress, color: string) => void
-    setRadius: (radius: number) => void
+    setRadius: (radius: ThemeSetting) => void
     setSaturation: (saturation: ThemeSetting) => void
 }
 
@@ -136,7 +129,7 @@ export function useThemeInput(): ThemeEditorController {
     }, [clearErrors, generated, reportContrast, state.input, state.isOverridden])
 
     const depth = state.input.depth ?? DEFAULT_SETTING
-    const radius = state.input.radius ?? DEFAULT_RADIUS
+    const radius = state.input.radius ?? DEFAULT_SETTING
     const saturation = state.input.saturation ?? DEFAULT_SETTING
 
     const { errors } = formState
@@ -204,7 +197,7 @@ export function useThemeInput(): ThemeEditorController {
         setState((current) => customise(current, { depth }))
     }, [])
 
-    const setRadius = useCallback((radius: number) => {
+    const setRadius = useCallback((radius: ThemeSetting) => {
         setState((current) => customise(current, { radius }))
     }, [])
 
