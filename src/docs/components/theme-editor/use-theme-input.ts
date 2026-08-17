@@ -1,25 +1,17 @@
 'use client'
 
-import type {
-    ContrastWarning,
-    Intent,
-    Palettes,
-    Scheme,
-    ThemeInput,
-    ThemeOverrides,
-    ThemeSetting,
-} from '@ui-kit.ai/theme'
+import type { Intent, Palettes, Scheme, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
 
-import { DEFAULT_SETTING, DEFAULT_THEME, generateTheme, INTENTS, PRESETS } from '@ui-kit.ai/theme'
+import { DEFAULT_SETTING, DEFAULT_THEME, generateTheme, PRESETS } from '@ui-kit.ai/theme'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
 
+import type { ContrastReport } from './contrast-report'
 import type { TokenAddress } from './tokens'
 
 import { seedFor, withSeed } from './color'
-import { toContrastErrors } from './contrast-warnings'
+import { toContrastReport } from './contrast-report'
 import { applyThemeCss, removeThemeCss } from './inject'
-import { overrideAt, withoutOverride, withOverride } from './overrides'
+import { overrideAt, withoutIntentOverrides, withoutOverride, withOverride } from './overrides'
 import { clearStoredTheme, readStoredTheme, writeStoredTheme } from './storage'
 
 /** Preset key for a hand-mixed palette. */
@@ -41,11 +33,14 @@ export interface ThemeEditorController extends State {
     /** Hands the dark scheme back to the light seed. */
     clearDarkSeed: (intent: Intent) => void
 
+    /** Hands every token an intent hand-picks in one scheme back to derivation. */
+    clearIntentOverrides: (intent: Intent, scheme: Scheme) => void
+
     /** Hands one token back to derivation. */
     clearOverride: (address: TokenAddress) => void
 
-    /** The intent's contrast complaint, if one of its colours missed a target. */
-    contrastError: (intent: Intent) => string | undefined
+    /** Where the engine's contrast complaints land, root and leaf. */
+    contrast: ContrastReport
     css: () => string
 
     /** The input's depth, spelled out — presets inherit it rather than set it. */
@@ -86,29 +81,15 @@ export function useThemeInput(): ThemeEditorController {
 
     const generated = useMemo(() => generateTheme(state.input), [state.input])
 
-    /* The form holds no values: it carries the engine's complaints, keyed by field. */
-    const { clearErrors, formState, setError } = useForm<{ colors: Record<Intent, string> }>()
-
-    const reportContrast = useCallback(
-        (warnings: readonly ContrastWarning[], overrides: ThemeOverrides | undefined) => {
-            const messages = toContrastErrors(warnings, overrides)
-
-            clearErrors('colors')
-            for (const intent of INTENTS) {
-                const message = messages[intent]
-                if (message == null) continue
-
-                setError(`colors.${intent}`, { message, type: 'contrast' })
-            }
-        },
-        [clearErrors, setError]
+    const contrast = useMemo(
+        () => toContrastReport(generated.warnings, state.input.overrides),
+        [generated.warnings, state.input.overrides]
     )
 
     useEffect(() => {
         if (!state.isOverridden) {
             clearStoredTheme()
             removeThemeCss()
-            clearErrors('colors')
             return
         }
 
@@ -117,7 +98,6 @@ export function useThemeInput(): ThemeEditorController {
             () => {
                 applyThemeCss(generated.css)
                 writeStoredTheme(state.input)
-                reportContrast(generated.warnings, state.input.overrides)
             },
             hasApplied.current ? DEBOUNCE_MS : 0
         )
@@ -126,18 +106,11 @@ export function useThemeInput(): ThemeEditorController {
         return () => {
             clearTimeout(timeout)
         }
-    }, [clearErrors, generated, reportContrast, state.input, state.isOverridden])
+    }, [generated, state.input, state.isOverridden])
 
     const depth = state.input.depth ?? DEFAULT_SETTING
     const radius = state.input.radius ?? DEFAULT_SETTING
     const saturation = state.input.saturation ?? DEFAULT_SETTING
-
-    const { errors } = formState
-
-    const contrastError = useCallback(
-        (intent: Intent) => errors.colors?.[intent]?.message,
-        [errors.colors]
-    )
 
     const css = useCallback(() => generated.css, [generated])
 
@@ -181,6 +154,14 @@ export function useThemeInput(): ThemeEditorController {
         )
     }, [])
 
+    const clearIntentOverrides = useCallback((intent: Intent, scheme: Scheme) => {
+        setState((current) =>
+            customise(current, {
+                overrides: withoutIntentOverrides(current.input.overrides, intent, scheme),
+            })
+        )
+    }, [])
+
     const clearOverride = useCallback((address: TokenAddress) => {
         setState((current) =>
             customise(current, { overrides: withoutOverride(current.input.overrides, address) })
@@ -208,8 +189,9 @@ export function useThemeInput(): ThemeEditorController {
     return {
         ...state,
         clearDarkSeed,
+        clearIntentOverrides,
         clearOverride,
-        contrastError,
+        contrast,
         css,
         depth,
         json,

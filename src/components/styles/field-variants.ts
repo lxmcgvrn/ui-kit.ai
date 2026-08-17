@@ -6,6 +6,7 @@ export const fieldVariants = tv({
         'text-hi-contrast text-base',
         'rounded-sm',
         'disabled:text-placeholder',
+        'readonly:text-placeholder',
         'placeholder:text-placeholder',
         // invalid
         'invalid:error group-invalid:error',

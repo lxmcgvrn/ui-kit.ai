@@ -6,10 +6,13 @@ import { twMerge } from 'tailwind-merge'
 import { Button } from '../button'
 
 export interface FieldButtonProps
-    extends Omit<ComponentProps<typeof Button>, 'excludeFromTabOrder' | 'isIcon' | 'variant'> {}
+    extends Omit<ComponentProps<typeof Button>, 'isIcon' | 'variant'> {
+    /** Field buttons sit outside the tab order. Set `false` to give one a tab stop. */
+    excludeFromTabOrder?: boolean
+}
 
 /** An icon button for use inside a `FieldGroup`. */
-export function FieldButton({ ...props }: FieldButtonProps) {
+export function FieldButton({ excludeFromTabOrder = true, ...props }: FieldButtonProps) {
     return (
         <Button
             isIcon
@@ -26,7 +29,7 @@ export function FieldButton({ ...props }: FieldButtonProps) {
                     className
                 )
             )}
-            excludeFromTabOrder
+            excludeFromTabOrder={excludeFromTabOrder}
         />
     )
 }

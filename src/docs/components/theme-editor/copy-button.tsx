@@ -6,13 +6,17 @@ import { useEffect, useRef, useState } from 'react'
 
 const CONFIRM_MS = 1500
 
+/** `outlined` reads as a secondary action; `filled` carries the theme's accent. */
+const BUTTON_VARIANT = { filled: 'primary', outlined: 'secondary' } as const
+
 export interface CopyButtonProps {
     children: string
     getValue: () => string
+    variant?: keyof typeof BUTTON_VARIANT
 }
 
 /** Copies a generated string, and says so for a moment afterwards. */
-export function CopyButton({ children, getValue }: CopyButtonProps) {
+export function CopyButton({ children, getValue, variant = 'outlined' }: CopyButtonProps) {
     const [hasCopied, setHasCopied] = useState(false)
     const timeout = useRef<number | undefined>(undefined)
 
@@ -40,7 +44,7 @@ export function CopyButton({ children, getValue }: CopyButtonProps) {
         <Button
             onPress={() => void onPress()}
             slotLeft={hasCopied ? <LucideCheck /> : <LucideClipboard />}
-            variant='secondary'
+            variant={BUTTON_VARIANT[variant]}
         >
             {hasCopied ? 'Copied' : children}
         </Button>

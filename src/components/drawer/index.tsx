@@ -30,7 +30,7 @@ const panelStyles = tv({
     base: [
         'fixed inset-y-0',
         'h-dvh w-full sm:w-96',
-        'bg-base-raised text-hi-contrast',
+        'bg-base text-hi-contrast',
         'border-default shadow-2xl',
         'forced-colors:bg-[Canvas]',
         // transition

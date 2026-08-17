@@ -1,4 +1,5 @@
 import type { Scheme, SeedColor } from '@ui-kit.ai/theme'
+import type { Color as RACColor } from 'react-aria-components'
 
 import { formatOklch } from '@ui-kit.ai/theme'
 import { converter, formatRgb, parse } from 'culori'
@@ -30,6 +31,11 @@ export function toThemeColor(color: string) {
     const parsed = toOklch(color)
 
     return parsed == null ? undefined : formatOklch(parsed)
+}
+
+/** A hex carries no alpha, so the opacity the colour already had rides along. */
+export function withAlphaFrom(color: RACColor, source: RACColor) {
+    return color.withChannelValue('alpha', source.getChannelValue('alpha'))
 }
 
 /** One scheme's new seed. Aiming the dark one splits the pair in two. */

@@ -1,124 +1,153 @@
+import type { Scheme, ThemeInput } from '@ui-kit.ai/theme'
 import type { ComponentType, ReactNode } from 'react'
 
-import { useState } from 'react'
+import { DEFAULT_SETTING, DEFAULT_THEME, generateTheme } from '@ui-kit.ai/theme'
+import { useCallback, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import './styles.css'
 
-import { ColorPickerPanel } from '../src/docs/components/theme-editor/color-picker-panel'
-import { ColorRowField } from '../src/docs/components/theme-editor/color-row-field'
+import type { ThemeEditorController } from '../src/docs/components/theme-editor/use-theme-input'
 
-/** A seed: opaque, and never given an opacity section. */
-const SEED = 'oklch(0.5438 0.191 267.01)'
+import { seedFor, withSeed } from '../src/docs/components/theme-editor/color'
+import { ColourTree } from '../src/docs/components/theme-editor/colour-tree'
+import { toContrastReport } from '../src/docs/components/theme-editor/contrast-report'
+import {
+    overrideAt,
+    withoutIntentOverrides,
+    withoutOverride,
+    withOverride,
+} from '../src/docs/components/theme-editor/overrides'
 
-/** A border token: translucent, so its picker grows an opacity section. */
-const TOKEN = 'oklch(0.895 0.04 267.01 / 0.11)'
+/** A mid-tone seed the solver cannot satisfy, so the error icons show up. */
+const ORANGE = 'oklch(0.7 0.19 45)'
 
-interface PickerHarnessProps {
-    hasAlpha: boolean
-    initial: string
-    label: string
+/** Dark aimed away from light, with two of its tokens hand-picked. */
+const AIMED: ThemeInput = {
+    colors: { ...DEFAULT_THEME.colors, default: { dark: ORANGE, light: ORANGE } },
+    overrides: {
+        default: {
+            'bg-tint': { dark: 'oklch(0.35 0.06 45)', light: 'oklch(0.9 0.06 45)' },
+            'border-field': { dark: 'oklch(0.9 0.04 45 / 0.3)', light: 'oklch(0.2 0.08 45 / 0.3)' },
+        },
+    },
 }
 
-/** Counts every `onChange`, so opening the popover can be proven silent. */
-function useEdits(initial: string) {
-    const [state, setState] = useState({ edits: 0, value: initial })
+const ORANGE_SEEDED: ThemeInput = {
+    colors: { ...DEFAULT_THEME.colors, default: ORANGE },
+}
+
+/** The controller's surface, without the persistence the drawer wraps it in. */
+function useHarnessController(initial: ThemeInput): ThemeEditorController {
+    const [input, setInput] = useState(initial)
+
+    const generated = useMemo(() => generateTheme(input), [input])
+    const contrast = useMemo(
+        () => toContrastReport(generated.warnings, input.overrides),
+        [generated.warnings, input.overrides]
+    )
+
+    const override = useCallback(
+        (address: Parameters<ThemeEditorController['override']>[0]) =>
+            overrideAt(input.overrides, address),
+        [input.overrides]
+    )
 
     return {
-        ...state,
-        onChange: (value: string) => {
-            setState((current) => ({ edits: current.edits + 1, value }))
+        clearDarkSeed: (intent) => {
+            setInput((current) => ({
+                ...current,
+                colors: {
+                    ...current.colors,
+                    [intent]: seedFor(current.colors[intent], 'light'),
+                },
+            }))
         },
+        clearIntentOverrides: (intent, scheme) => {
+            setInput((current) => ({
+                ...current,
+                overrides: withoutIntentOverrides(current.overrides, intent, scheme),
+            }))
+        },
+        clearOverride: (address) => {
+            setInput((current) => ({
+                ...current,
+                overrides: withoutOverride(current.overrides, address),
+            }))
+        },
+        contrast,
+        css: () => generated.css,
+        depth: DEFAULT_SETTING,
+        input,
+        isOverridden: true,
+        json: () => JSON.stringify(input),
+        override,
+        palettes: generated.palettes,
+        preset: 'custom',
+        radius: DEFAULT_SETTING,
+        reset: () => undefined,
+        saturation: DEFAULT_SETTING,
+        selectPreset: () => undefined,
+        setColor: (intent, scheme, color) => {
+            setInput((current) => ({
+                ...current,
+                colors: {
+                    ...current.colors,
+                    [intent]: withSeed(current.colors[intent], scheme, color),
+                },
+            }))
+        },
+        setDepth: () => undefined,
+        setOverride: (address, color) => {
+            setInput((current) => ({
+                ...current,
+                overrides: withOverride(current.overrides, address, color),
+            }))
+        },
+        setRadius: () => undefined,
+        setSaturation: () => undefined,
     }
 }
 
-function Readout({ edits, value }: { edits: number; value: string }) {
-    return (
-        <p className='text-lo-contrast font-mono text-xs'>
-            {edits} edits — {value}
-        </p>
-    )
-}
-
-/** The picker as the drawer uses it: a row, with the popover behind a pipette. */
-function RowHarness({ hasAlpha, initial, label }: PickerHarnessProps) {
-    const { edits, onChange, value } = useEdits(initial)
+function TreeHarness({ input, scheme }: { input: ThemeInput; scheme: Scheme }) {
+    const controller = useHarnessController(input)
 
     return (
-        <div className='flex w-72 flex-col gap-2'>
-            <ColorRowField
-                hasAlpha={hasAlpha}
-                isDerived={false}
-                label={label}
-                onChange={onChange}
-                value={value}
-            />
-            <Readout
-                edits={edits}
-                value={value}
-            />
-        </div>
-    )
-}
-
-/* The popover portals to the body, so only an inline panel wears both schemes. */
-function PanelHarness({ hasAlpha, initial }: PickerHarnessProps) {
-    const { edits, onChange, value } = useEdits(initial)
-
-    return (
-        <div className='border-default bg-base-raised flex w-72 flex-col gap-3 rounded-sm border p-4'>
-            <ColorPickerPanel
-                hasAlpha={hasAlpha}
-                onChange={onChange}
-                value={value}
-            />
-            <Readout
-                edits={edits}
-                value={value}
+        <div className='w-[420px]'>
+            <ColourTree
+                controller={controller}
+                scheme={scheme}
             />
         </div>
     )
 }
 
 /** Swap in whatever needs eyeballing; this file is the whole harness. */
-const DEMOS: [name: string, demo: ComponentType][] = [
+const DEMOS: [name: string, demo: ComponentType<{ scheme: Scheme }>][] = [
     [
-        'panel — token (alpha)',
-        () => (
-            <PanelHarness
-                hasAlpha
-                initial={TOKEN}
-                label='border-default'
+        'tree — shipped theme (dark mirrors light)',
+        ({ scheme }) => (
+            <TreeHarness
+                input={DEFAULT_THEME}
+                scheme={scheme}
             />
         ),
     ],
     [
-        'panel — seed (no alpha)',
-        () => (
-            <PanelHarness
-                hasAlpha={false}
-                initial={SEED}
-                label='Default seed'
+        'tree — orange seed (contrast failures)',
+        ({ scheme }) => (
+            <TreeHarness
+                input={ORANGE_SEEDED}
+                scheme={scheme}
             />
         ),
     ],
     [
-        'row — token (alpha)',
-        () => (
-            <RowHarness
-                hasAlpha
-                initial={TOKEN}
-                label='border-default, light'
-            />
-        ),
-    ],
-    [
-        'row — seed (no alpha)',
-        () => (
-            <RowHarness
-                hasAlpha={false}
-                initial={SEED}
-                label='Default seed, light'
+        'tree — dark aimed, two overrides',
+        ({ scheme }) => (
+            <TreeHarness
+                input={AIMED}
+                scheme={scheme}
             />
         ),
     ],
@@ -130,10 +159,14 @@ const from = Number(params.get('from') ?? 0)
 const to = Number(params.get('to') ?? DEMOS.length)
 const shown = DEMOS.slice(from, to)
 
-function Panel({ children, scheme }: { children: ReactNode; scheme: 'dark' | 'light' }) {
+/** `?scheme=light` drops to one column, for screenshots at full size. */
+const only = params.get('scheme')
+const schemes = (['light', 'dark'] as const).filter((scheme) => only == null || only === scheme)
+
+function Panel({ children, scheme }: { children: ReactNode; scheme: Scheme }) {
     return (
         <div
-            className='bg-base text-hi-contrast flex flex-col gap-6 p-6'
+            className='bg-base-raised text-hi-contrast flex flex-col gap-6 p-6'
             style={{ colorScheme: scheme }}
         >
             {children}
@@ -143,8 +176,11 @@ function Panel({ children, scheme }: { children: ReactNode; scheme: 'dark' | 'li
 
 function Preview() {
     return (
-        <div className='grid min-h-dvh grid-cols-2'>
-            {(['light', 'dark'] as const).map((scheme) => (
+        <div
+            className='grid min-h-dvh'
+            style={{ gridTemplateColumns: `repeat(${schemes.length.toString()}, minmax(0, 1fr))` }}
+        >
+            {schemes.map((scheme) => (
                 <Panel
                     key={scheme}
                     scheme={scheme}
@@ -152,7 +188,7 @@ function Preview() {
                     {shown.map(([name, Demo]) => (
                         <section key={name}>
                             <p className='text-lo-contrast mb-2 text-xs'>{name}</p>
-                            <Demo />
+                            <Demo scheme={scheme} />
                         </section>
                     ))}
                 </Panel>

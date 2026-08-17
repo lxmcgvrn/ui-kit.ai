@@ -1,33 +1,41 @@
 'use client'
 
 import {
-    Button,
-    Description,
     Drawer,
     DrawerCloseButton,
     DrawerContent,
-    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
 } from '@ui-kit.ai/components'
+import { tv } from 'tailwind-variants'
 
-import { ColorsSection } from './colors-section'
-import { CopyButton } from './copy-button'
-import { SECTION_HEADING } from './field'
-import { PresetSelect } from './preset-select'
-import { SettingSlider } from './setting-slider'
+import { ColourTree } from './colour-tree'
+import { FeelSection } from './feel-section'
+import { PresetChips } from './preset-chips'
+import { SchemeTabs } from './scheme-tabs'
 import { setThemeEditorOpen, useIsThemeEditorOpen } from './store'
+import { ThemeEditorFooter } from './theme-editor-footer'
+import { useColorScheme } from './use-color-scheme'
 import { useThemeInput } from './use-theme-input'
+
+const drawerStyles = tv({
+    slots: {
+        heading: 'text-lo-contrast text-xs font-semibold tracking-widest uppercase',
+        sectionHead: 'mb-3 flex items-center justify-between gap-3',
+    },
+})
 
 /** The site-wide theme editor: a right-hand drawer over the live page. */
 export function ThemeEditorDrawer() {
     const isOpen = useIsThemeEditorOpen()
     const theme = useThemeInput()
+    const { scheme, selectScheme } = useColorScheme()
+    const { heading, sectionHead } = drawerStyles()
 
     return (
         <Drawer
-            // Wide enough to read a whole oklch value without scrolling the field.
-            className='sm:w-[29rem]'
+            aria-label='Theme editor'
+            className='sm:w-md'
             isOpen={isOpen}
             onOpenChange={setThemeEditorOpen}
         >
@@ -36,55 +44,27 @@ export function ThemeEditorDrawer() {
                 <DrawerCloseButton />
             </DrawerHeader>
 
-            <DrawerContent className='flex flex-col gap-6'>
-                <Description className='mb-0 w-full'>
-                    Every change re-themes this whole site, live. Your theme is saved in this
-                    browser.
-                </Description>
+            <DrawerContent>
+                <div className={sectionHead()}>
+                    <h3 className={heading()}>Colour</h3>
 
-                <PresetSelect
-                    onChange={theme.selectPreset}
-                    value={theme.preset}
+                    <SchemeTabs
+                        onSchemeChange={selectScheme}
+                        scheme={scheme}
+                    />
+                </div>
+
+                <PresetChips theme={theme} />
+
+                <ColourTree
+                    controller={theme}
+                    scheme={scheme}
                 />
 
-                <ColorsSection theme={theme} />
-
-                <div className='flex flex-col gap-4'>
-                    <h3 className={SECTION_HEADING}>Style</h3>
-
-                    <SettingSlider
-                        label='Radius'
-                        onChange={theme.setRadius}
-                        value={theme.radius}
-                    />
-
-                    <SettingSlider
-                        label='Depth'
-                        onChange={theme.setDepth}
-                        value={theme.depth}
-                    />
-
-                    <SettingSlider
-                        label='Saturation'
-                        onChange={theme.setSaturation}
-                        value={theme.saturation}
-                    />
-                </div>
+                <FeelSection theme={theme} />
             </DrawerContent>
 
-            <DrawerFooter>
-                <Button
-                    isDisabled={!theme.isOverridden}
-                    onPress={theme.reset}
-                    variant='tertiary'
-                >
-                    Reset
-                </Button>
-                <div className='flex gap-2'>
-                    <CopyButton getValue={theme.css}>CSS</CopyButton>
-                    <CopyButton getValue={theme.json}>JSON</CopyButton>
-                </div>
-            </DrawerFooter>
+            <ThemeEditorFooter theme={theme} />
         </Drawer>
     )
 }

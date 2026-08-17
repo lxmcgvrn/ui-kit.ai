@@ -1,12 +1,11 @@
 ---
 title: ColorPicker
-description: A swatch button that opens a popover for picking a color.
+description: Holds a set of color controls on one color.
 ---
 
 import ColorPickerControlled from './examples/controlled'
-import ColorPickerCustomContent from './examples/custom-content'
 import ColorPickerDefault from './examples/default'
-import ColorPickerWithLabel from './examples/with-label'
+import ColorPickerPopover from './examples/popover'
 
 <ComponentPreview name='color-picker/default'>
     <ColorPickerDefault />
@@ -18,25 +17,19 @@ import ColorPickerWithLabel from './examples/with-label'
 import { ColorPicker } from '@ui-kit.ai/components'
 ```
 
-`ColorPicker` is the whole control: a trigger showing the current color as a `ColorSwatch` beside
-its hex value, and a popover holding a `ColorArea`, hue and alpha `ColorSlider`s, and a hex
-`ColorField`. It keeps every one of them on the same color, so none of them needs its own `value`.
+`ColorPicker` is a root, not a control. It draws nothing of its own: put any `ColorArea`,
+`ColorSlider`, `ColorWheel`, `ColorField`, `ColorSwatch` or `ColorSwatchPicker` inside it and they
+all read and write the same color, so none of them needs its own `value`. Name it by composing a
+`Label`, like any other field.
 
-## Label
+## In a popover
 
-The trigger shows the hex value by default. Pass `label` to name the color instead.
+There is no trigger built in. Compose one: a `DialogTrigger` with a `Button` and a `Popover` inside
+the picker puts the controls behind a swatch. Pass a function as `children` to read the current
+color.
 
-<ComponentPreview name='color-picker/with-label'>
-    <ColorPickerWithLabel />
-</ComponentPreview>
-
-## Custom content
-
-`children` replaces the contents of the popover. Any color component inside still reads and writes
-the picker's color.
-
-<ComponentPreview name='color-picker/custom-content'>
-    <ColorPickerCustomContent />
+<ComponentPreview name='color-picker/popover'>
+    <ColorPickerPopover />
 </ComponentPreview>
 
 ## Controlled

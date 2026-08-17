@@ -4,6 +4,7 @@ import type { Color as RACColor } from 'react-aria-components'
 
 import {
     ColorField,
+    ColorPicker,
     ColorSlider,
     ColorSwatch,
     Input,
@@ -43,8 +44,13 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
         if (themed != null) onChange(themed)
     }
 
+    /* Every control below reads and writes this one color, so none takes a value. */
     return (
-        <div className='flex flex-col gap-3'>
+        <ColorPicker
+            className='w-full'
+            onChange={onColorChange}
+            value={color}
+        >
             <Tabs
                 className='gap-3'
                 onSelectionChange={(key) => {
@@ -56,10 +62,7 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
                 variant='segmented'
             >
                 <div className='flex items-center justify-between gap-3'>
-                    <ColorSwatch
-                        className='size-8 shrink-0'
-                        color={color}
-                    />
+                    <ColorSwatch className='size-8 shrink-0' />
 
                     <TabList aria-label='Input method'>
                         {INPUT_METHODS.map(({ icon: Icon, id, label }) => (
@@ -81,10 +84,7 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
                         id={id}
                         key={id}
                     >
-                        <Control
-                            onChange={onColorChange}
-                            value={color}
-                        />
+                        <Control />
                     </TabPanel>
                 ))}
             </Tabs>
@@ -103,8 +103,6 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
                     <ColorSlider
                         channel='alpha'
                         className='grow'
-                        onChange={onColorChange}
-                        value={color}
                     >
                         <Label className='mb-0.5 text-xs'>Opacity</Label>
                     </ColorSlider>
@@ -113,15 +111,11 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
                         aria-label='Opacity'
                         channel='alpha'
                         className='w-16 shrink-0 grow-0'
-                        onChange={(picked) => {
-                            if (picked != null) onColorChange(picked)
-                        }}
-                        value={color}
                     >
                         <Input className='px-2 text-xs' />
                     </ColorField>
                 </div>
             ) : null}
-        </div>
+        </ColorPicker>
     )
 }

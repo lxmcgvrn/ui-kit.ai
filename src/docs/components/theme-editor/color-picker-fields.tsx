@@ -9,6 +9,7 @@ import { twMerge } from 'tailwind-merge'
 
 import type { ColorMode } from './use-picker-preferences'
 
+import { withAlphaFrom } from './color'
 import { toLabel } from './field'
 
 /** A channel a field can edit on its own. */
@@ -37,6 +38,8 @@ const FIELD_LABEL = 'mb-0.5 text-xs'
 
 export interface ColorPickerFieldsProps {
     mode: ColorMode
+
+    /** The hex field alone needs wiring — channel fields read the picker. */
     onChange: (color: RACColor) => void
     onModeChange: (mode: ColorMode) => void
     value: RACColor
@@ -44,17 +47,14 @@ export interface ColorPickerFieldsProps {
 
 interface ChannelFieldsProps {
     colorSpace: RACColorSpace
-    onChange: (color: RACColor) => void
-    value: RACColor
 }
 
 /** The color in numbers: a mode to read it in, and a field per channel. */
 export function ColorPickerFields({ mode, onChange, onModeChange, value }: ColorPickerFieldsProps) {
-    /* A hex field carries no alpha, so the opacity the user set rides along. */
     const onHexChange = (picked: null | RACColor) => {
         if (picked == null) return
 
-        onChange(picked.withChannelValue('alpha', value.getChannelValue('alpha')))
+        onChange(withAlphaFrom(picked, value))
     }
 
     return (
@@ -82,22 +82,14 @@ export function ColorPickerFields({ mode, onChange, onModeChange, value }: Color
                     <Input />
                 </ColorField>
             ) : (
-                <ChannelFields
-                    colorSpace={mode}
-                    onChange={onChange}
-                    value={value}
-                />
+                <ChannelFields colorSpace={mode} />
             )}
         </div>
     )
 }
 
 /** One field per channel of a mode, headed by the channel's initial. */
-function ChannelFields({ colorSpace, onChange, value }: ChannelFieldsProps) {
-    const onChannelChange = (picked: null | RACColor) => {
-        if (picked != null) onChange(picked)
-    }
-
+function ChannelFields({ colorSpace }: ChannelFieldsProps) {
     return (
         <div className='grid grow grid-cols-3 gap-1.5'>
             {MODE_CHANNELS[colorSpace].map((channel) => (
@@ -106,8 +98,6 @@ function ChannelFields({ colorSpace, onChange, value }: ChannelFieldsProps) {
                     channel={channel}
                     colorSpace={colorSpace}
                     key={channel}
-                    onChange={onChannelChange}
-                    value={value}
                 >
                     <Label className={FIELD_LABEL}>{channel.charAt(0).toUpperCase()}</Label>
                     <Input />
