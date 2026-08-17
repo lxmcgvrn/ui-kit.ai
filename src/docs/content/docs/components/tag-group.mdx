@@ -1,0 +1,75 @@
+---
+title: TagGroup
+description: A focusable list of tags, with keyboard navigation, selection and removal.
+---
+
+import TagGroupDefault from '@/components/examples/tag-group/default'
+import TagGroupIntents from '@/components/examples/tag-group/intents'
+import TagGroupRemovable from '@/components/examples/tag-group/removable'
+
+<ComponentPreview name='tag-group/default'>
+    <TagGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { TagGroup, TagGroupItem, TagList } from '@ui-kit.ai/components'
+```
+
+`TagGroup` wraps a `TagList`, which holds one `TagGroupItem` per tag. Tags are passed as data
+through the `items` prop, or written out as children.
+
+<Callout>
+    The item is called `TagGroupItem` rather than `Tag`, because `Tag` is already the presentational
+    badge. Reach for `Tag` when the tag is only there to be read, and for `TagGroupItem` when the
+    user can focus, select, or remove it. The two share an appearance.
+</Callout>
+
+`TagGroup` renders no label of its own. Put a `Label` inside it, or give it an `aria-label`.
+
+## Selection
+
+Set `selectionMode` to `single` or `multiple` on the `TagGroup`. Selected tags take on the solid
+appearance, matching `Tag`'s `solid` variant.
+
+## Removal
+
+Pass `onRemove` to the `TagGroup` and each tag grows a remove button. `TagList` takes
+`renderEmptyState` for the case where the last tag has gone.
+
+<ComponentPreview name='tag-group/removable'>
+    <TagGroupRemovable />
+</ComponentPreview>
+
+## Intents
+
+`intent` colors a tag semantically, exactly as it does on `Tag`, and `slotLeft` accepts a
+decorative node such as an icon.
+
+<ComponentPreview name='tag-group/intents'>
+    <TagGroupIntents />
+</ComponentPreview>
+
+## Props
+
+### TagGroup
+
+<AutoTypeTable
+    name='TagGroupProps'
+    path='../components/tag-group/index.tsx'
+/>
+
+### TagList
+
+<AutoTypeTable
+    name='TagListProps'
+    path='../components/tag-group/index.tsx'
+/>
+
+### TagGroupItem
+
+<AutoTypeTable
+    name='TagGroupItemProps'
+    path='../components/tag-group/index.tsx'
+/>

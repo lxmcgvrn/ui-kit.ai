@@ -1,0 +1,37 @@
+---
+title: FieldError
+description: Displays validation errors for a field within a form.
+---
+
+import FieldErrorDefault from '@/components/examples/field-error/default'
+import FieldErrorLongMessage from '@/components/examples/field-error/long-message'
+
+<ComponentPreview name='field-error/default'>
+    <FieldErrorDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { FieldError } from '@ui-kit.ai/components'
+```
+
+`FieldError` renders below the field it belongs to and is only shown while the field is invalid.
+The form field components — `FormTextField`, `FormSelect`, `FormComboBox`, `FormCheckboxGroup` —
+render one for you and wire it to the matching `react-hook-form` error, so it rarely needs to be
+written out by hand.
+
+## Long message
+
+Messages wrap onto multiple lines without affecting the layout of the field above.
+
+<ComponentPreview name='field-error/long-message'>
+    <FieldErrorLongMessage />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='FieldErrorProps'
+    path='../components/field-error/index.tsx'
+/>

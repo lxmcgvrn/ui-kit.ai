@@ -253,7 +253,7 @@ export default [
         },
     },
     {
-        files: ['src/docs/**/*.tsx', 'src/components/**/examples/*.tsx'],
+        files: ['src/docs/**/*.tsx'],
         rules: {
             'react/display-name': 'off',
         },

@@ -7,15 +7,15 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-/** `src/components` — where examples live, next to their component. */
-const COMPONENTS_DIR = path.join(process.cwd(), '..', 'components')
+/** Examples live in this app, one directory per component. */
+const EXAMPLES_DIR = path.join(process.cwd(), 'components', 'examples')
 
 export interface ComponentPreviewProps {
-    /** The rendered demo, imported from `./examples/&lt;example>`. */
+    /** The rendered demo, imported from `@/components/examples/&lt;name>`. */
     children: ReactNode
     /** Wait for the MSW mock API before rendering the demo. */
     mocks?: boolean
-    /** `&lt;component>/&lt;example>`, under that component's `examples` dir. */
+    /** `&lt;component>/&lt;example>` — the demo's path under the examples root. */
     name: string
 }
 
@@ -58,5 +58,5 @@ export async function ComponentPreview({ children, mocks = false, name }: Compon
 async function readExampleSource(name: string) {
     const [component = '', example = ''] = name.split('/')
 
-    return readFile(path.join(COMPONENTS_DIR, component, 'examples', `${example}.tsx`), 'utf8')
+    return readFile(path.join(EXAMPLES_DIR, component, `${example}.tsx`), 'utf8')
 }

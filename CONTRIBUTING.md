@@ -9,12 +9,15 @@ and Vitest) is configured once at the repo root.
 ## Structure
 
 - `src/components` - Core UI components (this is what gets published, as `dist/`). Each component
-  is a self-contained folder: `index.tsx` (the component), `docs.mdx` (its reference page) and
-  `examples/` (the demos that page renders). `hooks`, `styles` and `types` are shared across them
+  is a self-contained folder holding only source: `index.tsx` and friends. `hooks`, `styles` and
+  `types` are shared across them
 - `src/theme` - Design tokens and the palette generator
 - `src/mocks` - Mock API handlers used by the docs demos
-- `src/docs` - Documentation site (Next.js + Fumadocs, static export to `src/docs/out`). It holds
-  only the hand-written prose pages, under `src/docs/content/docs`
+- `src/docs` - Documentation site (Next.js + Fumadocs, static export to `src/docs/out`). It owns
+  every page under `src/docs/content/docs` and every demo under `src/docs/components/examples`
+
+Docs live in the docs app, not next to the components. Fumadocs watches its content directory, so
+colocating pages in `src/components` made every component edit invalidate the whole docs route.
 
 The docs site imports the library by its published name (`@ui-kit.ai/components`,
 `@ui-kit.ai/theme`, `@ui-kit.ai/mocks`) so documentation snippets stay copy-pasteable, but those
@@ -41,23 +44,25 @@ is only a `devDependency`. Run `pnpm build` first — it needs `dist/`.
 
 ## Adding a component to the docs
 
-Everything a component's page needs lives in the component's own folder. There is no registration
-step: a folder containing a `docs.mdx` becomes a page at `/docs/components/<component>`, and the
-sidebar orders the pages alphabetically.
+A page's MDX and its demos both live in the docs app; only the component source stays in
+`src/components`.
 
 1. Export a `<Component>Props` **interface** from `src/components/<component>/index.tsx`, declared
    directly above the component, with a doc comment on every member — that is what the props table
    is generated from. Prefer `interface X extends Y {}` over a type alias, and give any generic
    parameter a default (`<T extends object = object>`) so it can be resolved by bare name.
-2. Add demo files under `src/components/<component>/examples/<variant>.tsx`, each with
+2. Add demo files under `src/docs/components/examples/<component>/<variant>.tsx`, each with
    `'use client'` and a default export.
-3. Add the page at `src/components/<component>/docs.mdx` with `title` and `description`
-   frontmatter.
-4. Import each demo into the page and wrap it in
-   `<ComponentPreview name='<component>/<variant>'>`, where `name` is the example's path relative
-   to `src/components` without the `examples/` segment or the extension.
+3. Add the page at `src/docs/content/docs/components/<component>.mdx` with `title` and
+   `description` frontmatter, and list `<component>` in
+   `src/docs/content/docs/components/meta.json`, which orders the sidebar.
+4. Import each demo with the `@/` alias
+   (`import Demo from '@/components/examples/<component>/<variant>'`) and wrap it in
+   `<ComponentPreview name='<component>/<variant>'>`, where `name` is the demo's path under the
+   examples root, without the extension.
 5. Render the props table with
-   `<AutoTypeTable name='<Component>Props' path='../components/<component>/index.tsx' />`.
+   `<AutoTypeTable name='<Component>Props' path='../components/<component>/index.tsx' />` — that
+   path resolves from `src/docs`, so it points at the library source.
 
 ## Commits and Releases
 

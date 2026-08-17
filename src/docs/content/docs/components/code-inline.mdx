@@ -1,0 +1,51 @@
+---
+title: CodeInline
+description: A syntax-highlighted inline code component, built on react-syntax-highlighter.
+---
+
+import CodeInlineDefault from '@/components/examples/code-inline/default'
+import CodeInlinePython from '@/components/examples/code-inline/python'
+import CodeInlineRust from '@/components/examples/code-inline/rust'
+import CodeInlineTypeScript from '@/components/examples/code-inline/typescript'
+
+<ComponentPreview name='code-inline/default'>
+    <CodeInlineDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { CodeInline } from '@ui-kit.ai/components'
+```
+
+Use `CodeInline` for a short snippet inside a line of prose. Pass the snippet as children and the
+language as `language`.
+
+## Languages
+
+Any language supported by [Prism](https://prismjs.com) can be passed to `language`.
+
+### TypeScript
+
+<ComponentPreview name='code-inline/typescript'>
+    <CodeInlineTypeScript />
+</ComponentPreview>
+
+### Python
+
+<ComponentPreview name='code-inline/python'>
+    <CodeInlinePython />
+</ComponentPreview>
+
+### Rust
+
+<ComponentPreview name='code-inline/rust'>
+    <CodeInlineRust />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='CodeInlineProps'
+    path='../components/code-inline/index.tsx'
+/>

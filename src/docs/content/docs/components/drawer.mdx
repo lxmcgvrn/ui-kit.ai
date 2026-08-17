@@ -1,0 +1,74 @@
+---
+title: Drawer
+description: A panel that slides in from the edge of the screen, with header, scrollable content and footer slots.
+---
+
+import DrawerControlled from '@/components/examples/drawer/controlled'
+import DrawerDefault from '@/components/examples/drawer/default'
+import DrawerSideLeft from '@/components/examples/drawer/side-left'
+import DrawerWidth from '@/components/examples/drawer/width'
+
+<ComponentPreview name='drawer/default'>
+    <DrawerDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    Drawer,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from '@ui-kit.ai/components'
+```
+
+`Drawer` lays out three regions: a `DrawerHeader` pinned to the top, a scrollable `DrawerContent`,
+and a `DrawerFooter` pinned to the bottom. A button with `slot='close'` — or the built-in
+`DrawerCloseButton` — dismisses the drawer, as do the `Escape` key and a press outside the panel.
+
+Unlike `Dialog`, the overlay, the modal and the dialog are a single component: put the drawer
+alongside a trigger element inside `DrawerTrigger`. It accepts a render function that receives
+`close`, so footer actions can dismiss the drawer once they are done.
+
+<Callout type='warn'>
+    A drawer without a `DrawerTitle` needs an `aria-label` or `aria-labelledby` prop instead, so it
+    is identified to assistive technology.
+</Callout>
+
+## Side
+
+The `side` prop sets the edge the panel slides in from. It defaults to `right`.
+
+<ComponentPreview name='drawer/side-left'>
+    <DrawerSideLeft />
+</ComponentPreview>
+
+## Controlled
+
+Pass `isOpen` and `onOpenChange` to drive the drawer from your own state, and drop the
+`DrawerTrigger` wrapper. Use this when something other than a button — a keyboard shortcut, a
+route change — opens the panel.
+
+<ComponentPreview name='drawer/controlled'>
+    <DrawerControlled />
+</ComponentPreview>
+
+## Width
+
+The panel is full-width on small screens and `24rem` from the `sm` breakpoint up. `className`
+styles the panel itself, so override the width there.
+
+<ComponentPreview name='drawer/width'>
+    <DrawerWidth />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='DrawerProps'
+    path='../components/drawer/index.tsx'
+/>

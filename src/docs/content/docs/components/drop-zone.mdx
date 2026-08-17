@@ -1,0 +1,53 @@
+---
+title: DropZone
+description: An area files or objects can be dragged and dropped onto.
+---
+
+import DropZoneDefault from '@/components/examples/drop-zone/default'
+import DropZoneDisabled from '@/components/examples/drop-zone/disabled'
+import DropZoneWithFileTrigger from '@/components/examples/drop-zone/with-file-trigger'
+
+<ComponentPreview name='drop-zone/default'>
+    <DropZoneDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { DropZone, DropZoneLabel } from '@ui-kit.ai/components'
+```
+
+`onDrop` receives the dropped items. Put a `DropZoneLabel` inside — it is both the visible label and
+the zone's accessible name. The border turns solid and the surface tints while a valid drag is over
+the zone.
+
+## With a file trigger
+
+Dragging is not the only way in: pair the zone with a `FileTrigger` so a click opens the file picker
+too.
+
+<ComponentPreview name='drop-zone/with-file-trigger'>
+    <DropZoneWithFileTrigger />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop fades the zone and makes it refuse every drop.
+
+<ComponentPreview name='drop-zone/disabled'>
+    <DropZoneDisabled />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='DropZoneProps'
+    path='../components/drop-zone/index.tsx'
+/>
+
+### DropZoneLabel
+
+<AutoTypeTable
+    name='DropZoneLabelProps'
+    path='../components/drop-zone/index.tsx'
+/>

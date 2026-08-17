@@ -17,7 +17,6 @@
         "src/theme/presets.ts",
         "src/theme/stylesheet.ts"
     ],
-    // `src/docs` is the docs app; `examples` folders are docs-only sources that
-    // sit next to the components they document — neither is part of the bundle.
-    "exclude": ["dist", "node_modules", "src/docs", "src/components/**/examples"]
+    // `src/docs` is the docs app — not part of the published bundle.
+    "exclude": ["dist", "node_modules", "src/docs"]
 }

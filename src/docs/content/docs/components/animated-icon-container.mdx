@@ -1,0 +1,59 @@
+---
+title: AnimatedIconContainer
+description: Animates between icons whenever its child changes.
+---
+
+import AnimatedIconContainerCycle from '@/components/examples/animated-icon-container/cycle'
+import AnimatedIconContainerDefault from '@/components/examples/animated-icon-container/default'
+
+<ComponentPreview name='animated-icon-container/default'>
+    <AnimatedIconContainerDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { AnimatedIconContainer } from '@ui-kit.ai/components'
+```
+
+Wrap a single icon and render a different one when state changes. The container animates the old
+icon up and out, and the new one in from below — no keys, no config, no callbacks.
+
+```tsx
+<AnimatedIconContainer>{hasCopied ? <LucideCheck /> : <LucideClipboard />}</AnimatedIconContainer>
+```
+
+Both icons share one grid cell while they cross over, so the container stays the size of a single
+icon and neighboring content never shifts.
+
+## What counts as a change
+
+A different element type is a change, and so is the same type under a different `key`. Everything
+else — new props on the same icon, a re-render, a color change — is left alone.
+
+```tsx
+<AnimatedIconContainer>
+    <LucideBell key={unreadCount} />
+</AnimatedIconContainer>
+```
+
+## More than two icons
+
+Any number of icons works: each press swaps whatever is on show for whatever comes next. Press
+faster than the animation and the icon on its way out is dropped, rather than queued behind the
+others.
+
+<ComponentPreview name='animated-icon-container/cycle'>
+    <AnimatedIconContainerCycle />
+</ComponentPreview>
+
+## Reduced motion
+
+Under `prefers-reduced-motion`, the swap is instant — the new icon simply replaces the old one.
+
+## Props
+
+<AutoTypeTable
+    name='AnimatedIconContainerProps'
+    path='../components/animated-icon-container/index.tsx'
+/>

@@ -1,0 +1,65 @@
+---
+title: Breadcrumbs
+description: Displays a hierarchy of links to the current page or resource in an application.
+---
+
+import BreadcrumbsCustomItems from '@/components/examples/breadcrumbs/custom-items'
+import BreadcrumbsDefault from '@/components/examples/breadcrumbs/default'
+import BreadcrumbsDisabled from '@/components/examples/breadcrumbs/disabled'
+import BreadcrumbsLongPath from '@/components/examples/breadcrumbs/long-path'
+
+Breadcrumbs display a hierarchy of links to the current page. The last item is typically not a
+link, and represents the current page.
+
+<ComponentPreview name='breadcrumbs/default'>
+    <BreadcrumbsDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Breadcrumb, Breadcrumbs } from '@ui-kit.ai/components'
+```
+
+Each `Breadcrumb` with an `href` renders as a link, followed by a chevron separator. Omit the
+`href` on the final item so it renders as plain text.
+
+## Disabled
+
+The `isDisabled` prop on `Breadcrumbs` prevents interaction with every link in the trail.
+
+<ComponentPreview name='breadcrumbs/disabled'>
+    <BreadcrumbsDisabled />
+</ComponentPreview>
+
+## Custom items
+
+`Breadcrumb` accepts arbitrary children, so items can carry icons or other content.
+
+<ComponentPreview name='breadcrumbs/custom-items'>
+    <BreadcrumbsCustomItems />
+</ComponentPreview>
+
+## Long path
+
+A deeper hierarchy is rendered by adding further items.
+
+<ComponentPreview name='breadcrumbs/long-path'>
+    <BreadcrumbsLongPath />
+</ComponentPreview>
+
+## Props
+
+### Breadcrumbs
+
+<AutoTypeTable
+    name='BreadcrumbsProps'
+    path='../components/breadcrumbs/index.tsx'
+/>
+
+### Breadcrumb
+
+<AutoTypeTable
+    name='BreadcrumbProps'
+    path='../components/breadcrumbs/index.tsx'
+/>

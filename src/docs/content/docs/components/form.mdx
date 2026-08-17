@@ -1,0 +1,81 @@
+---
+title: Form
+description: Groups inputs into a submittable form, with support for field validation errors.
+---
+
+import FormDefault from '@/components/examples/form/default'
+
+<ComponentPreview name='form/default'>
+    <FormDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Form } from '@ui-kit.ai/components'
+```
+
+`Form` wraps [`react-hook-form`](https://react-hook-form.com): it creates the form context that
+every `Form*` field component — `FormTextField`, `FormComboBox`, `FormCheckboxGroup`,
+`FormSelect`, `FormSubmitButton` — reads from, so fields only need a `name` to be connected.
+
+Pass the shape of your field values as a type param to get a correctly typed argument in the
+`onSubmit` and `onError` callbacks.
+
+```tsx
+type FieldValues = {
+    email: string
+}
+
+function SignUpForm() {
+    return (
+        <Form<FieldValues>
+            onError={(errors) => console.error(errors)}
+            onSubmit={(data) => console.info(data.email)}
+        >
+            <FormTextField name='email'>
+                <Label>Email address</Label>
+            </FormTextField>
+
+            <FormSubmitButton />
+        </Form>
+    )
+}
+```
+
+### Validation
+
+Anything accepted by `react-hook-form`'s `useForm` hook can be passed through the `options` prop,
+including a schema `resolver`. `onSubmit` only runs once validation passes, `onError` receives the
+field errors when it does not, and each `Form*` field renders its own error message.
+
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
+const schema = z.object({
+    email: z.string().email().nonempty(),
+})
+
+function SignUpForm() {
+    return (
+        <Form
+            onSubmit={onSubmit}
+            options={{ resolver: zodResolver(schema) }}
+        >
+            <FormTextField name='email'>
+                <Label>Email address</Label>
+            </FormTextField>
+
+            <FormSubmitButton />
+        </Form>
+    )
+}
+```
+
+## Props
+
+<AutoTypeTable
+    name='FormProps'
+    path='../components/form/index.tsx'
+/>

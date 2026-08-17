@@ -31,7 +31,6 @@ const config = {
     // `ts-morph` (used by AutoTypeTable) runs server-side and is CommonJS-ish.
     serverExternalPackages: ['ts-morph'],
     turbopack: {
-        resolveAlias,
         // Otherwise inferred from the lockfile dir, breaking `app/` lookup.
         root: repoRoot,
     },

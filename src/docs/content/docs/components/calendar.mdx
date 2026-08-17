@@ -1,0 +1,82 @@
+---
+title: Calendar
+description: Displays a grid of dates for one or more months and allows a user to select one of them.
+---
+
+import CalendarDefault from '@/components/examples/calendar/default'
+import CalendarDisabled from '@/components/examples/calendar/disabled'
+import CalendarMultiMonth from '@/components/examples/calendar/multi-month'
+import CalendarReadOnly from '@/components/examples/calendar/read-only'
+
+<ComponentPreview name='calendar/default'>
+    <CalendarDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Calendar, CalendarCell, CalendarGrid, CalendarHeader } from '@ui-kit.ai/components'
+```
+
+`Calendar` renders a `CalendarHeader` and a `CalendarGrid` by default, so it works with no children
+at all. `CalendarHeader` holds the month title and the previous and next buttons; `CalendarGrid`
+renders the weekday names and a `CalendarCell` per day. Today is tinted, and the selected day takes
+the primary color.
+
+`CalendarGrid` and `CalendarHeader` are shared with `RangeCalendar`, and `CalendarCell` styles
+itself for whichever of the two it is rendered in.
+
+## Multiple months
+
+Pass `visibleDuration` to page more than one month at a time, then compose one `CalendarGrid` per
+month with an `offset`.
+
+<ComponentPreview name='calendar/multi-month'>
+    <CalendarMultiMonth />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the calendar, and prevent focus and interaction.
+
+<ComponentPreview name='calendar/disabled'>
+    <CalendarDisabled />
+</ComponentPreview>
+
+## Read only
+
+The `isReadOnly` prop keeps the calendar focusable and navigable, but prevents selection.
+
+<ComponentPreview name='calendar/read-only'>
+    <CalendarReadOnly />
+</ComponentPreview>
+
+## Props
+
+### Calendar
+
+<AutoTypeTable
+    name='CalendarProps'
+    path='../components/calendar/index.tsx'
+/>
+
+### CalendarHeader
+
+<AutoTypeTable
+    name='CalendarHeaderProps'
+    path='../components/calendar/index.tsx'
+/>
+
+### CalendarGrid
+
+<AutoTypeTable
+    name='CalendarGridProps'
+    path='../components/calendar/index.tsx'
+/>
+
+### CalendarCell
+
+<AutoTypeTable
+    name='CalendarCellProps'
+    path='../components/calendar/index.tsx'
+/>

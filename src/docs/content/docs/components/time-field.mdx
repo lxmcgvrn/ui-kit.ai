@@ -1,0 +1,63 @@
+---
+title: TimeField
+description: A time input split into individually editable segments, so a time can be typed without a picker.
+---
+
+import TimeFieldDefault from '@/components/examples/time-field/default'
+import TimeFieldDisabled from '@/components/examples/time-field/disabled'
+import TimeFieldGranularity from '@/components/examples/time-field/granularity'
+import TimeFieldHourCycle from '@/components/examples/time-field/hour-cycle'
+import TimeFieldInvalid from '@/components/examples/time-field/invalid'
+
+<ComponentPreview name='time-field/default'>
+    <TimeFieldDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { DateInput, TimeField } from '@ui-kit.ai/components'
+```
+
+`TimeField` is a container: pass a `Label`, a `DateInput`, and a `Description` as children.
+`DateInput` is shared with `DateField` — inside a `TimeField` it renders hour, minute, and day
+period segments instead of date segments.
+
+## Granularity
+
+The `granularity` prop sets the smallest editable unit. Use `hour`, `minute`, or `second`.
+
+<ComponentPreview name='time-field/granularity'>
+    <TimeFieldGranularity />
+</ComponentPreview>
+
+## Hour cycle
+
+The `hourCycle` prop overrides the locale default. Pass `12` or `24`.
+
+<ComponentPreview name='time-field/hour-cycle'>
+    <TimeFieldHourCycle />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop will "gray out" the field, and prevent focus and interaction.
+
+<ComponentPreview name='time-field/disabled'>
+    <TimeFieldDisabled />
+</ComponentPreview>
+
+## Invalid
+
+The `isInvalid` prop applies the error styling to the field and its segments.
+
+<ComponentPreview name='time-field/invalid'>
+    <TimeFieldInvalid />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='TimeFieldProps'
+    path='../components/time-field/index.tsx'
+/>

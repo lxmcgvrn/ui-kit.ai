@@ -1,0 +1,55 @@
+---
+title: ColorWheel
+description: Lets a user adjust the hue of a color on a circular track.
+---
+
+import ColorWheelCustomSize from '@/components/examples/color-wheel/custom-size'
+import ColorWheelDefault from '@/components/examples/color-wheel/default'
+import ColorWheelDisabled from '@/components/examples/color-wheel/disabled'
+import ColorWheelWithArea from '@/components/examples/color-wheel/with-area'
+
+<ComponentPreview name='color-wheel/default'>
+    <ColorWheelDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ColorWheel } from '@ui-kit.ai/components'
+```
+
+The wheel edits the hue of the color passed as `defaultValue` or `value`. The track and the thumb
+are rendered for you — `children` are optional, and render centred inside the ring.
+
+## Size
+
+`outerRadius` and `innerRadius` set the ring's geometry in pixels — the wheel measures
+`outerRadius * 2` on each side. They default to `96` and `72`.
+
+<ComponentPreview name='color-wheel/custom-size'>
+    <ColorWheelCustomSize />
+</ComponentPreview>
+
+## With a color area
+
+Nest a `ColorArea` to give hue, saturation and brightness in one control. It's sized to fill the
+slot the wheel leaves at its centre.
+
+<ComponentPreview name='color-wheel/with-area'>
+    <ColorWheelWithArea />
+</ComponentPreview>
+
+## Disabled
+
+The `isDisabled` prop fades the wheel and prevents focus and interaction.
+
+<ComponentPreview name='color-wheel/disabled'>
+    <ColorWheelDisabled />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ColorWheelProps'
+    path='../components/color-wheel/index.tsx'
+/>
