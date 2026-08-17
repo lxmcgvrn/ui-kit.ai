@@ -1,10 +1,11 @@
 'use client'
 
 import type { Scheme } from '@ui-kit.ai/theme'
-import type { ComponentProps, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
 import {
     Button,
+    ButtonCopy,
     Drawer,
     DrawerCloseButton,
     DrawerContent,
@@ -17,15 +18,8 @@ import {
     Tooltip,
     TooltipTrigger,
 } from '@ui-kit.ai/components'
-import {
-    LucideCheck,
-    LucideClipboard,
-    LucideRedo2,
-    LucideRotateCcw,
-    LucideUndo2,
-} from 'lucide-react'
+import { LucideRedo2, LucideRotateCcw, LucideUndo2 } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useEffect, useRef, useState } from 'react'
 
 import type { ThemeEditorController } from './use-theme-input'
 
@@ -34,9 +28,6 @@ import { FeelSection } from './feel-section'
 import { PresetChips } from './preset-chips'
 import { setThemeEditorOpen, useIsThemeEditorOpen } from './store'
 import { useThemeInput } from './use-theme-input'
-
-/** How long "Copied" stands in for the button's own label. */
-const CONFIRM_MS = 1500
 
 const SCHEMES: readonly { label: string; value: Scheme }[] = [
     { label: 'Light', value: 'light' },
@@ -89,50 +80,6 @@ export function DrawerThemeEditor() {
     )
 }
 
-/** Copies a generated string, and says so for a moment afterwards. */
-function ButtonCopy({
-    children,
-    getValue,
-    variant,
-}: {
-    children: string
-    getValue: () => string
-    variant: ComponentProps<typeof Button>['variant']
-}) {
-    const [hasCopied, setHasCopied] = useState(false)
-    const timeout = useRef<number | undefined>(undefined)
-
-    useEffect(() => {
-        return () => {
-            window.clearTimeout(timeout.current)
-        }
-    }, [])
-
-    const onPress = async () => {
-        try {
-            await navigator.clipboard.writeText(getValue())
-        } catch {
-            return
-        }
-
-        setHasCopied(true)
-        window.clearTimeout(timeout.current)
-        timeout.current = window.setTimeout(() => {
-            setHasCopied(false)
-        }, CONFIRM_MS)
-    }
-
-    return (
-        <Button
-            onPress={() => void onPress()}
-            slotLeft={hasCopied ? <LucideCheck /> : <LucideClipboard />}
-            variant={variant}
-        >
-            {hasCopied ? 'Copied' : children}
-        </Button>
-    )
-}
-
 /* No `disabled`: it blocks hover and focus, hiding the tooltip that explains why. */
 function ButtonHistoryPlaceholder({ icon, tooltip }: { icon: ReactElement; tooltip: string }) {
     return (
@@ -181,18 +128,25 @@ function DrawerFooterThemeEditor({ theme }: { theme: ThemeEditorController }) {
 
             <div className='flex items-center gap-2'>
                 {/* CSS reads as the secondary action; JSON carries the theme's accent. */}
-                <ButtonCopy
-                    getValue={theme.css}
-                    variant='secondary'
-                >
-                    CSS
-                </ButtonCopy>
-                <ButtonCopy
-                    getValue={theme.json}
-                    variant='primary'
-                >
-                    JSON
-                </ButtonCopy>
+                <TooltipTrigger delay={200}>
+                    <ButtonCopy
+                        aria-label='Copy CSS'
+                        getValue={theme.css}
+                        variant='secondary'
+                    />
+
+                    <Tooltip>Copy CSS</Tooltip>
+                </TooltipTrigger>
+
+                <TooltipTrigger delay={200}>
+                    <ButtonCopy
+                        aria-label='Copy JSON'
+                        getValue={theme.json}
+                        variant='primary'
+                    />
+
+                    <Tooltip>Copy JSON</Tooltip>
+                </TooltipTrigger>
             </div>
         </DrawerFooter>
     )

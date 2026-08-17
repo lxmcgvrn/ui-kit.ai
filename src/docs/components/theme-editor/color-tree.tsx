@@ -209,10 +209,7 @@ function IntentNode({ controller, intent, isExpanded, onToggle, scheme }: Intent
                     <ButtonContrastWarning message={ROOT_CONTRAST_MESSAGE} />
                 ) : null}
 
-                <FieldGroupColor
-                    isGenerated={isMirroring}
-                    value={color}
-                >
+                <FieldGroupColor isGenerated={isMirroring}>
                     {scheme === 'dark' && !isMirroring ? (
                         <FieldButtonClear
                             onPress={() => {
@@ -278,10 +275,7 @@ function TokenLeaf({ address, controller, isFirst, isLast }: TokenLeafProps) {
 
             {message == null ? null : <ButtonContrastWarning message={message} />}
 
-            <FieldGroupColor
-                isGenerated={!isOverridden}
-                value={color}
-            >
+            <FieldGroupColor isGenerated={!isOverridden}>
                 {isOverridden ? (
                     <FieldButtonClear
                         onPress={() => {

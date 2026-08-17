@@ -15,19 +15,18 @@ export default function ColorWheelWithArea() {
     }
 
     return (
-        <div className='relative w-48'>
-            <ColorWheel
-                onChange={onChange}
-                value={value}
-            />
+        <ColorWheel
+            onChange={onChange}
+            value={value}
+        >
             <ColorArea
-                className='absolute top-1/2 left-1/2 size-24 -translate-x-1/2 -translate-y-1/2'
+                className='size-full'
                 colorSpace='hsb'
                 onChange={onChange}
                 value={value}
                 xChannel='saturation'
                 yChannel='brightness'
             />
-        </div>
+        </ColorWheel>
     )
 }

@@ -1,27 +1,21 @@
 'use client'
 
-import type { ColorFieldProps } from '@ui-kit.ai/components'
+import type { ColorFieldGroupProps } from '@ui-kit.ai/components'
 import type { ReactNode } from 'react'
-import type { Color as RACColor } from 'react-aria-components'
 
 import {
-    ColorField,
+    ColorFieldGroup,
+    ColorFieldGroupClearButton,
+    ColorFieldGroupPickerButton,
     ColorSwatch,
-    DialogTrigger,
-    FieldButton,
     FieldGroup,
     Input,
-    Popover,
-    PopoverDialog,
     Tooltip,
     TooltipTrigger,
 } from '@ui-kit.ai/components'
-import { LucidePipette, LucideX } from 'lucide-react'
-import { useMemo } from 'react'
-import { parseColor } from 'react-aria-components'
 import { tv } from 'tailwind-variants'
 
-import { toCssColor, toThemeColor, withAlphaFrom } from './color'
+import { toCssColor, toThemeColor } from './color'
 import { ColorPickerPanel } from './color-picker'
 
 /* Dashed means the engine picked it; a hand-picked color takes the stock frame. */
@@ -37,7 +31,7 @@ const fieldStyles = tv({
 })
 
 export interface ColorFieldHexProps
-    extends Omit<ColorFieldProps, 'className' | 'onChange' | 'value'> {
+    extends Omit<ColorFieldGroupProps, 'className' | 'defaultValue' | 'onChange' | 'value'> {
     /** The `Label` that names the color, and everything that acts on it. */
     children: ReactNode
 
@@ -62,33 +56,24 @@ export interface FieldGroupColorProps {
 
     /** A generated color draws as an outline; a hand-picked one takes a fill. */
     isGenerated: boolean
-
-    /** The color the swatch shows. */
-    value: string
 }
 
 /** One color as hex. Typing one is an edit, the same as reaching for the picker. */
 export function ColorFieldHex({ children, onChange, value, ...props }: ColorFieldHexProps) {
-    // Stable across the parent's renders, so an unfinished hex survives them.
-    const color = useMemo(() => parseColor(toCssColor(value)), [value])
-
-    const onCommit = (committed: null | RACColor) => {
-        if (committed == null) return
-
-        const themed = toThemeColor(withAlphaFrom(committed, color).toString('rgba'))
-
-        if (themed != null) onChange(themed)
-    }
-
     /* The field spans the whole row, so a `Label` inside it names the color. */
     return (
-        <ColorField
+        <ColorFieldGroup
             {...props}
-            onChange={onCommit}
-            value={color}
+            onChange={(picked) => {
+                const themed = toThemeColor(picked.toString('rgba'))
+
+                if (themed != null) onChange(themed)
+            }}
+            // The same text for the same color, so an unfinished hex survives a render.
+            value={toCssColor(value)}
         >
             {children}
-        </ColorField>
+        </ColorFieldGroup>
     )
 }
 
@@ -96,13 +81,11 @@ export function ColorFieldHex({ children, onChange, value, ...props }: ColorFiel
 export function FieldButtonClear({ onPress }: { onPress: () => void }) {
     return (
         <TooltipTrigger delay={0}>
-            <FieldButton
+            <ColorFieldGroupClearButton
                 aria-label='Clear override'
                 excludeFromTabOrder={false}
                 onPress={onPress}
-            >
-                <LucideX />
-            </FieldButton>
+            />
 
             <Tooltip placement='top'>Clear override</Tooltip>
         </TooltipTrigger>
@@ -112,36 +95,26 @@ export function FieldButtonClear({ onPress }: { onPress: () => void }) {
 /** The way in that is not typing. Opening it picks nothing; adjusting it does. */
 export function FieldButtonPicker({ hasAlpha, onChange, value }: FieldButtonPickerProps) {
     return (
-        <DialogTrigger>
-            <TooltipTrigger delay={0}>
-                <FieldButton aria-label='Set override'>
-                    <LucidePipette />
-                </FieldButton>
+        <TooltipTrigger delay={0}>
+            <ColorFieldGroupPickerButton aria-label='Set override'>
+                <ColorPickerPanel
+                    hasAlpha={hasAlpha}
+                    onChange={onChange}
+                    value={value}
+                />
+            </ColorFieldGroupPickerButton>
 
-                <Tooltip placement='top'>Set override</Tooltip>
-            </TooltipTrigger>
-
-            <Popover>
-                <PopoverDialog className='w-72'>
-                    <ColorPickerPanel
-                        hasAlpha={hasAlpha}
-                        onChange={onChange}
-                        value={value}
-                    />
-                </PopoverDialog>
-            </Popover>
-        </DialogTrigger>
+            <Tooltip placement='top'>Set override</Tooltip>
+        </TooltipTrigger>
     )
 }
 
 /** One color, framed: its swatch, the hex it holds, then whatever else edits it. */
-export function FieldGroupColor({ children, isGenerated, value }: FieldGroupColorProps) {
+export function FieldGroupColor({ children, isGenerated }: FieldGroupColorProps) {
     return (
         <FieldGroup className={fieldStyles({ isGenerated })}>
-            <ColorSwatch
-                className='ml-2 size-4 shrink-0 rounded-full'
-                color={toCssColor(value)}
-            />
+            {/* Both the swatch and the hex read the color the field group holds. */}
+            <ColorSwatch className='ml-2 size-4 shrink-0 rounded-full' />
 
             {/* The hex gives way to the buttons rather than pushing them out of frame. */}
             <div className='min-w-0 grow'>

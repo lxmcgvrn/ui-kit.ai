@@ -19,7 +19,7 @@ import { ColorWheel } from '@ui-kit.ai/components'
 ```
 
 The wheel edits the hue of the color passed as `defaultValue` or `value`. The track and the thumb
-are rendered for you, so `ColorWheel` takes no children.
+are rendered for you — `children` are optional, and render centred inside the ring.
 
 ## Size
 
@@ -32,8 +32,8 @@ are rendered for you, so `ColorWheel` takes no children.
 
 ## With a color area
 
-The ring leaves room for a `ColorArea` at its centre, giving hue, saturation and brightness in one
-control.
+Nest a `ColorArea` to give hue, saturation and brightness in one control. It's sized to fill the
+slot the wheel leaves at its centre.
 
 <ComponentPreview name='color-wheel/with-area'>
     <ColorWheelWithArea />

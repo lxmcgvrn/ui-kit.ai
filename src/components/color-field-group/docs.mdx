@@ -1,0 +1,81 @@
+---
+title: ColorFieldGroup
+description: A color as one field — its swatch, the hex it holds, and the controls that edit it, all reading the same color.
+---
+
+import ColorFieldGroupClearable from './examples/clearable'
+import ColorFieldGroupDefault from './examples/default'
+import ColorFieldGroupReadOnly from './examples/read-only'
+import ColorFieldGroupWithPicker from './examples/with-picker'
+
+<ComponentPreview name='color-field-group/default'>
+    <ColorFieldGroupDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+    ColorFieldGroup,
+    ColorFieldGroupClearButton,
+    ColorFieldGroupPickerButton,
+} from '@ui-kit.ai/components'
+```
+
+`ColorFieldGroup` holds one color and hands it to every child, so none of them takes a value: a
+`ColorSwatch` shows it, an `Input` edits it as hex, and any `ColorArea`, `ColorSlider`, or
+`ColorWheel` inside aims it. Set the starting color with `defaultValue`, or control it with `value`
+and `onChange`. A `FieldGroup` draws the border around the input and its buttons, and a `Label`
+names the field.
+
+Typing a hex keeps the color's opacity: hex notation carries no alpha, so the alpha the color
+already had rides along.
+
+## With a picker
+
+`ColorFieldGroupPickerButton` opens its children in a popover. Opening it changes nothing — only
+moving a control does.
+
+<ComponentPreview name='color-field-group/with-picker'>
+    <ColorFieldGroupWithPicker />
+</ComponentPreview>
+
+## Clearable
+
+`ColorFieldGroupClearButton` is a `FieldButton` with no opinion about what clearing means: give it
+the `onPress` that puts your color back where it belongs.
+
+<ComponentPreview name='color-field-group/clearable'>
+    <ColorFieldGroupClearable />
+</ComponentPreview>
+
+## Read only
+
+The `isReadOnly` prop keeps the hex focusable and selectable, but prevents edits.
+
+<ComponentPreview name='color-field-group/read-only'>
+    <ColorFieldGroupReadOnly />
+</ComponentPreview>
+
+## Props
+
+### ColorFieldGroup
+
+<AutoTypeTable
+    name='ColorFieldGroupProps'
+    path='../components/color-field-group/index.tsx'
+/>
+
+### ColorFieldGroupClearButton
+
+<AutoTypeTable
+    name='ColorFieldGroupClearButtonProps'
+    path='../components/color-field-group/index.tsx'
+/>
+
+### ColorFieldGroupPickerButton
+
+<AutoTypeTable
+    name='ColorFieldGroupPickerButtonProps'
+    path='../components/color-field-group/index.tsx'
+/>

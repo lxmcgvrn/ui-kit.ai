@@ -1,7 +1,8 @@
-import { LucideCopy } from 'lucide-react'
+import { LucideCheck, LucideCopy } from 'lucide-react'
 import { useCallback } from 'react'
 import { Prism as SyntaxHighlighter, type SyntaxHighlighterProps } from 'react-syntax-highlighter'
 
+import { useCopyConfirmation } from '../button-copy/use-copy-confirmation'
 import { FieldButton } from '../field-button'
 import { Tooltip, TooltipTrigger } from '../tooltip'
 
@@ -12,13 +13,21 @@ export interface CodeBlockProps extends SyntaxHighlighterProps {
 
 /** A syntax-highlighted code block, with a copy button. */
 export function CodeBlock({ showLineNumbers = true, ...props }: CodeBlockProps) {
-    const copyValue = useCallback(() => {
+    const { confirmCopy, hasCopied } = useCopyConfirmation()
+
+    const copyValue = useCallback(async () => {
         if (props.children === '' || props.children.length === 0) return
         const valueToCopy =
             typeof props.children === 'string' ? props.children : props.children.join('\n')
 
-        return navigator.clipboard.writeText(valueToCopy)
-    }, [props.children])
+        try {
+            await navigator.clipboard.writeText(valueToCopy)
+        } catch {
+            return
+        }
+
+        confirmCopy()
+    }, [confirmCopy, props.children])
 
     return (
         <div className='relative w-full'>
@@ -37,9 +46,9 @@ export function CodeBlock({ showLineNumbers = true, ...props }: CodeBlockProps) 
                     className='absolute -top-0.75 -right-0.75'
                     onPress={() => void copyValue()}
                 >
-                    <LucideCopy />
+                    {hasCopied ? <LucideCheck /> : <LucideCopy />}
                 </FieldButton>
-                <Tooltip placement='top'>Copy to clipboard</Tooltip>
+                <Tooltip placement='top'>{hasCopied ? 'Copied' : 'Copy to clipboard'}</Tooltip>
             </TooltipTrigger>
         </div>
     )

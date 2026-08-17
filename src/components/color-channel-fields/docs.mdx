@@ -1,0 +1,42 @@
+---
+title: ColorChannelFields
+description: Renders a color space's channels as labeled ColorFields, reading the surrounding ColorPicker.
+---
+
+import ColorChannelFieldsDefault from './examples/default'
+import ColorChannelFieldsHsb from './examples/hsb'
+import ColorChannelFieldsHsl from './examples/hsl'
+
+<ComponentPreview name='color-channel-fields/default'>
+    <ColorChannelFieldsDefault />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ColorChannelFields } from '@ui-kit.ai/components'
+```
+
+`ColorChannelFields` takes only a `colorSpace` — `'rgb'`, `'hsl'`, or `'hsb'` — and renders that
+space's channels as a row of `ColorField`s. Each field reads and writes the surrounding
+`ColorPicker`, so drop it inside one and it works with no `value` or `onChange` of your own. Each
+label shows the channel's initial and carries the full name for screen readers.
+
+## HSL
+
+<ComponentPreview name='color-channel-fields/hsl'>
+    <ColorChannelFieldsHsl />
+</ComponentPreview>
+
+## HSB
+
+<ComponentPreview name='color-channel-fields/hsb'>
+    <ColorChannelFieldsHsb />
+</ComponentPreview>
+
+## Props
+
+<AutoTypeTable
+    name='ColorChannelFieldsProps'
+    path='../components/color-channel-fields/index.tsx'
+/>

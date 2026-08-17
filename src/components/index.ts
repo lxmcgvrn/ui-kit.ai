@@ -2,10 +2,12 @@
 
 import './index.css'
 export { Alert, type AlertProps } from './alert'
+export { AnimatedIconContainer, type AnimatedIconContainerProps } from './animated-icon-container'
 export { Autocomplete } from './autocomplete'
 export { Avatar, type AvatarProps } from './avatar'
 export { Breadcrumb, type BreadcrumbProps, Breadcrumbs, type BreadcrumbsProps } from './breadcrumbs'
 export { Button, type ButtonProps, LinkButton } from './button'
+export { ButtonCopy, type ButtonCopyProps } from './button-copy'
 export {
     Calendar,
     CalendarCell,
@@ -38,7 +40,16 @@ export { CheckboxGroup, type CheckboxGroupProps } from './checkbox-group'
 export { CodeBlock, type CodeBlockProps } from './code-block'
 export { CodeInline, type CodeInlineProps } from './code-inline'
 export { ColorArea, type ColorAreaProps } from './color-area'
+export { ColorChannelFields, type ColorChannelFieldsProps } from './color-channel-fields'
 export { ColorField, type ColorFieldProps } from './color-field'
+export {
+    ColorFieldGroup,
+    ColorFieldGroupClearButton,
+    type ColorFieldGroupClearButtonProps,
+    ColorFieldGroupPickerButton,
+    type ColorFieldGroupPickerButtonProps,
+    type ColorFieldGroupProps,
+} from './color-field-group'
 export { ColorPicker, type ColorPickerProps } from './color-picker'
 export { ColorSlider, type ColorSliderProps } from './color-slider'
 export { ColorSwatch, type ColorSwatchProps } from './color-swatch'

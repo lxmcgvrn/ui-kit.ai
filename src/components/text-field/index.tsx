@@ -1,7 +1,10 @@
 import type { ComponentProps, ComponentPropsWithoutRef, ForwardedRef } from 'react'
-import type { TextFieldProps as RACTextFieldProps } from 'react-aria-components'
+import type {
+    PressEvent as RACPressEvent,
+    TextFieldProps as RACTextFieldProps,
+} from 'react-aria-components'
 
-import { LucideClipboard, LucideEye, LucideEyeOff, LucideX } from 'lucide-react'
+import { LucideCheck, LucideClipboard, LucideEye, LucideEyeOff, LucideX } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
     composeRenderProps,
@@ -11,6 +14,8 @@ import {
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
+import { AnimatedIconContainer } from '../animated-icon-container'
+import { useCopyConfirmation } from '../button-copy/use-copy-confirmation'
 import { FieldButton } from '../field-button'
 import { Input } from '../input'
 import { Tooltip, TooltipTrigger } from '../tooltip'
@@ -39,7 +44,6 @@ export function TextField({ children = <Input />, ref, ...props }: TextFieldProp
         if (value == null) return
 
         return navigator.clipboard.writeText(value)
-        // TODO: show a toast on copy success
     }, [value])
 
     useEffect(() => {
@@ -120,16 +124,33 @@ export interface TextFieldCopyButtonProps extends ComponentProps<typeof FieldBut
 
 /** A `FieldButton` to copy the text field value to the clipboard. */
 export function TextFieldCopyButton(props: TextFieldCopyButtonProps) {
+    const context = useSlottedContext(RACButtonContext, 'copy')
+    const { confirmCopy, hasCopied } = useCopyConfirmation()
+
+    const onPress = async (event: RACPressEvent) => {
+        try {
+            await Promise.resolve(context?.onPress?.(event))
+        } catch {
+            return
+        }
+
+        confirmCopy()
+    }
+
     return (
         <TooltipTrigger delay={0}>
             <FieldButton
                 {...props}
-                slot='copy'
+                isDisabled={props.isDisabled ?? context?.isDisabled}
+                onPress={(event) => void onPress(event)}
+                slot={null}
             >
-                <LucideClipboard />
+                <AnimatedIconContainer>
+                    {hasCopied ? <LucideCheck /> : <LucideClipboard />}
+                </AnimatedIconContainer>
             </FieldButton>
 
-            <Tooltip placement='top'>Copy to clipboard</Tooltip>
+            <Tooltip placement='top'>{hasCopied ? 'Copied' : 'Copy to clipboard'}</Tooltip>
         </TooltipTrigger>
     )
 }
@@ -147,7 +168,9 @@ export function TextFieldVisibilityButton(props: TextFieldVisibilityButtonProps)
                 {...props}
                 slot='visibility'
             >
-                {context?.value === 'hidden' ? <LucideEyeOff /> : <LucideEye />}
+                <AnimatedIconContainer>
+                    {context?.value === 'hidden' ? <LucideEyeOff /> : <LucideEye />}
+                </AnimatedIconContainer>
             </FieldButton>
 
             <Tooltip placement='top'>{context?.value === 'hidden' ? 'Show' : 'Hide'}</Tooltip>

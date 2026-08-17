@@ -2,11 +2,12 @@
 
 import type { OptionsSchema } from '@ui-kit.ai/components'
 import type { LucideIcon } from 'lucide-react'
-import type { ComponentProps, ComponentType } from 'react'
-import type { Color as RACColor, ColorSpace as RACColorSpace } from 'react-aria-components'
+import type { ComponentType } from 'react'
+import type { Color as RACColor } from 'react-aria-components'
 
 import {
     ColorArea,
+    ColorChannelFields,
     ColorField,
     ColorPicker,
     ColorSlider,
@@ -27,9 +28,6 @@ import { parseColor } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { toCssColor, toThemeColor, withAlphaFrom } from './color'
-
-/** A channel a field can edit on its own. */
-type ColorChannel = NonNullable<ComponentProps<typeof ColorField>['channel']>
 
 /** The spelling the editing fields use. Never how the theme stores the color. */
 type ColorMode = 'hex' | 'hsb' | 'hsl' | 'rgb'
@@ -57,13 +55,6 @@ const FIELD_LABEL = 'mb-0.5'
 /** Tall enough for the widest input, so switching tabs never resizes the popover. */
 const INPUT_HEIGHT = 'flex min-h-52 items-center'
 
-/** The channels a mode spells out, left to right. */
-const MODE_CHANNELS: Record<RACColorSpace, readonly ColorChannel[]> = {
-    hsb: ['hue', 'saturation', 'brightness'],
-    hsl: ['hue', 'saturation', 'lightness'],
-    rgb: ['red', 'green', 'blue'],
-}
-
 const MODE_ITEMS: OptionsSchema<'listbox'>[] = COLOR_MODES.map((mode) => ({
     id: mode,
     textValue: mode === 'hex' ? 'Hex' : mode.toUpperCase(),
@@ -71,9 +62,6 @@ const MODE_ITEMS: OptionsSchema<'listbox'>[] = COLOR_MODES.map((mode) => ({
 
 /** One track each, in the order the picker has always listed them. */
 const SLIDER_CHANNELS = ['hue', 'saturation', 'lightness'] as const
-
-/* Fits inside the ring. `!` beats the `position` react-aria sets inline. */
-const WHEEL_AREA = '!absolute top-1/2 left-1/2 size-24 -translate-x-1/2 -translate-y-1/2'
 
 /* Outlives every popover, so the next one opens on the last choice. */
 let remembered: PickerPreferences = { method: 'sliders', mode: 'hex' }
@@ -122,11 +110,9 @@ function SlidersInput() {
 /** The same plane, with hue bent into the ring around it. */
 function WheelInput() {
     return (
-        <div className='relative mx-auto w-48'>
-            <ColorWheel />
-
-            <SaturationArea className={WHEEL_AREA} />
-        </div>
+        <ColorWheel className='mx-auto'>
+            <SaturationArea className='size-full' />
+        </ColorWheel>
     )
 }
 
@@ -225,7 +211,10 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
                         <Input />
                     </ColorField>
                 ) : (
-                    <ChannelFields colorSpace={mode} />
+                    <ColorChannelFields
+                        className='grow'
+                        colorSpace={mode}
+                    />
                 )}
             </div>
 
@@ -253,29 +242,6 @@ export function ColorPickerPanel({ hasAlpha, onChange, value }: ColorPickerPanel
 
 function capitalise(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1)
-}
-
-/** One field per channel of a mode, headed by the channel's initial. */
-function ChannelFields({ colorSpace }: { colorSpace: RACColorSpace }) {
-    return (
-        <div className='grid grow grid-cols-3 gap-1.5'>
-            {MODE_CHANNELS[colorSpace].map((channel) => (
-                <ColorField
-                    channel={channel}
-                    colorSpace={colorSpace}
-                    key={channel}
-                >
-                    {/* The initial heads the field; the whole name reaches screen readers. */}
-                    <Label className={FIELD_LABEL}>
-                        {channel.charAt(0).toUpperCase()}
-                        <span className='sr-only'>{channel.slice(1)}</span>
-                    </Label>
-
-                    <Input />
-                </ColorField>
-            ))}
-        </div>
-    )
 }
 
 /** Saturation across, brightness up: the plane both tabs paint on. */
