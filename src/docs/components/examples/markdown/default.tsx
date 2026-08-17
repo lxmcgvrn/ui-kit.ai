@@ -53,5 +53,5 @@ function greet(user: User) {
 `
 
 export default function MarkdownDefault() {
-    return <Markdown>{MARKDOWN_EXAMPLE}</Markdown>
+  return <Markdown>{MARKDOWN_EXAMPLE}</Markdown>
 }

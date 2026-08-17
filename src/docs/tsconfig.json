@@ -1,36 +1,29 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        // A Next.js app emits nothing, so declaration emit is dead weight — and
-        // it is actively harmful here: it makes TS enforce that every inferred
-        // type be *nameable*, which fails for `.source/index.ts` because the
-        // Zod instance behind Fumadocs' schemas is a transitive dependency
-        // rather than one of ours.
-        "declaration": false,
-        "declarationMap": false,
-        "jsx": "preserve",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "esnext",
-        "moduleResolution": "bundler",
-        "paths": {
-            "@/*": ["./*"],
-            "@/.source": ["./.source/index.ts"],
-            "@ui-kit.ai/components": ["../components/index.ts"],
-            "@ui-kit.ai/mocks": ["../mocks/index.ts"],
-            "@ui-kit.ai/theme": ["../theme/index.ts"]
-        },
-        "plugins": [{ "name": "next" }],
-        "target": "esnext",
-        "types": ["node"]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    // A Next.js app emits nothing, so declaration emit is dead weight — and
+    // it is actively harmful here: it makes TS enforce that every inferred
+    // type be *nameable*, which fails for `.source/index.ts` because the
+    // Zod instance behind Fumadocs' schemas is a transitive dependency
+    // rather than one of ours.
+    "declaration": false,
+    "declarationMap": false,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./*"],
+      "@/.source": ["./.source/index.ts"],
+      "@ui-kit.ai/components": ["../components/index.ts"],
+      "@ui-kit.ai/mocks": ["../mocks/index.ts"],
+      "@ui-kit.ai/theme": ["../theme/index.ts"]
     },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        "**/*.mjs",
-        ".next/types/**/*.ts",
-        ".source/**/*.ts"
-    ],
-    "exclude": ["node_modules", "out"]
+    "plugins": [{ "name": "next" }],
+    "target": "esnext",
+    "types": ["node"]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mjs", ".next/types/**/*.ts", ".source/**/*.ts"],
+  "exclude": ["node_modules", "out"]
 }

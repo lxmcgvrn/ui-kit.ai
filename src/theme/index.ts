@@ -1,15 +1,15 @@
 export type {
-    ContrastWarning,
-    Intent,
-    IntentPalette,
-    Palette,
-    Palettes,
-    Scheme,
-    SeedColor,
-    ThemeInput,
-    ThemeOverrides,
-    ThemeSetting,
-    Token,
+  ContrastWarning,
+  Intent,
+  IntentPalette,
+  Palette,
+  Palettes,
+  Scheme,
+  SeedColor,
+  ThemeInput,
+  ThemeOverrides,
+  ThemeSetting,
+  Token,
 } from './palette'
 export { DEFAULT_SETTING, formatOklch, INTENTS, SCHEMES, THEME_SETTINGS, TOKENS } from './palette'
 export type { Preset } from './presets'

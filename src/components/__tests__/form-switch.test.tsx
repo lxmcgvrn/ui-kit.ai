@@ -7,64 +7,64 @@ import { Form } from '../form'
 import { FormSwitch } from '../form-switch'
 
 it('submits form with `FormSwitch`', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByRole, getByText } = render(
-        <Form onSubmit={onSubmit}>
-            <FormSwitch
-                label='Email notifications'
-                name='notifications'
-            />
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByRole, getByText } = render(
+    <Form onSubmit={onSubmit}>
+      <FormSwitch
+        label='Email notifications'
+        name='notifications'
+      />
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    await user.click(getByRole('switch'))
-    await user.click(getByText('Submit'))
+  await user.click(getByRole('switch'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ notifications: true }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ notifications: true }, expect.anything())
 })
 
 it('submits `false` while `FormSwitch` is off', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByText } = render(
-        <Form onSubmit={onSubmit}>
-            <FormSwitch
-                label='Email notifications'
-                name='notifications'
-            />
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByText } = render(
+    <Form onSubmit={onSubmit}>
+      <FormSwitch
+        label='Email notifications'
+        name='notifications'
+      />
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    await user.click(getByText('Submit'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ notifications: false }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ notifications: false }, expect.anything())
 })
 
 it('handles `defaultValues` passed to `Form` with `FormSwitch`', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByRole, getByText } = render(
-        <Form
-            onSubmit={onSubmit}
-            options={{ defaultValues: { notifications: true } }}
-        >
-            <FormSwitch
-                label='Email notifications'
-                name='notifications'
-            />
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByRole, getByText } = render(
+    <Form
+      onSubmit={onSubmit}
+      options={{ defaultValues: { notifications: true } }}
+    >
+      <FormSwitch
+        label='Email notifications'
+        name='notifications'
+      />
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    expect(getByRole('switch')).toBeChecked()
+  expect(getByRole('switch')).toBeChecked()
 
-    await user.click(getByText('Submit'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ notifications: true }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ notifications: true }, expect.anything())
 })

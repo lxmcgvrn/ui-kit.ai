@@ -22,8 +22,8 @@
 /* Re-register the two literal colours the ui-kit theme reset removed, because
  * Fumadocs UI (and some ui-kit components) use `black`/`white` utilities. */
 @theme {
-    --color-black: #000;
-    --color-white: #fff;
+  --color-black: #000;
+  --color-white: #fff;
 }
 
 @import 'fumadocs-ui/css/neutral.css';
@@ -48,18 +48,18 @@
  * the site-wide theme toggle.
  */
 :root {
-    color-scheme: light;
+  color-scheme: light;
 }
 
 .dark {
-    color-scheme: dark;
+  color-scheme: dark;
 }
 
 /* The ui-kit theme paints `:root` with its own background; let the Fumadocs
  * layout own the page background instead so the two systems don't fight. */
 :root,
 body {
-    background-color: var(--color-fd-background);
+  background-color: var(--color-fd-background);
 }
 
 /*
@@ -73,27 +73,27 @@ body {
  */
 :root,
 .dark {
-    --color-fd-background: var(--theme-default-bg-base);
-    --color-fd-foreground: var(--theme-default-text-hi-contrast);
-    --color-fd-muted: var(--theme-default-bg-tint);
-    --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
-    --color-fd-popover: var(--theme-default-bg-base-raised);
-    --color-fd-popover-foreground: var(--theme-default-text-hi-contrast);
-    --color-fd-card: var(--theme-default-bg-base-raised);
-    --color-fd-card-foreground: var(--theme-default-text-hi-contrast);
-    --color-fd-border: var(--theme-default-border-default);
-    --color-fd-primary: var(--theme-default-bg-primary);
-    --color-fd-primary-foreground: var(--theme-default-text-accent);
-    --color-fd-secondary: var(--theme-default-bg-tint);
-    --color-fd-secondary-foreground: var(--theme-default-text-hi-contrast);
-    --color-fd-accent: var(--theme-default-bg-tint);
-    --color-fd-accent-foreground: var(--theme-default-text-hi-contrast);
-    --color-fd-ring: var(--theme-default-bg-primary-hover);
+  --color-fd-background: var(--theme-default-bg-base);
+  --color-fd-foreground: var(--theme-default-text-hi-contrast);
+  --color-fd-muted: var(--theme-default-bg-tint);
+  --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
+  --color-fd-popover: var(--theme-default-bg-base-raised);
+  --color-fd-popover-foreground: var(--theme-default-text-hi-contrast);
+  --color-fd-card: var(--theme-default-bg-base-raised);
+  --color-fd-card-foreground: var(--theme-default-text-hi-contrast);
+  --color-fd-border: var(--theme-default-border-default);
+  --color-fd-primary: var(--theme-default-bg-primary);
+  --color-fd-primary-foreground: var(--theme-default-text-accent);
+  --color-fd-secondary: var(--theme-default-bg-tint);
+  --color-fd-secondary-foreground: var(--theme-default-text-hi-contrast);
+  --color-fd-accent: var(--theme-default-bg-tint);
+  --color-fd-accent-foreground: var(--theme-default-text-hi-contrast);
+  --color-fd-ring: var(--theme-default-bg-primary-hover);
 }
 
 /* Outranks `neutral.css`'s own sidebar-scoped dark overrides. */
 .dark #nd-sidebar {
-    --color-fd-muted: var(--theme-default-bg-tint);
-    --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
-    --color-fd-secondary: var(--theme-default-bg-tint);
+  --color-fd-muted: var(--theme-default-bg-tint);
+  --color-fd-muted-foreground: var(--theme-default-text-lo-contrast);
+  --color-fd-secondary: var(--theme-default-bg-tint);
 }

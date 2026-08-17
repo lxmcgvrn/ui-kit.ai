@@ -6,7 +6,7 @@ description: Groups inputs into a submittable form, with support for field valid
 import FormDefault from '@/components/examples/form/default'
 
 <ComponentPreview name='form/default'>
-    <FormDefault />
+  <FormDefault />
 </ComponentPreview>
 
 ## Usage
@@ -24,22 +24,22 @@ Pass the shape of your field values as a type param to get a correctly typed arg
 
 ```tsx
 type FieldValues = {
-    email: string
+  email: string
 }
 
 function SignUpForm() {
-    return (
-        <Form<FieldValues>
-            onError={(errors) => console.error(errors)}
-            onSubmit={(data) => console.info(data.email)}
-        >
-            <FormTextField name='email'>
-                <Label>Email address</Label>
-            </FormTextField>
+  return (
+    <Form<FieldValues>
+      onError={(errors) => console.error(errors)}
+      onSubmit={(data) => console.info(data.email)}
+    >
+      <FormTextField name='email'>
+        <Label>Email address</Label>
+      </FormTextField>
 
-            <FormSubmitButton />
-        </Form>
-    )
+      <FormSubmitButton />
+    </Form>
+  )
 }
 ```
 
@@ -54,28 +54,28 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 const schema = z.object({
-    email: z.string().email().nonempty(),
+  email: z.string().email().nonempty(),
 })
 
 function SignUpForm() {
-    return (
-        <Form
-            onSubmit={onSubmit}
-            options={{ resolver: zodResolver(schema) }}
-        >
-            <FormTextField name='email'>
-                <Label>Email address</Label>
-            </FormTextField>
+  return (
+    <Form
+      onSubmit={onSubmit}
+      options={{ resolver: zodResolver(schema) }}
+    >
+      <FormTextField name='email'>
+        <Label>Email address</Label>
+      </FormTextField>
 
-            <FormSubmitButton />
-        </Form>
-    )
+      <FormSubmitButton />
+    </Form>
+  )
 }
 ```
 
 ## Props
 
 <AutoTypeTable
-    name='FormProps'
-    path='../components/form/index.tsx'
+  name='FormProps'
+  path='../components/form.tsx'
 />

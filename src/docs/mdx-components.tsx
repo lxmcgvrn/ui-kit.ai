@@ -11,20 +11,20 @@ const generator = createGenerator()
 
 /** Components available to every MDX page without importing them. */
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
-    return {
-        ...defaultMdxComponents,
-        AutoTypeTable: AutoTypeTableWithGenerator,
-        ButtonThemeEditor,
-        ComponentPreview,
-        ...components,
-    }
+  return {
+    ...defaultMdxComponents,
+    AutoTypeTable: AutoTypeTableWithGenerator,
+    ButtonThemeEditor,
+    ComponentPreview,
+    ...components,
+  }
 }
 
 function AutoTypeTableWithGenerator(props: AutoTypeTableProps) {
-    return (
-        <AutoTypeTable
-            {...props}
-            generator={generator}
-        />
-    )
+  return (
+    <AutoTypeTable
+      {...props}
+      generator={generator}
+    />
+  )
 }

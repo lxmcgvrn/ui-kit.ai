@@ -3,10 +3,10 @@
 import { Calendar } from '@ui-kit.ai/components'
 
 export default function CalendarDisabled() {
-    return (
-        <Calendar
-            aria-label='Appointment date'
-            isDisabled
-        />
-    )
+  return (
+    <Calendar
+      aria-label='Appointment date'
+      isDisabled
+    />
+  )
 }

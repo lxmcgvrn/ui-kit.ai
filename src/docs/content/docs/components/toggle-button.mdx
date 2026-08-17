@@ -9,7 +9,7 @@ import ToggleButtonIcon from '@/components/examples/toggle-button/icon'
 import ToggleButtonVariants from '@/components/examples/toggle-button/variants'
 
 <ComponentPreview name='toggle-button/default'>
-    <ToggleButtonDefault />
+  <ToggleButtonDefault />
 </ComponentPreview>
 
 ## Usage
@@ -31,24 +31,21 @@ unselected look. Selected always reads the same — tinted with `bg-tint`, ruled
 and sitting in rather than on the surface.
 
 <Callout type='info'>
-    `ToggleButton` defaults to `secondary`, not `primary`. An unselected toggle is an offer, not the
-    main action on the screen.
+  `ToggleButton` defaults to `secondary`, not `primary`. An unselected toggle is an offer, not the main action on the screen.
 </Callout>
 
 <ComponentPreview name='toggle-button/variants'>
-    <ToggleButtonVariants />
+  <ToggleButtonVariants />
 </ComponentPreview>
 
 ## Icons
 
 Set `isIcon` for a square button, and `slotLeft` / `slotRight` to sit an icon beside the label.
 
-<Callout type='warn'>
-    Set an `aria-label` to give the button an accessible name when you do this.
-</Callout>
+<Callout type='warn'>Set an `aria-label` to give the button an accessible name when you do this.</Callout>
 
 <ComponentPreview name='toggle-button/icon'>
-    <ToggleButtonIcon />
+  <ToggleButtonIcon />
 </ComponentPreview>
 
 ## Disabled
@@ -56,12 +53,12 @@ Set `isIcon` for a square button, and `slotLeft` / `slotRight` to sit an icon be
 The `isDisabled` prop will "gray out" the button, and prevent focus and interaction.
 
 <ComponentPreview name='toggle-button/disabled'>
-    <ToggleButtonDisabled />
+  <ToggleButtonDisabled />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='ToggleButtonProps'
-    path='../components/toggle-button/index.tsx'
+  name='ToggleButtonProps'
+  path='../components/toggle-button.tsx'
 />

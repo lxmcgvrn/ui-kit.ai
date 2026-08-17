@@ -10,114 +10,114 @@ import { Label } from '../label'
 import { Radio } from '../radio-group'
 
 it('submits form with `FormRadioGroup`', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByLabelText, getByText } = render(
-        <Form onSubmit={onSubmit}>
-            <FormRadioGroup name='plan'>
-                <Label>Plan</Label>
-                <Radio
-                    label='Free'
-                    value='free'
-                />
-                <Radio
-                    label='Pro'
-                    value='pro'
-                />
-            </FormRadioGroup>
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByLabelText, getByText } = render(
+    <Form onSubmit={onSubmit}>
+      <FormRadioGroup name='plan'>
+        <Label>Plan</Label>
+        <Radio
+          label='Free'
+          value='free'
+        />
+        <Radio
+          label='Pro'
+          value='pro'
+        />
+      </FormRadioGroup>
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    await user.click(getByLabelText('Pro'))
-    await user.click(getByText('Submit'))
+  await user.click(getByLabelText('Pro'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ plan: 'pro' }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ plan: 'pro' }, expect.anything())
 })
 
 it('submits `null` when no radio is selected', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByText } = render(
-        <Form onSubmit={onSubmit}>
-            <FormRadioGroup name='plan'>
-                <Label>Plan</Label>
-                <Radio
-                    label='Free'
-                    value='free'
-                />
-                <Radio
-                    label='Pro'
-                    value='pro'
-                />
-            </FormRadioGroup>
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByText } = render(
+    <Form onSubmit={onSubmit}>
+      <FormRadioGroup name='plan'>
+        <Label>Plan</Label>
+        <Radio
+          label='Free'
+          value='free'
+        />
+        <Radio
+          label='Pro'
+          value='pro'
+        />
+      </FormRadioGroup>
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    await user.click(getByText('Submit'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ plan: null }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ plan: null }, expect.anything())
 })
 
 it('`FormRadioGroup` clears when reset after submission', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByLabelText, getByText } = render(
-        <Form onSubmit={onSubmit}>
-            <FormResetOnSubmit />
-            <FormRadioGroup name='plan'>
-                <Label>Plan</Label>
-                <Radio
-                    label='Free'
-                    value='free'
-                />
-                <Radio
-                    label='Pro'
-                    value='pro'
-                />
-            </FormRadioGroup>
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByLabelText, getByText } = render(
+    <Form onSubmit={onSubmit}>
+      <FormResetOnSubmit />
+      <FormRadioGroup name='plan'>
+        <Label>Plan</Label>
+        <Radio
+          label='Free'
+          value='free'
+        />
+        <Radio
+          label='Pro'
+          value='pro'
+        />
+      </FormRadioGroup>
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    const pro = getByLabelText('Pro')
-    await user.click(pro)
-    await user.click(getByText('Submit'))
+  const pro = getByLabelText('Pro')
+  await user.click(pro)
+  await user.click(getByText('Submit'))
 
-    expect(pro).not.toBeChecked()
+  expect(pro).not.toBeChecked()
 })
 
 it('handles `defaultValues` passed to `Form` with `FormRadioGroup`', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn().mockImplementation(() => null)
+  const user = userEvent.setup()
+  const onSubmit = vi.fn().mockImplementation(() => null)
 
-    const { getByLabelText, getByText } = render(
-        <Form
-            onSubmit={onSubmit}
-            options={{ defaultValues: { plan: 'free' } }}
-        >
-            <FormRadioGroup name='plan'>
-                <Label>Plan</Label>
-                <Radio
-                    label='Free'
-                    value='free'
-                />
-                <Radio
-                    label='Pro'
-                    value='pro'
-                />
-            </FormRadioGroup>
-            <Button type='submit'>Submit</Button>
-        </Form>
-    )
+  const { getByLabelText, getByText } = render(
+    <Form
+      onSubmit={onSubmit}
+      options={{ defaultValues: { plan: 'free' } }}
+    >
+      <FormRadioGroup name='plan'>
+        <Label>Plan</Label>
+        <Radio
+          label='Free'
+          value='free'
+        />
+        <Radio
+          label='Pro'
+          value='pro'
+        />
+      </FormRadioGroup>
+      <Button type='submit'>Submit</Button>
+    </Form>
+  )
 
-    expect(getByLabelText('Free')).toBeChecked()
+  expect(getByLabelText('Free')).toBeChecked()
 
-    await user.click(getByText('Submit'))
+  await user.click(getByText('Submit'))
 
-    expect(onSubmit).toHaveBeenCalledWith({ plan: 'free' }, expect.anything())
+  expect(onSubmit).toHaveBeenCalledWith({ plan: 'free' }, expect.anything())
 })

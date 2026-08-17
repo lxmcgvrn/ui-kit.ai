@@ -11,38 +11,35 @@ const root = import.meta.dirname
 const pkg = packageJson
 
 /** Externalize deps/peerDeps; devDeps are toolchain, guarded by smoke:pack. */
-const external = [
-    ...Object.keys(pkg.dependencies ?? {}),
-    ...Object.keys(pkg.peerDependencies ?? {}),
-].map((name) => new RegExp(`^${name}`))
+const external = [...Object.keys(pkg.dependencies ?? {}), ...Object.keys(pkg.peerDependencies ?? {})].map((name) => new RegExp(`^${name}`))
 
 /** Vite config for building the published library bundle. */
 export default defineConfig({
-    build: {
-        emptyOutDir: true,
-        lib: {
-            cssFileName: 'style',
-            entry: [path.resolve(root, 'src/components/index.ts')],
-            fileName: (_, name) => `${name}.js`,
-            formats: ['es'],
-        },
-        rollupOptions: {
-            external,
-            output: {
-                banner: '"use client";',
-                preserveModules: true,
-            },
-        },
+  build: {
+    emptyOutDir: true,
+    lib: {
+      cssFileName: 'style',
+      entry: [path.resolve(root, 'src/components/index.ts')],
+      fileName: (_, name) => `${name}.js`,
+      formats: ['es'],
     },
-    define: {
-        'import.meta.vitest': 'undefined',
+    rollupOptions: {
+      external,
+      output: {
+        banner: '"use client";',
+        preserveModules: true,
+      },
     },
-    plugins: [
-        react(),
-        dts({
-            insertTypesEntry: true,
-            rollupTypes: true,
-            tsconfigPath: path.resolve(root, 'tsconfig.build.json'),
-        }),
-    ],
+  },
+  define: {
+    'import.meta.vitest': 'undefined',
+  },
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+      rollupTypes: true,
+      tsconfigPath: path.resolve(root, 'tsconfig.build.json'),
+    }),
+  ],
 })

@@ -13,42 +13,42 @@
 
 /* Scale up hit targets on high resolution mobile devices. */
 @media (min-resolution: 200dpi) {
-    :root {
-        font-size: 18px;
-    }
+  :root {
+    font-size: 18px;
+  }
 }
 
 :root {
-    @apply bg-base text-lo-contrast;
+  @apply bg-base text-lo-contrast;
 
-    overscroll-behavior: none; /* Prevents scroll chaining */
+  overscroll-behavior: none; /* Prevents scroll chaining */
 
-    font-size: 16px; /* Basis for REM units */
+  font-size: 16px; /* Basis for REM units */
 
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    -webkit-text-size-adjust: 100%; /* Prevents iOS from resizing text */
-    -webkit-tap-highlight-color: transparent; /* Prevents iOS from highlighting text on tap */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  -webkit-text-size-adjust: 100%; /* Prevents iOS from resizing text */
+  -webkit-tap-highlight-color: transparent; /* Prevents iOS from highlighting text on tap */
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; /* Smoother fonts on webkit browsers */
+  -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 p:not(:last-child) {
-    margin-bottom: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 strong {
-    font-weight: 500;
-    color: var(--theme-default-text-hi-contrast);
+  font-weight: 500;
+  color: var(--theme-default-text-hi-contrast);
 }
 
 .code,
 code {
-    font-size: 92%;
+  font-size: 92%;
 }

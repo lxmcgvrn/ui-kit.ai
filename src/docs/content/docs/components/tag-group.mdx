@@ -8,7 +8,7 @@ import TagGroupIntents from '@/components/examples/tag-group/intents'
 import TagGroupRemovable from '@/components/examples/tag-group/removable'
 
 <ComponentPreview name='tag-group/default'>
-    <TagGroupDefault />
+  <TagGroupDefault />
 </ComponentPreview>
 
 ## Usage
@@ -21,9 +21,8 @@ import { TagGroup, TagGroupItem, TagList } from '@ui-kit.ai/components'
 through the `items` prop, or written out as children.
 
 <Callout>
-    The item is called `TagGroupItem` rather than `Tag`, because `Tag` is already the presentational
-    badge. Reach for `Tag` when the tag is only there to be read, and for `TagGroupItem` when the
-    user can focus, select, or remove it. The two share an appearance.
+  The item is called `TagGroupItem` rather than `Tag`, because `Tag` is already the presentational badge. Reach for `Tag` when the tag is
+  only there to be read, and for `TagGroupItem` when the user can focus, select, or remove it. The two share an appearance.
 </Callout>
 
 `TagGroup` renders no label of its own. Put a `Label` inside it, or give it an `aria-label`.
@@ -39,7 +38,7 @@ Pass `onRemove` to the `TagGroup` and each tag grows a remove button. `TagList` 
 `renderEmptyState` for the case where the last tag has gone.
 
 <ComponentPreview name='tag-group/removable'>
-    <TagGroupRemovable />
+  <TagGroupRemovable />
 </ComponentPreview>
 
 ## Intents
@@ -48,7 +47,7 @@ Pass `onRemove` to the `TagGroup` and each tag grows a remove button. `TagList` 
 decorative node such as an icon.
 
 <ComponentPreview name='tag-group/intents'>
-    <TagGroupIntents />
+  <TagGroupIntents />
 </ComponentPreview>
 
 ## Props
@@ -56,20 +55,20 @@ decorative node such as an icon.
 ### TagGroup
 
 <AutoTypeTable
-    name='TagGroupProps'
-    path='../components/tag-group/index.tsx'
+  name='TagGroupProps'
+  path='../components/tag-group.tsx'
 />
 
 ### TagList
 
 <AutoTypeTable
-    name='TagListProps'
-    path='../components/tag-group/index.tsx'
+  name='TagListProps'
+  path='../components/tag-group.tsx'
 />
 
 ### TagGroupItem
 
 <AutoTypeTable
-    name='TagGroupItemProps'
-    path='../components/tag-group/index.tsx'
+  name='TagGroupItemProps'
+  path='../components/tag-group.tsx'
 />

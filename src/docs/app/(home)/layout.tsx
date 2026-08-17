@@ -4,5 +4,5 @@ import { baseOptions } from '@/lib/layout.shared'
 import { HomeLayout } from 'fumadocs-ui/layouts/home'
 
 export default function Layout({ children }: { children: ReactNode }) {
-    return <HomeLayout {...baseOptions()}>{children}</HomeLayout>
+  return <HomeLayout {...baseOptions()}>{children}</HomeLayout>
 }

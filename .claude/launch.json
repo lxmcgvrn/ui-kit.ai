@@ -1,23 +1,23 @@
 {
-    "version": "0.0.1",
-    "configurations": [
-        {
-            "name": "docs",
-            "runtimeExecutable": "pnpm",
-            "runtimeArgs": ["dev"],
-            "port": 3000
-        },
-        {
-            "name": "docs-turbopack",
-            "runtimeExecutable": "sh",
-            "runtimeArgs": ["-c", "cd src/docs && ../../node_modules/.bin/next dev --turbopack"],
-            "port": 3000
-        },
-        {
-            "name": "component-preview",
-            "runtimeExecutable": "pnpm",
-            "runtimeArgs": ["exec", "vite", "--config", "preview/vite.config.mjs", "--port", "5173"],
-            "port": 5173
-        }
-    ]
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3000
+    },
+    {
+      "name": "docs-turbopack",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd src/docs && ../../node_modules/.bin/next dev --turbopack"],
+      "port": 3000
+    },
+    {
+      "name": "component-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "vite", "--config", "preview/vite.config.mjs", "--port", "5173"],
+      "port": 5173
+    }
+  ]
 }

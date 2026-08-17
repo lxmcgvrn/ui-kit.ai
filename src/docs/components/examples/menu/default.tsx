@@ -5,24 +5,24 @@ import { getMockOptions } from '@ui-kit.ai/mocks'
 import { LucideMenu } from 'lucide-react'
 
 export default function MenuDefault() {
-    return (
-        <MenuTrigger>
-            <Button
-                aria-label='Open menu'
-                className='px-2'
-                isIcon
-                variant='secondary'
-            >
-                <LucideMenu />
-            </Button>
-            <Popover>
-                <Menu
-                    items={getMockOptions<'menu'>({
-                        withIcon: true,
-                        withSections: false,
-                    })}
-                />
-            </Popover>
-        </MenuTrigger>
-    )
+  return (
+    <MenuTrigger>
+      <Button
+        aria-label='Open menu'
+        className='px-2'
+        isIcon
+        variant='secondary'
+      >
+        <LucideMenu />
+      </Button>
+      <Popover>
+        <Menu
+          items={getMockOptions<'menu'>({
+            withIcon: true,
+            withSections: false,
+          })}
+        />
+      </Popover>
+    </MenuTrigger>
+  )
 }

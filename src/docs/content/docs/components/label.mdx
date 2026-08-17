@@ -6,7 +6,7 @@ description: Labels a form field, associating the label with the field on your b
 import LabelDefault from '@/components/examples/label/default'
 
 <ComponentPreview name='label/default'>
-    <LabelDefault />
+  <LabelDefault />
 </ComponentPreview>
 
 ## Usage
@@ -25,20 +25,20 @@ the pair an `id` through react-aria's `LabelContext`, then point the control at 
 
 ```tsx
 function SettingRow() {
-    const id = useId()
+  const id = useId()
 
-    return (
-        <LabelContext value={{ id }}>
-            <Label>Radius</Label>
-            <ToggleButtonGroup aria-labelledby={id}>{stops}</ToggleButtonGroup>
-        </LabelContext>
-    )
+  return (
+    <LabelContext value={{ id }}>
+      <Label>Radius</Label>
+      <ToggleButtonGroup aria-labelledby={id}>{stops}</ToggleButtonGroup>
+    </LabelContext>
+  )
 }
 ```
 
 ## Props
 
 <AutoTypeTable
-    name='LabelProps'
-    path='../components/label/index.tsx'
+  name='LabelProps'
+  path='../components/label.tsx'
 />

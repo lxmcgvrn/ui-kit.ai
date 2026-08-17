@@ -3,5 +3,5 @@
 import { Loader } from '@ui-kit.ai/components'
 
 export default function LoaderCustomSize() {
-    return <Loader className='size-20' />
+  return <Loader className='size-20' />
 }

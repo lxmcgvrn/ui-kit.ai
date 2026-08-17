@@ -3,11 +3,11 @@ description: Feature ticket
 title: '[Feat]: '
 labels: ['feat']
 body:
-    - type: textarea
-      id: description
-      attributes:
-          label: Description
-          description: Describe the feature.
-          placeholder: "- As a \n- I want \n-so that I can"
-      validations:
-          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature.
+      placeholder: "- As a \n- I want \n-so that I can"
+    validations:
+      required: true

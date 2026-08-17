@@ -5,12 +5,12 @@ import { source } from '@/lib/source'
 import { DocsLayout } from 'fumadocs-ui/layouts/docs'
 
 export default function Layout({ children }: { children: ReactNode }) {
-    return (
-        <DocsLayout
-            {...baseOptions()}
-            tree={source.pageTree}
-        >
-            {children}
-        </DocsLayout>
-    )
+  return (
+    <DocsLayout
+      {...baseOptions()}
+      tree={source.pageTree}
+    >
+      {children}
+    </DocsLayout>
+  )
 }

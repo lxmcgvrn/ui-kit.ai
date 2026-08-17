@@ -9,7 +9,7 @@ import ProgressBarUnlabelled from '@/components/examples/progress-bar/unlabelled
 import ProgressBarValueLabel from '@/components/examples/progress-bar/value-label'
 
 <ComponentPreview name='progress-bar/default'>
-    <ProgressBarDefault />
+  <ProgressBarDefault />
 </ComponentPreview>
 
 ## Usage
@@ -30,7 +30,7 @@ Set `isIndeterminate` when the work has started but its size is unknown. The fil
 width and sweeps the track instead.
 
 <ComponentPreview name='progress-bar/indeterminate'>
-    <ProgressBarIndeterminate />
+  <ProgressBarIndeterminate />
 </ComponentPreview>
 
 ## Value label
@@ -39,24 +39,22 @@ The value is formatted as a percentage by default. Pass `formatOptions` to chang
 `valueLabel` to write it yourself.
 
 <ComponentPreview name='progress-bar/value-label'>
-    <ProgressBarValueLabel />
+  <ProgressBarValueLabel />
 </ComponentPreview>
 
 ## Without a visible label
 
 Leave `label` off for a bare track.
 
-<Callout type='warn'>
-    Set an `aria-label` to give the progress bar an accessible name when you do this.
-</Callout>
+<Callout type='warn'>Set an `aria-label` to give the progress bar an accessible name when you do this.</Callout>
 
 <ComponentPreview name='progress-bar/unlabelled'>
-    <ProgressBarUnlabelled />
+  <ProgressBarUnlabelled />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='ProgressBarProps'
-    path='../components/progress-bar/index.tsx'
+  name='ProgressBarProps'
+  path='../components/progress-bar.tsx'
 />

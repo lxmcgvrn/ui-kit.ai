@@ -10,8 +10,8 @@ const outputPath = path.resolve(import.meta.dirname, 'generated', 'style.css')
 const { css } = generateTheme(DEFAULT_THEME)
 
 const formatted = await prettier.format(css, {
-    ...(await prettier.resolveConfig(outputPath)),
-    parser: 'css',
+  ...(await prettier.resolveConfig(outputPath)),
+  parser: 'css',
 })
 
 fs.mkdirSync(path.dirname(outputPath), { recursive: true })

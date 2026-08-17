@@ -3,10 +3,10 @@
 import { Checkbox } from '@ui-kit.ai/components'
 
 export default function CheckboxTextPositionLeft() {
-    return (
-        <Checkbox
-            label='This is the label'
-            textPosition='left'
-        />
-    )
+  return (
+    <Checkbox
+      label='This is the label'
+      textPosition='left'
+    />
+  )
 }

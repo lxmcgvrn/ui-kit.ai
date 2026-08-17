@@ -7,20 +7,13 @@ import FormTextFieldDefault from '@/components/examples/form-text-field/default'
 import FormTextFieldIsInvalid from '@/components/examples/form-text-field/is-invalid'
 
 <ComponentPreview name='form-text-field/default'>
-    <FormTextFieldDefault />
+  <FormTextFieldDefault />
 </ComponentPreview>
 
 ## Usage
 
 ```tsx
-import {
-    FieldGroup,
-    Form,
-    FormTextField,
-    Input,
-    Label,
-    TextFieldClearButton,
-} from '@ui-kit.ai/components'
+import { FieldGroup, Form, FormTextField, Input, Label, TextFieldClearButton } from '@ui-kit.ai/components'
 ```
 
 `FormTextField` registers itself with the surrounding `Form` under the `name` you give it, and
@@ -35,12 +28,12 @@ The `isInvalid` prop marks the field as failing validation. The field is also ma
 automatically whenever the form reports an error for it.
 
 <ComponentPreview name='form-text-field/is-invalid'>
-    <FormTextFieldIsInvalid />
+  <FormTextFieldIsInvalid />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='FormTextFieldProps'
-    path='../components/form-text-field/index.tsx'
+  name='FormTextFieldProps'
+  path='../components/form-text-field.tsx'
 />

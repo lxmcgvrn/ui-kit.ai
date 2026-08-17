@@ -4,17 +4,17 @@ import { Description, Form, FormSelect, Label, SelectButton } from '@ui-kit.ai/c
 import { getMockOptions } from '@ui-kit.ai/mocks'
 
 export default function FormSelectIsDisabled() {
-    return (
-        <Form onSubmit={() => undefined}>
-            <FormSelect
-                isDisabled
-                items={getMockOptions({ withIcon: true, withSections: true })}
-                name='select'
-            >
-                <Label>This is a label for a field</Label>
-                <SelectButton />
-                <Description>This is a description for a field</Description>
-            </FormSelect>
-        </Form>
-    )
+  return (
+    <Form onSubmit={() => undefined}>
+      <FormSelect
+        isDisabled
+        items={getMockOptions({ withIcon: true, withSections: true })}
+        name='select'
+      >
+        <Label>This is a label for a field</Label>
+        <SelectButton />
+        <Description>This is a description for a field</Description>
+      </FormSelect>
+    </Form>
+  )
 }

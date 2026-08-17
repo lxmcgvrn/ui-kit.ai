@@ -5,19 +5,19 @@ import { ColorSwatch, ColorSwatchPicker, ColorSwatchPickerItem } from '@ui-kit.a
 import { PALETTE } from './palette'
 
 export default function ColorSwatchPickerCustomSwatch() {
-    return (
-        <ColorSwatchPicker
-            aria-label='Accent color'
-            defaultValue={PALETTE[0]}
+  return (
+    <ColorSwatchPicker
+      aria-label='Accent color'
+      defaultValue={PALETTE[0]}
+    >
+      {PALETTE.map((color) => (
+        <ColorSwatchPickerItem
+          color={color}
+          key={color}
         >
-            {PALETTE.map((color) => (
-                <ColorSwatchPickerItem
-                    color={color}
-                    key={color}
-                >
-                    <ColorSwatch className='size-10 rounded-full' />
-                </ColorSwatchPickerItem>
-            ))}
-        </ColorSwatchPicker>
-    )
+          <ColorSwatch className='size-10 rounded-full' />
+        </ColorSwatchPickerItem>
+      ))}
+    </ColorSwatchPicker>
+  )
 }

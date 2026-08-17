@@ -1,26 +1,19 @@
 {
-    "extends": "./tsconfig.base.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "jsx": "preserve",
-        "lib": ["ES2022", "dom", "dom.iterable"],
-        "paths": {
-            "@ui-kit.ai/components": ["./src/components/index.ts"],
-            "@ui-kit.ai/mocks": ["./src/mocks/index.ts"],
-            "@ui-kit.ai/theme": ["./src/theme/index.ts"]
-        },
-        "target": "ES2022",
-        "types": ["@testing-library/jest-dom", "node"]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "lib": ["ES2022", "dom", "dom.iterable"],
+    "paths": {
+      "@ui-kit.ai/components": ["./src/components/index.ts"],
+      "@ui-kit.ai/mocks": ["./src/mocks/index.ts"],
+      "@ui-kit.ai/theme": ["./src/theme/index.ts"]
     },
-    "include": [
-        ".prettierrc.mjs",
-        "eslint.config.mjs",
-        "src/**/*",
-        "vite.config.mjs",
-        "vitest.config.mjs",
-        "vitest.setup.ts"
-    ],
-    // The docs app is its own TypeScript project (`src/docs/tsconfig.json`),
-    // type-checked separately by `pnpm check:tsc`.
-    "exclude": ["node_modules", "dist", "src/docs"]
+    "target": "ES2022",
+    "types": ["@testing-library/jest-dom", "node"]
+  },
+  "include": [".prettierrc.mjs", "eslint.config.mjs", "src/**/*", "vite.config.mjs", "vitest.config.mjs", "vitest.setup.ts"],
+  // The docs app is its own TypeScript project (`src/docs/tsconfig.json`),
+  // type-checked separately by `pnpm check:tsc`.
+  "exclude": ["node_modules", "dist", "src/docs"]
 }

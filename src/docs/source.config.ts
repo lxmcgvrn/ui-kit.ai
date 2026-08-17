@@ -2,11 +2,11 @@ import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadoc
 
 /** Every docs page, plus the `meta.json` files that order the sidebar. */
 export const docs = defineDocs({
-    dir: 'content/docs',
-    docs: { schema: frontmatterSchema },
-    meta: { schema: metaSchema },
+  dir: 'content/docs',
+  docs: { schema: frontmatterSchema },
+  meta: { schema: metaSchema },
 })
 
 export default defineConfig({
-    mdxOptions: {},
+  mdxOptions: {},
 })

@@ -7,7 +7,7 @@ import AnimatedIconContainerCycle from '@/components/examples/animated-icon-cont
 import AnimatedIconContainerDefault from '@/components/examples/animated-icon-container/default'
 
 <ComponentPreview name='animated-icon-container/default'>
-    <AnimatedIconContainerDefault />
+  <AnimatedIconContainerDefault />
 </ComponentPreview>
 
 ## Usage
@@ -33,7 +33,7 @@ else — new props on the same icon, a re-render, a color change — is left alo
 
 ```tsx
 <AnimatedIconContainer>
-    <LucideBell key={unreadCount} />
+  <LucideBell key={unreadCount} />
 </AnimatedIconContainer>
 ```
 
@@ -44,7 +44,7 @@ faster than the animation and the icon on its way out is dropped, rather than qu
 others.
 
 <ComponentPreview name='animated-icon-container/cycle'>
-    <AnimatedIconContainerCycle />
+  <AnimatedIconContainerCycle />
 </ComponentPreview>
 
 ## Reduced motion
@@ -54,6 +54,6 @@ Under `prefers-reduced-motion`, the swap is instant — the new icon simply repl
 ## Props
 
 <AutoTypeTable
-    name='AnimatedIconContainerProps'
-    path='../components/animated-icon-container/index.tsx'
+  name='AnimatedIconContainerProps'
+  path='../components/animated-icon-container.tsx'
 />

@@ -33,39 +33,34 @@ const toRgb = converter('rgb')
 
 /** APCA-W3 0.1.9 contrast in Lc. Positive is dark text, negative is light. */
 export function apcaLc(text: Oklch, background: Oklch): number {
-    const backgroundLight = clampBlack(screenLuminance(background))
-    const textLight = clampBlack(screenLuminance(text))
+  const backgroundLight = clampBlack(screenLuminance(background))
+  const textLight = clampBlack(screenLuminance(text))
 
-    if (Math.abs(backgroundLight - textLight) < MIN_LIGHT_DELTA) {
-        return 0
-    }
+  if (Math.abs(backgroundLight - textLight) < MIN_LIGHT_DELTA) {
+    return 0
+  }
 
-    const [polarity, backgroundExponent, textExponent] =
-        backgroundLight > textLight
-            ? ([1, NORMAL_BACKGROUND_EXPONENT, NORMAL_TEXT_EXPONENT] as const)
-            : ([-1, REVERSE_BACKGROUND_EXPONENT, REVERSE_TEXT_EXPONENT] as const)
+  const [polarity, backgroundExponent, textExponent] =
+    backgroundLight > textLight
+      ? ([1, NORMAL_BACKGROUND_EXPONENT, NORMAL_TEXT_EXPONENT] as const)
+      : ([-1, REVERSE_BACKGROUND_EXPONENT, REVERSE_TEXT_EXPONENT] as const)
 
-    const magnitude =
-        polarity * (backgroundLight ** backgroundExponent - textLight ** textExponent) * SCALE
+  const magnitude = polarity * (backgroundLight ** backgroundExponent - textLight ** textExponent) * SCALE
 
-    return magnitude < LOW_CLIP ? 0 : polarity * (magnitude - LOW_OFFSET) * 100
+  return magnitude < LOW_CLIP ? 0 : polarity * (magnitude - LOW_OFFSET) * 100
 }
 
 /** A display clips what it cannot show, so out-of-gamut channels clip too. */
 function channelLight(value: number): number {
-    return Math.min(Math.max(value, 0), 1) ** SCREEN_GAMMA
+  return Math.min(Math.max(value, 0), 1) ** SCREEN_GAMMA
 }
 
 function clampBlack(light: number): number {
-    return light > BLACK_THRESHOLD ? light : light + (BLACK_THRESHOLD - light) ** BLACK_CLAMP
+  return light > BLACK_THRESHOLD ? light : light + (BLACK_THRESHOLD - light) ** BLACK_CLAMP
 }
 
 function screenLuminance(color: Oklch): number {
-    const { b, g, r } = toRgb(color)
+  const { b, g, r } = toRgb(color)
 
-    return (
-        COEFFICIENTS.b * channelLight(b) +
-        COEFFICIENTS.g * channelLight(g) +
-        COEFFICIENTS.r * channelLight(r)
-    )
+  return COEFFICIENTS.b * channelLight(b) + COEFFICIENTS.g * channelLight(g) + COEFFICIENTS.r * channelLight(r)
 }

@@ -11,22 +11,22 @@ import DialogWidthSm from '@/components/examples/dialog/width-sm'
 import DialogWithLongContent from '@/components/examples/dialog/with-long-content'
 
 <ComponentPreview name='dialog/default'>
-    <DialogDefault />
+  <DialogDefault />
 </ComponentPreview>
 
 ## Usage
 
 ```tsx
 import {
-    Dialog,
-    DialogCloseButton,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogModal,
-    DialogModalOverlay,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogCloseButton,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogModal,
+  DialogModalOverlay,
+  DialogTitle,
+  DialogTrigger,
 } from '@ui-kit.ai/components'
 ```
 
@@ -35,8 +35,7 @@ and a `DialogFooter` pinned to the bottom. A button with `slot='close'` — or t
 `DialogCloseButton` — dismisses the dialog.
 
 <Callout type='warn'>
-    A dialog without a `DialogTitle` needs an `aria-label` or `aria-labelledby` prop instead, so it
-    is identified to assistive technology.
+  A dialog without a `DialogTitle` needs an `aria-label` or `aria-labelledby` prop instead, so it is identified to assistive technology.
 </Callout>
 
 ## Modal
@@ -46,7 +45,7 @@ inside `DialogTrigger`, to open the dialog as a modal. `Dialog` accepts a render
 receives `close`, so footer actions can dismiss the dialog once they are done.
 
 <ComponentPreview name='dialog/modal'>
-    <DialogModalDemo />
+  <DialogModalDemo />
 </ComponentPreview>
 
 ## Width
@@ -57,19 +56,19 @@ full-screen regardless of this prop.
 ### `sm`
 
 <ComponentPreview name='dialog/width-sm'>
-    <DialogWidthSm />
+  <DialogWidthSm />
 </ComponentPreview>
 
 ### `md`
 
 <ComponentPreview name='dialog/width-md'>
-    <DialogWidthMd />
+  <DialogWidthMd />
 </ComponentPreview>
 
 ### `lg`
 
 <ComponentPreview name='dialog/width-lg'>
-    <DialogWidthLg />
+  <DialogWidthLg />
 </ComponentPreview>
 
 ## With long content
@@ -78,7 +77,7 @@ full-screen regardless of this prop.
 overflows.
 
 <ComponentPreview name='dialog/with-long-content'>
-    <DialogWithLongContent />
+  <DialogWithLongContent />
 </ComponentPreview>
 
 ## Props
@@ -86,34 +85,34 @@ overflows.
 ### Dialog
 
 <AutoTypeTable
-    name='DialogProps'
-    path='../components/dialog/index.tsx'
+  name='DialogProps'
+  path='../components/dialog.tsx'
 />
 
 ### DialogTrigger
 
 <AutoTypeTable
-    name='DialogTriggerProps'
-    path='../components/dialog/index.tsx'
+  name='DialogTriggerProps'
+  path='../components/dialog.tsx'
 />
 
 ### DialogModalOverlay
 
 <AutoTypeTable
-    name='DialogModalOverlayProps'
-    path='../components/dialog/index.tsx'
+  name='DialogModalOverlayProps'
+  path='../components/dialog.tsx'
 />
 
 ### DialogModal
 
 <AutoTypeTable
-    name='DialogModalProps'
-    path='../components/dialog/index.tsx'
+  name='DialogModalProps'
+  path='../components/dialog.tsx'
 />
 
 ### DialogTitle
 
 <AutoTypeTable
-    name='DialogTitleProps'
-    path='../components/dialog/index.tsx'
+  name='DialogTitleProps'
+  path='../components/dialog.tsx'
 />

@@ -9,21 +9,13 @@ import DrawerSideLeft from '@/components/examples/drawer/side-left'
 import DrawerWidth from '@/components/examples/drawer/width'
 
 <ComponentPreview name='drawer/default'>
-    <DrawerDefault />
+  <DrawerDefault />
 </ComponentPreview>
 
 ## Usage
 
 ```tsx
-import {
-    Drawer,
-    DrawerCloseButton,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from '@ui-kit.ai/components'
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@ui-kit.ai/components'
 ```
 
 `Drawer` lays out three regions: a `DrawerHeader` pinned to the top, a scrollable `DrawerContent`,
@@ -35,8 +27,7 @@ alongside a trigger element inside `DrawerTrigger`. It accepts a render function
 `close`, so footer actions can dismiss the drawer once they are done.
 
 <Callout type='warn'>
-    A drawer without a `DrawerTitle` needs an `aria-label` or `aria-labelledby` prop instead, so it
-    is identified to assistive technology.
+  A drawer without a `DrawerTitle` needs an `aria-label` or `aria-labelledby` prop instead, so it is identified to assistive technology.
 </Callout>
 
 ## Side
@@ -44,7 +35,7 @@ alongside a trigger element inside `DrawerTrigger`. It accepts a render function
 The `side` prop sets the edge the panel slides in from. It defaults to `right`.
 
 <ComponentPreview name='drawer/side-left'>
-    <DrawerSideLeft />
+  <DrawerSideLeft />
 </ComponentPreview>
 
 ## Controlled
@@ -54,7 +45,7 @@ Pass `isOpen` and `onOpenChange` to drive the drawer from your own state, and dr
 route change — opens the panel.
 
 <ComponentPreview name='drawer/controlled'>
-    <DrawerControlled />
+  <DrawerControlled />
 </ComponentPreview>
 
 ## Width
@@ -63,12 +54,12 @@ The panel is full-width on small screens and `24rem` from the `sm` breakpoint up
 styles the panel itself, so override the width there.
 
 <ComponentPreview name='drawer/width'>
-    <DrawerWidth />
+  <DrawerWidth />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='DrawerProps'
-    path='../components/drawer/index.tsx'
+  name='DrawerProps'
+  path='../components/drawer.tsx'
 />

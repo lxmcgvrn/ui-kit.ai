@@ -7,15 +7,15 @@ import { useRouter } from 'next/navigation'
 
 /** Routes ui-kit `href` props through the Next.js router. */
 export function UIKitRouterProvider({ children }: { children: ReactNode }) {
-    const router = useRouter()
+  const router = useRouter()
 
-    return (
-        <RouterProvider
-            navigate={(path, routerOptions) => {
-                router.push(path, routerOptions)
-            }}
-        >
-            {children}
-        </RouterProvider>
-    )
+  return (
+    <RouterProvider
+      navigate={(path, routerOptions) => {
+        router.push(path, routerOptions)
+      }}
+    >
+      {children}
+    </RouterProvider>
+  )
 }

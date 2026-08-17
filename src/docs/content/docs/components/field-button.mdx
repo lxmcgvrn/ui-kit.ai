@@ -8,7 +8,7 @@ import FieldButtonDisabled from '@/components/examples/field-button/disabled'
 import FieldButtonInvalidField from '@/components/examples/field-button/invalid-field'
 
 <ComponentPreview name='field-button/default'>
-    <FieldButtonDefault />
+  <FieldButtonDefault />
 </ComponentPreview>
 
 ## Usage
@@ -22,16 +22,14 @@ like clearing, copying, or toggling visibility. The ready-made variants — `Tex
 `TextFieldCopyButton`, `TextFieldVisibilityButton` and `SearchFieldClearButton` — are all built on
 it.
 
-<Callout type='warn'>
-    Set an `aria-label` to give the button an accessible name, since it only ever renders an icon.
-</Callout>
+<Callout type='warn'>Set an `aria-label` to give the button an accessible name, since it only ever renders an icon.</Callout>
 
 ## Disabled
 
 The `isDisabled` prop will "gray out" the button and prevent interaction.
 
 <ComponentPreview name='field-button/disabled'>
-    <FieldButtonDisabled />
+  <FieldButtonDisabled />
 </ComponentPreview>
 
 ## In invalid field
@@ -39,12 +37,12 @@ The `isDisabled` prop will "gray out" the button and prevent interaction.
 The button picks up the error styling from an invalid field around it.
 
 <ComponentPreview name='field-button/invalid-field'>
-    <FieldButtonInvalidField />
+  <FieldButtonInvalidField />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='FieldButtonProps'
-    path='../components/field-button/index.tsx'
+  name='FieldButtonProps'
+  path='../components/field-button.tsx'
 />

@@ -1,20 +1,20 @@
 @import '../theme/generated/style.css';
 
 @theme {
-    --height-ui-element: 2rem;
-    --default-transition-duration: 50ms;
+  --height-ui-element: 2rem;
+  --default-transition-duration: 50ms;
 
-    /* Sweeps `Skeleton`'s gradient across its double-width background. */
-    --animate-shimmer: shimmer 1.6s linear infinite;
+  /* Sweeps `Skeleton`'s gradient across its double-width background. */
+  --animate-shimmer: shimmer 1.6s linear infinite;
 
-    @keyframes shimmer {
-        from {
-            background-position: 100% 0;
-        }
-        to {
-            background-position: -100% 0;
-        }
+  @keyframes shimmer {
+    from {
+      background-position: 100% 0;
     }
+    to {
+      background-position: -100% 0;
+    }
+  }
 }
 
 /*
@@ -36,30 +36,30 @@
  * outlines only get the shorthand.
  */
 @layer utilities {
-    .border {
-        border-width: 0.5px;
-    }
+  .border {
+    border-width: 0.5px;
+  }
 
-    .border-t {
-        border-top-width: 0.5px;
-    }
+  .border-t {
+    border-top-width: 0.5px;
+  }
 
-    .border-r {
-        border-right-width: 0.5px;
-    }
+  .border-r {
+    border-right-width: 0.5px;
+  }
 
-    .border-b {
-        border-bottom-width: 0.5px;
-    }
+  .border-b {
+    border-bottom-width: 0.5px;
+  }
 
-    .border-l {
-        border-left-width: 0.5px;
-    }
+  .border-l {
+    border-left-width: 0.5px;
+  }
 
-    .outline {
-        outline-style: var(--tw-outline-style, solid);
-        outline-width: 0.5px;
-    }
+  .outline {
+    outline-style: var(--tw-outline-style, solid);
+    outline-width: 0.5px;
+  }
 }
 
 /*
@@ -68,14 +68,14 @@
  * so a consuming app's own focus styles still win.
  */
 * {
-    outline-color: transparent;
-    outline-width: 0;
+  outline-color: transparent;
+  outline-width: 0;
 }
 
 :focus,
 [data-focus],
 [data-focus-within] [data-focus-visible] {
-    outline: 0;
+  outline: 0;
 }
 
 /*
@@ -85,39 +85,39 @@ Also to any focus-within element that has a focus-visible child.
 */
 [data-focus-visible]:not(:is([aria-autocomplete='list'], [role='menuitem'], [role='listitem'])),
 [data-focus-within]:has([data-focus-visible]) {
-    outline: 2px solid;
-    outline-color: var(--theme-default-bg-primary-hover);
-    outline-offset: 2px;
+  outline: 2px solid;
+  outline-color: var(--theme-default-bg-primary-hover);
+  outline-offset: 2px;
 }
 
 /* Hide the user agent default clear button on search inputs — `SearchField`
  * renders its own clear button. */
 [type='search']::-webkit-search-cancel-button,
 [type='search']::-webkit-search-decoration {
-    -webkit-appearance: none;
-    appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Override cursor for all disabled elements. React Aria marks disabled
  * elements with `aria-disabled` rather than `disabled` in many cases. */
 [disabled],
 [aria-disabled='true'] {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* Re-usable class for thin scrollbars (e.g. dialog, dropdown, etc) */
 .scrollbar-thin {
-    scrollbar-width: thin;
+  scrollbar-width: thin;
 }
 
 /* Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /*
@@ -128,7 +128,7 @@ Also to any focus-within element that has a focus-visible child.
  */
 
 .react-syntax-highlighter-line-number {
-    color: var(--theme-default-text-placeholder);
+  color: var(--theme-default-text-placeholder);
 }
 
 /**
@@ -136,37 +136,37 @@ Also to any focus-within element that has a focus-visible child.
  */
 code[class*='language-'],
 pre[class*='language-'] {
-    text-shadow: none !important;
-    white-space: pre !important;
-    text-align: left !important;
-    font-family: var(--font-mono) !important;
-    font-size: var(--text-sm) !important;
-    line-height: var(--text-xs--line-height) !important;
-    color: var(--theme-default-text-hi-contrast) !important;
-    direction: ltr !important;
-    word-spacing: normal !important;
-    word-break: normal !important;
+  text-shadow: none !important;
+  white-space: pre !important;
+  text-align: left !important;
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-sm) !important;
+  line-height: var(--text-xs--line-height) !important;
+  color: var(--theme-default-text-hi-contrast) !important;
+  direction: ltr !important;
+  word-spacing: normal !important;
+  word-break: normal !important;
 
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
 
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: var(--theme-default-text-placeholder);
-    font-style: italic;
+  color: var(--theme-default-text-placeholder);
+  font-style: italic;
 }
 .token.plain-text,
 .token.punctuation {
-    color: var(--theme-default-text-hi-contrast);
+  color: var(--theme-default-text-hi-contrast);
 }
 
 .token.class,
@@ -178,14 +178,14 @@ pre[class*='language-'] {
 .token.pseudo-class,
 .token.selector,
 .token.tag {
-    color: var(--color-syntax-1);
+  color: var(--color-syntax-1);
 }
 
 .token.attr-value,
 .token.color,
 .token.imports,
 .token.unit {
-    color: var(--color-syntax-2);
+  color: var(--color-syntax-2);
 }
 
 .token.attr-name,
@@ -196,22 +196,22 @@ pre[class*='language-'] {
 .token.operator,
 .token.rule,
 .token.variable {
-    color: var(--color-syntax-3);
+  color: var(--color-syntax-3);
 }
 
 .token.number,
 .token.string {
-    color: var(--color-syntax-4);
+  color: var(--color-syntax-4);
 }
 
 .highlight-word {
-    display: inline-block;
-    color: var(--theme-default-text-hi-contrast);
-    background-color: var(--theme-default-bg-tint);
+  display: inline-block;
+  color: var(--theme-default-text-hi-contrast);
+  background-color: var(--theme-default-bg-tint);
 }
 
 /* Global colors for highlighted text */
 ::selection {
-    background: var(--theme-default-bg-primary);
-    color: var(--theme-default-text-accent);
+  background: var(--theme-default-bg-primary);
+  color: var(--theme-default-text-accent);
 }

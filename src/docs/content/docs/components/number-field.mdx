@@ -9,19 +9,13 @@ import NumberFieldFormatOptions from '@/components/examples/number-field/format-
 import NumberFieldInvalid from '@/components/examples/number-field/invalid'
 
 <ComponentPreview name='number-field/default'>
-    <NumberFieldDefault />
+  <NumberFieldDefault />
 </ComponentPreview>
 
 ## Usage
 
 ```tsx
-import {
-    FieldGroup,
-    Input,
-    NumberField,
-    NumberFieldDecrementButton,
-    NumberFieldIncrementButton,
-} from '@ui-kit.ai/components'
+import { FieldGroup, Input, NumberField, NumberFieldDecrementButton, NumberFieldIncrementButton } from '@ui-kit.ai/components'
 ```
 
 `NumberField` is composed from parts. A `FieldGroup` draws the border around the `Input` and the
@@ -35,7 +29,7 @@ ends of the range. Use `minValue`, `maxValue`, and `step` to constrain the value
 percentages, or units, and parse what the user types back in the same format.
 
 <ComponentPreview name='number-field/format-options'>
-    <NumberFieldFormatOptions />
+  <NumberFieldFormatOptions />
 </ComponentPreview>
 
 ## Disabled
@@ -43,7 +37,7 @@ percentages, or units, and parse what the user types back in the same format.
 The `isDisabled` prop will "gray out" the field, and prevent focus and interaction.
 
 <ComponentPreview name='number-field/disabled'>
-    <NumberFieldDisabled />
+  <NumberFieldDisabled />
 </ComponentPreview>
 
 ## Invalid
@@ -51,7 +45,7 @@ The `isDisabled` prop will "gray out" the field, and prevent focus and interacti
 The `isInvalid` prop applies the error styling to the field and its steppers.
 
 <ComponentPreview name='number-field/invalid'>
-    <NumberFieldInvalid />
+  <NumberFieldInvalid />
 </ComponentPreview>
 
 ## Props
@@ -59,20 +53,20 @@ The `isInvalid` prop applies the error styling to the field and its steppers.
 ### NumberField
 
 <AutoTypeTable
-    name='NumberFieldProps'
-    path='../components/number-field/index.tsx'
+  name='NumberFieldProps'
+  path='../components/number-field.tsx'
 />
 
 ### NumberFieldDecrementButton
 
 <AutoTypeTable
-    name='NumberFieldDecrementButtonProps'
-    path='../components/number-field/index.tsx'
+  name='NumberFieldDecrementButtonProps'
+  path='../components/number-field.tsx'
 />
 
 ### NumberFieldIncrementButton
 
 <AutoTypeTable
-    name='NumberFieldIncrementButtonProps'
-    path='../components/number-field/index.tsx'
+  name='NumberFieldIncrementButtonProps'
+  path='../components/number-field.tsx'
 />

@@ -11,52 +11,52 @@ import path from 'node:path'
 const EXAMPLES_DIR = path.join(process.cwd(), 'components', 'examples')
 
 export interface ComponentPreviewProps {
-    /** The rendered demo, imported from `@/components/examples/&lt;name>`. */
-    children: ReactNode
-    /** Wait for the MSW mock API before rendering the demo. */
-    mocks?: boolean
-    /** `&lt;component>/&lt;example>` — the demo's path under the examples root. */
-    name: string
+  /** The rendered demo, imported from `@/components/examples/&lt;name>`. */
+  children: ReactNode
+  /** Wait for the MSW mock API before rendering the demo. */
+  mocks?: boolean
+  /** `&lt;component>/&lt;example>` — the demo's path under the examples root. */
+  name: string
 }
 
 /** Renders a demo in a `Preview` tab and its source in a `Code` tab. */
 export async function ComponentPreview({ children, mocks = false, name }: ComponentPreviewProps) {
-    const source = await readExampleSource(name)
+  const source = await readExampleSource(name)
 
-    const code = await highlight(source.trim(), {
-        components: {
-            pre: (props: ComponentProps<'pre'>) => (
-                <CodeBlock
-                    className='my-0'
-                    {...props}
-                >
-                    <Pre>{props.children}</Pre>
-                </CodeBlock>
-            ),
-        },
-        lang: 'tsx',
-        themes: {
-            dark: 'github-dark',
-            light: 'github-light',
-        },
-    })
-
-    return (
-        <Tabs
-            // Keep the tab state per demo rather than shared across the page.
-            groupId={`component-preview-${name}`}
-            items={['Preview', 'Code']}
+  const code = await highlight(source.trim(), {
+    components: {
+      pre: (props: ComponentProps<'pre'>) => (
+        <CodeBlock
+          className='my-0'
+          {...props}
         >
-            <Tab value='Preview'>
-                <DemoFrame mocks={mocks}>{children}</DemoFrame>
-            </Tab>
-            <Tab value='Code'>{code}</Tab>
-        </Tabs>
-    )
+          <Pre>{props.children}</Pre>
+        </CodeBlock>
+      ),
+    },
+    lang: 'tsx',
+    themes: {
+      dark: 'github-dark',
+      light: 'github-light',
+    },
+  })
+
+  return (
+    <Tabs
+      // Keep the tab state per demo rather than shared across the page.
+      groupId={`component-preview-${name}`}
+      items={['Preview', 'Code']}
+    >
+      <Tab value='Preview'>
+        <DemoFrame mocks={mocks}>{children}</DemoFrame>
+      </Tab>
+      <Tab value='Code'>{code}</Tab>
+    </Tabs>
+  )
 }
 
 async function readExampleSource(name: string) {
-    const [component = '', example = ''] = name.split('/')
+  const [component = '', example = ''] = name.split('/')
 
-    return readFile(path.join(EXAMPLES_DIR, component, `${example}.tsx`), 'utf8')
+  return readFile(path.join(EXAMPLES_DIR, component, `${example}.tsx`), 'utf8')
 }

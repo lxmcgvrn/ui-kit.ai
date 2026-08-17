@@ -7,18 +7,18 @@ import { PALETTE } from './palette'
 const UNAVAILABLE = '#E5484D'
 
 export default function ColorSwatchPickerDisabledItem() {
-    return (
-        <ColorSwatchPicker
-            aria-label='Accent color'
-            defaultValue={PALETTE[0]}
-        >
-            {PALETTE.map((color) => (
-                <ColorSwatchPickerItem
-                    color={color}
-                    isDisabled={color === UNAVAILABLE}
-                    key={color}
-                />
-            ))}
-        </ColorSwatchPicker>
-    )
+  return (
+    <ColorSwatchPicker
+      aria-label='Accent color'
+      defaultValue={PALETTE[0]}
+    >
+      {PALETTE.map((color) => (
+        <ColorSwatchPickerItem
+          color={color}
+          isDisabled={color === UNAVAILABLE}
+          key={color}
+        />
+      ))}
+    </ColorSwatchPicker>
+  )
 }

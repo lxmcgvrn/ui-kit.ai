@@ -8,32 +8,32 @@ let isOpen = false
 
 /** Opens the drawer from anywhere — the nav button, or an MDX page. */
 export function openThemeEditor() {
-    setThemeEditorOpen(true)
+  setThemeEditorOpen(true)
 }
 
 export function setThemeEditorOpen(next: boolean) {
-    if (isOpen === next) return
+  if (isOpen === next) return
 
-    isOpen = next
-    for (const listener of listeners) listener()
+  isOpen = next
+  for (const listener of listeners) listener()
 }
 
 export function useIsThemeEditorOpen() {
-    return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
 function getServerSnapshot() {
-    return false
+  return false
 }
 
 function getSnapshot() {
-    return isOpen
+  return isOpen
 }
 
 function subscribe(listener: () => void) {
-    listeners.add(listener)
+  listeners.add(listener)
 
-    return () => {
-        listeners.delete(listener)
-    }
+  return () => {
+    listeners.delete(listener)
+  }
 }

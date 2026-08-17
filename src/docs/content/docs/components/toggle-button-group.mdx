@@ -9,7 +9,7 @@ import ToggleButtonGroupMultiple from '@/components/examples/toggle-button-group
 import ToggleButtonGroupVertical from '@/components/examples/toggle-button-group/vertical'
 
 <ComponentPreview name='toggle-button-group/default'>
-    <ToggleButtonGroupDefault />
+  <ToggleButtonGroupDefault />
 </ComponentPreview>
 
 ## Usage
@@ -21,9 +21,7 @@ import { ToggleButton, ToggleButtonGroup } from '@ui-kit.ai/components'
 Give every `ToggleButton` an `id` — that is the key the group reports through `selectedKeys` and
 `onSelectionChange`. Arrow keys move between the buttons.
 
-<Callout type='warn'>
-    Set an `aria-label` on the group to give the set of toggles an accessible name.
-</Callout>
+<Callout type='warn'>Set an `aria-label` on the group to give the set of toggles an accessible name.</Callout>
 
 Set `variant` once on the group and every button inside it picks it up, the way `Tabs` passes its
 variant to each `Tab`. A button can still set its own `variant` to opt out.
@@ -34,7 +32,7 @@ Set `selectionMode='multiple'` to let more than one option be on at a time. The 
 `single`; add `disallowEmptySelection` to keep one option always chosen.
 
 <ComponentPreview name='toggle-button-group/multiple'>
-    <ToggleButtonGroupMultiple />
+  <ToggleButtonGroupMultiple />
 </ComponentPreview>
 
 ## Detached
@@ -43,7 +41,7 @@ The buttons are attached by default. Set `isAttached={false}` to space them out 
 for a row of filter chips, where the options are not alternatives to each other.
 
 <ComponentPreview name='toggle-button-group/detached'>
-    <ToggleButtonGroupDetached />
+  <ToggleButtonGroupDetached />
 </ComponentPreview>
 
 ## Vertical orientation
@@ -51,12 +49,12 @@ for a row of filter chips, where the options are not alternatives to each other.
 Set `orientation='vertical'` to stack the run. The shared edges and rounded corners follow.
 
 <ComponentPreview name='toggle-button-group/vertical'>
-    <ToggleButtonGroupVertical />
+  <ToggleButtonGroupVertical />
 </ComponentPreview>
 
 ## Props
 
 <AutoTypeTable
-    name='ToggleButtonGroupProps'
-    path='../components/toggle-button-group/index.tsx'
+  name='ToggleButtonGroupProps'
+  path='../components/toggle-button-group.tsx'
 />
