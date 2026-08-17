@@ -1,6 +1,6 @@
 import type { ContrastWarning, Intent, Scheme, ThemeOverrides, Token } from '@ui-kit.ai/theme'
 
-import type { TokenAddress } from './tokens'
+import type { TokenAddress } from './overrides'
 
 import { overrideAt } from './overrides'
 
@@ -15,7 +15,7 @@ export interface ContrastReport {
 
 /** What a root icon says: open the branch, the detail is on the leaves. */
 export const ROOT_CONTRAST_MESSAGE =
-    'There are some contrast & accessibility issues with colours in this theme, expand to learn more.'
+    'There are some contrast & accessibility issues with colors in this theme, expand to learn more.'
 
 /** Nudges the reader at the half they can actually undo. */
 const OVERRIDDEN_SUFFIX = ' One of them is overridden — clear it and the engine will solve it.'

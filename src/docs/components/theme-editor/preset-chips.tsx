@@ -2,8 +2,8 @@
 
 import type { Intent, Preset } from '@ui-kit.ai/theme'
 
-import { Tooltip, TooltipTrigger } from '@ui-kit.ai/components'
-import { PRESETS } from '@ui-kit.ai/theme'
+import { Label, Tooltip, TooltipTrigger } from '@ui-kit.ai/components'
+import { INTENTS, PRESETS } from '@ui-kit.ai/theme'
 import { LucideDices, LucideSwatchBook } from 'lucide-react'
 import { Button as RACButton } from 'react-aria-components'
 import { tv } from 'tailwind-variants'
@@ -11,7 +11,20 @@ import { tv } from 'tailwind-variants'
 import type { ThemeEditorController } from './use-theme-input'
 
 import { seedFor, toCssColor } from './color'
-import { applyRandomTheme } from './random-theme'
+import { SettingRow, useLabelId } from './setting-row'
+
+/** One hue family's tasteful range, so a roll still reads as that intent. */
+interface SeedRange {
+    chroma: readonly [number, number]
+    hue: readonly [number, number]
+    lightness: readonly [number, number]
+}
+
+/* Ranges follow the shipped presets' own spread, so a roll looks intentional. */
+const BRAND_RANGE: SeedRange = { chroma: [0.12, 0.2], hue: [0, 360], lightness: [0.55, 0.78] }
+const ERROR_RANGE: SeedRange = { chroma: [0.13, 0.21], hue: [-10, 40], lightness: [0.55, 0.78] }
+const SUCCESS_RANGE: SeedRange = { chroma: [0.1, 0.16], hue: [140, 180], lightness: [0.55, 0.78] }
+const WARNING_RANGE: SeedRange = { chroma: [0.07, 0.15], hue: [65, 105], lightness: [0.83, 0.94] }
 
 const presetStyles = tv({
     slots: {
@@ -21,9 +34,6 @@ const presetStyles = tv({
             'cursor-pointer rounded-full',
             'border-2 border-[var(--theme-default-bg-base-raised)]',
         ],
-        icon: 'text-lo-contrast flex w-(--height-ui-element) flex-none justify-center [&_svg]:size-4',
-        label: 'flex-none text-sm font-medium',
-        row: 'mb-3 flex min-h-8 items-center gap-2',
         stack: 'flex flex-none items-center',
     },
     variants: {
@@ -36,62 +46,78 @@ const presetStyles = tv({
     },
 })
 
-export interface PresetChipsProps {
-    theme: ThemeEditorController
-}
-
-interface PresetChipProps {
-    isActive: boolean
-    onPress: () => void
-    preset: Preset
-}
-
 /** The presets row: a stack of swatches, plus a randomiser as the final chip. */
-export function PresetChips({ theme }: PresetChipsProps) {
-    const { icon, label, row, stack } = presetStyles()
+export function PresetChips({ theme }: { theme: ThemeEditorController }) {
+    return (
+        <div className='mb-3'>
+            <SettingRow icon={<LucideSwatchBook />}>
+                <Label>Presets</Label>
+
+                <GroupPresets theme={theme} />
+            </SettingRow>
+        </div>
+    )
+}
+
+/** Rolls a random palette into the controller, the same way picking a preset does. */
+function applyRandomTheme(controller: ThemeEditorController) {
+    const colors = randomThemeColors()
+
+    for (const intent of INTENTS) {
+        controller.setColor(intent, 'light', colors[intent])
+        // Starts both schemes aligned — no stale hand-picked dark seed left behind.
+        controller.clearDarkSeed(intent)
+    }
+}
+
+/** Every preset, and the randomiser, under the row's own label. */
+function GroupPresets({ theme }: { theme: ThemeEditorController }) {
+    const labelId = useLabelId()
 
     return (
-        <div className={row()}>
-            <span className={icon()}>
-                <LucideSwatchBook />
-            </span>
+        <div
+            aria-labelledby={labelId}
+            className={presetStyles().stack()}
+            role='group'
+        >
+            {PRESETS.map((preset) => (
+                <PresetChip
+                    isActive={theme.preset === preset.name}
+                    key={preset.name}
+                    onPress={() => {
+                        theme.selectPreset(preset.name)
+                    }}
+                    preset={preset}
+                />
+            ))}
 
-            <span className={label()}>Presets</span>
+            <TooltipTrigger delay={200}>
+                <RACButton
+                    aria-label='Surprise me — roll a random theme'
+                    className={presetStyles({ isRandom: true }).chip()}
+                    onPress={() => {
+                        applyRandomTheme(theme)
+                    }}
+                >
+                    <LucideDices />
+                </RACButton>
 
-            <span className='flex-1' />
-
-            <div className={stack()}>
-                {PRESETS.map((preset) => (
-                    <PresetChip
-                        isActive={theme.preset === preset.name}
-                        key={preset.name}
-                        onPress={() => {
-                            theme.selectPreset(preset.name)
-                        }}
-                        preset={preset}
-                    />
-                ))}
-
-                <TooltipTrigger delay={200}>
-                    <RACButton
-                        aria-label='Surprise me — roll a random theme'
-                        className={presetStyles({ isRandom: true }).chip()}
-                        onPress={() => {
-                            applyRandomTheme(theme)
-                        }}
-                    >
-                        <LucideDices />
-                    </RACButton>
-
-                    <Tooltip>Surprise me</Tooltip>
-                </TooltipTrigger>
-            </div>
+                <Tooltip>Surprise me</Tooltip>
+            </TooltipTrigger>
         </div>
     )
 }
 
 /** One shipped palette: a 145° gradient of its info, default and error seeds. */
-function PresetChip({ isActive, onPress, preset }: PresetChipProps) {
+function PresetChip({
+    isActive,
+    onPress,
+    preset,
+}: {
+    isActive: boolean
+    onPress: () => void
+    preset: Preset
+}) {
     const cssColorOf = (intent: Intent) => toCssColor(seedFor(preset.input.colors[intent], 'light'))
 
     const gradient = `linear-gradient(145deg, ${cssColorOf('info')}, ${cssColorOf('default')}, ${cssColorOf('error')})`
@@ -108,4 +134,29 @@ function PresetChip({ isActive, onPress, preset }: PresetChipProps) {
             <Tooltip>{preset.label}</Tooltip>
         </TooltipTrigger>
     )
+}
+
+function randomBetween([min, max]: readonly [number, number]): number {
+    return min + Math.random() * (max - min)
+}
+
+function randomSeed({ chroma, hue, lightness }: SeedRange): string {
+    const l = randomBetween(lightness).toFixed(4)
+    const c = randomBetween(chroma).toFixed(4)
+    const h = (((randomBetween(hue) % 360) + 360) % 360).toFixed(2)
+
+    return `oklch(${l} ${c} ${h})`
+}
+
+/** A fresh seed per intent — default and info share a brand roll, as presets do. */
+function randomThemeColors(): Record<Intent, string> {
+    const brand = randomSeed(BRAND_RANGE)
+
+    return {
+        default: brand,
+        error: randomSeed(ERROR_RANGE),
+        info: brand,
+        success: randomSeed(SUCCESS_RANGE),
+        warning: randomSeed(WARNING_RANGE),
+    }
 }

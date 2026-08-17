@@ -32,7 +32,7 @@ export function writeStoredTheme(input: ThemeInput) {
     })
 }
 
-/** A colour the engine can read. Anything else would throw on the next paint. */
+/** A color the engine can read. Anything else would throw on the next paint. */
 function isColor(value: unknown) {
     return typeof value === 'string' && parse(value) != null
 }
@@ -51,14 +51,14 @@ function isKnownSetting(value: unknown) {
     return value == null || THEME_SETTINGS.some((setting) => setting === value)
 }
 
-/** Hand-picked colours, keyed intent, then token, then scheme. */
+/** Hand-picked colors, keyed intent, then token, then scheme. */
 function isOverrides(value: unknown) {
     if (value == null) return true
 
     return isKeyedBy(value, INTENTS, isTokenOverrides)
 }
 
-/** A seed is one colour for both schemes, or one aimed at each. */
+/** A seed is one color for both schemes, or one aimed at each. */
 function isSeed(value: unknown) {
     if (isColor(value)) return true
     if (typeof value !== 'object' || value == null) return false

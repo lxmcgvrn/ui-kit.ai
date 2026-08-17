@@ -3,10 +3,10 @@
 import type { Intent, Palettes, Scheme, ThemeInput, ThemeSetting } from '@ui-kit.ai/theme'
 
 import { DEFAULT_SETTING, DEFAULT_THEME, generateTheme, PRESETS } from '@ui-kit.ai/theme'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { ContrastReport } from './contrast-report'
-import type { TokenAddress } from './tokens'
+import type { TokenAddress } from './overrides'
 
 import { seedFor, withSeed } from './color'
 import { toContrastReport } from './contrast-report'
@@ -15,11 +15,11 @@ import { overrideAt, withoutIntentOverrides, withoutOverride, withOverride } fro
 import { clearStoredTheme, readStoredTheme, writeStoredTheme } from './storage'
 
 /** Preset key for a hand-mixed palette. */
-export const CUSTOM_PRESET = 'custom'
+const CUSTOM_PRESET = 'custom'
 
 const DEBOUNCE_MS = 80
 
-/* Identity, not colour matching: a value match would mislabel edits. */
+/* Identity, not color matching: a value match would mislabel edits. */
 const DEFAULT_PRESET = PRESETS.find((preset) => preset.input === DEFAULT_THEME)?.name
 
 /** The site as shipped, with nothing injected and nothing stored. */
@@ -47,10 +47,10 @@ export interface ThemeEditorController extends State {
     depth: ThemeSetting
     json: () => string
 
-    /** The hand-picked colour at an address, if the user set one. */
+    /** The hand-picked color at an address, if the user set one. */
     override: (address: TokenAddress) => string | undefined
 
-    /** Every solved colour, hand-picked ones included. */
+    /** Every solved color, hand-picked ones included. */
     palettes: Palettes
 
     /** The input's radius, spelled out — presets inherit it rather than set it. */
@@ -112,100 +112,70 @@ export function useThemeInput(): ThemeEditorController {
     const radius = state.input.radius ?? DEFAULT_SETTING
     const saturation = state.input.saturation ?? DEFAULT_SETTING
 
-    const css = useCallback(() => generated.css, [generated])
-
-    const json = useCallback(
-        () => JSON.stringify({ ...state.input, depth, radius, saturation }, null, 4),
-        [depth, radius, saturation, state.input]
-    )
-
-    const override = useCallback(
-        (address: TokenAddress) => overrideAt(state.input.overrides, address),
-        [state.input.overrides]
-    )
-
-    const reset = useCallback(() => {
-        setState(SHIPPED)
-    }, [])
-
-    const selectPreset = useCallback((name: string) => {
-        setState((current) => {
-            const preset = PRESETS.find((candidate) => candidate.name === name)
-            if (preset == null) return current
-
-            // A preset re-seeds the palette; hand-picked colours ride along.
-            return {
-                input: { ...current.input, ...preset.input },
-                isOverridden: true,
-                preset: name,
-            }
-        })
-    }, [])
-
-    const clearDarkSeed = useCallback((intent: Intent) => {
-        setState((current) =>
-            recolour(current, intent, seedFor(current.input.colors[intent], 'light'))
-        )
-    }, [])
-
-    const setColor = useCallback((intent: Intent, scheme: Scheme, color: string) => {
-        setState((current) =>
-            recolour(current, intent, withSeed(current.input.colors[intent], scheme, color))
-        )
-    }, [])
-
-    const clearIntentOverrides = useCallback((intent: Intent, scheme: Scheme) => {
-        setState((current) =>
-            customise(current, {
-                overrides: withoutIntentOverrides(current.input.overrides, intent, scheme),
-            })
-        )
-    }, [])
-
-    const clearOverride = useCallback((address: TokenAddress) => {
-        setState((current) =>
-            customise(current, { overrides: withoutOverride(current.input.overrides, address) })
-        )
-    }, [])
-
-    const setOverride = useCallback((address: TokenAddress, color: string) => {
-        setState((current) =>
-            customise(current, { overrides: withOverride(current.input.overrides, address, color) })
-        )
-    }, [])
-
-    const setDepth = useCallback((depth: ThemeSetting) => {
-        setState((current) => customise(current, { depth }))
-    }, [])
-
-    const setRadius = useCallback((radius: ThemeSetting) => {
-        setState((current) => customise(current, { radius }))
-    }, [])
-
-    const setSaturation = useCallback((saturation: ThemeSetting) => {
-        setState((current) => customise(current, { saturation }))
-    }, [])
-
     return {
         ...state,
-        clearDarkSeed,
-        clearIntentOverrides,
-        clearOverride,
+        clearDarkSeed: (intent) => {
+            setState((current) =>
+                recolor(current, intent, seedFor(current.input.colors[intent], 'light'))
+            )
+        },
+        clearIntentOverrides: (intent, scheme) => {
+            setState((current) =>
+                customise(current, {
+                    overrides: withoutIntentOverrides(current.input.overrides, intent, scheme),
+                })
+            )
+        },
+        clearOverride: (address) => {
+            setState((current) =>
+                customise(current, { overrides: withoutOverride(current.input.overrides, address) })
+            )
+        },
         contrast,
-        css,
+        css: () => generated.css,
         depth,
-        json,
-        override,
+        json: () => JSON.stringify({ ...state.input, depth, radius, saturation }, null, 4),
+        override: (address) => overrideAt(state.input.overrides, address),
         palettes: generated.palettes,
         radius,
-        reset,
+        reset: () => {
+            setState(SHIPPED)
+        },
         saturation,
-        selectPreset,
-        setColor,
-        setDepth,
-        setOverride,
-        setRadius,
-        setSaturation,
+        selectPreset: (name) => {
+            setState((current) => {
+                const preset = PRESETS.find((candidate) => candidate.name === name)
+                if (preset == null) return current
+
+                // A preset re-seeds the palette; hand-picked colors ride along.
+                return {
+                    input: { ...current.input, ...preset.input },
+                    isOverridden: true,
+                    preset: name,
+                }
+            })
+        },
+        setColor: (intent, scheme, color) => {
+            setState((current) =>
+                recolor(current, intent, withSeed(current.input.colors[intent], scheme, color))
+            )
+        },
+        setDepth: (next) => {
+            setState((current) => customise(current, { depth: next }))
+        },
+        setOverride: (address, color) => {
+            setState((current) =>
+                customise(current, {
+                    overrides: withOverride(current.input.overrides, address, color),
+                })
+            )
+        },
+        setRadius: (next) => {
+            setState((current) => customise(current, { radius: next }))
+        },
+        setSaturation: (next) => {
+            setState((current) => customise(current, { saturation: next }))
+        },
     }
 }
 
@@ -222,11 +192,11 @@ function initialState(): State {
     const stored = readStoredTheme()
     if (stored == null) return SHIPPED
 
-    // Storage keeps colours, never the preset name.
+    // Storage keeps colors, never the preset name.
     return { input: stored, isOverridden: true, preset: CUSTOM_PRESET }
 }
 
-/** Re-seeds one intent, leaving every hand-picked colour untouched. */
-function recolour(current: State, intent: Intent, seed: ThemeInput['colors'][Intent]): State {
+/** Re-seeds one intent, leaving every hand-picked color untouched. */
+function recolor(current: State, intent: Intent, seed: ThemeInput['colors'][Intent]): State {
     return customise(current, { colors: { ...current.input.colors, [intent]: seed } })
 }

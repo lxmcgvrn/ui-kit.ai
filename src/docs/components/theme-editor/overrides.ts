@@ -1,6 +1,11 @@
 import type { Intent, Scheme, ThemeOverrides, Token } from '@ui-kit.ai/theme'
 
-import type { TokenAddress } from './tokens'
+/** One color the editor can reach: a token, in a scheme, under an intent. */
+export interface TokenAddress {
+    intent: Intent
+    scheme: Scheme
+    token: Token
+}
 
 /** The count of an intent's tokens the user hand-picked in one scheme. */
 export function countOverrides(

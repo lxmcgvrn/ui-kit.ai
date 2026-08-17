@@ -2,7 +2,7 @@ import type { AutoTypeTableProps } from 'fumadocs-typescript/ui'
 import type { MDXComponents } from 'mdx/types'
 
 import { ComponentPreview } from '@/components/component-preview'
-import { ThemeEditorButton } from '@/components/theme-editor'
+import { ButtonThemeEditor } from '@/components/theme-editor'
 import { createGenerator } from 'fumadocs-typescript'
 import { AutoTypeTable } from 'fumadocs-typescript/ui'
 import defaultMdxComponents from 'fumadocs-ui/mdx'
@@ -14,8 +14,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     return {
         ...defaultMdxComponents,
         AutoTypeTable: AutoTypeTableWithGenerator,
+        ButtonThemeEditor,
         ComponentPreview,
-        ThemeEditorButton,
         ...components,
     }
 }

@@ -6,7 +6,7 @@ import { LucidePalette } from 'lucide-react'
 import { openThemeEditor } from './store'
 
 /** MDX-facing trigger: a labelled button that opens the drawer. */
-export function ThemeEditorButton() {
+export function ButtonThemeEditor() {
     return (
         <Button
             className='not-prose w-fit'
@@ -20,7 +20,7 @@ export function ThemeEditorButton() {
 }
 
 /** The persistent palette button rendered in the site nav. */
-export function ThemeEditorNavButton() {
+export function ButtonThemeEditorNav() {
     return (
         <Button
             aria-label='Open the theme editor'

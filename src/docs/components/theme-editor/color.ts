@@ -33,7 +33,7 @@ export function toThemeColor(color: string) {
     return parsed == null ? undefined : formatOklch(parsed)
 }
 
-/** A hex carries no alpha, so the opacity the colour already had rides along. */
+/** A hex carries no alpha, so the opacity the color already had rides along. */
 export function withAlphaFrom(color: RACColor, source: RACColor) {
     return color.withChannelValue('alpha', source.getChannelValue('alpha'))
 }

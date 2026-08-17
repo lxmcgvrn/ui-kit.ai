@@ -10,7 +10,7 @@ import './styles.css'
 import type { ThemeEditorController } from '../src/docs/components/theme-editor/use-theme-input'
 
 import { seedFor, withSeed } from '../src/docs/components/theme-editor/color'
-import { ColourTree } from '../src/docs/components/theme-editor/colour-tree'
+import { ColorTree } from '../src/docs/components/theme-editor/color-tree'
 import { toContrastReport } from '../src/docs/components/theme-editor/contrast-report'
 import {
     overrideAt,
@@ -114,7 +114,7 @@ function TreeHarness({ input, scheme }: { input: ThemeInput; scheme: Scheme }) {
 
     return (
         <div className='w-[420px]'>
-            <ColourTree
+            <ColorTree
                 controller={controller}
                 scheme={scheme}
             />

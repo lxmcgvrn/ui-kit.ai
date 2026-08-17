@@ -1,3 +1,3 @@
+export { ButtonThemeEditor, ButtonThemeEditorNav } from './button-theme-editor'
+export { DrawerThemeEditor } from './drawer-theme-editor'
 export { openThemeEditor } from './store'
-export { ThemeEditorDrawer } from './theme-editor-drawer'
-export { ThemeEditorButton, ThemeEditorNavButton } from './theme-editor-triggers'

@@ -13,11 +13,11 @@ functionality, like the **intent API**.
 ## Theme editor
 
 The theme editor lives in the site nav — the palette button, on every page. Pick a preset or mix
-your own seed colours, turn the style knobs, and the entire site re-themes as you type. Your
+your own seed colors, turn the style knobs, and the entire site re-themes as you type. Your
 theme is kept in this browser until you reset it, and **Copy CSS** hands you a stylesheet that
 overrides the one shipped in `@ui-kit.ai/components/style.css`.
 
-<ThemeEditorButton />
+<ButtonThemeEditor />
 
 Generate the same CSS at build time with the `@ui-kit.ai/theme` API:
 
@@ -63,7 +63,7 @@ defaults to `some`.
 
 ## Saturation
 
-`saturation` sets how much of the seed colour bleeds into the backgrounds, borders and body
+`saturation` sets how much of the seed color bleeds into the backgrounds, borders and body
 text derived from it. Accent fills and tints keep the seed as mixed. It is optional, and
 defaults to `some`.
 
@@ -148,5 +148,5 @@ depth shadows, and moves through its hover and pressed states off React Aria's `
 and `data-pressed` attributes.
 
 `Button`, `Tag` and `Checkbox` are built on it, and it follows the intent API like every other
-utility. Reach for the plain `bg-primary` when you want the colour alone — a swatch, say — and
+utility. Reach for the plain `bg-primary` when you want the color alone — a swatch, say — and
 `surface-primary` when the element is something the user presses.

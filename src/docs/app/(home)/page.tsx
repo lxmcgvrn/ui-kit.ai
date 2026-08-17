@@ -1,4 +1,4 @@
-import { ThemeEditorButton } from '@/components/theme-editor'
+import { ButtonThemeEditor } from '@/components/theme-editor'
 import { GITHUB_URL } from '@/lib/layout.shared'
 import {
     FieldGroup,
@@ -62,9 +62,9 @@ export default function HomePage() {
 
                 <div className='mb-4 flex flex-wrap items-end justify-between gap-3'>
                     <p className='mb-0 text-sm'>
-                        Every tile below is a live component. Pick a colour, watch them all follow.
+                        Every tile below is a live component. Pick a color, watch them all follow.
                     </p>
-                    <ThemeEditorButton />
+                    <ButtonThemeEditor />
                 </div>
 
                 <Mosaic />

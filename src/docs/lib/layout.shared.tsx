@@ -1,6 +1,6 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared'
 
-import { ThemeEditorNavButton } from '@/components/theme-editor'
+import { ButtonThemeEditorNav } from '@/components/theme-editor'
 
 export const GITHUB_URL = 'https://github.com/alex-mcgovern/ui-kit.ai'
 
@@ -18,7 +18,7 @@ export function baseOptions(): BaseLayoutProps {
         ],
         nav: {
             // Rendered by both the home navbar and the docs sidebar header.
-            children: <ThemeEditorNavButton />,
+            children: <ButtonThemeEditorNav />,
             title: <span className='font-mono font-medium'>@ui-kit.ai</span>,
         },
     }
