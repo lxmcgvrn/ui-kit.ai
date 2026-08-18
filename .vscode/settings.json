@@ -16,7 +16,6 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "prettier.configPath": ".prettierrc.mjs",
   "prettier.requireConfig": true,
   "search.exclude": {
     ".git": true,
@@ -27,5 +26,4 @@
     "**/dist": true,
     "**/package-lock.json": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
 }
