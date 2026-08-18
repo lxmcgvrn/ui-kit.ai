@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FieldGroup, Form, FormSubmitButton, FormTextField, Input, Label, TextFieldClearButton } from '@ui-kit.ai/components'
+import { FieldButtonClear, FieldGroup, Form, FormSubmitButton, FormTextField, Input, Label } from '@ui-kit.ai/components'
 import { LucideAtSign } from 'lucide-react'
 import { z } from 'zod'
 
@@ -31,7 +31,7 @@ export default function FormSubmitButtonCustomLabel() {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <FormSubmitButton className='ml-auto'>Save Changes</FormSubmitButton>

@@ -18,9 +18,11 @@ import { FieldButton } from '@ui-kit.ai/components'
 ```
 
 `FieldButton` is designed to be used inside field components to provide additional functionality
-like clearing, copying, or toggling visibility. The ready-made variants — `TextFieldClearButton`,
-`TextFieldCopyButton`, `TextFieldVisibilityButton` and `SearchFieldClearButton` — are all built on
-it.
+like clearing, copying, or toggling visibility. The ready-made variants — `FieldButtonClear`,
+`FieldButtonCopy` and `FieldButtonVisibility` — are all built on it, and work in any field that
+wires up their slot: `TextField` supports all three, `NumberField` adds them for passcodes,
+`ColorField` takes clear and copy, and `ComboBox` and `Select` take clear. Composing a button into
+a field that does not support it throws, naming the slots the field does provide.
 
 <Callout type='warn'>Set an `aria-label` to give the button an accessible name, since it only ever renders an icon.</Callout>
 
@@ -42,7 +44,30 @@ The button picks up the error styling from an invalid field around it.
 
 ## Props
 
+### FieldButton
+
 <AutoTypeTable
   name='FieldButtonProps'
   path='../components/field-button.tsx'
+/>
+
+### FieldButtonClear
+
+<AutoTypeTable
+  name='FieldButtonClearProps'
+  path='../components/field-button-clear.tsx'
+/>
+
+### FieldButtonCopy
+
+<AutoTypeTable
+  name='FieldButtonCopyProps'
+  path='../components/field-button-copy.tsx'
+/>
+
+### FieldButtonVisibility
+
+<AutoTypeTable
+  name='FieldButtonVisibilityProps'
+  path='../components/field-button-visibility.tsx'
 />

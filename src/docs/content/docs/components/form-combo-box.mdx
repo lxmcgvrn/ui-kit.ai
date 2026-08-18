@@ -18,7 +18,7 @@ import FormComboBoxWithSections from '@/components/examples/form-combo-box/with-
 ```tsx
 import {
   ComboBoxButton,
-  ComboBoxClearButton,
+  FieldButtonClear,
   ComboBoxFieldGroup,
   ComboBoxInput,
   Description,
@@ -31,7 +31,7 @@ import {
 `FormComboBox` registers itself with the surrounding `Form` under the `name` you give it, and
 renders a `FieldError` for you so validation messages from `react-hook-form` appear without any
 extra wiring. Pass the options through `items`, and compose the field body from a `Label`, a
-`ComboBoxFieldGroup` containing a `ComboBoxInput`, `ComboBoxClearButton` and `ComboBoxButton`,
+`ComboBoxFieldGroup` containing a `ComboBoxInput`, `FieldButtonClear` and `ComboBoxButton`,
 and an optional `Description`. The `name` prop is required — the component throws without it.
 
 ## Sections

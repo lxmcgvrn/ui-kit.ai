@@ -1,6 +1,6 @@
 import { ButtonThemeEditor } from '@/components/theme-editor'
 import { GITHUB_URL } from '@/lib/layout.shared'
-import { FieldGroup, Heading, Input, LinkButton, TextField, TextFieldCopyButton } from '@ui-kit.ai/components'
+import { FieldButtonCopy, FieldGroup, Heading, Input, LinkButton, TextField } from '@ui-kit.ai/components'
 import { LucideChevronRight } from 'lucide-react'
 
 import { Mosaic } from './mosaic'
@@ -47,7 +47,7 @@ export default function HomePage() {
                 className='font-mono'
                 isBorderless
               />
-              <TextFieldCopyButton className='!size-7.5' />
+              <FieldButtonCopy className='!size-7.5' />
             </FieldGroup>
           </TextField>
         </div>

@@ -2,10 +2,10 @@
 
 import {
   ComboBoxButton,
-  ComboBoxClearButton,
   ComboBoxFieldGroup,
   ComboBoxInput,
   Description,
+  FieldButtonClear,
   Form,
   FormComboBox,
   Label,
@@ -27,7 +27,7 @@ export default function FormComboBoxDefault() {
             isBorderless
             placeholder='Type to search...'
           />
-          <ComboBoxClearButton />
+          <FieldButtonClear />
           <ComboBoxButton />
         </ComboBoxFieldGroup>
         <Description>This is a description for a field</Description>

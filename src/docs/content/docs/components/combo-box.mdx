@@ -17,12 +17,12 @@ import ComboBoxSections from '@/components/examples/combo-box/sections'
 ## Usage
 
 ```tsx
-import { ComboBox, ComboBoxButton, ComboBoxClearButton, ComboBoxFieldGroup, ComboBoxInput } from '@ui-kit.ai/components'
+import { ComboBox, ComboBoxButton, ComboBoxFieldGroup, ComboBoxInput, FieldButtonClear } from '@ui-kit.ai/components'
 ```
 
 `ComboBox` is composed from parts. `ComboBoxFieldGroup` wraps the trigger row and measures it so
 the popover matches its width, `ComboBoxInput` filters the options as the user types,
-`ComboBoxClearButton` appears once an option is selected, and `ComboBoxButton` toggles the popover.
+`FieldButtonClear` appears once an option is selected, and `ComboBoxButton` toggles the popover.
 
 Options are passed as data through the `items` prop rather than as children.
 
@@ -97,9 +97,9 @@ The `disabledKeys` prop takes the `id` of each option that should be non-selecta
   path='../components/combo-box.tsx'
 />
 
-### ComboBoxClearButton
+### FieldButtonClear
 
 <AutoTypeTable
-  name='ComboBoxClearButtonProps'
-  path='../components/combo-box.tsx'
+  name='FieldButtonClearProps'
+  path='../components/field-button-clear.tsx'
 />

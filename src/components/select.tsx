@@ -6,10 +6,12 @@ import type {
 } from 'react-aria-components'
 
 import { LucideChevronsUpDown } from 'lucide-react'
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import {
   composeRenderProps,
   Button as RACButton,
+  ButtonContext as RACButtonContext,
+  DEFAULT_SLOT as RACDEFAULT_SLOT,
   ListBox as RACListBox,
   Select as RACSelect,
   SelectStateContext as RACSelectStateContext,
@@ -62,7 +64,7 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
     >
       {composeRenderProps<ReactNode, RACSelectRenderProps & { defaultChildren: ReactNode }, ReactNode>(children, (children) => (
         <>
-          {children}
+          <SelectButtons>{children}</SelectButtons>
           <Popover className='min-w-(--trigger-width)'>
             <RACListBox<T>
               className='max-h-[inherit] overflow-auto p-1 outline-none [clip-path:inset(0_0_0_0_round_.25rem)]'
@@ -128,3 +130,32 @@ export function SelectButton({ isBorderless, slotLeft, slotRight = <LucideChevro
   )
 }
 SelectButton.displayName = 'SelectButton'
+
+/** Hands the composed buttons their slot props; the trigger keeps RAC's wiring. */
+function SelectButtons({ children }: { children: ReactNode }) {
+  return <RACButtonContext.Provider value={useSelectButtons()}>{children}</RACButtonContext.Provider>
+}
+SelectButtons.displayName = 'SelectButtons'
+
+/** Slot props for the `FieldButtonClear` a caller composes in. */
+function useSelectButtons() {
+  const state = useContext(RACSelectStateContext)
+  const trigger = useContext(RACButtonContext)
+  const isEmpty = state?.selectedKey == null
+
+  return useMemo(() => {
+    /* RAC hands the trigger its props through ButtonContext plain, never as slots. */
+    const triggerProps: RACButtonProps = trigger != null && !('slots' in trigger) ? (trigger as RACButtonProps) : {}
+
+    return {
+      slots: {
+        clear: {
+          'data-empty': isEmpty || undefined,
+          isDisabled: isEmpty || triggerProps.isDisabled === true,
+          onPress: () => state?.setSelectedKey(null),
+        },
+        [RACDEFAULT_SLOT]: triggerProps,
+      },
+    }
+  }, [isEmpty, state, trigger])
+}

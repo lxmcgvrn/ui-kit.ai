@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldGroup, Form, FormTextField, Input, Label, TextFieldClearButton } from '@ui-kit.ai/components'
+import { FieldButtonClear, FieldGroup, Form, FormTextField, Input, Label } from '@ui-kit.ai/components'
 import { LucideAtSign } from 'lucide-react'
 
 export default function FormTextFieldDefault() {
@@ -14,7 +14,7 @@ export default function FormTextFieldDefault() {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
     </Form>

@@ -7,6 +7,7 @@ import NumberFieldDefault from '@/components/examples/number-field/default'
 import NumberFieldDisabled from '@/components/examples/number-field/disabled'
 import NumberFieldFormatOptions from '@/components/examples/number-field/format-options'
 import NumberFieldInvalid from '@/components/examples/number-field/invalid'
+import NumberFieldPasscode from '@/components/examples/number-field/passcode'
 
 <ComponentPreview name='number-field/default'>
   <NumberFieldDefault />
@@ -30,6 +31,16 @@ percentages, or units, and parse what the user types back in the same format.
 
 <ComponentPreview name='number-field/format-options'>
   <NumberFieldFormatOptions />
+</ComponentPreview>
+
+## Passcode
+
+Steppers are not the only buttons a `NumberField` supports: `FieldButtonClear`, `FieldButtonCopy`,
+and `FieldButtonVisibility` all work too. Toggling visibility obscures the digits, which suits a
+passcode or an OTP.
+
+<ComponentPreview name='number-field/passcode'>
+  <NumberFieldPasscode />
 </ComponentPreview>
 
 ## Disabled

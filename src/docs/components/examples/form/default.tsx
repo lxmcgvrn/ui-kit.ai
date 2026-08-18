@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Checkbox,
   ComboBoxButton,
-  ComboBoxClearButton,
   ComboBoxFieldGroup,
   ComboBoxInput,
   Description,
+  FieldButtonClear,
   FieldGroup,
   Form,
   FormCheckboxGroup,
@@ -16,7 +16,6 @@ import {
   FormTextField,
   Input,
   Label,
-  TextFieldClearButton,
 } from '@ui-kit.ai/components'
 import { getMockOptions } from '@ui-kit.ai/mocks'
 import { LucideAtSign, LucideGlobe } from 'lucide-react'
@@ -56,7 +55,7 @@ export default function FormDefault() {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
 
@@ -72,7 +71,7 @@ export default function FormDefault() {
             isBorderless
             placeholder='Type to search...'
           />
-          <ComboBoxClearButton />
+          <FieldButtonClear />
           <ComboBoxButton />
         </ComboBoxFieldGroup>
       </FormComboBox>

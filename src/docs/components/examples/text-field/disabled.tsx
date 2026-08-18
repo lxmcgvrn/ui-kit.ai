@@ -2,13 +2,13 @@
 
 import {
   Description,
+  FieldButtonClear,
+  FieldButtonCopy,
+  FieldButtonVisibility,
   FieldGroup,
   Input,
   Label,
   TextField,
-  TextFieldClearButton,
-  TextFieldCopyButton,
-  TextFieldVisibilityButton,
 } from '@ui-kit.ai/components'
 
 export default function TextFieldDisabled() {
@@ -20,9 +20,9 @@ export default function TextFieldDisabled() {
           isBorderless
           placeholder='This is a placeholder'
         />
-        <TextFieldClearButton />
-        <TextFieldVisibilityButton />
-        <TextFieldCopyButton />
+        <FieldButtonClear />
+        <FieldButtonVisibility />
+        <FieldButtonCopy />
       </FieldGroup>
       <Description>This is a description for a field</Description>
     </TextField>

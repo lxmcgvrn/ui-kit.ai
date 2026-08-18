@@ -1,12 +1,14 @@
-import type { ComponentProps, ForwardedRef } from 'react'
-import type { ComboBoxProps as RACComboBoxProps } from 'react-aria-components'
+import type { ComponentProps, ForwardedRef, ReactNode } from 'react'
+import type { ButtonProps as RACButtonProps, ComboBoxProps as RACComboBoxProps } from 'react-aria-components'
 
-import { LucideChevronsUpDown, LucideX } from 'lucide-react'
-import { useContext } from 'react'
+import { LucideChevronsUpDown } from 'lucide-react'
+import { useContext, useMemo } from 'react'
 import {
   composeRenderProps,
+  ButtonContext as RACButtonContext,
   ComboBox as RACComboBox,
   ComboBoxStateContext as RACComboBoxStateContext,
+  DEFAULT_SLOT as RACDEFAULT_SLOT,
   ListBox as RACListBox,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
@@ -30,38 +32,6 @@ export function ComboBoxButton(props: ComboBoxButtonProps) {
   )
 }
 ComboBoxButton.displayName = 'ComboBoxButton'
-
-export interface ComboBoxClearButtonProps
-  extends Omit<ComponentProps<typeof FieldButton>, 'children' | 'isDisabled' | 'onPress' | 'slot'> {}
-
-/** Clears the ComboBox selection. Hidden while the ComboBox is empty. */
-export function ComboBoxClearButton(props: ComboBoxClearButtonProps) {
-  const state = useContext(RACComboBoxStateContext)
-
-  const isEmpty = state?.inputValue == null || state.inputValue === ''
-
-  return (
-    <FieldButton
-      {...props}
-      aria-label='Clear'
-      className={composeRenderProps(props.className, (className) =>
-        twMerge('transition-opacity', isEmpty ? 'invisible hidden opacity-0' : 'opacity-100', className)
-      )}
-      isDisabled={isEmpty}
-      onPress={() => {
-        state?.setInputValue('')
-        state?.setSelectedKey(null)
-      }}
-      slot={null} // Skip ComboBox's default Button behavior here.
-    >
-      <LucideX
-        aria-hidden
-        className='size-4'
-      />
-    </FieldButton>
-  )
-}
-ComboBoxClearButton.displayName = 'ComboBoxClearButton'
 
 export interface ComboBoxFieldGroupProps extends ComponentProps<typeof FieldGroup> {}
 
@@ -129,7 +99,7 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
     >
       {composeRenderProps(children, (children) => (
         <>
-          {children}
+          <ComboBoxButtons>{children}</ComboBoxButtons>
 
           <Popover
             className='w-[calc(var(--trigger-width)+var(--spacing))]' // Account for the margin on the combobox button
@@ -154,3 +124,35 @@ export function ComboBox<T extends OptionsSchema<'listbox'> = OptionsSchema<'lis
   )
 }
 ComboBox.displayName = 'ComboBox'
+
+/** Hands the composed buttons their slot props; the trigger keeps RAC's wiring. */
+function ComboBoxButtons({ children }: { children: ReactNode }) {
+  return <RACButtonContext.Provider value={useComboBoxButtons()}>{children}</RACButtonContext.Provider>
+}
+ComboBoxButtons.displayName = 'ComboBoxButtons'
+
+/** Slot props for the `FieldButtonClear` a caller composes in. */
+function useComboBoxButtons() {
+  const state = useContext(RACComboBoxStateContext)
+  const trigger = useContext(RACButtonContext)
+  const isEmpty = state == null || state.inputValue === ''
+
+  return useMemo(() => {
+    /* RAC hands the trigger its props through ButtonContext plain, never as slots. */
+    const triggerProps: RACButtonProps = trigger != null && !('slots' in trigger) ? (trigger as RACButtonProps) : {}
+
+    return {
+      slots: {
+        clear: {
+          'data-empty': isEmpty || undefined,
+          isDisabled: isEmpty || triggerProps.isDisabled === true,
+          onPress: () => {
+            state?.setInputValue('')
+            state?.setSelectedKey(null)
+          },
+        },
+        [RACDEFAULT_SLOT]: triggerProps,
+      },
+    }
+  }, [isEmpty, state, trigger])
+}

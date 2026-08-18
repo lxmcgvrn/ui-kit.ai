@@ -64,8 +64,6 @@ export {
   ComboBox,
   ComboBoxButton,
   type ComboBoxButtonProps,
-  ComboBoxClearButton,
-  type ComboBoxClearButtonProps,
   ComboBoxFieldGroup,
   type ComboBoxFieldGroupProps,
   ComboBoxInput,
@@ -135,6 +133,9 @@ export {
 export { DropZone, DropZoneLabel, type DropZoneLabelProps, type DropZoneProps } from './drop-zone'
 export { EmptyState, type EmptyStateProps } from './empty-state'
 export { FieldButton, type FieldButtonProps } from './field-button'
+export { FieldButtonClear, type FieldButtonClearProps } from './field-button-clear'
+export { FieldButtonCopy, type FieldButtonCopyProps } from './field-button-copy'
+export { FieldButtonVisibility, type FieldButtonVisibilityProps } from './field-button-visibility'
 export { FieldError, type FieldErrorProps } from './field-error'
 export { FieldGroup, type FieldGroupProps } from './field-group'
 export { FileTrigger, type FileTriggerProps } from './file-trigger'
@@ -216,16 +217,7 @@ export {
 export { Tag, TagButton, type TagButtonProps, TagLink, type TagLinkProps, type TagProps } from './tag'
 export { TagGroup, TagGroupItem, type TagGroupItemProps, type TagGroupProps, TagList, type TagListProps } from './tag-group'
 export { TextArea, type TextAreaProps } from './text-area'
-export {
-  TextField,
-  TextFieldClearButton,
-  type TextFieldClearButtonProps,
-  TextFieldCopyButton,
-  type TextFieldCopyButtonProps,
-  type TextFieldProps,
-  TextFieldVisibilityButton,
-  type TextFieldVisibilityButtonProps,
-} from './text-field'
+export { TextField, type TextFieldProps } from './text-field'
 export { TimeField, type TimeFieldProps } from './time-field'
 export { ToggleButton, type ToggleButtonProps } from './toggle-button'
 export { ToggleButtonGroup, type ToggleButtonGroupProps, type ToggleButtonVariant } from './toggle-button-group'

@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldGroup, Form, FormTextField, Input, Label, TextFieldClearButton } from '@ui-kit.ai/components'
+import { FieldButtonClear, FieldGroup, Form, FormTextField, Input, Label } from '@ui-kit.ai/components'
 import { LucideAtSign } from 'lucide-react'
 
 export default function FormTextFieldIsInvalid() {
@@ -17,7 +17,7 @@ export default function FormTextFieldIsInvalid() {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
     </Form>

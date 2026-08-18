@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldGroup, Input, TextField, TextFieldClearButton, TextFieldCopyButton, TextFieldVisibilityButton } from '@ui-kit.ai/components'
+import { FieldButtonClear, FieldButtonCopy, FieldButtonVisibility, FieldGroup, Input, TextField } from '@ui-kit.ai/components'
 
 export default function FieldGroupDefault() {
   return (
@@ -11,9 +11,9 @@ export default function FieldGroupDefault() {
           placeholder='Enter your city...'
         />
       </TextField>
-      <TextFieldClearButton />
-      <TextFieldVisibilityButton />
-      <TextFieldCopyButton />
+      <FieldButtonClear />
+      <FieldButtonVisibility />
+      <FieldButtonCopy />
     </FieldGroup>
   )
 }

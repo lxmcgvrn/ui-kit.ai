@@ -13,13 +13,13 @@ import FormTextFieldIsInvalid from '@/components/examples/form-text-field/is-inv
 ## Usage
 
 ```tsx
-import { FieldGroup, Form, FormTextField, Input, Label, TextFieldClearButton } from '@ui-kit.ai/components'
+import { FieldGroup, Form, FormTextField, Input, Label, FieldButtonClear } from '@ui-kit.ai/components'
 ```
 
 `FormTextField` registers itself with the surrounding `Form` under the `name` you give it, and
 renders a `FieldError` for you so validation messages from `react-hook-form` appear without any
 extra wiring. Compose the field body from a `Label` and a `FieldGroup` containing an `Input` and,
-optionally, a `TextFieldClearButton`. The `name` prop is required — the component throws without
+optionally, a `FieldButtonClear`. The `name` prop is required — the component throws without
 it.
 
 ## Invalid

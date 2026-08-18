@@ -3,13 +3,13 @@ import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
 import { Button } from '../button'
+import { FieldButtonClear } from '../field-button-clear'
 import { FieldGroup } from '../field-group'
 import { Form } from '../form'
 import { FormResetOnSubmit } from '../form-reset-on-submit'
 import { FormTextField } from '../form-text-field'
 import { Input } from '../input'
 import { Label } from '../label'
-import { TextFieldClearButton } from '../text-field'
 
 it('submits form with `FormTextField`', async () => {
   const user = userEvent.setup()
@@ -28,7 +28,7 @@ it('submits form with `FormTextField`', async () => {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <Button type='submit'>Submit</Button>
@@ -62,7 +62,7 @@ it('`FormTextField` clears when reset after submission', async () => {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <Button type='submit'>Submit</Button>
@@ -106,7 +106,7 @@ it('handles `defaultValues` prop passed to `Form` correctly with `FormTextField`
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <Button type='submit'>Submit</Button>
@@ -140,7 +140,7 @@ it('handles `value` prop passed to `FormTextField`', async () => {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <Button type='submit'>Submit</Button>
@@ -174,7 +174,7 @@ it('handles `defaultValue` prop passed to `FormTextField`', async () => {
             isBorderless
             placeholder='Enter your email address'
           />
-          <TextFieldClearButton />
+          <FieldButtonClear />
         </FieldGroup>
       </FormTextField>
       <Button type='submit'>Submit</Button>

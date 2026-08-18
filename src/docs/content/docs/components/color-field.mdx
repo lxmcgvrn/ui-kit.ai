@@ -6,6 +6,7 @@ description: Lets a user edit a hex color or an individual color channel value.
 import ColorFieldDefault from '@/components/examples/color-field/default'
 import ColorFieldDisabled from '@/components/examples/color-field/disabled'
 import ColorFieldThemePicker from '@/components/examples/color-field/theme-picker'
+import ColorFieldWithButtons from '@/components/examples/color-field/with-buttons'
 
 <ComponentPreview name='color-field/default'>
   <ColorFieldDefault />
@@ -19,6 +20,16 @@ import { ColorField, Input, Label } from '@ui-kit.ai/components'
 
 `ColorField` is a container: pass a `Label` and an `Input` as children. Set the starting color with
 `defaultValue`, or control it with `value` and `onChange`.
+
+## Clear and copy
+
+Wrap the `Input` in a `FieldGroup` and compose in `FieldButtonClear` and `FieldButtonCopy` —
+`ColorField` wires up their presses. Clearing empties the field, and copying puts the current hex
+on the clipboard.
+
+<ComponentPreview name='color-field/with-buttons'>
+  <ColorFieldWithButtons />
+</ComponentPreview>
 
 ## Disabled
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { ComboBox, ComboBoxButton, ComboBoxClearButton, ComboBoxFieldGroup, ComboBoxInput, Description, Label } from '@ui-kit.ai/components'
+import { ComboBox, ComboBoxButton, ComboBoxFieldGroup, ComboBoxInput, Description, FieldButtonClear, Label } from '@ui-kit.ai/components'
 import { getMockOptions } from '@ui-kit.ai/mocks'
 import { LucideSearch } from 'lucide-react'
 
@@ -20,7 +20,7 @@ export default function ComboBoxDisabled() {
           isBorderless
           placeholder='Type to search...'
         />
-        <ComboBoxClearButton />
+        <FieldButtonClear />
         <ComboBoxButton />
       </ComboBoxFieldGroup>
       <Description>This is a description for a field</Description>

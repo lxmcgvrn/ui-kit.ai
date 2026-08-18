@@ -15,12 +15,12 @@ import TextFieldReadOnly from '@/components/examples/text-field/read-only'
 ## Usage
 
 ```tsx
-import { TextField, TextFieldClearButton, TextFieldCopyButton, TextFieldVisibilityButton } from '@ui-kit.ai/components'
+import { FieldButtonClear, FieldButtonCopy, FieldButtonVisibility, TextField } from '@ui-kit.ai/components'
 ```
 
 `TextField` is composed from parts. A `FieldGroup` draws the border around the `Input` and any
-trailing buttons: `TextFieldClearButton` empties the value, `TextFieldCopyButton` copies it to the
-clipboard, and `TextFieldVisibilityButton` toggles between masked and plain text. Wrap the group in
+trailing buttons: `FieldButtonClear` empties the value, `FieldButtonCopy` copies it to the
+clipboard, and `FieldButtonVisibility` toggles between masked and plain text. Wrap the group in
 a `Label` and `Description` to name and explain the field.
 
 ## Disabled
@@ -49,30 +49,7 @@ The `isReadOnly` prop keeps the field focusable and its value selectable, but pr
 
 ## Props
 
-### TextField
-
 <AutoTypeTable
   name='TextFieldProps'
-  path='../components/text-field.tsx'
-/>
-
-### TextFieldClearButton
-
-<AutoTypeTable
-  name='TextFieldClearButtonProps'
-  path='../components/text-field.tsx'
-/>
-
-### TextFieldCopyButton
-
-<AutoTypeTable
-  name='TextFieldCopyButtonProps'
-  path='../components/text-field.tsx'
-/>
-
-### TextFieldVisibilityButton
-
-<AutoTypeTable
-  name='TextFieldVisibilityButtonProps'
   path='../components/text-field.tsx'
 />

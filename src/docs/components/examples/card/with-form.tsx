@@ -7,13 +7,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  FieldButtonClear,
   FieldGroup,
   Form,
   FormSubmitButton,
   FormTextField,
   Input,
   Label,
-  TextFieldClearButton,
 } from '@ui-kit.ai/components'
 
 export default function CardWithForm() {
@@ -33,7 +33,7 @@ export default function CardWithForm() {
             <Label>Username</Label>
             <FieldGroup>
               <Input isBorderless />
-              <TextFieldClearButton />
+              <FieldButtonClear />
             </FieldGroup>
           </FormTextField>
           <FormTextField
@@ -44,7 +44,7 @@ export default function CardWithForm() {
             <Label>Email address</Label>
             <FieldGroup>
               <Input isBorderless />
-              <TextFieldClearButton />
+              <FieldButtonClear />
             </FieldGroup>
           </FormTextField>
         </CardBody>

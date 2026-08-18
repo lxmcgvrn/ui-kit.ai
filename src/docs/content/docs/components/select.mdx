@@ -4,6 +4,7 @@ description: Displays a collapsible list of options and allows a user to select 
 ---
 
 import SelectBorderless from '@/components/examples/select/borderless'
+import SelectClearable from '@/components/examples/select/clearable'
 import SelectDefault from '@/components/examples/select/default'
 import SelectDisabled from '@/components/examples/select/disabled'
 import SelectDisabledKeys from '@/components/examples/select/disabled-keys'
@@ -22,6 +23,16 @@ import { Select, SelectButton } from '@ui-kit.ai/components'
 Options are passed as data through the `items` prop rather than as children. `SelectButton`
 triggers the popover and renders the selected option's text value — it is the default child, so it
 only needs to be written out when the select is composed with a `Label` or `Description`.
+
+## Clearable
+
+Compose in a `FieldButtonClear` to let the user drop the selection — `Select` wires up the press,
+and hides the button while nothing is selected. The trigger is itself a button, so the clear button
+overlays its right edge rather than nesting inside it.
+
+<ComponentPreview name='select/clearable'>
+  <SelectClearable />
+</ComponentPreview>
 
 ## Invalid
 
