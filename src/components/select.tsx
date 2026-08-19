@@ -59,7 +59,7 @@ export function Select<T extends OptionsSchema<'listbox'> = OptionsSchema<'listb
   return (
     <RACSelect
       {...props}
-      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full !outline-0', className))}
+      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full', className))}
       ref={ref}
     >
       {composeRenderProps<ReactNode, RACSelectRenderProps & { defaultChildren: ReactNode }, ReactNode>(children, (children) => (

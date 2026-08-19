@@ -2,13 +2,13 @@ import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { FieldGroup } from '../field-group'
-import { Form } from '../form'
-import { FormNumberField } from '../form-number-field'
-import { Input } from '../input'
-import { Label } from '../label'
-import { NumberFieldIncrementButton } from '../number-field'
+import { Button } from './button'
+import { FieldGroup } from './field-group'
+import { Form } from './form'
+import { FormNumberField } from './form-number-field'
+import { Input } from './input'
+import { Label } from './label'
+import { NumberFieldIncrementButton } from './number-field'
 
 it('submits form with `FormNumberField`', async () => {
   const user = userEvent.setup()

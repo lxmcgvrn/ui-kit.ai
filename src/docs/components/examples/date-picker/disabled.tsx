@@ -1,12 +1,15 @@
 'use client'
 
-import { DatePicker, DatePickerFieldGroup, Description, Label } from '@ui-kit.ai/components'
+import { DateInput, DatePicker, DatePickerButton, Description, FieldGroup, Label } from '@ui-kit.ai/components'
 
 export default function DatePickerDisabled() {
   return (
     <DatePicker isDisabled>
       <Label>This is a label for a field</Label>
-      <DatePickerFieldGroup />
+      <FieldGroup>
+        <DateInput isBorderless />
+        <DatePickerButton />
+      </FieldGroup>
       <Description>This is a description for a field</Description>
     </DatePicker>
   )

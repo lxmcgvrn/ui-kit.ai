@@ -1,12 +1,20 @@
 import type { ComponentProps, ForwardedRef, ReactNode } from 'react'
 import type {
+  ButtonProps as RACButtonProps,
   DatePickerProps as RACDatePickerProps,
   DatePickerRenderProps as RACDatePickerRenderProps,
   DateValue as RACDateValue,
 } from 'react-aria-components'
 
 import { LucideCalendar } from 'lucide-react'
-import { composeRenderProps, DatePicker as RACDatePicker } from 'react-aria-components'
+import { useContext, useMemo } from 'react'
+import {
+  composeRenderProps,
+  ButtonContext as RACButtonContext,
+  DatePicker as RACDatePicker,
+  DatePickerStateContext as RACDatePickerStateContext,
+  DEFAULT_SLOT as RACDEFAULT_SLOT,
+} from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { Calendar } from './calendar'
@@ -21,19 +29,24 @@ export interface DatePickerProps<T extends RACDateValue = RACDateValue> extends 
 
 /** A date field plus a calendar popover, for typing or picking a date. */
 export function DatePicker<T extends RACDateValue = RACDateValue>({
-  children = <DatePickerFieldGroup />,
+  children = (
+    <FieldGroup>
+      <DateInput isBorderless />
+      <DatePickerButton />
+    </FieldGroup>
+  ),
   ref,
   ...props
 }: DatePickerProps<T>) {
   return (
     <RACDatePicker<T>
       {...props}
-      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full !outline-0', className))}
+      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full', className))}
       ref={ref}
     >
       {composeRenderProps<ReactNode, RACDatePickerRenderProps & { defaultChildren: ReactNode }, ReactNode>(children, (children) => (
         <>
-          {children}
+          <DatePickerButtons>{children}</DatePickerButtons>
           <Popover className='w-fit'>
             <PopoverDialog>
               <Calendar />
@@ -58,18 +71,31 @@ export function DatePickerButton(props: DatePickerButtonProps) {
 }
 DatePickerButton.displayName = 'DatePickerButton'
 
-export interface DatePickerFieldGroupProps extends ComponentProps<typeof FieldGroup> {}
-
-/** Wraps the DatePicker's date input and its calendar button. */
-export function DatePickerFieldGroup({
-  children = (
-    <>
-      <DateInput isBorderless />
-      <DatePickerButton />
-    </>
-  ),
-  ...props
-}: DatePickerFieldGroupProps) {
-  return <FieldGroup {...props}>{children}</FieldGroup>
+/** Hands the composed buttons their slot props; the trigger keeps RAC's wiring. */
+function DatePickerButtons({ children }: { children: ReactNode }) {
+  return <RACButtonContext.Provider value={useDatePickerButtons()}>{children}</RACButtonContext.Provider>
 }
-DatePickerFieldGroup.displayName = 'DatePickerFieldGroup'
+DatePickerButtons.displayName = 'DatePickerButtons'
+
+/** Slot props for the `FieldButtonClear` a caller composes in. */
+function useDatePickerButtons() {
+  const state = useContext(RACDatePickerStateContext)
+  const trigger = useContext(RACButtonContext)
+  const isEmpty = state?.value == null
+
+  return useMemo(() => {
+    /* RAC hands the trigger its props through ButtonContext plain, never as slots. */
+    const triggerProps: RACButtonProps = trigger != null && !('slots' in trigger) ? (trigger as RACButtonProps) : {}
+
+    return {
+      slots: {
+        clear: {
+          'data-empty': isEmpty || undefined,
+          isDisabled: isEmpty || triggerProps.isDisabled === true,
+          onPress: () => state?.setValue(null),
+        },
+        [RACDEFAULT_SLOT]: triggerProps,
+      },
+    }
+  }, [isEmpty, state, trigger])
+}

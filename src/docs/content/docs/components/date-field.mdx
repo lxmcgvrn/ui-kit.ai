@@ -3,6 +3,7 @@ title: DateField
 description: A date input split into individually editable segments, so a date can be typed without a picker.
 ---
 
+import DateFieldClearable from '@/components/examples/date-field/clearable'
 import DateFieldDefault from '@/components/examples/date-field/default'
 import DateFieldDisabled from '@/components/examples/date-field/disabled'
 import DateFieldGranularity from '@/components/examples/date-field/granularity'
@@ -25,6 +26,15 @@ default child, so it only needs to be written out when the field is composed wit
 
 Values are `@internationalized/date` objects rather than strings. Set the starting date with
 `defaultValue`, or control it with `value` and `onChange`.
+
+## Clearable
+
+Wrap the `DateInput` in a `FieldGroup` and compose in a `FieldButtonClear` — `DateField` wires up
+the press, and hides the button while the field is empty.
+
+<ComponentPreview name='date-field/clearable'>
+  <DateFieldClearable />
+</ComponentPreview>
 
 ## Granularity
 

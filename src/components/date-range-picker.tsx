@@ -1,12 +1,20 @@
 import type { ComponentProps, ForwardedRef, ReactNode } from 'react'
 import type {
+  ButtonProps as RACButtonProps,
   DateRangePickerProps as RACDateRangePickerProps,
   DateRangePickerRenderProps as RACDateRangePickerRenderProps,
   DateValue as RACDateValue,
 } from 'react-aria-components'
 
 import { LucideCalendar } from 'lucide-react'
-import { composeRenderProps, DateRangePicker as RACDateRangePicker } from 'react-aria-components'
+import { useContext, useMemo } from 'react'
+import {
+  composeRenderProps,
+  ButtonContext as RACButtonContext,
+  DateRangePicker as RACDateRangePicker,
+  DateRangePickerStateContext as RACDateRangePickerStateContext,
+  DEFAULT_SLOT as RACDEFAULT_SLOT,
+} from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 
 import { DateInput } from './date-field'
@@ -21,19 +29,24 @@ export interface DateRangePickerProps<T extends RACDateValue = RACDateValue> ext
 
 /** Two date fields plus a range calendar popover, for picking a span of dates. */
 export function DateRangePicker<T extends RACDateValue = RACDateValue>({
-  children = <DateRangePickerFieldGroup />,
+  children = (
+    <FieldGroup>
+      <DateRangePickerInput />
+      <DateRangePickerButton />
+    </FieldGroup>
+  ),
   ref,
   ...props
 }: DateRangePickerProps<T>) {
   return (
     <RACDateRangePicker<T>
       {...props}
-      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full !outline-0', className))}
+      className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full', className))}
       ref={ref}
     >
       {composeRenderProps<ReactNode, RACDateRangePickerRenderProps & { defaultChildren: ReactNode }, ReactNode>(children, (children) => (
         <>
-          {children}
+          <DateRangePickerButtons>{children}</DateRangePickerButtons>
           <Popover className='w-fit'>
             <PopoverDialog>
               <RangeCalendar />
@@ -57,22 +70,6 @@ export function DateRangePickerButton(props: DateRangePickerButtonProps) {
   )
 }
 DateRangePickerButton.displayName = 'DateRangePickerButton'
-
-export interface DateRangePickerFieldGroupProps extends ComponentProps<typeof FieldGroup> {}
-
-/** Wraps the DateRangePicker's start and end inputs and its calendar button. */
-export function DateRangePickerFieldGroup({
-  children = (
-    <>
-      <DateRangePickerInput />
-      <DateRangePickerButton />
-    </>
-  ),
-  ...props
-}: DateRangePickerFieldGroupProps) {
-  return <FieldGroup {...props}>{children}</FieldGroup>
-}
-DateRangePickerFieldGroup.displayName = 'DateRangePickerFieldGroup'
 
 export interface DateRangePickerInputProps extends Omit<ComponentProps<'div'>, 'children'> {}
 
@@ -103,3 +100,32 @@ export function DateRangePickerInput(props: DateRangePickerInputProps) {
   )
 }
 DateRangePickerInput.displayName = 'DateRangePickerInput'
+
+/** Hands the composed buttons their slot props; the trigger keeps RAC's wiring. */
+function DateRangePickerButtons({ children }: { children: ReactNode }) {
+  return <RACButtonContext.Provider value={useDateRangePickerButtons()}>{children}</RACButtonContext.Provider>
+}
+DateRangePickerButtons.displayName = 'DateRangePickerButtons'
+
+/** Slot props for the `FieldButtonClear` a caller composes in. */
+function useDateRangePickerButtons() {
+  const state = useContext(RACDateRangePickerStateContext)
+  const trigger = useContext(RACButtonContext)
+  const isEmpty = state?.value == null
+
+  return useMemo(() => {
+    /* RAC hands the trigger its props through ButtonContext plain, never as slots. */
+    const triggerProps: RACButtonProps = trigger != null && !('slots' in trigger) ? (trigger as RACButtonProps) : {}
+
+    return {
+      slots: {
+        clear: {
+          'data-empty': isEmpty || undefined,
+          isDisabled: isEmpty || triggerProps.isDisabled === true,
+          onPress: () => state?.setValue(null),
+        },
+        [RACDEFAULT_SLOT]: triggerProps,
+      },
+    }
+  }, [isEmpty, state, trigger])
+}

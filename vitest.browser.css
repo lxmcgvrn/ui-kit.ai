@@ -1,0 +1,7 @@
+/* The cascade the components ship with, for the browser test project. */
+@import 'tailwindcss';
+@import './src/components/index.css';
+
+@plugin 'tailwindcss-react-aria-components';
+
+@source './src/components';

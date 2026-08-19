@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useKbd } from '../use-kbd'
+import { useKbd } from './use-kbd'
 
 describe('useKbd', () => {
   const mockKeyDown = async (key: string, options: Partial<KeyboardEvent> = {}): Promise<KeyboardEvent> => {

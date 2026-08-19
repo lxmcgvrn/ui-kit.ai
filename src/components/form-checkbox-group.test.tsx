@@ -2,12 +2,12 @@ import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { Checkbox } from '../checkbox'
-import { Form } from '../form'
-import { FormCheckboxGroup } from '../form-checkbox-group'
-import { FormResetOnSubmit } from '../form-reset-on-submit'
-import { Label } from '../label'
+import { Button } from './button'
+import { Checkbox } from './checkbox'
+import { Form } from './form'
+import { FormCheckboxGroup } from './form-checkbox-group'
+import { FormResetOnSubmit } from './form-reset-on-submit'
+import { Label } from './label'
 
 it('submits form with `FormCheckboxGroup`', async () => {
   const user = userEvent.setup()

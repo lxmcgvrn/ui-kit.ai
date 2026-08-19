@@ -2,9 +2,9 @@ import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { Form } from '../form'
-import { FormSwitch } from '../form-switch'
+import { Button } from './button'
+import { Form } from './form'
+import { FormSwitch } from './form-switch'
 
 it('submits form with `FormSwitch`', async () => {
   const user = userEvent.setup()

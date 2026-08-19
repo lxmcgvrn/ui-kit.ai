@@ -7,7 +7,7 @@ const componentsDir = path.join(__dirname, '..')
 /** Component modules are the top-level `.tsx` files. */
 const componentEntries = fs
   .readdirSync(componentsDir, { withFileTypes: true })
-  .filter((entry) => entry.isFile() && entry.name.endsWith('.tsx'))
+  .filter((entry) => entry.isFile() && entry.name.endsWith('.tsx') && !entry.name.endsWith('.test.tsx'))
   .map((entry) => ({
     dir: path.basename(entry.name, '.tsx'),
     file: path.join(componentsDir, entry.name),

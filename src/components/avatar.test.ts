@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getInitials } from '../avatar'
+import { getInitials } from './avatar'
 
 describe('getInitials', () => {
   it('single word name', () => {

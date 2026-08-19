@@ -25,5 +25,5 @@
     "**/.next": true,
     "**/dist": true,
     "**/package-lock.json": true
-  },
+  }
 }

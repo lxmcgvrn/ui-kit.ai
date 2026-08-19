@@ -2,12 +2,12 @@ import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { Form } from '../form'
-import { FormRadioGroup } from '../form-radio-group'
-import { FormResetOnSubmit } from '../form-reset-on-submit'
-import { Label } from '../label'
-import { Radio } from '../radio-group'
+import { Button } from './button'
+import { Form } from './form'
+import { FormRadioGroup } from './form-radio-group'
+import { FormResetOnSubmit } from './form-reset-on-submit'
+import { Label } from './label'
+import { Radio } from './radio-group'
 
 it('submits form with `FormRadioGroup`', async () => {
   const user = userEvent.setup()

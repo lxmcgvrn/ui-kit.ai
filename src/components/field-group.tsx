@@ -29,6 +29,8 @@ export function FieldGroup({ isBorderless, ref, ...props }: FieldGroupProps) {
           isBorderless,
         })
       )}
+      // The focus-ring rules in index.css key off this marker: one ring per field.
+      {...{ 'data-field-group': true }}
       data-variant-borderless={isBorderless}
       ref={ref}
     />

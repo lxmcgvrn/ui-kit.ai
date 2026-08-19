@@ -12,7 +12,15 @@
     "target": "ES2022",
     "types": ["@testing-library/jest-dom", "node"]
   },
-  "include": [".prettierrc.mjs", "eslint.config.mjs", "src/**/*", "vite.config.mjs", "vitest.config.mjs", "vitest.setup.ts"],
+  "include": [
+    ".prettierrc.mjs",
+    "eslint.config.mjs",
+    "src/**/*",
+    "vite.config.mjs",
+    "vitest.browser.setup.ts",
+    "vitest.config.mjs",
+    "vitest.setup.ts"
+  ],
   // The docs app is its own TypeScript project (`src/docs/tsconfig.json`),
   // type-checked separately by `pnpm check:tsc`.
   "exclude": ["node_modules", "dist", "src/docs"]

@@ -2,12 +2,12 @@ import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { assert, expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { Form } from '../form'
-import { FormResetOnSubmit } from '../form-reset-on-submit'
-import { FormSelect } from '../form-select'
-import { Label } from '../label'
-import { SelectButton } from '../select'
+import { Button } from './button'
+import { Form } from './form'
+import { FormResetOnSubmit } from './form-reset-on-submit'
+import { FormSelect } from './form-select'
+import { Label } from './label'
+import { SelectButton } from './select'
 
 it('submits form with `FormSelect`', async () => {
   const user = userEvent.setup()

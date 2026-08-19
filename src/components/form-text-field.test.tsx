@@ -2,14 +2,14 @@ import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 
-import { Button } from '../button'
-import { FieldButtonClear } from '../field-button-clear'
-import { FieldGroup } from '../field-group'
-import { Form } from '../form'
-import { FormResetOnSubmit } from '../form-reset-on-submit'
-import { FormTextField } from '../form-text-field'
-import { Input } from '../input'
-import { Label } from '../label'
+import { Button } from './button'
+import { FieldButtonClear } from './field-button-clear'
+import { FieldGroup } from './field-group'
+import { Form } from './form'
+import { FormResetOnSubmit } from './form-reset-on-submit'
+import { FormTextField } from './form-text-field'
+import { Input } from './input'
+import { Label } from './label'
 
 it('submits form with `FormTextField`', async () => {
   const user = userEvent.setup()

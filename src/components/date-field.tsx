@@ -1,16 +1,21 @@
-import type { ForwardedRef } from 'react'
+import type { ForwardedRef, ReactNode } from 'react'
 import type {
   DateFieldProps as RACDateFieldProps,
+  DateFieldRenderProps as RACDateFieldRenderProps,
   DateInputProps as RACDateInputProps,
   DateSegmentProps as RACDateSegmentProps,
   DateValue as RACDateValue,
 } from 'react-aria-components'
 
+import { useContext, useMemo } from 'react'
 import {
   composeRenderProps,
+  ButtonContext as RACButtonContext,
   DateField as RACDateField,
+  DateFieldStateContext as RACDateFieldStateContext,
   DateInput as RACDateInput,
   DateSegment as RACDateSegment,
+  DEFAULT_SLOT as RACDEFAULT_SLOT,
 } from 'react-aria-components'
 import { twMerge } from 'tailwind-merge'
 import { tv } from 'tailwind-variants'
@@ -27,8 +32,6 @@ const dateSegmentStyles = tv({
     'rounded-xs px-0.5',
     'tabular-nums caret-transparent',
     'forced-color-adjust-none',
-    // The enclosing DateInput draws the focus ring for the whole field.
-    '!outline-0',
     'type-literal:text-placeholder type-literal:px-0',
     'placeholder-shown:text-placeholder',
     'focus:bg-primary focus:text-accent',
@@ -51,7 +54,9 @@ export function DateField<T extends RACDateValue = RACDateValue>({ children = <D
       className={composeRenderProps(props.className, (className) => twMerge('group invalid:error relative w-full', className))}
       ref={ref}
     >
-      {children}
+      {composeRenderProps<ReactNode, RACDateFieldRenderProps & { defaultChildren: ReactNode }, ReactNode>(children, (children) => (
+        <DateFieldButtons isDisabled={props.isDisabled === true || props.isReadOnly === true}>{children}</DateFieldButtons>
+      ))}
     </RACDateField>
   )
 }
@@ -107,3 +112,34 @@ export function DateSegment({ ref, ...props }: DateSegmentProps) {
   )
 }
 DateSegment.displayName = 'DateSegment'
+
+interface DateFieldButtonsProps {
+  children: ReactNode
+  isDisabled: boolean
+}
+
+/** Hands the composed buttons their slot props. */
+function DateFieldButtons({ children, isDisabled }: DateFieldButtonsProps) {
+  return <RACButtonContext.Provider value={useDateFieldButtons(isDisabled)}>{children}</RACButtonContext.Provider>
+}
+DateFieldButtons.displayName = 'DateFieldButtons'
+
+/** Slot props for the `FieldButtonClear` a caller composes in. */
+function useDateFieldButtons(isDisabled: boolean) {
+  const state = useContext(RACDateFieldStateContext)
+  const isEmpty = state?.value == null
+
+  return useMemo(
+    () => ({
+      slots: {
+        clear: {
+          'data-empty': isEmpty || undefined,
+          isDisabled: isEmpty || isDisabled,
+          onPress: () => state?.setValue(null),
+        },
+        [RACDEFAULT_SLOT]: {},
+      },
+    }),
+    [isDisabled, isEmpty, state]
+  )
+}

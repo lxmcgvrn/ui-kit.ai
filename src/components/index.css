@@ -73,21 +73,34 @@
 }
 
 :focus,
-[data-focus],
-[data-focus-within] [data-focus-visible] {
+[data-focus] {
   outline: 0;
 }
 
 /*
 Apply a consistent focus ring to any focus-visible element,
-except when it is a child of already focus-visible element.
-Also to any focus-within element that has a focus-visible child.
+and to any focus-within element that has a focus-visible child.
 */
 [data-focus-visible]:not(:is([aria-autocomplete='list'], [role='menuitem'], [role='listitem'])),
 [data-focus-within]:has([data-focus-visible]) {
   outline: 2px solid;
   outline-color: var(--theme-default-bg-primary-hover);
   outline-offset: 2px;
+}
+
+/*
+ * One ring per focus. A focused element inside a focus-tracking container
+ * defers its ring to the container; everything inside a `FieldGroup` defers to
+ * the group, and wrappers around a group defer down to it; a wrapper that only
+ * mirrors focus-visible state defers to the focused element inside it. These
+ * sit below the ring rules so they win at equal specificity, with the group
+ * exempted throughout so nothing swallows its ring.
+ */
+[data-focus-within] [data-focus-visible]:not([data-field-group]),
+[data-field-group] :is([data-focus-visible], [data-focus-within]),
+[data-focus-within]:has([data-field-group]),
+[data-focus-visible]:not([data-field-group], [data-focus-within]):has([data-focus-visible]) {
+  outline: 0;
 }
 
 /* Hide the user agent default clear button on search inputs — `SearchField`

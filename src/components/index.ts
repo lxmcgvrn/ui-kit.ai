@@ -71,20 +71,11 @@ export {
   type ComboBoxProps,
 } from './combo-box'
 export { DateField, type DateFieldProps, DateInput, type DateInputProps, DateSegment, type DateSegmentProps } from './date-field'
-export {
-  DatePicker,
-  DatePickerButton,
-  type DatePickerButtonProps,
-  DatePickerFieldGroup,
-  type DatePickerFieldGroupProps,
-  type DatePickerProps,
-} from './date-picker'
+export { DatePicker, DatePickerButton, type DatePickerButtonProps, type DatePickerProps } from './date-picker'
 export {
   DateRangePicker,
   DateRangePickerButton,
   type DateRangePickerButtonProps,
-  DateRangePickerFieldGroup,
-  type DateRangePickerFieldGroupProps,
   DateRangePickerInput,
   type DateRangePickerInputProps,
   type DateRangePickerProps,
