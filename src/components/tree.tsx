@@ -17,13 +17,17 @@ import { collectionRowButtonStyles, collectionRowStyles } from './styles/collect
 /** RAC sets `--tree-item-level` on every row, starting at 1. */
 const INDENT = 'ps-[calc((var(--tree-item-level)_-_1)*1.25rem)]'
 
-export interface TreeProps<T extends object = object> extends RACTreeProps<T> {}
+export interface TreeProps<T extends object = object> extends RACTreeProps<T> {
+  /** Which side of the rows the expand chevron sits on. */
+  expandIconPosition?: 'left' | 'right'
+}
 
 /** Nested rows a user can expand, collapse, and select. */
-export function Tree<T extends object>({ className, ...props }: TreeProps<T>) {
+export function Tree<T extends object>({ className, expandIconPosition = 'left', ...props }: TreeProps<T>) {
   return (
     <RACTree
       {...props}
+      {...{ 'data-expand-icon-position': expandIconPosition }}
       className={composeRenderProps(className, (className) => twMerge('flex flex-col gap-0.5 outline-0', className))}
     />
   )
@@ -58,25 +62,19 @@ export function TreeItem<T extends object>({ children, className, title, ...prop
             ) : null}
 
             {hasChildItems ? (
-              <RACButton
-                className={collectionRowButtonStyles()}
-                slot='chevron'
-              >
-                <LucideChevronRight
-                  aria-hidden
-                  className='group-expanded/row:rotate-90 transition-transform ease-out'
-                />
-              </RACButton>
+              <TreeItemChevron className='in-data-[expand-icon-position=right]:hidden' />
             ) : (
               <span
                 aria-hidden
-                className='size-4 shrink-0'
+                className='size-4 shrink-0 in-data-[expand-icon-position=right]:hidden'
               />
             )}
 
             {selectionBehavior === 'toggle' && selectionMode !== 'none' ? <Checkbox slot='selection' /> : null}
 
             <span className='flex-1 truncate'>{title}</span>
+
+            {hasChildItems ? <TreeItemChevron className='in-data-[expand-icon-position=left]:hidden' /> : null}
           </div>
         )}
       </RACTreeItemContent>
@@ -86,3 +84,19 @@ export function TreeItem<T extends object>({ children, className, title, ...prop
   )
 }
 TreeItem.displayName = 'TreeItem'
+
+/* Both positions render one of these; the Tree's data attribute picks a side. */
+function TreeItemChevron({ className }: { className?: string }) {
+  return (
+    <RACButton
+      className={twMerge(collectionRowButtonStyles(), className)}
+      slot='chevron'
+    >
+      <LucideChevronRight
+        aria-hidden
+        className='group-expanded/row:rotate-90 transition-transform ease-out'
+      />
+    </RACButton>
+  )
+}
+TreeItemChevron.displayName = 'TreeItemChevron'

@@ -5,6 +5,7 @@ description: Nested rows a user can expand, collapse and select.
 
 import TreeDefault from '@/components/examples/tree/default'
 import TreeDynamic from '@/components/examples/tree/dynamic'
+import TreeExpandIconRight from '@/components/examples/tree/expand-icon-right'
 import TreeMultipleSelection from '@/components/examples/tree/multiple-selection'
 
 <ComponentPreview name='tree/default'>
@@ -26,6 +27,15 @@ control them.
   Every `TreeItem` needs a `textValue` so typeahead and screen readers have something to work with, and an `id` unless it comes from
   `items`.
 </Callout>
+
+## Expand icon on the right
+
+The `expandIconPosition` prop moves the chevron to the far side of each row, which suits
+navigation trees. Rows without children give up their leading indent too.
+
+<ComponentPreview name='tree/expand-icon-right'>
+  <TreeExpandIconRight />
+</ComponentPreview>
 
 ## Multiple selection
 

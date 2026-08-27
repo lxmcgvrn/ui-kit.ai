@@ -8,7 +8,7 @@ export const collectionRowStyles = tv({
     'text-hi-contrast text-sm',
     'cursor-default select-none',
     'rounded-sm px-2 py-1',
-    'outline outline-0 -outline-offset-2',
+    'outline-0 -outline-offset-2',
     'transition-colors',
     'forced-color-adjust-none',
     // disabled
@@ -21,6 +21,8 @@ export const collectionRowStyles = tv({
     'pressed:bg-tint',
     // selected
     'selected:bg-tint',
+    // current page, for rows that navigate
+    'data-current:bg-tint',
     // drag and drop
     'dragging:opacity-50',
     'drop-target:bg-tint',
