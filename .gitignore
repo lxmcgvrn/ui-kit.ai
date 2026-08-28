@@ -13,3 +13,6 @@ src/theme/generated
 src/docs/.next
 src/docs/.source
 src/docs/out
+
+# Class candidates written by the aria-variants vite plugin.
+.aria-variants

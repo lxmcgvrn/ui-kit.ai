@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react'
+import ariaVariants from 'aria-variants/vite'
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -28,6 +29,7 @@ export default defineConfig({
       output: {
         banner: '"use client";',
         preserveModules: true,
+        preserveModulesRoot: path.resolve(root, 'src/components'),
       },
     },
   },
@@ -35,6 +37,7 @@ export default defineConfig({
     'import.meta.vitest': 'undefined',
   },
   plugins: [
+    ariaVariants(),
     react(),
     dts({
       insertTypesEntry: true,
